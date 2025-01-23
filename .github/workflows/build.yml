@@ -1,0 +1,50 @@
+name: build dictionaries
+
+on:
+  push:
+    branches:
+      - '*'
+  schedule:
+    - cron: "0 0 15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gloss_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+      - run: python -m pip install lxml pyglossary python-idzip
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4  # 10G limit
+        id: cache
+        with:
+          path: ./*.gz
+          key: ${{steps.get-date.outputs.date}}
+      - run: |
+          wget -nv -O en.jsonl.gz https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+          pigz -k -d en.jsonl.gz
+        if: steps.cache.outputs.cache-hit != 'true'
+      - run: |
+          jq -r --arg lang_code ${{ matrix.gloss_lang }} -f en.jq en.jsonl > ${{ matrix.gloss_lang }}-en.bgl
+          python create_stardict_textual.py ${{ matrix.gloss_lang }}-en.bgl
+          mkdir outputs
+          pyglossary ${{ matrix.gloss_lang }}-en.xml outputs --read-format=StardictTextual --write-format=StardictMergeSyns
+          tar -cf ${{ matrix.gloss_lang }}-en.tar outputs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.gloss_lang }}-en-${{steps.get-date.outputs.date}}
+          if-no-files-found: error
+          path: ./*.tar
