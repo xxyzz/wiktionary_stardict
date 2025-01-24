@@ -1,0 +1,18 @@
+# emacs files
+*~
+.\#*
+\#*\#
+
+# python env
+.env
+env
+.venv
+
+# python
+__pycache__
+
+*.jsonl
+*.bgl
+*.xml
+*.gz
+*.tar
