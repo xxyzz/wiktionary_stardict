@@ -1,8 +1,10 @@
 import sys
+import json
 from datetime import date
 from pathlib import Path
 
 from lxml import etree
+
 
 if __name__ == "__main__":
     # https://github.com/huzheng001/stardict-3/blob/master/dict/doc/TextualDictionaryFileFormat
@@ -24,22 +26,16 @@ if __name__ == "__main__":
         for line in f:
             line = line.strip()
             if line == "":
-                if len(words) == 0 or definition == "":
-                    continue
-                article = etree.SubElement(contents, "article")
-                key = etree.SubElement(article, "key")
-                key.text = words[0]
-                for syn in words[1:]:
-                    syn_ele = etree.SubElement(article, "synonym")
-                    syn_ele.text = syn
-                def_ele = etree.SubElement(article, "definition", type="h")
-                def_ele.text = definition
-                words.clear()
-                definition = ""
-            elif len(words) == 0:
-                words = line.split("|")
-            else:
-                definition = line
+                continue
+            data = json.loads(line)
+            article = etree.SubElement(contents, "article")
+            key = etree.SubElement(article, "key")
+            key.text = data["word"]
+            for syn in data["forms"]:
+                syn_ele = etree.SubElement(article, "synonym")
+                syn_ele.text = syn
+            def_ele = etree.SubElement(article, "definition", type="h")
+            def_ele.text = data["content"]
 
         with open(f"{input_path.stem}.xml", "wb") as out_f:
             etree.ElementTree(root).write(

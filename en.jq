@@ -33,5 +33,5 @@ select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "nu
     elif .zh_pron then "<span>" + .zh_pron + "</span>"
     else "" end) as $ipa |
   if $list | length > 0 then
-    ($forms | join("|")) + "\n<h3>" + (.pos | pos_str) + "</h3>" + $ipa + "<ol>" + $list + "</ol>\n"
+    {word, forms: $forms[1:], content: ("<h3>" + (.pos | pos_str) + "</h3>" + $ipa + "<ol>" + $list + "</ol>")}
   else "" end
