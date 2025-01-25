@@ -33,4 +33,4 @@ jobs:
         with:
           tag_name: ${{ (github.event_name == 'push' && github.ref_name) || steps.get-date.outputs.date }}
           files: |
-            ./*.tar
+            ./*.tar.zst

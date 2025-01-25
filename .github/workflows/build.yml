@@ -17,8 +17,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gloss_lang: ["en", "fr"]
         lemma_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
+        gloss_lang: ["en", "fr"]
     env:
       FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
     steps:
@@ -54,7 +54,7 @@ jobs:
           mkdir ${{ env.FILENAME }}
           pyglossary ${{ env.FILENAME }}.xml ${{ env.FILENAME }} --read-format=StardictTextual --write-format=StardictMergeSyns
           rm ${{ env.FILENAME }}.xml
-          tar -cf ${{ env.FILENAME }}.tar ${{ env.FILENAME }}
+          tar --zstd -cf ${{ env.FILENAME }}.tar.zst ${{ env.FILENAME }}
       - name: Get date
         id: get-date
         run: |
@@ -63,4 +63,4 @@ jobs:
         with:
           name: ${{ env.FILENAME }}-${{ steps.get-date.outputs.date }}
           if-no-files-found: error
-          path: ./*.tar
+          path: ./*.tar.zst
