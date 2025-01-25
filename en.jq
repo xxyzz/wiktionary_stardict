@@ -21,7 +21,7 @@ def pos_str:
 
 select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "num") |
   ([.word] + [(.forms//[])[].form] | unique) as $forms |
-  ([.senses[] | select(.tags | index("form-of") | not) |
+  ([.senses[] | select(.tags // [] | index("form-of") | not) |
     .glosses[-1] as $gloss |
       "<li>" + $gloss +
         (if .examples | length > 0 then
@@ -34,4 +34,4 @@ select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "nu
     else "" end) as $ipa |
   if $list | length > 0 then
     {word, forms: $forms[1:], content: ("<h3>" + (.pos | pos_str) + "</h3>" + $ipa + "<ol>" + $list + "</ol>")}
-  else "" end
+  else empty end
