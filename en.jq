@@ -19,7 +19,7 @@ def pos_str:
   else . | (.[0:1] | ascii_upcase) + .[1:]
   end;
 
-select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "number") |
+select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "num") |
   ([.word] + [(.forms//[])[].form] | unique) as $forms |
   ([.senses[] | select(.tags | index("form-of") | not) |
     .glosses[-1] as $gloss |

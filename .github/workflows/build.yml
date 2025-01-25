@@ -17,34 +17,50 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gloss_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
+        gloss_lang: ["en", "fr"]
+        lemma_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
+    env:
+      FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: 3.13
-      - run: python -m pip install lxml pyglossary python-idzip
-      - name: Get Date
-        id: get-date
+      - run: python -m pip install lxml pyglossary python-idzip requests
+      - name: Get kaikki date
+        id: kaikki-date
         run: |
-          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+          echo "date=$(python kaikki.py ${{ matrix.gloss_lang }})" >> $GITHUB_OUTPUT
       - uses: actions/cache@v4  # 10G limit
         id: cache
         with:
-          path: ./*.gz
-          key: ${{steps.get-date.outputs.date}}
-      - run: |
+          path: ./*.jsonl
+          key: ${{ matrix.gloss_lang }}-${{ steps.kaikki-date.outputs.date }}
+      - if: steps.cache.outputs.cache-hit != 'true' && matrix.gloss_lang == 'en'
+        run: |
           wget -nv -O en.jsonl.gz https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
-          pigz -k -d en.jsonl.gz
-        if: steps.cache.outputs.cache-hit != 'true'
+          pigz -d en.jsonl.gz
+      - if: steps.cache.outputs.cache-hit != 'true' && matrix.gloss_lang != 'en'
+        run: |
+          wget -nv -O ${{ matrix.gloss_lang }}.jsonl.gz https://kaikki.org/${{ matrix.gloss_lang }}wiktionary/raw-wiktextract-data.jsonl.gz
+          pigz -d ${{ matrix.gloss_lang }}.jsonl.gz
+      - if: matrix.gloss_lang == 'en'
+        run: jq -r --arg lang_code ${{ matrix.lemma_lang }} -f en.jq en.jsonl > ${{ env.FILENAME }}.bgl
+      - if: matrix.gloss_lang != 'en'
+        run: jq -r --arg lang_code ${{ matrix.lemma_lang }} -f non_en.jq ${{ matrix.gloss_lang }}.jsonl > ${{ env.FILENAME }}.bgl
       - run: |
-          jq -r --arg lang_code ${{ matrix.gloss_lang }} -f en.jq en.jsonl > ${{ matrix.gloss_lang }}-en.bgl
-          python create_stardict_textual.py ${{ matrix.gloss_lang }}-en.bgl
-          mkdir outputs
-          pyglossary ${{ matrix.gloss_lang }}-en.xml outputs --read-format=StardictTextual --write-format=StardictMergeSyns
-          tar -cf ${{ matrix.gloss_lang }}-en.tar outputs
+          python create_stardict_textual.py ${{ env.FILENAME }}.bgl
+          rm ${{ env.FILENAME }}.bgl
+          mkdir ${{ env.FILENAME }}
+          pyglossary ${{ env.FILENAME }}.xml ${{ env.FILENAME }} --read-format=StardictTextual --write-format=StardictMergeSyns
+          rm ${{ env.FILENAME }}.xml
+          tar -cf ${{ env.FILENAME }}.tar ${{ env.FILENAME }}
+      - name: Get date
+        id: get-date
+        run: |
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.gloss_lang }}-en-${{steps.get-date.outputs.date}}
+          name: ${{ env.FILENAME }}-${{ steps.get-date.outputs.date }}
           if-no-files-found: error
           path: ./*.tar

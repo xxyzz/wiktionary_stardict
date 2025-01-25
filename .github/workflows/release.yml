@@ -1,0 +1,36 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_run:
+    workflows: [build dictionaries]
+    types:
+      - completed
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  create_release:
+    if: github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'schedule')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dawidd6/action-download-artifact@v8
+        with:
+          workflow: build.yml
+          commit: ${{ github.sha }}
+
+      - name: Get date
+        id: get-date
+        run: |
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ (github.event_name == 'push' && github.ref_name) || steps.get-date.outputs.date }}
+          files: |
+            ./*.tar
