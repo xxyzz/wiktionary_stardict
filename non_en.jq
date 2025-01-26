@@ -5,12 +5,10 @@ select(
   (.tags | index("form-of") | not)) |
   ([.word] + [(.forms//[])[].form] | unique) as $forms |
   ([.senses[] | select(.tags // [] | index("form-of") | not) |
-    .glosses[-1] as $gloss |
-      "<li>" + $gloss +
+    "<li>" + (.glosses | join(" ")) +
         (if .examples | length > 0 then
-          "<dl><dd><i>" + (.examples[0].text) + "</i></dd></dl>"
-         else "" end) +
-      "</li>"] | join("")) as $list |
+          "<dl><dd><i>" + (.examples | map(.text) | sort_by(length) | .[0]) + "</i></dd></dl>"
+         else "" end) + "</li>"] | join("")) as $list |
   (.sounds // [] | map(select(has("ipa") or has("zh_pron"))) | first |
     if .ipa then "<span>" + .ipa + "</span>"
     elif .zh_pron then "<span>" + .zh_pron + "</span>"
