@@ -4,7 +4,7 @@ select(
   has("pos") and .pos != "num" and
   (.tags | index("form-of") | not)) |
   ([.word] + [(.forms//[])[].form] | unique) as $forms |
-  ([.senses[] | select(.tags // [] | index("form-of") | not) |
+  ([.senses[] | select(has("glosses") and (.tags // [] | index("form-of") | not)) |
     "<li>" + (.glosses | join(" ")) +
         (if .examples | length > 0 then
           "<dl><dd><i>" + (.examples | map(.text) | sort_by(length) | .[0]) + "</i></dd></dl>"
