@@ -44,10 +44,11 @@ jobs:
         run: |
           wget -nv -O ${{ matrix.gloss_lang }}.jsonl.gz https://kaikki.org/${{ matrix.gloss_lang }}wiktionary/raw-wiktextract-data.jsonl.gz
           pigz -d ${{ matrix.gloss_lang }}.jsonl.gz
+      - run: curl -fsSL https://github.com/01mf02/jaq/releases/latest/download/jaq-$(uname -m)-unknown-linux-musl -o jaq && chmod +x jaq
       - if: matrix.gloss_lang == 'en'
-        run: jq -c --arg lang_code ${{ matrix.lemma_lang }} -f en.jq en.jsonl > ${{ env.FILENAME }}.jsonl
+        run: ./jaq -c --arg lang_code ${{ matrix.lemma_lang }} -f en.jq en.jsonl > ${{ env.FILENAME }}.jsonl
       - if: matrix.gloss_lang != 'en'
-        run: jq -c --arg lang_code ${{ matrix.lemma_lang }} -f non_en.jq ${{ matrix.gloss_lang }}.jsonl > ${{ env.FILENAME }}.jsonl
+        run: ./jaq -c --arg lang_code ${{ matrix.lemma_lang }} -f non_en.jq ${{ matrix.gloss_lang }}.jsonl > ${{ env.FILENAME }}.jsonl
       - run: |
           python create_stardict_textual.py ${{ env.FILENAME }}.jsonl
           rm ${{ env.FILENAME }}.jsonl
