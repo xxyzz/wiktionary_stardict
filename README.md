@@ -1,6 +1,6 @@
 # Wiktionary StarDict
 
-Data source: kaikki.org
+Data source: https://kaikki.org
 
 ## Dependencies
 - jq

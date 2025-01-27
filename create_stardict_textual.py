@@ -16,13 +16,10 @@ if __name__ == "__main__":
         version = etree.SubElement(info, "version")
         version.text = "3.0.0"
         bookname = etree.SubElement(info, "bookname")
-        bookname.text = input_path.stem
+        bookname.text = "Wiktionary " + input_path.stem
         date_ele = etree.SubElement(info, "date")
         date_ele.text = date.today().isoformat()
         contents = etree.SubElement(root, "contents")
-
-        words = []
-        definition = ""
         for line in f:
             line = line.strip()
             if line == "":
