@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         lemma_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
-        gloss_lang: ["en", "fr"]
+        gloss_lang: ["de", "en", "fr", "zh"]
     env:
       FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
     steps:

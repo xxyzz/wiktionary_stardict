@@ -19,6 +19,10 @@ if __name__ == "__main__":
         bookname.text = "Wiktionary " + input_path.stem
         date_ele = etree.SubElement(info, "date")
         date_ele.text = date.today().isoformat()
+        desc = etree.SubElement(info, "description")
+        desc.text = "Data source: https://kaikki.org, Wiktionary license: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/"
+        website = etree.SubElement(info, "website")
+        website.text = "https://github.com/xxyzz/wiktionary_stardict"
         contents = etree.SubElement(root, "contents")
         for line in f:
             line = line.strip()
