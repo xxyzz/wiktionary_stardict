@@ -20,7 +20,10 @@ def pos_str:
   end;
 
 select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "num") |
-  ([.word] + [(.forms//[])[].form] | unique) as $forms |
+  ([.word] +
+   [(.forms//[])[] |
+     select(.tags // [] | index("table-tags") or index("inflection-template") | not) |
+     .form] | unique) as $forms |
   ([.senses[] | select(has("glosses") and (.tags // [] | index("form-of") | not)) |
     "<li>" + (.glosses | join(" ")) +
         (if .examples | length > 0 then
