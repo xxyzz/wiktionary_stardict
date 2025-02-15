@@ -5,7 +5,7 @@ on:
     branches:
       - '*'
   schedule:
-    - cron: "0 0 15 * *"
+    - cron: "42 1 15 * *"
   workflow_dispatch:
 
 permissions:
