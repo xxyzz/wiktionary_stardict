@@ -11,22 +11,24 @@ on:
 permissions:
   contents: read
 
+env:
+  PYTHON_VERSION: 3.13
+
 jobs:
-  build:
+  download:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        lemma_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
         gloss_lang: ["de", "en", "fr", "zh"]
-    env:
-      FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
+    outputs:
+      kaikki_date: ${{ steps.kaikki-date.outputs.date }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.13
-      - run: python -m pip install lxml pyglossary python-idzip requests
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: python -m pip install lxml requests
       - name: Get kaikki date
         id: kaikki-date
         run: |
@@ -44,6 +46,28 @@ jobs:
         run: |
           wget -nv -O ${{ matrix.gloss_lang }}.jsonl.gz https://kaikki.org/${{ matrix.gloss_lang }}wiktionary/raw-wiktextract-data.jsonl.gz
           pigz -d ${{ matrix.gloss_lang }}.jsonl.gz
+
+  build:
+    needs: download
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lemma_lang: ["de", "en", "es", "fr", "ko", "ja", "zh"]
+        gloss_lang: ["de", "en", "fr", "zh"]
+    env:
+      FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: python -m pip install lxml pyglossary python-idzip
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: ./*.jsonl
+          key: ${{ matrix.gloss_lang }}-${{ needs.download.outputs.kaikki-date }}
       - run: curl -fsSL https://github.com/01mf02/jaq/releases/latest/download/jaq-$(uname -m)-unknown-linux-musl -o jaq && chmod +x jaq
       - if: matrix.gloss_lang == 'en'
         run: ./jaq -c --arg lang_code ${{ matrix.lemma_lang }} -f en.jq en.jsonl > ${{ env.FILENAME }}.jsonl
