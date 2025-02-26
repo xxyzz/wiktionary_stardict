@@ -21,8 +21,6 @@ jobs:
       fail-fast: false
       matrix:
         gloss_lang: ["de", "en", "fr", "zh"]
-    outputs:
-      kaikki_date: ${{ steps.kaikki-date.outputs.date }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,6 +36,7 @@ jobs:
         with:
           path: ./*.jsonl
           key: ${{ matrix.gloss_lang }}-${{ steps.kaikki-date.outputs.date }}
+          lookup-only: true
       - if: steps.cache.outputs.cache-hit != 'true' && matrix.gloss_lang == 'en'
         run: |
           wget -nv -O en.jsonl.gz https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
@@ -62,12 +61,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - run: python -m pip install lxml pyglossary python-idzip
+      - run: python -m pip install lxml pyglossary python-idzip requests
+      - name: Get kaikki date
+        id: kaikki-date
+        run: |
+          echo "date=$(python kaikki.py ${{ matrix.gloss_lang }})" >> $GITHUB_OUTPUT
       - uses: actions/cache@v4
         id: cache
         with:
           path: ./*.jsonl
-          key: ${{ matrix.gloss_lang }}-${{ needs.download.outputs.kaikki-date }}
+          key: ${{ matrix.gloss_lang }}-${{ steps.kaikki-date.outputs.date }}
+          fail-on-cache-miss: true
       - run: curl -fsSL https://github.com/01mf02/jaq/releases/latest/download/jaq-$(uname -m)-unknown-linux-musl -o jaq && chmod +x jaq
       - if: matrix.gloss_lang == 'en'
         run: ./jaq -c --arg lang_code ${{ matrix.lemma_lang }} -f en.jq en.jsonl > ${{ env.FILENAME }}.jsonl
