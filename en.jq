@@ -24,7 +24,7 @@ select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "nu
    [(.forms//[])[] |
      select(.tags // [] | index("table-tags") or index("inflection-template") | not) |
      .form] | unique) as $forms |
-  ([.senses[] | select(has("glosses") and (.tags // [] | index("form-of") | not)) |
+  ([.senses[] | select(has("glosses") and (.tags // [] | index("form-of") or index("alt-of") | not)) |
     "<li>" + (.glosses | join(" ")) +
         (if .examples | length > 0 then
           "<dl><dd><i>" + (.examples | map(.text) | sort_by(length) | first) + "</i></dd></dl>"
