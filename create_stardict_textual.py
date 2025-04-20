@@ -4,6 +4,7 @@ from datetime import date
 from pathlib import Path
 
 from lxml import etree
+from lxml.builder import E
 
 
 if __name__ == "__main__":
@@ -36,7 +37,30 @@ if __name__ == "__main__":
                 syn_ele = etree.SubElement(article, "synonym")
                 syn_ele.text = syn
             def_ele = etree.SubElement(article, "definition", type="h")
-            def_ele.text = data["content"]
+            def_ele.text = f"<h3>{data['pos']}</h3>"
+            if data["ipa"] is not None:
+                def_ele.text += f"<span>{data['ipa']}</span>"
+            top_ol_ele = etree.Element("ol")
+            gloss_li_dict = {}
+            for sense in data["senses"]:
+                current_ol = top_ol_ele
+                for index, gloss in enumerate(sense["glosses"]):
+                    if gloss not in gloss_li_dict:
+                        if index == 0:
+                            gloss_li_dict.clear()
+                        li_ele = etree.SubElement(current_ol, "li")
+                        li_ele.text = gloss
+                        gloss_li_dict[gloss] = li_ele
+                        current_ol = etree.SubElement(li_ele, "ol")
+                    else:
+                        current_ol = gloss_li_dict[gloss].find("ol")
+                if sense["example"] is not None:
+                    gloss_li_dict[gloss].insert(0, E.dl(E.dd(E.i(sense["example"]))))
+
+            for ol_ele in top_ol_ele.xpath(".//ol"):
+                if len(ol_ele) == 0:
+                    ol_ele.getparent().remove(ol_ele)
+            def_ele.text += etree.tostring(top_ol_ele, encoding="unicode")
 
         with open(f"{input_path.stem}.xml", "wb") as out_f:
             etree.ElementTree(root).write(
