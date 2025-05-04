@@ -83,7 +83,7 @@ jobs:
           mkdir ${{ env.FILENAME }}
           pyglossary ${{ env.FILENAME }}.xml ${{ env.FILENAME }} --read-format=StardictTextual --write-format=StardictMergeSyns
           rm ${{ env.FILENAME }}.xml
-          tar --zstd -cf ${{ env.FILENAME }}.tar.zst ${{ env.FILENAME }}
+          tar -cf ${{ env.FILENAME }}.tar.zst -I "zstd -19 -T0" ${{ env.FILENAME }}
       - name: Get date
         id: get-date
         run: |
