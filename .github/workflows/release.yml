@@ -19,7 +19,7 @@ jobs:
     if: github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'schedule')
     runs-on: ubuntu-latest
     steps:
-      - uses: dawidd6/action-download-artifact@v9
+      - uses: dawidd6/action-download-artifact@v10
         with:
           workflow: build.yml
           commit: ${{ github.sha }}
