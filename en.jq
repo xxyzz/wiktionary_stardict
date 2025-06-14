@@ -24,7 +24,7 @@ select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "nu
    [(.forms//[])[] |
      select(.tags // [] | index("table-tags") or index("inflection-template") | not) |
      .form] | unique) as $forms |
-  (.senses | map(select(has("glosses") and (.tags // [] | index("form-of") | not)) |
+  (.senses | map(select(has("glosses") and (.tags // [] | index("form-of") or index("alt-of") | not)) |
     {glosses, example: (.examples // [] | map(select(.type == "example") | .text) | sort_by(length) | first)})) as $senses |
   (.sounds // [] | map(select(.ipa or .zh_pron)) | first | if . then .ipa // .zh_pron else null end) as $ipa |
   if $senses | length > 0 then
