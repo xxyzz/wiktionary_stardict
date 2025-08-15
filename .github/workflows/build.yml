@@ -22,7 +22,7 @@ jobs:
       matrix:
         gloss_lang: ["de", "en", "fr", "zh"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -57,7 +57,7 @@ jobs:
     env:
       FILENAME: ${{ matrix.lemma_lang }}-${{ matrix.gloss_lang }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
