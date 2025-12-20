@@ -22,7 +22,7 @@ def pos_str:
 select(.lang_code == $lang_code and has("senses") and has("pos") and .pos != "num") |
   ([.word] +
    [(.forms//[])[] |
-     select(.tags // [] | index("table-tags") or index("inflection-template") | not) |
+     select(.tags // [] | index("table-tags") or index("inflection-template") or index("classifier") | not) |
      .form] | unique) as $forms |
   (.senses | map(select(has("glosses") and (.tags // [] | index("form-of") or index("alt-of") | not)) |
     {glosses, example: (.examples // [] | map(select(.type == "example") | .text) | sort_by(length) | first)})) as $senses |
