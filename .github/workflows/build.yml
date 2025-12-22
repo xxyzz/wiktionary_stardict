@@ -68,7 +68,7 @@ jobs:
           path: ./*.jsonl.gz
           key: ${{ matrix.gloss_lang }}-${{ steps.kaikki-date.outputs.date }}
           fail-on-cache-miss: true
-      - run: curl -fsSL https://github.com/01mf02/jaq/releases/latest/download/jaq-$(uname -m)-unknown-linux-musl -o jaq && chmod +x jaq
+      - run: curl -fsSL https://github.com/01mf02/jaq/releases/latest/download/jaq-$(uname -m)-unknown-linux-gnu -o jaq && chmod +x jaq
       - if: matrix.gloss_lang == 'en'
         run: unpigz -c en.jsonl.gz | ./jaq -c --arg lang_code ${{ matrix.lemma_lang }} -f en.jq > ${{ env.FILENAME }}.jsonl
       - if: matrix.gloss_lang != 'en'
