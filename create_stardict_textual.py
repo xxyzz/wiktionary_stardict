@@ -55,7 +55,27 @@ if __name__ == "__main__":
                     else:
                         current_ol = gloss_li_dict[gloss].find("ol")
                 if sense["example"] is not None:
-                    gloss_li_dict[gloss].insert(0, E.dl(E.dd(E.i(sense["example"]))))
+                    offsets = sense["example"].get("bold_text_offsets")
+                    if offsets is None:
+                        gloss_li_dict[gloss].insert(
+                            0, E.dl(E.dd(E.i(sense["example"]["text"])))
+                        )
+                    else:
+                        i_ele = E.i("")
+                        last_pos = 0
+                        last_b = None
+                        for start, end in offsets:
+                            if last_b is None:
+                                i_ele.text += sense["example"]["text"][last_pos:start]
+                            else:
+                                last_b.tail += sense["example"]["text"][last_pos:start]
+                            b_ele = etree.SubElement(i_ele, "b")
+                            b_ele.text = sense["example"]["text"][start:end]
+                            b_ele.tail = ""
+                            last_pos = end
+                            last_b = b_ele
+                        last_b.tail += sense["example"]["text"][last_pos:]
+                        gloss_li_dict[gloss].insert(0, E.dl(E.dd(i_ele)))
 
             for ol_ele in top_ol_ele.xpath(".//ol"):
                 if len(ol_ele) == 0:
