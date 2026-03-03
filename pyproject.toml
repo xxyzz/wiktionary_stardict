@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm[simple]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wiktionary_stardict"
+version = "0.1.0"
+authors = [{ name = "xxyzz" }]
+description = "Free dictionaries"
+readme = "README.md"
+requires-python = ">=3.14"
+license = { text = "GNU General Public License v3 or later (GPLv3+)" }
+dependencies = [
+    "pyglossary",
+    "saxonche",
+    "requests",
+    "lxml",  # pyglossary dependency
+]
+
+[project.optional-dependencies]
+dev = ["ruff", "beautifulsoup4"]
+
+[project.scripts]
+dict = "wiktionary_stardict.main:main"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle error
+    "F", # Pyflakes
+    "I", # isort
+    "W", # pycodestyle warning
+]
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]

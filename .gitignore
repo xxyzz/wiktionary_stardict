@@ -10,9 +10,12 @@ env
 
 # python
 __pycache__
+*.egg-info
 
 *.jsonl
-*.bgl
 *.xml
 *.gz
-*.tar
+*.bz2
+*.html
+
+build
