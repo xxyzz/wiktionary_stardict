@@ -1,0 +1,84 @@
+def create_glossary(lemma_lang: str, gloss_lang: str, snapshot_date: str):
+    from datetime import date
+
+    from pyglossary.glossary_v2 import Glossary
+
+    glos = Glossary()
+    glos.setInfo("version", "3.0.0")
+    glos.setInfo("bookname", f"Wiktionary {lemma_lang}-{gloss_lang}")
+    glos.setInfo("author", "xxyzz")
+    glos.setInfo("website", "https://github.com/xxyzz/wiktionary_stardict")
+    glos.setInfo(
+        "description", f"Snapshot {snapshot_date}. Wiktionary license CC BY-SA 4.0"
+    )
+    glos.setInfo("date", date.today().isoformat())
+    return glos
+
+
+def add_entry(
+    glos,
+    edition: str,
+    forms: list[str],
+    definition: str,
+    images: str[str],
+    added_files: set[str],
+):
+    glos.addEntry(glos.newEntry(forms, definition, defiFormat="h"))
+    for image in images:
+        download_image(glos, image, edition, added_files)
+
+
+def download_image(glos, url: str, edition: str, added_files: set[str]):
+    import requests
+
+    filename = url.rsplit("/", maxsplit=1)[-1]
+    if "?" in filename:
+        filename = filename[: filename.index("?")]
+    if "math/render/svg/" in url:
+        filename += ".svg"
+    if url.startswith("//"):
+        url = "https:" + url
+    elif url.startswith("/"):
+        url = f"https://{edition}.wiktionary.org/{url.lstrip('/')}"
+    if filename not in added_files:
+        r = requests.get(
+            url,
+            headers={"user-agent": get_user_agent()},
+        )
+        if r.ok:
+            glos.addEntry(glos.newDataEntry(filename, r.content))
+            added_files.add(filename)
+
+
+def get_user_agent() -> str:
+    from importlib.metadata import version
+
+    return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
+
+
+def create_stardict(glos, lemma_lang: str, gloss_lang: str):
+    import os
+    import shutil
+    import tarfile
+    from compression import zstd
+    from pathlib import Path
+
+    folder_name = f"{lemma_lang}-{gloss_lang}"
+    out_path = Path("build") / folder_name
+    if out_path.exists():
+        shutil.rmtree(out_path)
+    out_path.mkdir(exist_ok=True)
+    glos.write(f"build/{folder_name}/{folder_name}.ifo", formatName="StardictMergeSyns")
+    tar_path = out_path.with_suffix(".tar.zst")
+    if tar_path.exists():
+        tar_path.unlink()
+    with tarfile.open(
+        name=tar_path,
+        mode="x:zst",
+        options={
+            zstd.CompressionParameter.compression_level: 19,
+            zstd.CompressionParameter.nb_workers: os.process_cpu_count(),
+        },
+    ) as tar:
+        tar.add(out_path, arcname=".")
+    shutil.rmtree(out_path)

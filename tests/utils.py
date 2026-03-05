@@ -11,35 +11,35 @@ class XMLTestCase(unittest.TestCase):
         from wiktionary_stardict.main import get_xsl_path
 
         self.proc = PySaxonProcessor(license=False)
-        self.xsltproc = self.proc.new_xslt30_processor()
-        self.xsl_path = get_xsl_path(self.edition)
+        xsltproc = self.proc.new_xslt30_processor()
+        self.executable = xsltproc.compile_stylesheet(
+            stylesheet_file=get_xsl_path(self.edition)
+        )
 
-    def pretty_output(self, xml):
-        import html
-
+    def assertXMLEqual(self, output, expected):
         from bs4 import BeautifulSoup
 
-        soup = BeautifulSoup(xml, "xml")
-        def_node = soup.find("definition")
-        html_soup = BeautifulSoup(html.unescape(def_node.string), "html.parser")
-        def_node.clear()
-        def_node.append(html_soup)
-        return soup.prettify()
+        self.assertEqual(
+            BeautifulSoup(output, "html.parser").prettify(),
+            BeautifulSoup(expected, "html.parser").prettify(),
+        )
 
-    def assertXMLEqual(self, actual, expected):
-        from bs4 import BeautifulSoup
-
-        soup = BeautifulSoup(expected, "xml")
-        self.assertEqual(self.pretty_output(actual), soup.prettify())
-
-    def assertTransformEqual(self, input_html, expected_list):
+    def transform(self, input_html):
         import json
 
         document = self.proc.parse_xml(xml_text=input_html)
-        executable = self.xsltproc.compile_stylesheet(stylesheet_file=self.xsl_path)
-        output = json.loads(executable.transform_to_string(xdm_node=document))
+        return json.loads(self.executable.transform_to_string(xdm_node=document))
+
+    def assertTransformEqual(self, input_html, expected_list):
+        output = self.transform(input_html)
         if len(expected_list) == 0:
             self.assertTrue(len(output) == 0)
         else:
-            for (_, output_xml), expected_xml in zip(output, expected_list):
+            for (_, output_forms, output_xml, output_images), (
+                expected_forms,
+                expected_xml,
+                expected_images,
+            ) in zip(output, expected_list):
+                self.assertEqual(output_forms, expected_forms)
                 self.assertXMLEqual(output_xml, expected_xml)
+                self.assertEqual(output_images, expected_images)

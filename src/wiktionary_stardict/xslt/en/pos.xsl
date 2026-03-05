@@ -18,9 +18,9 @@
         name="headword-span"
         select="p/span[@class='headword-line']"/>
     <xsl:variable
-        name="key"
-        select="myfn:ruby_text(($headword-span/strong[contains(@class, 'headword')])[1])"
-	as="xs:string"/>
+        name="headword-strong"
+        select="for $b in $headword-span/strong[contains(@class, 'headword')] return myfn:ruby_text($b)"
+	as="xs:string*"/>
     <xsl:variable
         name="headword-forms"
         select="for $b in $headword-span//b[contains(@class, 'form-of')] return myfn:ruby_text($b)"
@@ -42,7 +42,7 @@
       <xsl:variable
           name="unique-forms"
           select="distinct-values(
-                  ($title, $alt-forms, $headword-forms, $conj-forms)[. != $key])"
+                  ($headword-strong, $title, $alt-forms, $headword-forms, $conj-forms)[. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
@@ -57,18 +57,15 @@
         </section>
       </xsl:variable>
 
-      <xsl:variable name="result">
-	<article>
-          <key>{$key}</key>
-          <xsl:for-each select="$unique-forms">
-            <synonym>{.}</synonym>
-          </xsl:for-each>
-          <definition type="h">
-	    <xsl:value-of select="serialize($definition)"/>
-          </definition>
-	</article>
+      <xsl:variable name="images" as="xs:string*">
+	<xsl:sequence select="$definition//img/@src"/>
       </xsl:variable>
-      <xsl:sequence select="array{$language, $result}"/>
+
+      <xsl:variable name="final-definition">
+	<xsl:apply-templates select="$definition" mode="convert-img"/>
+      </xsl:variable>
+
+      <xsl:sequence select="array{$language, array{$unique-forms}, $final-definition, array{$images}}"/>
     </xsl:if>
   </xsl:template>
 
@@ -97,11 +94,17 @@
         select="dd[div[contains(@class, 'h-usage-example')] or
                 span[contains(@class, 'e-example') or contains(@class, 'affixusex')] or
                 dl[contains(@class, 'zhusex')]]"/>
-    <dl>
-      <xsl:apply-templates
-          select="($examples[string-length() = min($examples/string-length())])[1]"
-          mode="clean-content"/>
-    </dl>
+    <xsl:variable
+        name="color-panel"
+        select="dd[div[contains(@class, 'color-panel')]]"/>
+    <xsl:if test="$examples/* or $color-panel/*">
+      <dl>
+	<xsl:copy-of select="$color-panel"/>
+	<xsl:apply-templates
+            select="($examples[string-length() = min($examples/string-length())])[1]"
+            mode="clean-content"/>
+      </dl>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="pos-li">
@@ -111,6 +114,30 @@
   <xsl:function name="myfn:is_gloss_li" as="xs:boolean">
     <xsl:param name="n" as="node()"/>
     <xsl:sequence
-	select="$n/* and not($n/span[contains(@class, 'form-of-definition')])"/>
+	select="($n/* or $n/text()) and not($n/span[contains(@class, 'form-of-definition')])"/>
   </xsl:function>
+
+  <xsl:template match="img" mode="convert-img">
+    <img>
+      <xsl:copy-of select="@*[not(local-name() = 'src')]"/>
+      <xsl:attribute name="src">
+	<xsl:choose>
+	  <xsl:when test="contains(@src, 'math/render/svg/')">
+	    <xsl:value-of select="substring-after(@src, 'math/render/svg/')"/>
+	    <xsl:text>.svg</xsl:text>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:value-of select="substring-before(tokenize(@src, '/')[last()], '?')"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+	</xsl:attribute>
+    </img>
+  </xsl:template>
+
+   <xsl:template match="*" mode="convert-img">
+     <xsl:element name="{local-name()}">
+       <xsl:copy-of select="@*"/>
+       <xsl:apply-templates mode="convert-img"/>
+     </xsl:element>
+   </xsl:template>
 </xsl:stylesheet>

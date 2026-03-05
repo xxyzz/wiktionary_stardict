@@ -20,12 +20,9 @@ class EnAltFormsTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>berserker</key>
-  <synonym>berserkar</synonym>
-  <synonym>berserkers</synonym>
-  <definition type="h">
-    <section>
+                [
+                    ["berserker", "berserkar", "berserkers"],
+                    """<section>
       <h3>Noun</h3>
       <p>
         <span class="headword-line">
@@ -37,8 +34,8 @@ class EnAltFormsTestCase(XMLTestCase):
           <span>gloss</span>
         </li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ],
             ],
         )

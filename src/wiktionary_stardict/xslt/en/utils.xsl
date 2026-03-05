@@ -8,6 +8,6 @@
 
   <xsl:function name="myfn:ruby_text" as="xs:string">
     <xsl:param name="node" as="node()"/>
-    <xsl:sequence select="string-join($node//text()[not(parent::rp or ancestor::rt)], '')"/>
+    <xsl:sequence select="normalize-space(string-join($node//text()[not(parent::rp or ancestor::rt)], ''))"/>
   </xsl:function>
 </xsl:stylesheet>

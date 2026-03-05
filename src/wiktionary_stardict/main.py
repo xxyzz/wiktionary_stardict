@@ -1,5 +1,4 @@
 import logging
-from pathlib import Path
 
 EDITIONS = {"en": "English"}
 logging.basicConfig(format="%(asctime)s %(levelname)s: %(message)s", level=logging.INFO)
@@ -41,56 +40,11 @@ def transform(line: str) -> list[list[str]]:
     return json_result
 
 
-def write_dict_info(f, lemma_lang: str, gloss_lang: str, snapshot_date: str):
-    from datetime import date
-
-    f.write(f"""<?xml version="1.0" encoding="UTF-8"?>
-<stardict>
-<info>
-    <version>3.0.0</version>
-    <bookname>Wiktionary {lemma_lang}-{gloss_lang}</bookname>
-    <author>xxyzz</author>
-    <website>https://github.com/xxyzz/wiktionary_stardict</website>
-    <description>Snapshot {snapshot_date}. Wiktionary license CC BY-SA 4.0</description>
-    <date>{date.today().isoformat()}</date>
-</info>
-<contents>""")
-
-
-def create_stardict(input_path: Path, output_path: Path):
-    import os
-    import shutil
-    import tarfile
-    from compression import zstd
-
-    from pyglossary.glossary_v2 import ConvertArgs, Glossary
-
-    Glossary.init()
-    glos = Glossary()
-    glos.convert(
-        ConvertArgs(
-            inputFilename=str(input_path),
-            outputFilename=str(output_path),
-            inputFormat="StardictTextual",
-            outputFormat="StardictMergeSyns",
-        )
-    )
-    with tarfile.open(
-        name=output_path.with_suffix(".tar.zst"),
-        mode="x:zst",
-        options={
-            zstd.CompressionParameter.compression_level: 19,
-            zstd.CompressionParameter.nb_workers: os.process_cpu_count(),
-        },
-    ) as tar:
-        tar.add(output_path, arcname=".")
-    input_path.unlink()
-    shutil.rmtree(output_path)
-
-
 def main():
     import argparse
     from concurrent.futures import ProcessPoolExecutor
+
+    from pyglossary.glossary_v2 import Glossary
 
     from .snapshot import (
         decompress_chunk,
@@ -100,6 +54,7 @@ def main():
         get_chunk_tar_path,
         get_snapshot_chunks,
     )
+    from .stardict import add_entry, create_glossary, create_stardict
 
     parser = argparse.ArgumentParser()
     parser.add_argument("edition", choices=EDITIONS.keys())
@@ -111,8 +66,9 @@ def main():
     snapshot_date, chunk_identifiers = get_snapshot_chunks(
         access_token, snapshot_identifier
     )
-    out_files = {}
-    out_paths = []
+    glos_dict = {}
+    add_files = {}
+    Glossary.init()
     for chunk_identifier in chunk_identifiers:
         chunk_tar_path = get_chunk_tar_path(chunk_identifier)
         if not chunk_tar_path.exists():
@@ -127,26 +83,24 @@ def main():
                 initializer=init_worker, initargs=(xsl_path,)
             ) as executor:
                 for results in executor.map(transform, f, chunksize=100):
-                    for lemma_lang, article in results:
-                        if lemma_lang not in out_files:
-                            out_path = Path(f"build/{lemma_lang}-{edition_lang}.xml")
-                            out_files[lemma_lang] = out_path.open("w")
-                            write_dict_info(
-                                out_files[lemma_lang],
-                                lemma_lang,
-                                edition_lang,
-                                snapshot_date,
+                    for lemma_lang, forms, definition, images in results:
+                        if lemma_lang not in glos_dict:
+                            add_files[lemma_lang] = set()
+                            glos = create_glossary(
+                                lemma_lang, edition_lang, snapshot_date
                             )
-                            out_paths.append(out_path)
-                        else:
-                            out_files[lemma_lang].write(article)
+                            glos_dict[lemma_lang] = glos
+                        add_entry(
+                            glos_dict[lemma_lang],
+                            args.edition,
+                            forms,
+                            definition,
+                            images,
+                            add_files[lemma_lang],
+                        )
         chunk_tar_path.unlink()
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 
-    for f in out_files.values():
-        f.write("</contents>\n</stardict>")
-        f.close()
-    for out_path in out_paths:
-        out_path.with_suffix("").mkdir(exist_ok=True)
-        create_stardict(out_path, out_path.with_suffix(""))
+    for lemma_lang, glos in glos_dict.items():
+        create_stardict(glos, lemma_lang, edition_lang)

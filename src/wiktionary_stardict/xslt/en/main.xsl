@@ -42,7 +42,7 @@
   <!-- Remove attributes except class and style -->
   <xsl:template match="*" mode="clean-content">
     <xsl:element name="{local-name()}">
-      <xsl:copy-of select="@class | @style | @src | @lang | @title"/>
+      <xsl:copy-of select="@*[not(local-name() = ('data-mw', 'typeof', 'about', 'id', 'rel'))]"/>
       <xsl:apply-templates mode="clean-content"/>
     </xsl:element>
   </xsl:template>
@@ -62,4 +62,9 @@
   <xsl:template match="text()" mode="clean-content">
     <xsl:copy/>
   </xsl:template>
+
+  <!-- Remove hidden elements -->
+  <xsl:template
+      match="*[contains(@style, 'display: none;')]"
+      mode="clean-content"/>
 </xsl:stylesheet>

@@ -24,10 +24,9 @@ class EnPronunciationTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>berserk</key>
-  <definition type="h">
-    <section>
+                [
+                    ["berserk"],
+                    """<section>
       <h3>Pronunciation</h3>
       <ul>
         <li>
@@ -51,8 +50,8 @@ class EnPronunciationTestCase(XMLTestCase):
       <ol>
         <li>gloss</li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ]
             ],
         )

@@ -19,11 +19,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>tee</key>
-  <synonym>tees</synonym>
-  <definition type="h">
-    <section>
+                [
+                    ["tee", "tees"],
+                    """<section>
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -35,9 +33,9 @@ class EnPOSTestCase(XMLTestCase):
           <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en">T</i>/<i class="Latn mention" lang="en">t</i>.</span>
         </li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ],
             ],
         )
 
@@ -74,10 +72,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>-ego</key>
-  <definition type="h">
-    <section>
+                [
+                    ["-ego"],
+                    """<section>
       <h3>Suffix</h3>
       <p>
         <span class="headword-line">
@@ -96,9 +93,9 @@ class EnPOSTestCase(XMLTestCase):
           <span class="use-with-mention">forms adjectives</span>
         </li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ],
             ],
         )
 
@@ -119,10 +116,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>-άρης</key>
-  <definition type="h">
-    <section>
+                [
+                    ["-άρης"],
+                    """<section>
       <h3>Suffix</h3>
       <p>
         <span class="headword-line">
@@ -144,9 +140,9 @@ class EnPOSTestCase(XMLTestCase):
           <span>gloss 2</span>
         </li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ],
             ],
         )
 
@@ -160,7 +156,7 @@ class EnPOSTestCase(XMLTestCase):
 <section><h3>Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">tee</strong></span></p>
 <ol>
-   <li><span>gloss 1</span></li>
+   <li>gloss 1</li>
    <li class="mw-empty-elt" id="mwRg"></li>
 </ol>
 </section>
@@ -168,10 +164,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                """<article>
-  <key>tee</key>
-  <definition type="h">
-    <section>
+                [
+                    ["tee"],
+                    """<section>
       <h3>Noun</h3>
       <p>
         <span class="headword-line">
@@ -179,12 +174,88 @@ class EnPOSTestCase(XMLTestCase):
         </span>
       </p>
       <ol>
-        <li>
-          <span>gloss 1</span>
-        </li>
+        <li>gloss 1</li>
       </ol>
-    </section>
-  </definition>
-</article>"""
+    </section>""",
+                    [],
+                ],
+            ],
+        )
+
+    def test_math_svg(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>binomial series</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">binomial series</strong>
+  </span>
+</p>
+<ol>
+   <li>The Maclaurin series expansion <span class="mwe-math-element mwe-math-element-inline" ><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math></math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+</ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["binomial series"],
+                    """<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">binomial series</strong>
+  </span>
+</p>
+<ol>
+   <li>The Maclaurin series expansion <span class="mwe-math-element mwe-math-element-inline" ><img src="d253b87bf18d329bd2d1c12ee1ebba5071003ca8.svg" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+</ol>
+</section>""",
+                    [
+                        "https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8"
+                    ],
+                ]
+            ],
+        )
+
+    def test_egyptian_png(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>ꜣḫt-jtn</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="None headword" lang="egy">
+      <img class="skin-invert" style="margin: 1px;" src="/w/extensions/wikihiero/img/hiero_N27.png?fee08" height="22" title="N27 [Axt]" alt="Axt"/>
+    </strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["ꜣḫt-jtn"],
+                    """<section><h3>Proper noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="None headword" lang="egy">
+      <img class="skin-invert" style="margin: 1px;" src="hiero_N27.png" height="22" title="N27 [Axt]" alt="Axt"/>
+    </strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>""",
+                    ["/w/extensions/wikihiero/img/hiero_N27.png?fee08"],
+                ]
             ],
         )
