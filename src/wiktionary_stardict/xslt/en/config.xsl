@@ -12,6 +12,7 @@
 	      'Swedish',
 	      'Finnish',
 	      'Danish',
+	      'Norwegian',
 	      'Norwegian Bokmål',
 	      'Norwegian Nynorsk',
 	      'Russian',
@@ -30,5 +31,7 @@
 	      'Greek',
 	      'Polish',
 	      'Dutch',
-	      'Czech')"/>
+	      'Czech',
+	      'Icelandic',
+	      'Malay')"/>
 </xsl:stylesheet>

@@ -3,16 +3,16 @@ def create_glossary(lemma_lang: str, gloss_lang: str, snapshot_date: str):
 
     from pyglossary.glossary_v2 import Glossary
 
-    glos = Glossary()
-    glos.setInfo("version", "3.0.0")
-    glos.setInfo("bookname", f"Wiktionary {lemma_lang}-{gloss_lang}")
-    glos.setInfo("author", "xxyzz")
-    glos.setInfo("website", "https://github.com/xxyzz/wiktionary_stardict")
-    glos.setInfo(
-        "description", f"Snapshot {snapshot_date}. Wiktionary license CC BY-SA 4.0"
+    return Glossary(
+        {
+            "version": "3.0.0",
+            "bookname": f"Wiktionary {lemma_lang}-{gloss_lang}",
+            "author": "xxyzz",
+            "website": "https://github.com/xxyzz/wiktionary_stardict",
+            "description": f"Snapshot {snapshot_date}. Wiktionary license CC BY-SA 4.0",
+            "date": date.today().isoformat(),
+        }
     )
-    glos.setInfo("date", date.today().isoformat())
-    return glos
 
 
 def add_entry(
@@ -63,12 +63,16 @@ def create_stardict(glos, lemma_lang: str, gloss_lang: str):
     from compression import zstd
     from pathlib import Path
 
-    folder_name = f"{lemma_lang}-{gloss_lang}"
+    folder_name = f"{lemma_lang}-{gloss_lang}".replace(" ", "_")
     out_path = Path("build") / folder_name
     if out_path.exists():
         shutil.rmtree(out_path)
     out_path.mkdir(exist_ok=True)
-    glos.write(f"build/{folder_name}/{folder_name}.ifo", formatName="StardictMergeSyns")
+    glos.write(
+        f"build/{folder_name}/{folder_name}.ifo",
+        formatName="StardictMergeSyns",
+        dictzip=True,
+    )
     tar_path = out_path.with_suffix(".tar.zst")
     if tar_path.exists():
         tar_path.unlink()
