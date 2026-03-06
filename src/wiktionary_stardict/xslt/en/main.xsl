@@ -42,7 +42,7 @@
   <!-- Remove attributes except class and style -->
   <xsl:template match="*" mode="clean-content">
     <xsl:element name="{local-name()}">
-      <xsl:copy-of select="@*[not(local-name() = ('data-mw', 'typeof', 'about', 'id', 'rel'))]"/>
+      <xsl:copy-of select="@*[not(local-name() = ('data-mw', 'data-mw-deduplicate', 'typeof', 'about', 'id', 'rel'))]"/>
       <xsl:apply-templates mode="clean-content"/>
     </xsl:element>
   </xsl:template>

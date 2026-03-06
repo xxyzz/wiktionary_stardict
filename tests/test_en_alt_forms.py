@@ -23,7 +23,7 @@ class EnAltFormsTestCase(XMLTestCase):
                 [
                     ["berserker", "berserkar", "berserkers"],
                     """<section>
-      <h3>Noun</h3>
+      <h4>Noun</h4>
       <p>
         <span class="headword-line">
           <strong class="Latn headword" lang="en">berserker</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">berserkers</b>)

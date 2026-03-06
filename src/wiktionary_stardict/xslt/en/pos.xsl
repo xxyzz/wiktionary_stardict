@@ -46,14 +46,15 @@
           as="xs:string*"/>
 
       <xsl:variable name="definition">
-	<xsl:apply-templates
-            select="preceding-sibling::section[(h3|h4|h5|h6)/text() = 'Pronunciation'] | ancestor::section/section[(h3|h4|h5|h6)/text() = 'Pronunciation']"
-            mode="pron">
-	  <xsl:with-param name="pos" select="$pos"/>
-	</xsl:apply-templates>
         <section>
 	  <xsl:apply-templates
-	      select="h3 | h4 | h5 | h6 | p | ol" mode="pos-li"/>
+	      select="h3 | h4 | h5 | h6" mode="pos-li"/>
+	  <xsl:apply-templates
+              select="preceding-sibling::section[(h3|h4|h5|h6)/text() = 'Pronunciation'] | ancestor::section/section[(h3|h4|h5|h6)/text() = 'Pronunciation']"
+              mode="pron">
+	    <xsl:with-param name="pos" select="$pos"/>
+	  </xsl:apply-templates>
+	  <xsl:apply-templates select="p | ol" mode="pos-li"/>
         </section>
       </xsl:variable>
 
@@ -67,6 +68,10 @@
 
       <xsl:sequence select="array{$language, array{$unique-forms}, $final-definition, array{$images}}"/>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="h3 | h4 | h5 | h6" mode="pos-li">
+    <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">
@@ -130,14 +135,14 @@
 	    <xsl:value-of select="substring-before(tokenize(@src, '/')[last()], '?')"/>
 	  </xsl:otherwise>
 	</xsl:choose>
-	</xsl:attribute>
+      </xsl:attribute>
     </img>
   </xsl:template>
 
-   <xsl:template match="*" mode="convert-img">
-     <xsl:element name="{local-name()}">
-       <xsl:copy-of select="@*"/>
-       <xsl:apply-templates mode="convert-img"/>
-     </xsl:element>
-   </xsl:template>
+  <xsl:template match="*" mode="convert-img">
+    <xsl:element name="{local-name()}">
+      <xsl:copy-of select="@*"/>
+      <xsl:apply-templates mode="convert-img"/>
+    </xsl:element>
+  </xsl:template>
 </xsl:stylesheet>

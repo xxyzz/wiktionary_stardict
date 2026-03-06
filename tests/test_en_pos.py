@@ -75,7 +75,7 @@ class EnPOSTestCase(XMLTestCase):
                 [
                     ["-ego"],
                     """<section>
-      <h3>Suffix</h3>
+      <h4>Suffix</h4>
       <p>
         <span class="headword-line">
           <strong class="Latn headword" lang="en">-ego</strong>
@@ -119,7 +119,7 @@ class EnPOSTestCase(XMLTestCase):
                 [
                     ["-άρης"],
                     """<section>
-      <h3>Suffix</h3>
+      <h4>Suffix</h4>
       <p>
         <span class="headword-line">
           <strong class="Grek headword" lang="el">-άρης</strong>
@@ -167,7 +167,7 @@ class EnPOSTestCase(XMLTestCase):
                 [
                     ["tee"],
                     """<section>
-      <h3>Noun</h3>
+      <h4>Noun</h4>
       <p>
         <span class="headword-line">
           <strong class="Latn headword" lang="en">tee</strong>
@@ -205,7 +205,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["binomial series"],
-                    """<section><h3>Noun</h3>
+                    """<section><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">binomial series</strong>
@@ -245,7 +245,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["ꜣḫt-jtn"],
-                    """<section><h3>Proper noun</h3>
+                    """<section><h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="None headword" lang="egy">

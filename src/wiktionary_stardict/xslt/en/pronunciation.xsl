@@ -10,17 +10,11 @@
     <xsl:variable name="pron-list">
       <xsl:apply-templates select="ul" mode="pron-ul"/>
     </xsl:variable>
-    <xsl:if test="$pron-list/*">
-      <section>
-	<xsl:apply-templates
-	    select="h3 | h4 | h5" mode="clean-content"/>
-	<xsl:variable name="pos-pron">
-	  <xsl:sequence
-	      select="$pron-list//li[replace(string-join(text(), ''), ':\s*$', '') = $pos]/ul"/>
-	</xsl:variable>
-	<xsl:copy-of select="if ($pos-pron/*) then $pos-pron else $pron-list "/>
-      </section>
-    </xsl:if>
+    <xsl:variable name="pos-pron">
+      <xsl:sequence
+	  select="$pron-list//li[replace(string-join(text(), ''), ':\s*$', '') = $pos]/ul"/>
+    </xsl:variable>
+    <xsl:copy-of select="if ($pos-pron/*) then $pos-pron else $pron-list "/>
   </xsl:template>
 
   <xsl:template match="ul" mode="pron-ul">
@@ -33,12 +27,14 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pron-ul">
-    <xsl:if test=".//a[@title='Wiktionary:International Phonetic Alphabet']">
+    <xsl:if test=".//a[@title='Wiktionary:International Phonetic Alphabet'] and not(table[contains(@class, 'audiotable')])">
       <li>
 	<xsl:apply-templates mode="pron-ul"/>
       </li>
     </xsl:if>
   </xsl:template>
+
+  <xsl:template match="sup[normalize-space(.) = '(key)']" mode="pron-ul"/>
 
   <xsl:template match="*" mode="pron-ul">
     <xsl:apply-templates select="." mode="clean-content"/>
