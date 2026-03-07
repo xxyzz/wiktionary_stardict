@@ -2,9 +2,37 @@
 <xsl:stylesheet
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:myfn="https://github.com/xxyzz">
 
-  <xsl:template match="section" mode="alt-forms" as="xs:string*">
-    <xsl:sequence select="ul/li/span[@lang]//text()"/>
-  </xsl:template>
+  <xsl:function name="myfn:get-alt-forms" as="xs:string*">
+    <xsl:param name="section" as="node()"/>
+    <xsl:param name="language" as="xs:string"/>
+    <xsl:variable name="alt-forms-section" select="$section/preceding-sibling::section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | $section/ancestor::section/section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | $section/section[(h4|h5|h6)/text() = 'Alternative forms']"/>
+    <xsl:variable name="alt-forms" select="if ($alt-forms-section) then $alt-forms-section ! myfn:alt-forms-section(.) else ()"/>
+    <xsl:choose>
+      <xsl:when test="$language = 'Chinese'">
+	<xsl:sequence select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="$alt-forms"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+
+  <xsl:function name="myfn:alt-forms-section" as="xs:string*">
+    <xsl:param name="section" as="node()"/>
+    <xsl:sequence select="$section/ul/li/span[@lang]//text()"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:zh-forms" as="xs:string*">
+    <xsl:param name="section" as="node()"/>
+    <xsl:variable name="span_node" select="$section/span[@data-mw][myfn:is-template(@data-mw, 'zh-forms')]"/>
+    <xsl:if test="$span_node">
+      <xsl:variable name="table" select="$span_node/following-sibling::table"/>
+      <xsl:variable name="th-forms" select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
+      <xsl:variable name="td-forms" select="$table//td[preceding-sibling::th[1][text() != 'anagram']]//span[starts-with(@lang, 'zh-Han')]//text()"/>
+      <xsl:sequence select="$th-forms, $td-forms"/>
+    </xsl:if>
+  </xsl:function>
 </xsl:stylesheet>

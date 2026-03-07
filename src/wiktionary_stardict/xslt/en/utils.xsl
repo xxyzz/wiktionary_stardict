@@ -10,4 +10,16 @@
     <xsl:param name="node" as="node()"/>
     <xsl:sequence select="normalize-space(string-join($node//text()[not(parent::rp or ancestor::rt)], ''))"/>
   </xsl:function>
+
+  <xsl:function name="myfn:is-template" as="xs:boolean">
+    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="template" as="xs:string"/>
+    <xsl:variable name="json" select="parse-json($data-mw)"/>
+    <xsl:try>
+      <xsl:sequence select="normalize-space($json?parts(1)?template?target?wt) = $template"/>
+      <xsl:catch>
+        <xsl:sequence select="false()"/>
+      </xsl:catch>
+    </xsl:try>
+  </xsl:function>
 </xsl:stylesheet>

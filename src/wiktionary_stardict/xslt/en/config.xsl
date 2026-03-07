@@ -33,5 +33,6 @@
 	      'Dutch',
 	      'Czech',
 	      'Icelandic',
-	      'Malay')"/>
+	      'Malay',
+	      'Persian')"/>
 </xsl:stylesheet>

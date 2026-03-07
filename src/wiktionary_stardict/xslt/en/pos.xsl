@@ -7,9 +7,9 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
+  <xsl:include href="utils.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
-  <xsl:include href="utils.xsl"/>
   <xsl:include href="conjugation.xsl"/>
 
   <xsl:template match="section" mode="pos">
@@ -29,11 +29,7 @@
 	name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>
 
     <xsl:if test="ol/li[myfn:is_gloss_li(.)]">
-      <xsl:variable name="alt-forms" as="xs:string*">
-        <xsl:apply-templates
-            select="preceding-sibling::section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | ancestor::section/section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | section[(h3|h4|h5|h6)/text() = 'Alternative forms']"
-            mode="alt-forms"/>
-      </xsl:variable>
+      <xsl:variable name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select="section[(h4 | h5 | h6)//text() = ('Conjugation', 'Declension')]"
