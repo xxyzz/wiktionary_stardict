@@ -259,3 +259,37 @@ class EnPOSTestCase(XMLTestCase):
                 ]
             ],
         )
+
+    def test_remove_sup_ref_and_figure(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>säteri</title></head>
+<body>
+<section><h2>Finnish</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="fi">säteri</strong>
+  </span>
+</p>
+<ol><li>gloss<sup class="mw-ref reference">[1]</sup><figure class="mw-default-size" typeof="mw:File/Thumb" id="mwHw"><a href="./File:Valsta_säteri.jpg" class="mw-file-description" id="mwIA"><img resource="./File:Valsta_säteri.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Valsta_s%C3%A4teri.jpg/250px-Valsta_s%C3%A4teri.jpg" decoding="async" data-file-width="3288" data-file-height="2239" data-file-type="bitmap" height="170" width="250" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/13/Valsta_s%C3%A4teri.jpg/500px-Valsta_s%C3%A4teri.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/1/13/Valsta_s%C3%A4teri.jpg/500px-Valsta_s%C3%A4teri.jpg 2x" class="mw-file-element" id="mwIQ"/></a><figcaption id="mwIg">Valsta säteri, a sateri roof form</figcaption></figure></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["säteri"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="fi">säteri</strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
