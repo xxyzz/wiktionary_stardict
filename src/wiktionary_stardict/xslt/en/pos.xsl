@@ -49,6 +49,7 @@
               select="preceding-sibling::section[starts-with((h3|h4|h5|h6)/text(), 'Pronunciation')] | ancestor::section/section[starts-with((h3|h4|h5|h6)/text(), 'Pronunciation')]"
               mode="pron">
 	    <xsl:with-param name="pos" select="$pos"/>
+	    <xsl:with-param name="language" select="$language"/>
 	  </xsl:apply-templates>
 	  <xsl:apply-templates select="p | ol" mode="pos-li"/>
         </section>

@@ -68,6 +68,9 @@
       match="*[contains(@style, 'display: none;')]"
       mode="clean-content"/>
 
+  <!-- IPA key link -->
+  <xsl:template match="sup[normalize-space(.) = '(key)']" mode="clean-content"/>
+
   <xsl:template
       match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template
