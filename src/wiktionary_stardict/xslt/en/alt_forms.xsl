@@ -14,6 +14,10 @@
       <xsl:when test="$language = 'Chinese'">
 	<xsl:sequence select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
       </xsl:when>
+      <xsl:when test="$language = 'Japanese'">
+	<xsl:variable name="above-sections" select="$section/ancestor::section[h2 | h3] | $section/preceding-sibling::section[h3 | h4]"/>
+	<xsl:sequence select="$alt-forms, $above-sections ! myfn:ja-kanjitab(.)"/>
+      </xsl:when>
       <xsl:otherwise>
 	<xsl:value-of select="$alt-forms"/>
       </xsl:otherwise>
@@ -34,5 +38,10 @@
       <xsl:variable name="td-forms" select="$table//td[preceding-sibling::th[1][text() != 'anagram']]//span[starts-with(@lang, 'zh-Han')]//text()"/>
       <xsl:sequence select="$th-forms, $td-forms"/>
     </xsl:if>
+  </xsl:function>
+
+  <xsl:function name="myfn:ja-kanjitab" as="xs:string*">
+    <xsl:param name="section" as="node()"/>
+    <xsl:sequence select="$section/table[.//th[text() = 'Alternative spellings']]//td/span[@lang = 'ja']//text()"/>
   </xsl:function>
 </xsl:stylesheet>

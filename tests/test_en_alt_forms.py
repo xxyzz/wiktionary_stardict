@@ -196,3 +196,35 @@ class EnAltFormsTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_ja_kanjitab(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>痛い</title></head>
+<body>
+<section><h2>Japanese</h2>
+<table class="wikitable floatright">
+<tbody><tr><th style="font-weight:normal">Alternative spellings</th></tr>
+<tr>
+<td style="text-align:center;font-size:108%"><span class="Jpan" lang="ja" style="font-size:140%"><a>甚い</a></span><br/><span class="Jpan" lang="ja" style="font-size:140%"><a>イタい</a></span> <small><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">particularly<span typeof="mw:Entity"> </span>the<span typeof="mw:Entity"> </span>"cringy"<span typeof="mw:Entity"> </span>sense</span><span class="ib-brac label-brac">)</span></span></small></td></tr>
+</tbody></table>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>痛<rp>(</rp><rt><a>いた</a></rt><rp>)</rp></ruby>い</strong> <a>•</a> (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja"><a>itai</a></span></span>)<span typeof="mw:Entity"> </span><i><abbr title="-i (type I) inflection">-i</abbr></i> (<i>adverbial</i> <b class="Jpan" lang="ja"><a><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>く</a></b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">itaku</span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["痛い", "甚い", "イタい"],
+                    """<section>
+  <h4>Adjective</h4>
+  <p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>い</strong> • (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja">itai</span></span>)<span> </span><i><abbr title="-i (type I) inflection">-i</abbr></i> (<i>adverbial</i> <b class="Jpan" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>く</b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">itaku</span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
+  <ol><li><span>gloss</span></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
