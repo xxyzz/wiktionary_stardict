@@ -13,6 +13,11 @@
       <xsl:when test="$language = 'Japanese'">
 	<xsl:apply-templates select="span[@data-mw][myfn:is-template(@data-mw, 'ja-pron')]/following-sibling::ul[1]" mode="clean-content"/>
       </xsl:when>
+      <xsl:when test="$language = 'Chinese'">
+	<xsl:apply-templates
+	    select="div[@data-mw][myfn:is-template(@data-mw, 'zh-pron')]//ul[1]"
+	    mode="zh-pron"/>
+      </xsl:when>
       <xsl:otherwise>
 	<xsl:variable name="pron-list">
 	  <xsl:apply-templates select="ul" mode="pron-ul"/>
@@ -45,5 +50,14 @@
 
   <xsl:template match="*" mode="pron-ul">
     <xsl:apply-templates select="." mode="clean-content"/>
+  </xsl:template>
+
+  <xsl:template match="ul" mode="zh-pron">
+    <xsl:variable name="list" select="subsequence(.//dd[small/i/a[text() = ('Pinyin', 'Zhuyin')]], 1, 2)"/>
+    <xsl:if test="$list/*">
+      <dl>
+	<xsl:apply-templates select="$list" mode="clean-content"/>
+      </dl>
+    </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

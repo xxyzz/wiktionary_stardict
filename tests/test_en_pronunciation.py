@@ -133,3 +133,43 @@ class EnPronunciationTestCase(XMLTestCase):
                 ]
             ],
         )
+
+    def test_zh_pron(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>大家</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Pronunciation 1</h3>
+<div class="standard-box zhpron" style="overflow:auto; max-width:500px; font-size:100%" about="#mwt2" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"zh-pron\n","href":"./Template:zh-pron"},"i":0}}]}'><div class="vsSwitcher" data-toggle-category="pronunciations">
+<ul><li><a class="extiw">Mandarin</a>
+<dl><dd><small>(<i><a>Standard</a></i>)</small>
+<dl><dd><small>(<i><a>Pinyin</a></i>)</small>: <span class="zhpron-monospace form-of pinyin-ts-form-of" lang="cmn"><span class="Latn" lang="cmn"><a>dàjiā</a></span>, <span class="Latn" lang="cmn"><a>dà'ā</a></span></span></dd>
+<dd><small>(<i><a>Zhuyin</a></i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl></dd></dl></li></ul></div></div>
+<section><h4>Pronoun</h4>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["大家"],
+                    """<section>
+<h4>Pronoun</h4>
+<dl><dd><small>(<i>Pinyin</i>)</small>: <span class="zhpron-monospace form-of pinyin-ts-form-of" lang="cmn"><span class="Latn" lang="cmn">dàjiā</span>, <span class="Latn" lang="cmn">dà'ā</span></span></dd>
+<dd><small>(<i>Zhuyin</i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl>
+<p>
+  <span class="headword-line">
+    <strong class="Hani headword" lang="zh">大家</strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>""",
+                    [],
+                ]
+            ],
+        )

@@ -14,8 +14,6 @@ dependencies = [
     "pyglossary",
     "saxonche",
     "requests",
-    # pyglossary dependencies
-    "lxml",
     "python-idzip",
 ]
 
