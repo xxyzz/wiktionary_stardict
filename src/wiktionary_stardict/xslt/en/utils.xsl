@@ -15,11 +15,8 @@
     <xsl:param name="data-mw" as="xs:string"/>
     <xsl:param name="template" as="xs:string"/>
     <xsl:variable name="json" select="parse-json($data-mw)"/>
-    <xsl:try>
-      <xsl:sequence select="normalize-space($json?parts(1)?template?target?wt) = $template"/>
-      <xsl:catch>
-        <xsl:sequence select="false()"/>
-      </xsl:catch>
-    </xsl:try>
+    <xsl:sequence
+	select="some $wt in $json?parts?*?template?target?wt
+		satisfies normalize-space($wt) = $template"/>
   </xsl:function>
 </xsl:stylesheet>
