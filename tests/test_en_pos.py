@@ -293,3 +293,39 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_color_panel(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Nile blue</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">Nile blue</strong>
+  </span>
+</p>
+<ol><li>A pale <a>greenish</a> <a>blue</a> colour.
+<dl><dd><div class="color-panel mw-no-invert" about="#mwt4" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"color panel","href":"./Template:color_panel"},"params":{"1":{"wt":"006F7C"}},"i":0}}]}' id="mwDw">Nile blue: <span style="background-color:#006F7C;  display:inline-block; width:80px"><span typeof="mw:Entity"> </span></span></div></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["Nile blue"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">Nile blue</strong>
+  </span>
+</p>
+<ol><li>A pale greenish blue colour.
+<dl><dd><div class="color-panel mw-no-invert">Nile blue: <span style="background-color:#006F7C;  display:inline-block; width:80px"><span> </span></span></div></dd></dl></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )

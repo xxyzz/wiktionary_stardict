@@ -101,7 +101,7 @@
         select="dd[div[contains(@class, 'color-panel')]]"/>
     <xsl:if test="$examples/* or $color-panel/*">
       <dl>
-	<xsl:copy-of select="$color-panel"/>
+	<xsl:apply-templates select="$color-panel" mode="clean-content"/>
 	<xsl:apply-templates
             select="($examples[string-length() = min($examples/string-length())])[1]"
             mode="clean-content"/>
