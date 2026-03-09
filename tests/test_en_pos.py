@@ -368,3 +368,41 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_score_sound(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Italian augmented sixth chord</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">Italian augmented sixth chord</strong>
+  </span>
+</p>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize" data-midi="//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.midi" typeof="mw:Extension/score" about="#mwt6" data-mw='{"name":"score","attrs":{"sound":""},"body":{"extsrc":"&lt;c&apos;aes fis&apos;>1"}}'><img src="//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.mp3" type="audio/mpeg"/><div>Audio playback is not supported in your browser. You can <a href="//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.mp3">download the audio file</a>.</div></audio></div></div></i></div></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["Italian augmented sixth chord"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">Italian augmented sixth chord</strong>
+  </span>
+</p>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><img src="rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/></div></i></div></dd></dl></li></ol>
+</section>""",
+                    [
+                        "//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.png"
+                    ],
+                ],
+            ],
+        )
