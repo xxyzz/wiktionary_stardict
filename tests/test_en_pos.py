@@ -329,3 +329,42 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_image_src_without_question_mark(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>rhombus</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">rhombus</strong>
+  </span>
+</p>
+<ol><li class="mw-empty-elt"></li><li class="senseid"><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>geometry</a></span><span class="ib-brac label-brac">)</span></span> A <a>parallelogram</a> having all sides of equal length. <style>.mw-parser-output .defdate{font-size:smaller}</style><span class="defdate">[from 16th c.]</span>
+<ol><li>The rhombus diamond, as one of the <a class="extiw">suits</a> seen in a deck of playing cards (<span><a href="./File:SuitDiamonds.svg" class="mw-file-description" title="♦"><img alt="♦" resource="./File:SuitDiamonds.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/20px-SuitDiamonds.svg.png" decoding="async" data-file-width="240" data-file-height="260" data-file-type="drawing" height="22" width="20" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/40px-SuitDiamonds.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/40px-SuitDiamonds.svg.png 2x" class="mw-file-element"/></a></span> or <span><a href="./File:SuitDiamonds4colors.svg" class="mw-file-description" title="♦"><img alt="♦" resource="./File:SuitDiamonds4colors.svg" src="//upload.wikimedia.org/wikipedia/commons/thumb/7/79/SuitDiamonds4colors.svg/20px-SuitDiamonds4colors.svg.png" decoding="async" data-file-width="240" data-file-height="260" data-file-type="drawing" height="22" width="20" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/79/SuitDiamonds4colors.svg/40px-SuitDiamonds4colors.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/7/79/SuitDiamonds4colors.svg/40px-SuitDiamonds4colors.svg.png 2x" class="mw-file-element"/></a></span>).</li></ol></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["rhombus"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">rhombus</strong>
+  </span>
+</p>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">geometry</span><span class="ib-brac label-brac">)</span></span> A parallelogram having all sides of equal length. <style>.mw-parser-output .defdate{font-size:smaller}</style><span class="defdate">[from 16th c.]</span>
+<ol><li>The rhombus diamond, as one of the suits seen in a deck of playing cards (<span><img alt="♦" src="20px-SuitDiamonds.svg.png" decoding="async" height="22" width="20" class="mw-file-element"/></span> or <span><img alt="♦" src="20px-SuitDiamonds4colors.svg.png" decoding="async" height="22" width="20" class="mw-file-element"/></span>).</li></ol></li>
+</section>""",
+                    [
+                        "//upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/20px-SuitDiamonds.svg.png",
+                        "//upload.wikimedia.org/wikipedia/commons/thumb/7/79/SuitDiamonds4colors.svg/20px-SuitDiamonds4colors.svg.png",
+                    ],
+                ],
+            ],
+        )

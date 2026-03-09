@@ -42,7 +42,7 @@
   <!-- Remove attributes except class and style -->
   <xsl:template match="*" mode="clean-content">
     <xsl:element name="{name()}">
-      <xsl:copy-of select="@*[not(name() = ('typeof', 'about', 'id', 'rel', 'srcset') or starts-with(name(), 'data-'))]"/>
+      <xsl:copy-of select="@*[not(name() = ('typeof', 'about', 'id', 'rel', 'srcset', 'resource') or starts-with(name(), 'data-'))]"/>
       <xsl:apply-templates mode="clean-content"/>
     </xsl:element>
   </xsl:template>
