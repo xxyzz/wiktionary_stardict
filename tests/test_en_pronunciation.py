@@ -173,3 +173,42 @@ class EnPronunciationTestCase(XMLTestCase):
                 ]
             ],
         )
+
+    def test_non_map_value_data_mw(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>寝椅子</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Pronunciation</h3>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"ja-pron"}}}]}'>
+</span><ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">ね<span style="border-top:1px;">いす</span></span> <span class="Latn"><samp>[nèísú]</samp></span> (<a>Heiban</a> – [0])<sup class="mw-ref reference"></sup></li></ul>
+<span typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"ja-accent-dialectal"}}},"&lt;ref name=\\"KDJ2O\\"/>"]}'>
+</span><ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>Kyōto</a></span><span class="ib-brac label-brac">)</span></span> <span class="Jpan" lang="ja"><span style="border-top:1px;">ね<span style="position:absolute;">​</span></span>いす</span><span> </span><span class="Latn"><samp>[néꜜìsù]</samp></span> (<a>Kōki</a>)<sup class="mw-ref reference"></sup></li></ul>
+</section>
+<section><h3>Pronoun</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja">寝椅子</strong></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["寝椅子"],
+                    """<section>
+<h4>Pronoun</h4>
+<ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">ね<span style="border-top:1px;">いす</span></span> <span class="Latn"><samp>[nèísú]</samp></span> (Heiban – [0])</li></ul>
+<ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Kyōto</span><span class="ib-brac label-brac">)</span></span> <span class="Jpan" lang="ja"><span style="border-top:1px;">ね<span style="position:absolute;">​</span></span>いす</span><span> </span><span class="Latn"><samp>[néꜜìsù]</samp></span> (Kōki)</li></ul>
+<p>
+  <span class="headword-line">
+    <strong class="Jpan headword" lang="ja">寝椅子</strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>""",
+                    [],
+                ]
+            ],
+        )

@@ -12,14 +12,14 @@
     <xsl:variable name="alt-forms" select="if ($alt-forms-section) then $alt-forms-section ! myfn:alt-forms-section(.) else ()"/>
     <xsl:choose>
       <xsl:when test="$language = 'Chinese'">
-	<xsl:sequence select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
+        <xsl:sequence select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
       </xsl:when>
       <xsl:when test="$language = 'Japanese'">
-	<xsl:variable name="above-sections" select="$section/ancestor::section[h2 | h3] | $section/preceding-sibling::section[h3 | h4]"/>
-	<xsl:sequence select="$alt-forms, $above-sections ! myfn:ja-kanjitab(.)"/>
+        <xsl:variable name="above-sections" select="$section/ancestor::section[h2 | h3] | $section/preceding-sibling::section[h3 | h4]"/>
+        <xsl:sequence select="$alt-forms, $above-sections ! myfn:ja-kanjitab(.)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$alt-forms"/>
+        <xsl:value-of select="$alt-forms"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>

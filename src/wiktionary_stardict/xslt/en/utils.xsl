@@ -13,10 +13,10 @@
 
   <xsl:function name="myfn:is-template" as="xs:boolean">
     <xsl:param name="data-mw" as="xs:string"/>
-    <xsl:param name="template" as="xs:string"/>
+    <xsl:param name="templates" as="xs:string*"/>
     <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
-	select="some $wt in $json?parts?*?template?target?wt
-		satisfies normalize-space($wt) = $template"/>
+        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+                satisfies normalize-space($wt) = $templates"/>
   </xsl:function>
 </xsl:stylesheet>

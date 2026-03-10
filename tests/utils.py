@@ -34,6 +34,8 @@ class XMLTestCase(unittest.TestCase):
         output = self.transform(input_html)
         if len(expected_list) == 0:
             self.assertTrue(len(output) == 0)
+        elif len(output) == 0:
+            self.assertTrue(False)
         else:
             for (_, output_forms, output_xml, output_images), (
                 expected_forms,
