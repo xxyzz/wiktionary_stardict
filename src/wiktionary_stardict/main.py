@@ -26,7 +26,7 @@ def transform(line: str) -> list[list[str]]:
     from saxonche import PySaxonApiError
 
     data = json.loads(line)
-    html = data["article_body"]["html"]
+    html = data["html"]
     try:
         document = proc.parse_xml(xml_text=html)
         result = executable.transform_to_string(xdm_node=document)
@@ -49,9 +49,7 @@ def main():
     from .snapshot import (
         decompress_chunk,
         download_chunk,
-        get_access_token,
-        get_chunk_ndjson_path,
-        get_chunk_tar_path,
+        get_chunk_zst_path,
         get_snapshot_chunks,
     )
     from .stardict import add_entry, create_glossary, create_stardict
@@ -62,21 +60,15 @@ def main():
     xsl_path = get_xsl_path(args.edition)
     edition_lang = EDITIONS[args.edition]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
-    access_token = get_access_token()
-    snapshot_date, chunk_identifiers = get_snapshot_chunks(
-        access_token, snapshot_identifier
-    )
+    snapshot_date, chunk_identifiers = get_snapshot_chunks(snapshot_identifier)
     glos_dict = {}
     add_files = {}
     Glossary.init()
     for chunk_identifier in chunk_identifiers:
-        chunk_tar_path = get_chunk_tar_path(chunk_identifier)
-        if not chunk_tar_path.exists():
-            download_chunk(
-                access_token, snapshot_identifier, chunk_identifier, chunk_tar_path
-            )
-        decompress_chunk(chunk_tar_path)
-        ndjson_path = get_chunk_ndjson_path(chunk_identifier)
+        chunk_zst_path = get_chunk_zst_path(chunk_identifier)
+        if not chunk_zst_path.exists():
+            download_chunk(chunk_identifier, chunk_zst_path)
+        ndjson_path = decompress_chunk(chunk_zst_path)
         logger.info(f"start chunk {chunk_identifier}")
         with ndjson_path.open() as f:
             with ProcessPoolExecutor(
@@ -98,7 +90,7 @@ def main():
                             images,
                             add_files[lemma_lang],
                         )
-        chunk_tar_path.unlink()
+        chunk_zst_path.unlink()
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 

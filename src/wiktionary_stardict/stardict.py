@@ -57,10 +57,8 @@ def get_user_agent() -> str:
 
 
 def create_stardict(glos, lemma_lang: str, gloss_lang: str):
-    import os
     import shutil
     import tarfile
-    from compression import zstd
     from pathlib import Path
 
     folder_name = f"{lemma_lang}-{gloss_lang}".replace(" ", "_")
@@ -76,13 +74,6 @@ def create_stardict(glos, lemma_lang: str, gloss_lang: str):
     tar_path = out_path.with_suffix(".tar.zst")
     if tar_path.exists():
         tar_path.unlink()
-    with tarfile.open(
-        name=tar_path,
-        mode="x:zst",
-        options={
-            zstd.CompressionParameter.compression_level: 19,
-            zstd.CompressionParameter.nb_workers: os.process_cpu_count(),
-        },
-    ) as tar:
+    with tarfile.open(name=tar_path, mode="x:zst") as tar:
         tar.add(out_path, arcname=".")
     shutil.rmtree(out_path)

@@ -1,37 +1,21 @@
 from pathlib import Path
 
 
-def get_access_token() -> str:
-    import os
-
-    import requests
-
-    r = requests.post(
-        "https://auth.enterprise.wikimedia.com/v1/login",
-        json={"username": os.getenv("USERNAME"), "password": os.getenv("PASSWORD")},
-    )
-    return r.json()["access_token"]
-
-
-def get_snapshot_chunks(access_token: str, identifier: str) -> tuple[str, list[str]]:
+def get_snapshot_chunks(identifier: str) -> tuple[str, list[str]]:
     import requests
 
     r = requests.get(
-        f"https://api.enterprise.wikimedia.com/v2/snapshots/{identifier}",
-        headers={"Authorization": f"Bearer {access_token}"},
+        f"https://github.com/xxyzz/snapshot/releases/latest/download/{identifier}.json"
     )
     data = r.json()
-    return data["date_modified"].split("T")[0], data["chunks"]
+    return data["date"], data["chunks"]
 
 
-def download_chunk(
-    access_token: str, snapshot_identifier: str, chunk_identifier: str, path: Path
-):
+def download_chunk(chunk_identifier: str, path: Path):
     import requests
 
     r = requests.get(
-        f"https://api.enterprise.wikimedia.com/v2/snapshots/{snapshot_identifier}/chunks/{chunk_identifier}/download",
-        headers={"Authorization": f"Bearer {access_token}"},
+        f"https://github.com/xxyzz/snapshot/releases/latest/download/{chunk_identifier}.zst",
         stream=True,
     )
     path.parent.mkdir(exist_ok=True)
@@ -40,17 +24,15 @@ def download_chunk(
             f.write(chunk)
 
 
-def decompress_chunk(path: Path):
-    import tarfile
+def decompress_chunk(zst_path: Path) -> Path:
+    import shutil
+    from compression import zstd
 
-    with tarfile.open(path) as tar:
-        tar.extractall("build")
+    ndjson_path = zst_path.with_suffix(".ndjson")
+    with zstd.open(zst_path, "rb") as f_in, ndjson_path.open("wb") as f_out:
+        shutil.copyfileobj(f_in, f_out)
+    return ndjson_path
 
 
-def get_chunk_tar_path(chunk_identifier: str) -> Path:
-    return Path("build").joinpath(chunk_identifier).with_suffix(".tar.gz")
-
-
-def get_chunk_ndjson_path(chunk_identifier: str) -> Path:
-    filename = chunk_identifier[chunk_identifier.index("chunk_") :] + ".ndjson"
-    return Path("build") / filename
+def get_chunk_zst_path(chunk_identifier: str) -> Path:
+    return Path("build").joinpath(chunk_identifier).with_suffix(".zst")

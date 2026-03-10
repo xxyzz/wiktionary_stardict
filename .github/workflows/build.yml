@@ -23,9 +23,6 @@ jobs:
           python-version: 3.14
       - run: python -m pip install .
       - run: dict ${{ matrix.gloss_lang }}
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
       - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.gloss_lang }}
