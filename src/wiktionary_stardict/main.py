@@ -95,4 +95,4 @@ def main():
         logger.info(f"chunk {chunk_identifier} done")
 
     for lemma_lang, glos in glos_dict.items():
-        create_stardict(glos, lemma_lang, edition_lang)
+        create_stardict(glos, lemma_lang, edition_lang, args.edition)

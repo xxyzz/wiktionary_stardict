@@ -10,5 +10,5 @@ indent_style = space
 [*.py]
 indent_size = 4
 
-[*.{json,yml,xsl}]
+[*.{json,yml,xsl,css}]
 indent_size = 2

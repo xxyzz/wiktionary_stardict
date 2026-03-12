@@ -1,3 +1,6 @@
+from pathlib import Path
+
+
 def create_glossary(lemma_lang: str, gloss_lang: str, snapshot_date: str):
     from datetime import date
 
@@ -56,7 +59,7 @@ def get_user_agent() -> str:
     return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
-def create_stardict(glos, lemma_lang: str, gloss_lang: str):
+def create_stardict(glos, lemma_lang: str, gloss_lang: str, edition: str):
     import shutil
     import tarfile
     from pathlib import Path
@@ -71,9 +74,18 @@ def create_stardict(glos, lemma_lang: str, gloss_lang: str):
         formatName="StardictMergeSyns",
         dictzip=True,
     )
+    css_path = get_css_path(edition)
+    if css_path.exists():
+        css_path.copy(out_path / f"{folder_name}.css")
     tar_path = out_path.with_suffix(".tar.zst")
     if tar_path.exists():
         tar_path.unlink()
     with tarfile.open(name=tar_path, mode="x:zst") as tar:
         tar.add(out_path, arcname=".")
     shutil.rmtree(out_path)
+
+
+def get_css_path(edition: str) -> Path:
+    from importlib.resources import files
+
+    return files("wiktionary_stardict") / "css" / edition / "style.css"
