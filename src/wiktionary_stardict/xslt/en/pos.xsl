@@ -131,7 +131,10 @@
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of
-                select="substring-before(tokenize(@src, '/')[last()] || '?', '?')"/>
+                select="replace(
+                        substring-before(tokenize(@src, '/')[last()] || '?', '?'),
+                        '\..*\.',
+                        '.')"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>

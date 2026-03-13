@@ -359,7 +359,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">geometry</span><span class="ib-brac label-brac">)</span></span> A parallelogram having all sides of equal length. <style>.mw-parser-output .defdate{font-size:smaller}</style><span class="defdate">[from 16th c.]</span>
-<ol><li>The rhombus diamond, as one of the suits seen in a deck of playing cards (<span><img alt="♦" src="20px-SuitDiamonds.svg.png" decoding="async" height="22" width="20" class="mw-file-element"/></span> or <span><img alt="♦" src="20px-SuitDiamonds4colors.svg.png" decoding="async" height="22" width="20" class="mw-file-element"/></span>).</li></ol></li>
+<ol><li>The rhombus diamond, as one of the suits seen in a deck of playing cards (<span><img alt="♦" src="20px-SuitDiamonds.png" decoding="async" height="22" width="20" class="mw-file-element"/></span> or <span><img alt="♦" src="20px-SuitDiamonds4colors.png" decoding="async" height="22" width="20" class="mw-file-element"/></span>).</li></ol></li>
 </section>""",
                     [
                         "//upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/20px-SuitDiamonds.svg.png",
