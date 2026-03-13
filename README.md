@@ -1,5 +1,7 @@
 # Wiktionary StarDict
 
+<img src="./docs/screenshot.png" style="width:40%;">
+
 Data source: https://enterprise.wikimedia.com
 
 ## Download
