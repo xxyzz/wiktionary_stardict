@@ -406,3 +406,47 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_math_example(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>binomial theorem</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<span class="mwe-math-element mwe-math-element-inline">
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062"/>
+</span>
+</dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["the binomial theorem", "binomial theorem"],
+                    """<section><h4>Proper noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<span class="mwe-math-element mwe-math-element-inline">
+<img src="79b6d531a4481eeb1be6fd20769cfcc0da365062.svg"/>
+</span>
+</dd></dl></li></ol>
+</section>""",
+                    [
+                        "https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062"
+                    ],
+                ],
+            ],
+        )

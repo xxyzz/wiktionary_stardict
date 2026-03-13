@@ -94,7 +94,8 @@
     <xsl:variable
         name="examples"
         select="dd[div[contains(@class, 'h-usage-example')] or
-                span[contains(@class, 'e-example') or contains(@class, 'affixusex')] or
+                span[tokenize(@class, '\s+') =
+                     ('e-example', 'affixusex', 'mwe-math-element')] or
                 dl[contains(@class, 'zhusex')]]"/>
     <xsl:variable
         name="color-panel"
