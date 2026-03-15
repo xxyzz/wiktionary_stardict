@@ -19,7 +19,7 @@ jobs:
     if: github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'schedule')
     runs-on: ubuntu-latest
     steps:
-      - uses: dawidd6/action-download-artifact@v16
+      - uses: dawidd6/action-download-artifact@v18
         with:
           workflow: build.yml
           commit: ${{ github.sha }}
@@ -29,8 +29,7 @@ jobs:
         run: |
           echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
 
-      - uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ (github.event_name == 'push' && github.ref_name) || steps.get-date.outputs.date }}
-          files: |
-            **/*.tar.zst
+      - name: Create release
+        run: gh release create ${{ (github.event_name == 'push' && github.ref_name) || steps.get-date.outputs.date }} **/*.tar.zst
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

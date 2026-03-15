@@ -1,6 +1,37 @@
-ul {
-  list-style-type: disc !important
+h4 {
+  margin: 0.25em 0;
+  padding-bottom: 0;
 }
-.ib-content {
-  font-style: italic
+p {
+  margin: 0.5em 0;
+}
+ul {
+  list-style-type: disc !important;
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+.ib-content, .use-with-mention {
+  font-style: italic;
+}
+ol {
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+li {
+  margin-bottom: 0.1em;
+}
+dl {
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+}
+dd {
+  margin-bottom: 0.1em;
+  margin-left: 1.6em;
+  margin-right: 0;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
 }
