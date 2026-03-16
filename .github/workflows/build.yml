@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        edition: ['en']
+        edition: ['en', 'es']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6

@@ -7,7 +7,8 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
-  <xsl:include href="utils.xsl"/>
+  <xsl:include href="../utils.xsl"/>
+  <xsl:include href="../image.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="conjugation.xsl"/>
@@ -119,32 +120,4 @@
     <xsl:sequence
         select="($n/* or $n/text()) and not($n/span[contains(@class, 'form-of-definition')])"/>
   </xsl:function>
-
-  <xsl:template match="img" mode="convert-img">
-    <img>
-      <xsl:copy-of select="@*[not(local-name() = 'src')]"/>
-      <xsl:attribute name="src">
-        <xsl:choose>
-          <xsl:when test="contains(@src, 'math/render/svg/')">
-            <xsl:value-of select="substring-after(@src, 'math/render/svg/')"/>
-            <xsl:text>.svg</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of
-                select="replace(
-                        substring-before(tokenize(@src, '/')[last()] || '?', '?'),
-                        '\..*\.',
-                        '.')"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </img>
-  </xsl:template>
-
-  <xsl:template match="*" mode="convert-img">
-    <xsl:element name="{local-name()}">
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates mode="convert-img"/>
-    </xsl:element>
-  </xsl:template>
 </xsl:stylesheet>

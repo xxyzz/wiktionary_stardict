@@ -7,6 +7,7 @@
     exclude-result-prefixes="#all">
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
 
+  <xsl:include href="../clean.xsl"/>
   <xsl:include href="config.xsl"/>
   <xsl:include href="pos.xsl"/>
 
@@ -39,34 +40,8 @@
     </xsl:apply-templates>
   </xsl:template>
 
-  <!-- Remove attributes except class and style -->
-  <xsl:template match="*" mode="clean-content">
-    <xsl:element name="{name()}">
-      <xsl:copy-of select="@*[not(name() = ('typeof', 'about', 'id', 'rel', 'srcset', 'resource') or starts-with(name(), 'data-'))]"/>
-      <xsl:apply-templates mode="clean-content"/>
-    </xsl:element>
-  </xsl:template>
-
-  <!-- Remove category links -->
-  <xsl:template match="link" mode="clean-content"/>
-
-  <!-- Remove a elements but keep their text content -->
-  <xsl:template match="a" mode="clean-content">
-    <xsl:apply-templates mode="clean-content"/>
-  </xsl:template>
-
   <!-- Remove empty li elements -->
   <xsl:template match="li[not(*)]" mode="clean-content"/>
-
-  <!-- Copy text nodes as-is -->
-  <xsl:template match="text()" mode="clean-content">
-    <xsl:copy/>
-  </xsl:template>
-
-  <!-- Remove hidden elements -->
-  <xsl:template
-      match="*[contains(@style, 'display: none;')]"
-      mode="clean-content"/>
 
   <!-- IPA key link -->
   <xsl:template match="sup[normalize-space(.) = '(key)']" mode="clean-content"/>
