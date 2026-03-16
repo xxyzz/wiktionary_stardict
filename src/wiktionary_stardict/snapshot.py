@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def get_snapshot_chunks(identifier: str) -> tuple[str, list[str]]:
+def get_snapshot_chunks(identifier: str) -> tuple[str, int]:
     import requests
 
     r = requests.get(

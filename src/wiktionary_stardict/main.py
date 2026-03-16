@@ -60,11 +60,12 @@ def main():
     xsl_path = get_xsl_path(args.edition)
     edition_lang = EDITIONS[args.edition]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
-    snapshot_date, chunk_identifiers = get_snapshot_chunks(snapshot_identifier)
+    snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
     glos_dict = {}
     add_files = {}
     Glossary.init()
-    for chunk_identifier in chunk_identifiers:
+    for chunk_idx in range(chunk_num):
+        chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
         if not chunk_zst_path.exists():
             download_chunk(chunk_identifier, chunk_zst_path)
