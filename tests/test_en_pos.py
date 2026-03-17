@@ -13,7 +13,8 @@ class EnPOSTestCase(XMLTestCase):
 <section data-mw-section-id="7" id="mwLA"><h4 id="Noun">Noun</h4>
 <p id="mwLQ"><span class="headword-line" about="#mwt16" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"en-noun","href":"./Template:en-noun"},"params":{},"i":0}}]}' id="mwLg"><strong class="Latn headword" lang="en">tee</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en"><a rel="mw:WikiLink" href="./tees#English" title="tees">tees</a></b>)</span><link rel="mw:PageProp/Category" href="./Category:English_lemmas#TEE" about="#mwt16"/></p>
 
-<ol id="mwMA"><li id="mwMQ"><span class="use-with-mention" about="#mwt17" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"Latn-def","href":"./Template:Latn-def"},"params":{"1":{"wt":"en"},"2":{"wt":"name"},"3":{"wt":"T"},"4":{"wt":"t"}},"i":0}}]}' id="mwMg">The name of the <a rel="mw:WikiLink" href="./Appendix:Latin_script" title="Appendix:Latin script">Latin script</a> letter <i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./T#English" title="T">T</a></i>/<i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./t#English" title="t">t</a></i>.</span><link rel="mw:PageProp/Category" href="./Category:en:Latin_letter_names#TEE" about="#mwt17" id="mwMw"/></li></ol>
+<ol id="mwMA"><li id="mwMQ"><span class="use-with-mention" about="#mwt17" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"Latn-def","href":"./Template:Latn-def"},"params":{"1":{"wt":"en"},"2":{"wt":"name"},"3":{"wt":"T"},"4":{"wt":"t"}},"i":0}}]}' id="mwMg">The name of the <a rel="mw:WikiLink" href="./Appendix:Latin_script" title="Appendix:Latin script">Latin script</a> letter <i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./T#English" title="T">T</a></i>/<i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./t#English" title="t">t</a></i>.</span><link rel="mw:PageProp/Category" href="./Category:en:Latin_letter_names#TEE" about="#mwt17" id="mwMw"/></li>
+<li class="mw-empty-elt"></li><li class="senseid"> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>clothing</a><span class="ib-comma label-comma">,</span><span> </span><a>informal</a></span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention"><a>Ellipsis</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>tee-shirt</a></i></span></span>.</li></ol>
 </section>
 </section>
 </body>
@@ -32,6 +33,7 @@ class EnPOSTestCase(XMLTestCase):
         <li>
           <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en">T</i>/<i class="Latn mention" lang="en">t</i>.</span>
         </li>
+        <li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">clothing<span class="ib-comma label-comma">,</span><span> </span>informal</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Ellipsis of <span class="form-of-definition-link"><i class="Latn mention" lang="en">tee-shirt</i></span></span>.</li>
       </ol>
     </section>""",
                     [],

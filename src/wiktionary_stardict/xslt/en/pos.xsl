@@ -81,16 +81,11 @@
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">
-    <xsl:variable name="lists">
-      <xsl:apply-templates select="li" mode="pos-li"/>
-    </xsl:variable>
-    <xsl:if test="$lists/*">
-      <ol><xsl:copy-of select="$lists"/></ol>
-    </xsl:if>
+    <ol><xsl:apply-templates mode="pos-li"/></ol>
   </xsl:template>
 
   <xsl:template match="li" mode="pos-li">
-    <xsl:if test="myfn:is_gloss_li(.)">
+    <xsl:if test="node()">
       <li><xsl:apply-templates mode="pos-li"/></li>
     </xsl:if>
   </xsl:template>
@@ -132,7 +127,7 @@
   <xsl:function name="myfn:is_gloss_li" as="xs:boolean">
     <xsl:param name="n" as="node()"/>
     <xsl:sequence
-        select="($n/* or $n/text()) and
+        select="$n/node() and
                 not($n/span[contains-token(@class, 'form-of-definition')])"/>
   </xsl:function>
 
