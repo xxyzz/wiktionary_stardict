@@ -20,17 +20,20 @@
         select="p/span[@class='headword-line']"/>
     <xsl:variable
         name="headword-strong"
-        select="for $b in $headword-span/strong[contains(@class, 'headword')] return myfn:ruby_text($b)"
+        select="for $b in $headword-span/strong[contains(@class, 'headword')]
+                return myfn:ruby_text($b)"
         as="xs:string*"/>
     <xsl:variable
         name="headword-forms"
-        select="for $b in $headword-span//b[contains(@class, 'form-of')] return myfn:ruby_text($b)"
+        select="for $b in $headword-span//b[contains(@class, 'form-of')]
+                return myfn:ruby_text($b)"
         as="xs:string*"/>
     <xsl:variable
         name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>
 
     <xsl:if test="ol/li[myfn:is_gloss_li(.)]">
-      <xsl:variable name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
+      <xsl:variable name="alt-forms" as="xs:string*"
+                    select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select="section[(h4 | h5 | h6)//text() = ('Conjugation', 'Declension')]"
@@ -39,7 +42,8 @@
       <xsl:variable
           name="unique-forms"
           select="distinct-values(
-                  ($headword-strong, $title, $alt-forms, $headword-forms, $conj-forms)[. != ''])"
+                  ($headword-strong, $title, $alt-forms, $headword-forms, $conj-forms)
+                  [. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
@@ -64,7 +68,11 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
-      <xsl:sequence select="array{$language, array{$unique-forms}, $final-definition, array{$images}}"/>
+      <xsl:sequence
+          select="array{$language,
+                  array{$unique-forms},
+                  $final-definition,
+                  array{$images}}"/>
     </xsl:if>
   </xsl:template>
 
@@ -101,9 +109,13 @@
     <xsl:variable
         name="color-panel"
         select="dd[div[contains(@class, 'color-panel')]]"/>
-    <xsl:if test="$examples/* or $color-panel/*">
+    <xsl:variable
+        name="nyms"
+        select="dd[span[tokenize(@class, '\s+') = ('nyms', 'synonym', 'antonym')]]"/>
+    <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>
+        <xsl:apply-templates select="$nyms" mode="pos-nyms"/>
         <xsl:apply-templates
             select="($examples[string-length() = min($examples/string-length())])[1]"
             mode="clean-content"/>
@@ -118,6 +130,23 @@
   <xsl:function name="myfn:is_gloss_li" as="xs:boolean">
     <xsl:param name="n" as="node()"/>
     <xsl:sequence
-        select="($n/* or $n/text()) and not($n/span[contains(@class, 'form-of-definition')])"/>
+        select="($n/* or $n/text()) and
+                not($n/span[contains(@class, 'form-of-definition')])"/>
   </xsl:function>
+
+  <xsl:template match="dd" mode="pos-nyms">
+    <xsl:if test="not(span/i[text() = 'see'])">
+      <xsl:variable name="result">
+        <xsl:apply-templates select="span" mode="pos-nyms"/>
+      </xsl:variable>
+      <dd><xsl:apply-templates select="$result" mode="clean-content"/></dd>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="span" mode="pos-nyms">
+    <span>
+      <xsl:copy-of select="@*"/>
+      <xsl:copy-of select="node()[not(self::i or preceding-sibling::i)]"/>
+    </span>
+  </xsl:template>
 </xsl:stylesheet>

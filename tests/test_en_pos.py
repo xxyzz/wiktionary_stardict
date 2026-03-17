@@ -450,3 +450,40 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_synonyms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>hypocrite</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">hypocrite</strong>
+  </span>
+</p>
+<ol><li>gloss<dl>
+<dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en"><a>flip-flopper</a></span>, <span class="Latn" lang="en"><a>pretender</a></span>; <i>see also</i> <a>Thesaurus:<span class="Latn" lang="en">deceiver</span></a></span></dd>
+<dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <i>see</i> <a>Thesaurus:<span class="Latn" lang="en">dictionary</span></a></span></dd>
+</dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["hypocrite"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">hypocrite</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en">flip-flopper</span>, <span class="Latn" lang="en">pretender</span>; </span></dd></dl></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
