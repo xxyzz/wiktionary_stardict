@@ -14,6 +14,13 @@
     <xsl:variable
         name="pos" select="normalize-space((h3 | h4 | h5 | h6)[1])" as="xs:string"/>
     <xsl:if test="not(starts-with($pos, 'Forma '))">
+      <xsl:variable
+          name="headword-forms"
+          select="if (p) then myfn:headword-forms(p) else ()" as="xs:string*"/>
+      <xsl:variable name="unique-forms"
+                    select="distinct-values(($title, $headword-forms)[. != ''])"
+                    as="xs:string*"/>
+
       <xsl:variable name="definition">
         <section>
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos"/>
@@ -29,8 +36,10 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
-      <xsl:sequence
-          select="array{$language, array{$title}, $final-definition, array{$images}}"/>
+      <xsl:sequence select="array{$language,
+                            array{$unique-forms},
+                            $final-definition,
+                            array{$images}}"/>
     </xsl:if>
   </xsl:template>
 
@@ -65,4 +74,13 @@
   <xsl:template match="*" mode="pos">
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>
+
+  <xsl:function name="myfn:headword-forms" as="xs:string*">
+    <xsl:param name="node" as="node()"/>
+    <xsl:for-each-group
+        select="$node/a"
+        group-starting-with="a[preceding-sibling::*[1][normalize-space() != '']]">
+      <xsl:sequence select="string-join(current-group(), ' ')"/>
+    </xsl:for-each-group>
+  </xsl:function>
 </xsl:stylesheet>

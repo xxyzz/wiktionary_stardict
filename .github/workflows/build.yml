@@ -5,7 +5,7 @@ on:
     tags:
       - '*'
   schedule:
-    - cron: '42 1 15 * *'
+    - cron: '42 2 15 * *'
   workflow_run:
     workflows: [test]
     types:

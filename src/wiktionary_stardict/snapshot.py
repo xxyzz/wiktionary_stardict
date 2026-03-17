@@ -1,12 +1,12 @@
 from pathlib import Path
 
+RELEASE_URL = "https://github.com/xxyzz/snapshot/releases/latest/download/"
+
 
 def get_snapshot_chunks(identifier: str) -> tuple[str, int]:
     import requests
 
-    r = requests.get(
-        f"https://github.com/xxyzz/snapshot/releases/latest/download/{identifier}.json"
-    )
+    r = requests.get(f"{RELEASE_URL}{identifier}.json")
     data = r.json()
     return data["date"], data["chunks"]
 
@@ -14,10 +14,7 @@ def get_snapshot_chunks(identifier: str) -> tuple[str, int]:
 def download_chunk(chunk_identifier: str, path: Path):
     import requests
 
-    r = requests.get(
-        f"https://github.com/xxyzz/snapshot/releases/latest/download/{chunk_identifier}.zst",
-        stream=True,
-    )
+    r = requests.get(f"{RELEASE_URL}{chunk_identifier}.zst", stream=True)
     path.parent.mkdir(exist_ok=True)
     with path.open("wb") as f:
         for chunk in r.iter_content(chunk_size=8192):

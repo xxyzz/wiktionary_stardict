@@ -44,3 +44,61 @@ class EsPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_es_sust_space(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>arco iris</title></head>
+<body>
+<section><h2><a>Español</a></h2>
+<section><h3><span>Locución sustantiva masculina</span></h3>
+<p><b>arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>arc<span>os</span></a><span> </span><a>iri<span>s</span></a></p>
+
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["arco iris", "arcos iris"],
+                    """<section>
+<h4><span>Locución sustantiva masculina</span></h4>
+<p><b>arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>arc<span>os</span><span> </span>iri<span>s</span></p>
+
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                    [],
+                ],
+            ],
+        )
+
+    def test_es_sust_comma(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>gurú</title></head>
+<body>
+<section><h2><a>Español</a></h2>
+<section><h3><span>Sustantivo femenino y masculino</span></h3>
+<p><b>gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>gur<span>ús</span></a><span>, </span><a>gur<span>úes</span></a></p>
+
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["gurú", "gurús", "gurúes"],
+                    """<section>
+<h4><span>Sustantivo femenino y masculino</span></h4>
+<p><b>gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>gur<span>ús</span><span>, </span>gur<span>úes</span></p>
+
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                    [],
+                ],
+            ],
+        )
