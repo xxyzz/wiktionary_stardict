@@ -50,7 +50,6 @@
               select="(preceding-sibling::section | ancestor::section/section)
                       [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')]"
               mode="pron">
-            <xsl:with-param name="pos" select="$pos"/>
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>

@@ -14,7 +14,8 @@ class EnPronunciationTestCase(XMLTestCase):
 <ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent"><a title="w:Received Pronunciation" class="extiw">Received Pronunciation</a></span></span><span class="ib-brac qualifier-brac">)</span><span> </span><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(<a title="Appendix:English pronunciation">key</a>)</sup><span>:</span><span> </span><span class="IPA nowrap">/ˈbɜːsɜːk/</span></li>
 </ul></li>
 <li><a title="Appendix:Glossary">Adjective</a>:
-<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent"><a title="w:Received Pronunciation" class="extiw">Received Pronunciation</a></span></span><span class="ib-brac qualifier-brac">)</span><span> </span><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(<a title="Appendix:English pronunciation">key</a>)</sup><span>:</span><span> </span><span class="IPA nowrap">/bəˈzɜːk/</span></li></ul></li></ul></section>
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent"><a title="w:Received Pronunciation" class="extiw">Received Pronunciation</a></span></span><span class="ib-brac qualifier-brac">)</span><span> </span><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(<a title="Appendix:English pronunciation">key</a>)</sup><span>:</span><span> </span><span class="IPA nowrap">/bəˈzɜːk/</span></li></ul></li>
+<li><span>Hyphenation: </span><span class="Latn" lang="en">ber‧serk</span></li></ul></section>
 
 <section><h3>Adjective</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">berserk</strong></span></p>
@@ -27,27 +28,20 @@ class EnPronunciationTestCase(XMLTestCase):
                 [
                     ["berserk"],
                     """<section>
-      <h4>Adjective</h4>
-      <ul>
-        <li>
-          <span class="ib-brac qualifier-brac">(</span>
-          <span class="ib-content qualifier-content">
-            <span class="usage-label-accent">Received Pronunciation</span>
-          </span>
-          <span class="ib-brac qualifier-brac">)</span>
-          <span> </span>IPA<span>:</span><span> </span>
-          <span class="IPA nowrap">/bəˈzɜːk/</span>
-       </li>
-      </ul>
-      <p>
-        <span class="headword-line">
-          <strong class="Latn headword" lang="en">berserk</strong>
-        </span>
-      </p>
-      <ol>
-        <li>gloss</li>
-      </ol>
-    </section>""",
+<h4>Adjective</h4>
+<ul>
+<li>Noun:
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">Received Pronunciation</span></span><span class="ib-brac qualifier-brac">)</span><span> </span>IPA<span>:</span><span> </span><span class="IPA nowrap">/ˈbɜːsɜːk/</span></li>
+</ul></li>
+<li>Adjective:
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">Received Pronunciation</span></span><span class="ib-brac qualifier-brac">)</span><span> </span>IPA<span>:</span><span> </span><span class="IPA nowrap">/bəˈzɜːk/</span></li></ul></li>
+<li><span>Hyphenation: </span><span class="Latn" lang="en">ber‧serk</span></li>
+</ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">berserk</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
                     [],
                 ]
             ],
@@ -204,6 +198,41 @@ class EnPronunciationTestCase(XMLTestCase):
 <p>
   <span class="headword-line">
     <strong class="Jpan headword" lang="ja">寝椅子</strong>
+  </span>
+</p>
+<ol><li>gloss</li></ol>
+</section>""",
+                    [],
+                ]
+            ],
+        )
+
+    def test_syllabification(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>diccionario</title></head>
+<body>
+<section><h2>Spanish</h2>
+<section><h3>Pronunciation</h3>
+<ul><li>Syllabification: <span class="Latn" lang="es">dic‧cio‧na‧rio</span></li></ul>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="es">diccionario</strong></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["diccionario"],
+                    """<section>
+<h4>Noun</h4>
+<ul><li>Syllabification: <span class="Latn" lang="es">dic‧cio‧na‧rio</span></li></ul>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="es">diccionario</strong>
   </span>
 </p>
 <ol><li>gloss</li></ol>
