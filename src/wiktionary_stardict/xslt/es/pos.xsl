@@ -8,6 +8,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:include href="../image.xsl"/>
+  <xsl:include href="conjugation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -17,9 +18,20 @@
       <xsl:variable
           name="headword-forms"
           select="if (p) then myfn:headword-forms(p) else ()" as="xs:string*"/>
-      <xsl:variable name="unique-forms"
-                    select="distinct-values(($title, $headword-forms)[. != ''])"
-                    as="xs:string*"/>
+      <xsl:variable
+          name="conj-section"
+          select="(section | following-sibling::section)
+                  [normalize-space(h3|h4|h5|h6) = 'Conjugación']"/>
+      <xsl:variable
+          name="conj-forms"
+          select="if (starts-with($pos, 'Verbo') and $conj-section)
+                  then myfn:conj-forms($conj-section) else ()"
+          as="xs:string*"/>
+
+      <xsl:variable
+          name="unique-forms"
+          select="distinct-values(($title, $headword-forms, $conj-forms)[. != ''])"
+          as="xs:string*"/>
 
       <xsl:variable name="definition">
         <section>
@@ -56,7 +68,8 @@
   </xsl:template>
 
   <xsl:template match="ul" mode="pos">
-    <xsl:variable name="linkages" select="li[b/text() = ('Sinónimos:', 'Antónimo:')]"/>
+    <xsl:variable name="linkages"
+                  select="li[b/text() = ('Sinónimos:', 'Antónimo:', 'Uso:')]"/>
     <xsl:variable
         name="examples"
         select="li[b/text() = 'Ejemplo:' and
