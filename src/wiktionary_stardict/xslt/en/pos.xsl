@@ -20,12 +20,12 @@
         select="p/span[@class='headword-line']"/>
     <xsl:variable
         name="headword-strong"
-        select="for $b in $headword-span/strong[contains(@class, 'headword')]
+        select="for $b in $headword-span/strong[contains-token(@class, 'headword')]
                 return myfn:ruby_text($b)"
         as="xs:string*"/>
     <xsl:variable
         name="headword-forms"
-        select="for $b in $headword-span//b[contains(@class, 'form-of')]
+        select="for $b in $headword-span//b[contains-token(@class, 'form-of')]
                 return myfn:ruby_text($b)"
         as="xs:string*"/>
     <xsl:variable
@@ -102,20 +102,22 @@
   <xsl:template match="dl" mode="pos-li">
     <xsl:variable
         name="examples"
-        select="dd[div[contains(@class, 'h-usage-example')] or
-                span[tokenize(@class, '\s+') =
-                     ('e-example', 'affixusex', 'mwe-math-element')] or
-                dl[contains(@class, 'zhusex')]]"/>
+        select="dd[div[contains-token(@class, 'h-usage-example')] or
+                span[some $c in ('e-example', 'affixusex', 'mwe-math-element')
+                satisfies contains-token(@class, $c)] or
+                dl[contains-token(@class, 'zhusex')]]"/>
     <xsl:variable
         name="color-panel"
-        select="dd[div[contains(@class, 'color-panel')]]"/>
+        select="dd[div[contains-token(@class, 'color-panel')]]"/>
     <xsl:variable
         name="nyms"
-        select="dd[span[tokenize(@class, '\s+') = ('nyms', 'synonym', 'antonym')]]"/>
+        select="dd[span[contains-token(@class, 'nyms') and
+                (some $c in ('synonym', 'antonym', 'alternative-form',
+                'coordinate-term') satisfies contains-token(@class, $c))]]"/>
     <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>
-        <xsl:apply-templates select="$nyms" mode="pos-nyms"/>
+        <xsl:apply-templates select="$nyms" mode="clean-content"/>
         <xsl:apply-templates
             select="($examples[string-length() = min($examples/string-length())])[1]"
             mode="clean-content"/>
@@ -131,17 +133,8 @@
     <xsl:param name="n" as="node()"/>
     <xsl:sequence
         select="($n/* or $n/text()) and
-                not($n/span[contains(@class, 'form-of-definition')])"/>
+                not($n/span[contains-token(@class, 'form-of-definition')])"/>
   </xsl:function>
-
-  <xsl:template match="dd" mode="pos-nyms">
-    <xsl:if test="not(span/i[text() = 'see'])">
-      <xsl:variable name="result">
-        <xsl:apply-templates select="span" mode="pos-nyms"/>
-      </xsl:variable>
-      <dd><xsl:apply-templates select="$result" mode="clean-content"/></dd>
-    </xsl:if>
-  </xsl:template>
 
   <xsl:template match="span" mode="pos-nyms">
     <span>

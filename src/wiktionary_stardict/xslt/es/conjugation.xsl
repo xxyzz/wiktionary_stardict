@@ -18,8 +18,9 @@
     <xsl:param name="td" as="element(td)"/>
     <xsl:for-each-group
         select="$td/a"
-        group-adjacent="if (normalize-space(preceding-sibling::text()) = ',') then
-                        'after-comma' else 'before-comma'">
+        group-adjacent="if (starts-with(
+                        normalize-space(preceding-sibling::text()[1]), ','))
+                        then 'after-comma' else 'before-comma'">
       <xsl:sequence select="normalize-space(current-group()[last()])"/>
     </xsl:for-each-group>
   </xsl:function>

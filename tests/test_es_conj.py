@@ -45,3 +45,34 @@ class EsConjTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_inconformarse(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>inconformarse</title></head>
+<body>
+<section><h2><a>Español</a></h2>
+<section><h4>Verbo pronominal</h4>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>
+<section><h3>Conjugación</h3>
+<table><tbody><tr>
+<td><span class="movil">que tú<span> </span></span>te <a>inconformaras</a>, te <a>inconformases</a></td>
+<td><span class="movil">que tú<span> </span></span>te <a>hubieras</a><a> inconformado</a>, te <a>hubieses</a><a> inconformado</a></td>
+</tr></tbody></table>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["inconformarse", "inconformaras", "inconformases", "inconformado"],
+                    """<section>
+<h4>Verbo pronominal</h4>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                    [],
+                ],
+            ],
+        )

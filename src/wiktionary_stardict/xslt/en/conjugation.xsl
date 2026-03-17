@@ -8,6 +8,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="conj" as="xs:string*">
-    <xsl:sequence select="for $span in .//span[contains(@class, 'form-of')] return myfn:ruby_text($span)"/>
+    <xsl:sequence select="for $span in .//span[contains-token(@class, 'form-of')]
+                          return myfn:ruby_text($span)"/>
   </xsl:template>
 </xsl:stylesheet>

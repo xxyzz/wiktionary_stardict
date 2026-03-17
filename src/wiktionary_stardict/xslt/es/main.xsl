@@ -26,8 +26,10 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
+    <xsl:variable name="h2-text" select="normalize-space(h2)"/>
     <xsl:apply-templates select=".//section[dl]" mode="pos">
-      <xsl:with-param name="language" select="normalize-space(h2)"/>
+      <xsl:with-param
+          name="language" select="$allowed-languages[starts-with($h2-text, .)][1]"/>
     </xsl:apply-templates>
   </xsl:template>
 </xsl:stylesheet>

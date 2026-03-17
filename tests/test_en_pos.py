@@ -467,6 +467,7 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>gloss<dl>
 <dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en"><a>flip-flopper</a></span>, <span class="Latn" lang="en"><a>pretender</a></span>; <i>see also</i> <a>Thesaurus:<span class="Latn" lang="en">deceiver</span></a></span></dd>
 <dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <i>see</i> <a>Thesaurus:<span class="Latn" lang="en">dictionary</span></a></span></dd>
+<dd><span class="nyms hypernym"><span style="font-size: smaller">Hypernym:</span> <span class="Latn" lang="en"><a>wordbook</a></span></span></dd>
 </dl></li></ol>
 </section>
 </section>
@@ -481,7 +482,10 @@ class EnPOSTestCase(XMLTestCase):
     <strong class="Latn headword" lang="en">hypocrite</strong>
   </span>
 </p>
-<ol><li>gloss<dl><dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en">flip-flopper</span>, <span class="Latn" lang="en">pretender</span>; </span></dd></dl></li></ol>
+<ol><li>gloss<dl>
+<dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en">flip-flopper</span>, <span class="Latn" lang="en">pretender</span>; <i>see also</i> Thesaurus:<span class="Latn" lang="en">deceiver</span></span></dd>
+<dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <i>see</i> Thesaurus:<span class="Latn" lang="en">dictionary</span></span></dd>
+</dl></li></ol>
 </section>""",
                     [],
                 ],

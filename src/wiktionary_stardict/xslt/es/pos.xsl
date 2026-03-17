@@ -19,11 +19,11 @@
     <xsl:if test="not(starts-with($pos, 'Forma '))">
       <xsl:variable
           name="headword-forms"
-          select="if (p) then myfn:headword-forms(p) else ()" as="xs:string*"/>
+          select="for $p in p[b] return myfn:headword-forms($p)" as="xs:string*"/>
       <xsl:variable
           name="conj-section"
           select="(section | following-sibling::section)
-                  [normalize-space(h3|h4|h5|h6) = 'Conjugación']"/>
+                  [normalize-space(h3|h4|h5|h6) = 'Conjugación'][1]"/>
       <xsl:variable
           name="conj-forms"
           select="if (starts-with($pos, 'Verbo') and $conj-section)
@@ -41,7 +41,7 @@
           <xsl:apply-templates
               select="ancestor::section/table[@data-mw]
                       [myfn:is-template(@data-mw, 'pron-graf')]" mode="pron"/>
-          <xsl:apply-templates select="p | dl" mode="pos"/>
+          <xsl:apply-templates select="p[b] | dl" mode="pos"/>
         </section>
       </xsl:variable>
 
@@ -79,7 +79,7 @@
     <xsl:variable
         name="examples"
         select="li[b/text() = 'Ejemplo:' and
-                not(div[contains(@class, 'mw-collapsed')])]"/>
+                not(div[contains-token(@class, 'mw-collapsed')])]"/>
     <xsl:if test="$linkages/* or $examples/*">
       <ul>
         <xsl:apply-templates select="$linkages" mode="clean-content"/>

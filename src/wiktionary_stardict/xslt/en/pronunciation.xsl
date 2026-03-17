@@ -36,7 +36,7 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pron-ul">
-    <xsl:if test="not(table[contains(@class, 'audiotable')]) and
+    <xsl:if test="not(table[contains-token(@class, 'audiotable')]) and
                   (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
                   .//text()[normalize-space() = 'Syllabification:'] or
                   .//span[normalize-space() = 'Hyphenation:'])">

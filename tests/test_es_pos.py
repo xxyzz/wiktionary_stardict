@@ -103,7 +103,7 @@ class EsPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_lang_name(self):
+    def test_ja_lang_name(self):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
@@ -121,6 +121,34 @@ class EsPOSTestCase(XMLTestCase):
                     ["世界"],
                     """<section>
 <h4>Sustantivo</h4>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                    [],
+                ],
+            ],
+        )
+
+    def test_redundant_p(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>audino</title></head>
+<body>
+<section><h2>Español</h2>
+<section><h3>Adjetivo</h3>
+<p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span><a>audin<span>os</span></a></p>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+<p><br/></p>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["audino", "audinos"],
+                    """<section>
+<h4>Adjetivo</h4>
+<p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span>audin<span>os</span></p>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
                     [],
