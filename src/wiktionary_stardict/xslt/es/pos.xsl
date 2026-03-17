@@ -8,7 +8,9 @@
     exclude-result-prefixes="#all">
 
   <xsl:include href="../image.xsl"/>
+  <xsl:include href="../utils.xsl"/>
   <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -36,6 +38,9 @@
       <xsl:variable name="definition">
         <section>
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos"/>
+          <xsl:apply-templates
+              select="ancestor::section/table[@data-mw]
+                      [myfn:is-template(@data-mw, 'pron-graf')]" mode="pron"/>
           <xsl:apply-templates select="p | dl" mode="pos"/>
         </section>
       </xsl:variable>
