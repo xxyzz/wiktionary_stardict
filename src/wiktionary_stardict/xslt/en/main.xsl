@@ -46,11 +46,6 @@
   <!-- IPA key link -->
   <xsl:template match="sup[normalize-space(.) = '(key)']" mode="clean-content"/>
 
-  <xsl:template
-      match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
-  <xsl:template
-      match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
-
   <!-- Remove "audio" element expanded from "score sound" -->
   <xsl:template match="div[audio]" mode="clean-content"/>
 </xsl:stylesheet>

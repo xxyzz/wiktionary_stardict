@@ -6,5 +6,6 @@
       select="('Español',
               'Inglés',
               'Alemán',
-              'Francés')"/>
+              'Francés',
+              'Japonés')"/>
 </xsl:stylesheet>

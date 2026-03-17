@@ -1,0 +1,35 @@
+h4 {
+  margin: 0.25em 0;
+  padding-bottom: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ul {
+  list-style-type: disc !important;
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+.definicion-impropia {
+  font-style: italic;
+}
+li {
+  margin-bottom: 0.1em;
+}
+dl {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+dt {
+  font-weight: bold;
+  margin-bottom: 0.1em;
+}
+dd {
+  margin-bottom: 0.1em;
+  margin-left: 1.6em;
+  margin-right: 0;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+}

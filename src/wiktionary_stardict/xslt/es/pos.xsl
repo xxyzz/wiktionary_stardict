@@ -73,8 +73,9 @@
   </xsl:template>
 
   <xsl:template match="ul" mode="pos">
-    <xsl:variable name="linkages"
-                  select="li[b/text() = ('Sinónimos:', 'Antónimo:', 'Uso:')]"/>
+    <xsl:variable
+        name="linkages"
+        select="li[b/text() = ('Sinónimos:', 'Antónimo:', 'Uso:', 'Ámbito')]"/>
     <xsl:variable
         name="examples"
         select="li[b/text() = 'Ejemplo:' and

@@ -102,3 +102,28 @@ class EsPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_lang_name(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>世界</title></head>
+<body>
+<section><h2><a>Japonés</a><span> </span><small>(Kanji)</small></h2>
+<section><h3>Sustantivo</h3>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["世界"],
+                    """<section>
+<h4>Sustantivo</h4>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                    [],
+                ],
+            ],
+        )
