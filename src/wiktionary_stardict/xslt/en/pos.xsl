@@ -98,9 +98,10 @@
     <xsl:variable
         name="examples"
         select="dd[div[contains-token(@class, 'h-usage-example')] or
-                span[some $c in ('e-example', 'affixusex', 'mwe-math-element')
-                satisfies contains-token(@class, $c)] or
-                dl[contains-token(@class, 'zhusex')]]"/>
+                span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
+                'h-usage-example') satisfies contains-token(@class, $c)] or
+                dl[contains-token(@class, 'zhusex')] or
+                span[@data-mw][myfn:is-template(@data-mw, 'zh-co')]]"/>
     <xsl:variable
         name="color-panel"
         select="dd[div[contains-token(@class, 'color-panel')]]"/>
@@ -108,7 +109,9 @@
         name="nyms"
         select="dd[span[contains-token(@class, 'nyms') and
                 (some $c in ('synonym', 'antonym', 'alternative-form',
-                'coordinate-term') satisfies contains-token(@class, $c))]]"/>
+                'coordinate-term', 'near-synonym', 'Active-voice-counterpart')
+                satisfies contains-token(@class, $c))]] |
+                dd[span[@data-mw][myfn:is-template(@data-mw, 'zh-also')]]"/>
     <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>

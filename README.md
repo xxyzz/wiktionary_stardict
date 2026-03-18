@@ -1,6 +1,6 @@
 # Wiktionary StarDict
 
-<img src="./docs/screenshot.png" style="width:40%;">
+<img style="width:40%;" src="https://github.com/user-attachments/assets/230a8829-669d-4954-b94c-26f1087f0659"/>
 
 Data source: https://enterprise.wikimedia.com
 

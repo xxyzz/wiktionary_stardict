@@ -584,3 +584,39 @@ class EnPOSTestCase(XMLTestCase):
                 ],
             ],
         )
+
+    def test_zh_also_zh_co(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>底</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Hani headword" lang="zh">底</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd><span data-mw='{"parts":[{"template":{"target":{"wt":"zh-also"}}}]}'>See also: </span><span class="Hani" lang="zh">年底</span><span>, </span><span class="Hani" lang="zh">月底</span></dd>
+<dd><span lang="zh-Hant" class="Hant" data-mw='{"parts":[{"template":{"target":{"wt":"zh-co"}}}]}'>六月<b>底</b></span><span> </span><span><span>[</span>Cantonese<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i>luk<sup>6</sup> jyut<sup>6</sup> <b>dai<sup>2</sup></b> </i></span><span> </span><span><span>[</span>Jyutping<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><b>end</b><span> of June</span></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["底"],
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Hani headword" lang="zh">底</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd><span>See also: </span><span class="Hani" lang="zh">年底</span><span>, </span><span class="Hani" lang="zh">月底</span></dd>
+<dd><span lang="zh-Hant" class="Hant">六月<b>底</b></span><span> </span><span><span>[</span>Cantonese<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i>luk<sup>6</sup> jyut<sup>6</sup> <b>dai<sup>2</sup></b> </i></span><span> </span><span><span>[</span>Jyutping<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><b>end</b><span> of June</span></dd></dl></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
