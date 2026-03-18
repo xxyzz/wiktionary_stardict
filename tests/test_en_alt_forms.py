@@ -22,7 +22,7 @@ class EnAltFormsTestCase(XMLTestCase):
             [
                 [
                     ["berserker", "berserkar", "berserkers"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -73,7 +73,7 @@ class EnAltFormsTestCase(XMLTestCase):
             [
                 [
                     ["大家", "乾家", "干家"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -125,7 +125,7 @@ class EnAltFormsTestCase(XMLTestCase):
             [
                 [
                     ["白麵", "白麪", "白面"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -179,7 +179,7 @@ class EnAltFormsTestCase(XMLTestCase):
             [
                 [
                     ["門閥", "门阀"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -219,7 +219,7 @@ class EnAltFormsTestCase(XMLTestCase):
             [
                 [
                     ["痛い", "甚い", "イタい"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
   <h4>Adjective</h4>
   <p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>い</strong> • (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja">itai</span></span>)<span> </span><i><abbr title="-i (type I) inflection">-i</abbr></i> (<i>adverbial</i> <b class="Jpan" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>く</b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">itaku</span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
   <ol><li><span>gloss</span></li></ol>

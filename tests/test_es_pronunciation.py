@@ -32,7 +32,7 @@ class EsPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["acontecer"],
-                    """<section>
+                    """<section dir="ltr" lang="es">
 <h4>Verbo intransitivo y terciopersonal</h4>
 <ul>
 <li><b>seseante</b> (AFI): [akõn̪t̪eˈseɾ]</li>

@@ -27,7 +27,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["berserk"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
 <h4>Adjective</h4>
 <ul>
 <li>Noun:
@@ -69,7 +69,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["languid"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Adjective</h4>
       <ul>
         <li>
@@ -111,7 +111,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["痛い"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
 <h4>Adjective</h4>
 <ul>
   <li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">い<span style="border-top:1px solid;position:relative;padding:1px;">た<span style="position:absolute;top:0;bottom:67%;right:0%;border-right:1px solid;"></span></span>い</span> <span class="Latn"><samp>[ìtáꜜì]</samp></span> (Nakadaka – [2])</li>
@@ -152,7 +152,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["大家"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
 <h4>Pronoun</h4>
 <dl><dd><small>(<i>Pinyin</i>)</small>: <span class="zhpron-monospace form-of pinyin-ts-form-of" lang="cmn"><span class="Latn" lang="cmn">dàjiā</span>, <span class="Latn" lang="cmn">dà'ā</span></span></dd>
 <dd><small>(<i>Zhuyin</i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl>
@@ -191,7 +191,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["寝椅子"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
 <h4>Pronoun</h4>
 <ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">ね<span style="border-top:1px;">いす</span></span> <span class="Latn"><samp>[nèísú]</samp></span> (Heiban – [0])</li></ul>
 <ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Kyōto</span><span class="ib-brac label-brac">)</span></span> <span class="Jpan" lang="ja"><span style="border-top:1px;">ね<span style="position:absolute;">​</span></span>いす</span><span> </span><span class="Latn"><samp>[néꜜìsù]</samp></span> (Kōki)</li></ul>
@@ -227,7 +227,7 @@ class EnPronunciationTestCase(XMLTestCase):
             [
                 [
                     ["diccionario"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
 <h4>Noun</h4>
 <ul><li>Syllabification: <span class="Latn" lang="es">dic‧cio‧na‧rio</span></li></ul>
 <p>

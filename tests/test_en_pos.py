@@ -22,7 +22,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["tee", "tees"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -76,7 +76,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["-ego"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -120,7 +120,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["-άρης"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -168,7 +168,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["tee"],
-                    """<section>
+                    """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -207,7 +207,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["binomial series"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">binomial series</strong>
@@ -247,7 +247,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["ꜣḫt-jtn"],
-                    """<section><h4>Proper noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="None headword" lang="egy">
@@ -283,7 +283,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["säteri"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="fi">säteri</strong>
@@ -318,7 +318,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["Nile blue"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Nile blue</strong>
@@ -354,7 +354,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["rhombus"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">rhombus</strong>
@@ -393,7 +393,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["Italian augmented sixth chord"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Italian augmented sixth chord</strong>
@@ -434,7 +434,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["the binomial theorem", "binomial theorem"],
-                    """<section><h4>Proper noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">the binomial theorem</strong>
@@ -478,7 +478,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["hypocrite"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">hypocrite</strong>
@@ -516,7 +516,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 [
                     ["portmanteau", "portemanteau", "portmantua"],
-                    """<section><h4>Noun</h4>
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">portmanteau</strong>
@@ -524,6 +524,61 @@ class EnPOSTestCase(XMLTestCase):
 </p>
 <ol><li>gloss
 <dl><dd><span class="nyms alternative-form"><span style="font-size: smaller">Alternative forms:</span> <span class="Latn" lang="en">portemanteau</span>, <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">obsolete</span><span class="ib-brac qualifier-brac">)</span> <span class="Latn" lang="en">portmantua</span></span></dd></dl></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
+
+    def test_rm_rfdef(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>intrigued</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">intrigued</strong>
+  </span>
+</p>
+<ol><li><i typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"rfdef"}}}]}'>This term needs a definition. Please help out and <b>add a definition</b>, then remove the text <code style="white-space:pre-wrap"><span>{</span><span>{</span><a>rfdef</a><span>}</span><span>}</span></code></i><span>.</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [],
+        )
+
+    def test_rm_maintenance_line(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>hinge</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">hinge</strong>
+  </span>
+</p>
+<ol><li><span class="maintenance-line">(<span id="rfm-sense-notice-en-"></span>Should we <a >move, merge or split</a><sup class="plainlinks">(<a class="external text">+</a>)</sup> this sense?)</span> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>intransitive</a><span class="ib-comma label-comma">,</span><span> </span>with <i class="Latn mention" lang="en"><a>on</a></i> or <i class="Latn mention" lang="en"><a>upon</a></i></span><span class="ib-brac label-brac">)</span></span> To <a>depend</a> on something.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["hinge"],
+                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">hinge</strong>
+  </span>
+</p>
+<ol><li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">intransitive<span class="ib-comma label-comma">,</span><span> </span>with <i class="Latn mention" lang="en">on</i> or <i class="Latn mention" lang="en">upon</i></span><span class="ib-brac label-brac">)</span></span> To depend on something.</li></ol>
 </section>""",
                     [],
                 ],

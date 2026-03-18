@@ -29,7 +29,7 @@ class EsConjTestCase(XMLTestCase):
             [
                 [
                     ["acontecer", "acontecido", "aconteciera", "aconteciese"],
-                    """<section>
+                    """<section dir="ltr" lang="es">
 <h4>Verbo intransitivo y terciopersonal</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
@@ -37,7 +37,7 @@ class EsConjTestCase(XMLTestCase):
                 ],
                 [
                     ["acontecer"],
-                    """<section>
+                    """<section dir="ltr" lang="es">
 <h4>Sustantivo masculino</h4>
 <dl><dt>2</dt><dd>gloss</dd></dl>
 </section>""",
@@ -68,7 +68,7 @@ class EsConjTestCase(XMLTestCase):
             [
                 [
                     ["inconformarse", "inconformaras", "inconformases", "inconformado"],
-                    """<section>
+                    """<section dir="ltr" lang="es">
 <h4>Verbo pronominal</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
