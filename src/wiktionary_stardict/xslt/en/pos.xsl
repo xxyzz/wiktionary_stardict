@@ -41,13 +41,13 @@
       </xsl:variable>
       <xsl:variable
           name="unique-forms"
-          select="distinct-values(
-                  ($headword-strong, $title, $alt-forms, $headword-forms, $conj-forms)
+          select="distinct-values(($headword-strong, $title, $alt-forms,
+                  $headword-forms, $conj-forms, myfn:li-alt-forms(ol))
                   [. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
-        <section>
+        <section lang="en" dir="ltr">
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-li"/>
           <xsl:apply-templates
@@ -137,4 +137,12 @@
       <xsl:copy-of select="node()[not(self::i or preceding-sibling::i)]"/>
     </span>
   </xsl:template>
+
+  <xsl:function name="myfn:li-alt-forms" as="xs:string*">
+    <xsl:param name="ol" as="element(ol)*"/>
+    <xsl:sequence
+        select="$ol/li/dl/dd/span[contains-token(@class, 'nyms') and
+                contains-token(@class, 'alternative-form')]/
+                span[@lang]/normalize-space(.)"/>
+  </xsl:function>
 </xsl:stylesheet>

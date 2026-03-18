@@ -453,7 +453,7 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_synonyms(self):
+    def test_li_synonyms(self):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
@@ -488,6 +488,42 @@ class EnPOSTestCase(XMLTestCase):
 <dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <span class="Latn" lang="en">flip-flopper</span>, <span class="Latn" lang="en">pretender</span>; <i>see also</i> Thesaurus:<span class="Latn" lang="en">deceiver</span></span></dd>
 <dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <i>see</i> Thesaurus:<span class="Latn" lang="en">dictionary</span></span></dd>
 </dl></li></ol>
+</section>""",
+                    [],
+                ],
+            ],
+        )
+
+    def test_li_alt_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>portmanteau</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">portmanteau</strong>
+  </span>
+</p>
+<ol><li>gloss
+<dl><dd><span class="nyms alternative-form"><span style="font-size: smaller">Alternative forms:</span> <span class="Latn" lang="en"><a>portemanteau</a></span>, <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">obsolete</span><span class="ib-brac qualifier-brac">)</span> <span class="Latn" lang="en"><a>portmantua</a></span></span></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                [
+                    ["portmanteau", "portemanteau", "portmantua"],
+                    """<section><h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">portmanteau</strong>
+  </span>
+</p>
+<ol><li>gloss
+<dl><dd><span class="nyms alternative-form"><span style="font-size: smaller">Alternative forms:</span> <span class="Latn" lang="en">portemanteau</span>, <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">obsolete</span><span class="ib-brac qualifier-brac">)</span> <span class="Latn" lang="en">portmantua</span></span></dd></dl></li></ol>
 </section>""",
                     [],
                 ],
