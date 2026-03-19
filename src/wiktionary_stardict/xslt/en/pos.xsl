@@ -20,13 +20,13 @@
         select="p/span[@class='headword-line']"/>
     <xsl:variable
         name="headword-strong"
-        select="for $b in $headword-span/strong[contains-token(@class, 'headword')]
-                return myfn:ruby_text($b)"
+        select="myfn:ruby_text(
+                $headword-span/strong[contains-token(@class, 'headword')])"
         as="xs:string*"/>
     <xsl:variable
         name="headword-forms"
-        select="for $b in $headword-span//b[contains-token(@class, 'form-of')]
-                return myfn:ruby_text($b)"
+        select="myfn:ruby_text(
+                $headword-span//b[contains-token(@class, 'form-of') or @lang])"
         as="xs:string*"/>
     <xsl:variable
         name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>

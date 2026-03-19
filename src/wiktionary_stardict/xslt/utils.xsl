@@ -6,9 +6,13 @@
     xmlns:myfn="https://github.com/xxyzz"
     exclude-result-prefixes="#all">
 
-  <xsl:function name="myfn:ruby_text" as="xs:string">
-    <xsl:param name="node" as="node()"/>
-    <xsl:sequence select="normalize-space(string-join($node//text()[not(parent::rp or ancestor::rt)], ''))"/>
+  <xsl:function name="myfn:ruby_text" as="xs:string*">
+    <xsl:param name="nodes" as="node()*"/>
+    <xsl:for-each select="$nodes">
+      <xsl:sequence
+          select="normalize-space(
+                  string-join(.//text()[not(parent::rp or ancestor::rt)], ''))"/>
+    </xsl:for-each>
   </xsl:function>
 
   <xsl:function name="myfn:is-template" as="xs:boolean">

@@ -218,7 +218,7 @@ class EnAltFormsTestCase(XMLTestCase):
 </html>""",
             [
                 [
-                    ["痛い", "甚い", "イタい"],
+                    ["痛い", "甚い", "イタい", "痛く"],
                     """<section dir="ltr" lang="en">
   <h4>Adjective</h4>
   <p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>い</strong> • (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja">itai</span></span>)<span> </span><i><abbr title="-i (type I) inflection">-i</abbr></i> (<i>adverbial</i> <b class="Jpan" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>く</b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">itaku</span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
