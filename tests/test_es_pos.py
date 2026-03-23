@@ -28,9 +28,9 @@ class EsPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["correr"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "forms": ["correr"],
+                    "def": """<section dir="ltr" lang="es">
 <h4><span>Verbo intransitivo</span></h4>
 <dl><dt>1</dt><dd>Desplazarse rápidamente sobre el suelo mediante el movimiento alternado de las piernas o de las patas.</dd>
 <dt>2</dt><dd>Desplazarse rápidamente de cualquier otra forma, un vehículo, cosa o ser.
@@ -40,8 +40,7 @@ class EsPOSTestCase(XMLTestCase):
 <li><b>Antónimo:</b> <span>relajarse</span>.</li>
 </ul></dd></dl>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -61,16 +60,15 @@ class EsPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["arco iris", "arcos iris"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "forms": ["arco iris", "arcos iris"],
+                    "def": """<section dir="ltr" lang="es">
 <h4><span>Locución sustantiva masculina</span></h4>
 <p><b>arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>arc<span>os</span><span> </span>iri<span>s</span></p>
 
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -90,16 +88,15 @@ class EsPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["gurú", "gurús", "gurúes"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "forms": ["gurú", "gurús", "gurúes"],
+                    "def": """<section dir="ltr" lang="es">
 <h4><span>Sustantivo femenino y masculino</span></h4>
 <p><b>gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>gur<span>ús</span><span>, </span>gur<span>úes</span></p>
 
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
-                    [],
-                ],
+                }
             ],
         )
 
@@ -117,14 +114,14 @@ class EsPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["世界"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "lang": "Japonés",
+                    "forms": ["世界"],
+                    "def": """<section dir="ltr" lang="es">
 <h4>Sustantivo</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
-                    [],
-                ],
+                }
             ],
         )
 
@@ -144,14 +141,13 @@ class EsPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["audino", "audinos"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "forms": ["audino", "audinos"],
+                    "def": """<section dir="ltr" lang="es">
 <h4>Adjetivo</h4>
 <p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span>audin<span>os</span></p>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )

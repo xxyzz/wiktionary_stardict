@@ -1,29 +1,37 @@
 import logging
+from pathlib import Path
 
-EDITIONS = {"en": "English", "es": "Español"}
 logging.basicConfig(format="%(asctime)s %(levelname)s: %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_xsl_path(edition: str) -> str:
+def get_xsl_path(edition: str, file: str) -> str:
     from importlib.resources import files
 
-    return str(files("wiktionary_stardict") / "xslt" / edition / "main.xsl")
+    return str(files("wiktionary_stardict") / "xslt" / edition / file)
 
 
-def init_worker(xsl_path: str):
+def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None):
     from saxonche import PySaxonProcessor
+
+    from .zim import open_zim
 
     global proc, executable
     proc = PySaxonProcessor(license=False)
     xsltproc = proc.new_xslt30_processor()
     executable = xsltproc.compile_stylesheet(stylesheet_file=xsl_path)
+    if zim_path is not None:
+        global zim, zim_xsl_exec
+        zim = open_zim(zim_path)
+        zim_xsl_exec = xsltproc.compile_stylesheet(stylesheet_file=zim_xsl_path)
 
 
 def transform(line: str) -> list[list[str]]:
     import json
 
     from saxonche import PySaxonApiError
+
+    from .zim import get_zim_page
 
     data = json.loads(line)
     html = data["html"]
@@ -37,6 +45,19 @@ def transform(line: str) -> list[list[str]]:
     if json_result is None:
         logger.info(f"None result in page {data['name']}")
         return []
+    if zim is not None:
+        for data in json_result:
+            extra_forms = set()
+            for zim_page in data["zim_pages"]:
+                page_text = get_zim_page(zim, zim_page)
+                if page_text != "":
+                    try:
+                        zim_doc = proc.parse_xml(xml_text=page_text)
+                        zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
+                        extra_forms |= set(zim_result)
+                    except PySaxonApiError as err:
+                        logger.error(f"Error in page: {zim_page} {err}")
+            data["forms"] = list(set(data["forms"]) & extra_forms)
     return json_result
 
 
@@ -46,6 +67,7 @@ def main():
 
     from pyglossary.glossary_v2 import Glossary
 
+    from .edition import EDITIONS
     from .snapshot import (
         decompress_chunk,
         download_chunk,
@@ -53,17 +75,26 @@ def main():
         get_snapshot_chunks,
     )
     from .stardict import add_entry, create_glossary, create_stardict
+    from .zim import download_zim, open_zim
 
     parser = argparse.ArgumentParser()
     parser.add_argument("edition", choices=EDITIONS.keys())
     args = parser.parse_args()
-    xsl_path = get_xsl_path(args.edition)
-    edition_lang = EDITIONS[args.edition]
+    xsl_path = get_xsl_path(args.edition, "main.xsl")
+    edition_lang = EDITIONS[args.edition]["lang"]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
     snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
     glos_dict = {}
     add_files = {}
     Glossary.init()
+    zim = None
+    zim_path = None
+    zim_xsl_path = None
+    if "zim_xsl" in EDITIONS[args.edition]:
+        zim_path = download_zim(args.edition)
+        zim = open_zim(zim_path)
+        zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
+
     for chunk_idx in range(chunk_num):
         chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
@@ -73,23 +104,24 @@ def main():
         logger.info(f"start chunk {chunk_identifier}")
         with ndjson_path.open() as f:
             with ProcessPoolExecutor(
-                initializer=init_worker, initargs=(xsl_path,)
+                initializer=init_worker, initargs=(xsl_path, zim_path, zim_xsl_path)
             ) as executor:
                 for results in executor.map(transform, f, chunksize=100):
-                    for lemma_lang, forms, definition, images in results:
-                        if lemma_lang not in glos_dict:
-                            add_files[lemma_lang] = set()
+                    for data in results:
+                        if data["lang"] not in glos_dict:
+                            add_files[data["lang"]] = set()
                             glos = create_glossary(
-                                lemma_lang, edition_lang, snapshot_date
+                                data["lang"], edition_lang, snapshot_date
                             )
-                            glos_dict[lemma_lang] = glos
+                            glos_dict[data["lang"]] = glos
                         add_entry(
-                            glos_dict[lemma_lang],
+                            glos_dict[data["lang"]],
                             args.edition,
-                            forms,
-                            definition,
-                            images,
-                            add_files[lemma_lang],
+                            data["forms"],
+                            data["def"],
+                            data["images"],
+                            add_files[data["lang"]],
+                            zim,
                         )
         chunk_zst_path.unlink()
         ndjson_path.unlink()

@@ -17,7 +17,7 @@
   <xsl:template match="/">
     <xsl:choose>
       <xsl:when test="not(ends-with($title, '/translations'))">
-        <xsl:variable name="results" as="array(*)*">
+        <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
               select="html/body/section[h2/text() = $allowed-languages]"
               mode="language"/>
@@ -34,7 +34,7 @@
   <xsl:template match="section" mode="language">
     <xsl:variable name="language" select="h2/text()"/>
     <xsl:apply-templates
-        select=".//section[p/span[@class='headword-line']]"
+        select=".//section[p/span[@class='headword-line'] and ol]"
         mode="pos">
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>

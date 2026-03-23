@@ -15,6 +15,7 @@ dependencies = [
     "saxonche",
     "requests",
     "python-idzip",
+    "libzim",
 ]
 
 [project.optional-dependencies]

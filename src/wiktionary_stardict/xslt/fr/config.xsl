@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet
+    version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:variable
+      name="allowed-languages"
+      select="('Français',
+              'Italien',
+              'Allemand',
+              'Portugais',
+              'Espagnol',
+              'Russe',
+              'Anglais',
+              'Finnois',
+              'Bulgare',
+              'Latin',
+              'Ukrainien',
+              'Slovène',
+              'Occitan',
+              'Néerlandais',
+              'Japonais',
+              'Chinois',
+              'Arabe',
+              'Catalan',
+              'Polonais',
+              'Vietnamien',
+              'Indonésien',
+              'Islandais',
+              'Coréen',
+              'Roumain',
+              'Letton',
+              'Grec')"/>
+</xsl:stylesheet>

@@ -68,11 +68,10 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
-      <xsl:sequence
-          select="array{$language,
-                  array{$unique-forms},
-                  $final-definition,
-                  array{$images}}"/>
+      <xsl:sequence select="map{'lang': $language,
+                            'forms': array{$unique-forms},
+                            'def': $final-definition,
+                            'images': array{$images}}"/>
     </xsl:if>
   </xsl:template>
 

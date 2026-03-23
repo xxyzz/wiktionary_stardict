@@ -19,25 +19,7 @@ class EnAltFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                [
-                    ["berserker", "berserkar", "berserkers"],
-                    """<section dir="ltr" lang="en">
-      <h4>Noun</h4>
-      <p>
-        <span class="headword-line">
-          <strong class="Latn headword" lang="en">berserker</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">berserkers</b>)
-        </span>
-      </p>
-      <ol>
-        <li>
-          <span>gloss</span>
-        </li>
-      </ol>
-    </section>""",
-                    [],
-                ],
-            ],
+            [{"forms": ["berserker", "berserkar", "berserkers"]}],
         )
 
     def test_zh_forms_under_pron(self):
@@ -70,25 +52,7 @@ class EnAltFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                [
-                    ["大家", "乾家", "干家"],
-                    """<section dir="ltr" lang="en">
-      <h4>Noun</h4>
-      <p>
-        <span class="headword-line">
-          <strong class="Hani headword" lang="zh">大家</strong></b>
-        </span>
-      </p>
-      <ol>
-        <li>
-          <span>gloss</span>
-        </li>
-      </ol>
-    </section>""",
-                    [],
-                ],
-            ],
+            [{"forms": ["大家", "乾家", "干家"]}],
         )
 
     def test_zh_forms_sup(self):
@@ -122,25 +86,7 @@ class EnAltFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                [
-                    ["白麵", "白麪", "白面"],
-                    """<section dir="ltr" lang="en">
-      <h4>Noun</h4>
-      <p>
-        <span class="headword-line">
-          <strong class="Hani headword" lang="zh">白麵</strong></b>
-        </span>
-      </p>
-      <ol>
-        <li>
-          <span>gloss</span>
-        </li>
-      </ol>
-    </section>""",
-                    [],
-                ],
-            ],
+            [{"forms": ["白麵", "白麪", "白面"]}],
         )
 
     def test_zh_forms_anagram(self):
@@ -177,23 +123,9 @@ class EnAltFormsTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["門閥", "门阀"],
-                    """<section dir="ltr" lang="en">
-      <h4>Noun</h4>
-      <p>
-        <span class="headword-line">
-          <strong class="Hani headword" lang="zh">門閥</strong></b>
-        </span>
-      </p>
-      <ol>
-        <li>
-          <span>gloss</span>
-        </li>
-      </ol>
-    </section>""",
-                    [],
-                ],
+                {
+                    "forms": ["門閥", "门阀"],
+                }
             ],
         )
 
@@ -216,15 +148,5 @@ class EnAltFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                [
-                    ["痛い", "甚い", "イタい", "痛く"],
-                    """<section dir="ltr" lang="en">
-  <h4>Adjective</h4>
-  <p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>い</strong> • (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja">itai</span></span>)<span> </span><i><abbr title="-i (type I) inflection">-i</abbr></i> (<i>adverbial</i> <b class="Jpan" lang="ja"><ruby>痛<rp>(</rp><rt>いた</rt><rp>)</rp></ruby>く</b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">itaku</span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
-  <ol><li><span>gloss</span></li></ol>
-</section>""",
-                    [],
-                ],
-            ],
+            [{"forms": ["痛い", "甚い", "イタい", "痛く"]}],
         )

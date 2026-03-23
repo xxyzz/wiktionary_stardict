@@ -51,7 +51,9 @@
   </xsl:template>
 
   <xsl:template match="ul" mode="zh-pron">
-    <xsl:variable name="list" select="subsequence(.//dd[small/i/a[text() = ('Pinyin', 'Zhuyin')]], 1, 2)"/>
+    <xsl:variable
+        name="list"
+        select="subsequence(.//dd[small/i/a[text() = ('Pinyin', 'Zhuyin')]], 1, 2)"/>
     <xsl:if test="$list/*">
       <dl>
         <xsl:apply-templates select="$list" mode="clean-content"/>

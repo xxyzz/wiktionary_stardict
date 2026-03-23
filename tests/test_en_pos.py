@@ -20,9 +20,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["tee", "tees"],
-                    """<section dir="ltr" lang="en">
+                {
+                    "forms": ["tee", "tees"],
+                    "def": """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -36,8 +36,7 @@ class EnPOSTestCase(XMLTestCase):
         <li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">clothing<span class="ib-comma label-comma">,</span><span> </span>informal</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Ellipsis of <span class="form-of-definition-link"><i class="Latn mention" lang="en">tee-shirt</i></span></span>.</li>
       </ol>
     </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -74,9 +73,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["-ego"],
-                    """<section dir="ltr" lang="en">
+                {
+                    "forms": ["-ego"],
+                    "def": """<section dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -96,8 +95,7 @@ class EnPOSTestCase(XMLTestCase):
         </li>
       </ol>
     </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -118,9 +116,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["-άρης"],
-                    """<section dir="ltr" lang="en">
+                {
+                    "forms": ["-άρης"],
+                    "def": """<section dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -143,8 +141,7 @@ class EnPOSTestCase(XMLTestCase):
         </li>
       </ol>
     </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -166,9 +163,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["tee"],
-                    """<section dir="ltr" lang="en">
+                {
+                    "def": """<section dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -179,8 +175,7 @@ class EnPOSTestCase(XMLTestCase):
         <li>gloss 1</li>
       </ol>
     </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -205,9 +200,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["binomial series"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">binomial series</strong>
@@ -217,10 +211,10 @@ class EnPOSTestCase(XMLTestCase):
    <li>The Maclaurin series expansion <span class="mwe-math-element mwe-math-element-inline" ><img src="d253b87bf18d329bd2d1c12ee1ebba5071003ca8.svg" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
 </ol>
 </section>""",
-                    [
+                    "images": [
                         "https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8"
                     ],
-                ]
+                }
             ],
         )
 
@@ -245,9 +239,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["ꜣḫt-jtn"],
-                    """<section dir="ltr" lang="en"><h4>Proper noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="None headword" lang="egy">
@@ -257,8 +250,8 @@ class EnPOSTestCase(XMLTestCase):
 </p>
 <ol><li>gloss</li></ol>
 </section>""",
-                    ["/w/extensions/wikihiero/img/hiero_N27.png?fee08"],
-                ]
+                    "images": ["/w/extensions/wikihiero/img/hiero_N27.png?fee08"],
+                }
             ],
         )
 
@@ -281,9 +274,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["säteri"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="fi">säteri</strong>
@@ -291,8 +283,7 @@ class EnPOSTestCase(XMLTestCase):
 </p>
 <ol><li>gloss</li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -316,9 +307,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["Nile blue"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Nile blue</strong>
@@ -327,8 +317,7 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>A pale greenish blue colour.
 <dl><dd><div class="color-panel mw-no-invert">Nile blue: <span style="background-color:#006F7C;  display:inline-block; width:80px"><span> </span></span></div></dd></dl></li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -352,9 +341,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["rhombus"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">rhombus</strong>
@@ -363,11 +351,11 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">geometry</span><span class="ib-brac label-brac">)</span></span> A parallelogram having all sides of equal length. <style>.mw-parser-output .defdate{font-size:smaller}</style><span class="defdate">[from 16th c.]</span>
 <ol><li>The rhombus diamond, as one of the suits seen in a deck of playing cards (<span><img alt="♦" src="20px-SuitDiamonds.png" decoding="async" height="22" width="20" class="mw-file-element"/></span> or <span><img alt="♦" src="20px-SuitDiamonds4colors.png" decoding="async" height="22" width="20" class="mw-file-element"/></span>).</li></ol></li>
 </section>""",
-                    [
+                    "images": [
                         "//upload.wikimedia.org/wikipedia/commons/thumb/d/db/SuitDiamonds.svg/20px-SuitDiamonds.svg.png",
                         "//upload.wikimedia.org/wikipedia/commons/thumb/7/79/SuitDiamonds4colors.svg/20px-SuitDiamonds4colors.svg.png",
                     ],
-                ],
+                },
             ],
         )
 
@@ -391,9 +379,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["Italian augmented sixth chord"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Italian augmented sixth chord</strong>
@@ -402,10 +389,10 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
 <dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><img src="rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/></div></i></div></dd></dl></li></ol>
 </section>""",
-                    [
+                    "images": [
                         "//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.png"
                     ],
-                ],
+                },
             ],
         )
 
@@ -432,9 +419,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["the binomial theorem", "binomial theorem"],
-                    """<section dir="ltr" lang="en"><h4>Proper noun</h4>
+                {
+                    "forms": ["the binomial theorem", "binomial theorem"],
+                    "def": """<section dir="ltr" lang="en"><h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">the binomial theorem</strong>
@@ -446,10 +433,10 @@ class EnPOSTestCase(XMLTestCase):
 </span>
 </dd></dl></li></ol>
 </section>""",
-                    [
+                    "images": [
                         "https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062"
                     ],
-                ],
+                },
             ],
         )
 
@@ -476,9 +463,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["hypocrite"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">hypocrite</strong>
@@ -489,8 +475,7 @@ class EnPOSTestCase(XMLTestCase):
 <dd><span class="nyms synonym"><span style="font-size: smaller">Synonyms:</span> <i>see</i> Thesaurus:<span class="Latn" lang="en">dictionary</span></span></dd>
 </dl></li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -514,9 +499,9 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["portmanteau", "portemanteau", "portmantua"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "forms": ["portmanteau", "portemanteau", "portmantua"],
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">portmanteau</strong>
@@ -525,8 +510,7 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>gloss
 <dl><dd><span class="nyms alternative-form"><span style="font-size: smaller">Alternative forms:</span> <span class="Latn" lang="en">portemanteau</span>, <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">obsolete</span><span class="ib-brac qualifier-brac">)</span> <span class="Latn" lang="en">portmantua</span></span></dd></dl></li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -570,9 +554,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["hinge"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">hinge</strong>
@@ -580,8 +563,7 @@ class EnPOSTestCase(XMLTestCase):
 </p>
 <ol><li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">intransitive<span class="ib-comma label-comma">,</span><span> </span>with <i class="Latn mention" lang="en">on</i> or <i class="Latn mention" lang="en">upon</i></span><span class="ib-brac label-brac">)</span></span> To depend on something.</li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )
 
@@ -605,9 +587,8 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["底"],
-                    """<section dir="ltr" lang="en"><h4>Noun</h4>
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Hani headword" lang="zh">底</strong>
@@ -616,7 +597,6 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>gloss<dl><dd><span>See also: </span><span class="Hani" lang="zh">年底</span><span>, </span><span class="Hani" lang="zh">月底</span></dd>
 <dd><span lang="zh-Hant" class="Hant">六月<b>底</b></span><span> </span><span><span>[</span>Cantonese<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i>luk<sup>6</sup> jyut<sup>6</sup> <b>dai<sup>2</sup></b> </i></span><span> </span><span><span>[</span>Jyutping<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><b>end</b><span> of June</span></dd></dl></li></ol>
 </section>""",
-                    [],
-                ],
+                },
             ],
         )

@@ -25,16 +25,19 @@ def add_entry(
     definition: str,
     images: str[str],
     added_files: set[str],
+    zim,
 ):
     glos.addEntry(glos.newEntry(forms, definition, defiFormat="h"))
     for image in images:
-        download_image(glos, image, edition, added_files)
+        download_image(glos, image, edition, added_files, zim)
 
 
-def download_image(glos, url: str, edition: str, added_files: set[str]):
+def download_image(glos, url: str, edition: str, added_files: set[str], zim):
     import re
 
     import requests
+
+    from .zim import get_zim_asset
 
     filename = url.rsplit("/", maxsplit=1)[-1]
     if "?" in filename:
@@ -47,6 +50,12 @@ def download_image(glos, url: str, edition: str, added_files: set[str]):
     elif url.startswith("/"):
         url = f"https://{edition}.wiktionary.org/{url.lstrip('/')}"
     if filename not in added_files:
+        if zim is not None:
+            data = get_zim_asset(zim, filename)
+            if data is not None:
+                glos.addEntry(glos.newDataEntry(filename, data))
+                added_files.add(filename)
+                return
         r = requests.get(
             url,
             headers={"user-agent": get_user_agent()},

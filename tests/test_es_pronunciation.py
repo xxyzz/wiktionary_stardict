@@ -30,9 +30,9 @@ class EsPronunciationTestCase(XMLTestCase):
 </body>
 </html>""",
             [
-                [
-                    ["acontecer"],
-                    """<section dir="ltr" lang="es">
+                {
+                    "forms": ["acontecer"],
+                    "def": """<section dir="ltr" lang="es">
 <h4>Verbo intransitivo y terciopersonal</h4>
 <ul>
 <li><b>seseante</b> (AFI): [akõn̪t̪eˈseɾ]</li>
@@ -40,7 +40,6 @@ class EsPronunciationTestCase(XMLTestCase):
 </ul>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
-                    [],
-                ]
+                }
             ],
         )

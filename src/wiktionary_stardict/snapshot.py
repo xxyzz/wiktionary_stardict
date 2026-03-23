@@ -11,14 +11,13 @@ def get_snapshot_chunks(identifier: str) -> tuple[str, int]:
     return data["date"], data["chunks"]
 
 
-def download_chunk(chunk_identifier: str, path: Path):
-    import requests
+def download_chunk(chunk: str, path: Path):
+    import subprocess
 
-    r = requests.get(f"{RELEASE_URL}{chunk_identifier}.zst", stream=True)
     path.parent.mkdir(exist_ok=True)
-    with path.open("wb") as f:
-        for chunk in r.iter_content(chunk_size=8192):
-            f.write(chunk)
+    subprocess.run(
+        ["curl", "-L", "-o", str(path), f"{RELEASE_URL}{chunk}.zst"], check=True
+    )
 
 
 def decompress_chunk(zst_path: Path) -> Path:
