@@ -4,14 +4,12 @@ from pathlib import Path
 def download_zim(edition: str) -> Path:
     import subprocess
 
-    from .main import logger
-
     zim_path = get_zim_path(edition)
-    logger.info("Downloading zim")
     if not zim_path.exists():
         subprocess.run(
             [
                 "curl",
+                "-s",
                 "-L",
                 "-o",
                 f"build/{edition}.zim",
@@ -19,7 +17,6 @@ def download_zim(edition: str) -> Path:
             ],
             check=True,
         )
-    logger.info("Download zim done")
     return zim_path
 
 

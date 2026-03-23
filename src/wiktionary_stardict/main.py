@@ -16,14 +16,16 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
 
     from .zim import open_zim
 
-    global proc, executable
+    global proc, executable, zim, zim_xsl_exec
     proc = PySaxonProcessor(license=False)
     xsltproc = proc.new_xslt30_processor()
     executable = xsltproc.compile_stylesheet(stylesheet_file=xsl_path)
     if zim_path is not None:
-        global zim, zim_xsl_exec
         zim = open_zim(zim_path)
         zim_xsl_exec = xsltproc.compile_stylesheet(stylesheet_file=zim_xsl_path)
+    else:
+        zim = None
+        zim_xsl_exec = None
 
 
 def transform(line: str) -> list[list[str]]:

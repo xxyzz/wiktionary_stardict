@@ -16,7 +16,7 @@ def download_chunk(chunk: str, path: Path):
 
     path.parent.mkdir(exist_ok=True)
     subprocess.run(
-        ["curl", "-L", "-o", str(path), f"{RELEASE_URL}{chunk}.zst"], check=True
+        ["curl", "-s", "-L", "-o", str(path), f"{RELEASE_URL}{chunk}.zst"], check=True
     )
 
 

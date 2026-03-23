@@ -22,7 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        edition: ['en', 'es']
+        edition: ['en', 'es', 'fr']
+    outputs:
+      tag: ${{ steps.get-tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -48,7 +50,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: matrix.edition == 'en' && github.event_name != 'workflow_run'
-        run: gh release edit ${{ steps.get-tag.outputs.tag }} --draft=false --latest
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    needs: build
+    if: needs.build.result == 'success' && github.event_name != 'workflow_run'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+      - run: gh release edit ${{ needs.build.outputs.tag }} --draft=false --latest
