@@ -8,16 +8,17 @@ def download_zim(edition: str) -> Path:
 
     zim_path = get_zim_path(edition)
     logger.info("Downloading zim")
-    subprocess.run(
-        [
-            "curl",
-            "-L",
-            "-o",
-            f"build/{edition}.zim",
-            f"https://github.com/xxyzz/snapshot/releases/latest/download/{edition}.zim",
-        ],
-        check=True,
-    )
+    if not zim_path.exists():
+        subprocess.run(
+            [
+                "curl",
+                "-L",
+                "-o",
+                f"build/{edition}.zim",
+                f"https://github.com/xxyzz/snapshot/releases/latest/download/{edition}.zim",
+            ],
+            check=True,
+        )
     logger.info("Download zim done")
     return zim_path
 

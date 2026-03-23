@@ -4,6 +4,7 @@ import unittest
 class XMLTestCase(unittest.TestCase):
     maxDiff = None
     edition = "en"
+    xsl_file = "main.xsl"
 
     def setUp(self):
         from saxonche import PySaxonProcessor
@@ -13,7 +14,7 @@ class XMLTestCase(unittest.TestCase):
         self.proc = PySaxonProcessor(license=False)
         xsltproc = self.proc.new_xslt30_processor()
         self.executable = xsltproc.compile_stylesheet(
-            stylesheet_file=get_xsl_path(self.edition, "main.xsl")
+            stylesheet_file=get_xsl_path(self.edition, self.xsl_file)
         )
 
     def assertXMLEqual(self, output, expected):

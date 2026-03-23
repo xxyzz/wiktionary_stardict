@@ -44,7 +44,7 @@
   <xsl:template match="li[not(node())]" mode="clean-content"/>
 
   <!-- IPA key link -->
-  <xsl:template match="sup[normalize-space(.) = '(key)']" mode="clean-content"/>
+  <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
 
   <!-- Remove "audio" element expanded from "score sound" -->
   <xsl:template match="div[audio]" mode="clean-content"/>

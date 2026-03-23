@@ -45,6 +45,8 @@ def transform(line: str) -> list[list[str]]:
     if json_result is None:
         logger.info(f"None result in page {data['name']}")
         return []
+    for data in json_result:
+        data["forms"] = list({f.strip() for f in data["forms"] if f.strip() != ""})
     if zim is not None:
         for data in json_result:
             extra_forms = set()
@@ -54,10 +56,11 @@ def transform(line: str) -> list[list[str]]:
                     try:
                         zim_doc = proc.parse_xml(xml_text=page_text)
                         zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
-                        extra_forms |= set(zim_result)
+                        extra_forms |= set(json.loads(zim_result))
                     except PySaxonApiError as err:
                         logger.error(f"Error in page: {zim_page} {err}")
-            data["forms"] = list(set(data["forms"]) & extra_forms)
+            extra_forms = {f.strip() for f in extra_forms if f.strip() != ""}
+            data["forms"] = list(set(data["forms"]) | extra_forms)
     return json_result
 
 
@@ -126,6 +129,8 @@ def main():
         chunk_zst_path.unlink()
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
+    if zim_path is not None:
+        zim_path.unlink()
 
     for lemma_lang, glos in glos_dict.items():
         create_stardict(glos, lemma_lang, edition_lang, args.edition)

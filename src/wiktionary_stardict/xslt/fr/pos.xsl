@@ -13,13 +13,21 @@
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
 
-    <xsl:param
+    <xsl:variable
+        name="headword-forms" select="p/(b|bdi)/normalize-space()" as="xs:string*"/>
+    <xsl:variable
         name="table-forms"
-        select="table[contains-token(@class, 'wikitable')]//td/bdi[normalize-space()]"
+        select="table[contains-token(@class, 'wikitable')]//td/bdi/normalize-space()"
         as="xs:string*"/>
     <xsl:variable
         name="unique-forms"
-        select="distinct-values(($title, $table-forms)[. != ''])"
+        select="distinct-values(($headword-forms, $title, $table-forms)[. != ''])"
+        as="xs:string*"/>
+    <xsl:variable
+        name="conj-links"
+        select="p/a[starts-with(@title, 'Conjugaison:') and
+                not(some $v in ('Premier groupe', 'Deuxième groupe', 'Troisième groupe')
+                satisfies ends-with(@title, $v))]/@title"
         as="xs:string*"/>
 
     <xsl:variable name="definition">
@@ -41,7 +49,8 @@
     <xsl:sequence select="map{'lang': $language,
                           'forms': array{$unique-forms},
                           'def': $final-definition,
-                          'images': array{$images}}"/>
+                          'images': array{$images},
+                          'zim_pages': array{$conj-links}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-li">
@@ -69,6 +78,16 @@
       </ul>
     </xsl:if>
   </xsl:template>
+
+  <xsl:template match="p" mode="pos-li">
+    <p><xsl:apply-templates mode="pos-li"/></p>
+  </xsl:template>
+
+  <xsl:template
+      match="a[normalize-space() = 'voir la conjugaison'] |
+             span[following-sibling::a[1][normalize-space() = 'voir la conjugaison']] |
+             span[preceding-sibling::a[1][normalize-space() = 'voir la conjugaison']]"
+      mode="pos-li"/>
 
   <xsl:template match="*" mode="pos-li">
     <xsl:apply-templates select="." mode="clean-content"/>
