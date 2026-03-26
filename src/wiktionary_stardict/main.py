@@ -66,8 +66,7 @@ def transform(line: str) -> list[list[str]]:
     return json_result
 
 
-def main():
-    import argparse
+def build(args):
     from concurrent.futures import ProcessPoolExecutor
 
     from pyglossary.glossary_v2 import Glossary
@@ -82,9 +81,6 @@ def main():
     from .stardict import add_entry, create_glossary, create_stardict
     from .zim import download_zim, open_zim
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("edition", choices=EDITIONS.keys())
-    args = parser.parse_args()
     xsl_path = get_xsl_path(args.edition, "main.xsl")
     edition_lang = EDITIONS[args.edition]["lang"]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
@@ -136,3 +132,21 @@ def main():
 
     for lemma_lang, glos in glos_dict.items():
         create_stardict(glos, lemma_lang, edition_lang, args.edition)
+
+
+def main():
+    import argparse
+
+    from .edition import EDITIONS
+    from .page import create_github_page
+
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(required=True)
+    build_parser = subparsers.add_parser("build")
+    build_parser.add_argument("edition", choices=EDITIONS.keys())
+    build_parser.set_defaults(func=build)
+    page_parser = subparsers.add_parser("page")
+    page_parser.add_argument("tag")
+    page_parser.set_defaults(func=create_github_page)
+    args = parser.parse_args()
+    args.func(args)

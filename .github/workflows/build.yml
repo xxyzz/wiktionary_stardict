@@ -43,7 +43,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: python -m pip install .
-      - run: dict ${{ matrix.edition }}
+      - run: dict build ${{ matrix.edition }}
 
       - if: github.event_name != 'workflow_run'
         run: gh release upload ${{ steps.get-tag.outputs.tag }} build/*.tar.zst
@@ -60,4 +60,23 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
       - run: gh release edit ${{ needs.build.outputs.tag }} --draft=false --latest
+      - run: |
+          python -m pip install .
+          dict page ${{ needs.build.outputs.tag }}
+      - uses: actions/upload-pages-artifact@v4
+
+  deploy:
+    if: needs.release.result == 'success' && github.event_name != 'workflow_run'
+    needs: release
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

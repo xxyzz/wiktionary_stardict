@@ -4,11 +4,9 @@
 
 Data source: https://enterprise.wikimedia.com
 
-## Download
+Download from here: https://xxyzz.github.io/wiktionary_stardict
 
-Please download from GitHub releases: https://github.com/xxyzz/wiktionary_stardict/releases
-
-Install guide for KOReader: https://github.com/koreader/koreader/wiki/Dictionary-support
+KOReader dictionary install guide: https://github.com/koreader/koreader/wiki/Dictionary-support
 
 ## License
 
