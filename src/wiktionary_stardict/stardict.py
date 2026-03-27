@@ -71,12 +71,14 @@ def get_user_agent() -> str:
     return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
-def create_stardict(glos, lemma_lang: str, gloss_lang: str, edition: str):
+def create_stardict(glos, lemma_lang: str, edition: str):
     import shutil
     import tarfile
     from pathlib import Path
 
-    folder_name = f"{lemma_lang}-{gloss_lang}".replace(" ", "_")
+    from mediawiki_langcodes import name_to_code
+
+    folder_name = f"{name_to_code(lemma_lang, edition)}-{edition}"
     out_path = Path("build") / folder_name
     if out_path.exists():
         shutil.rmtree(out_path)

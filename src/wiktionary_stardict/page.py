@@ -3,6 +3,8 @@ def convert_release_data(tag: str):
     import subprocess
     from collections import defaultdict
 
+    from mediawiki_langcodes import code_to_name
+
     p = subprocess.run(
         ["gh", "release", "view", tag, "--json", "assets,publishedAt"],
         check=True,
@@ -15,9 +17,13 @@ def convert_release_data(tag: str):
     for asset in gh_data["assets"]:
         if not asset["name"].endswith(".tar.zst"):
             continue
-        name = asset["name"].removesuffix(".tar.zst").replace("_", " ")
-        edition = name.split("-", 1)[-1]
-        assets[edition].append({"name": name, "url": asset["url"]})
+        name = asset["name"].removesuffix(".tar.zst")
+        lemma_code, gloss_code = name.split("-", 1)
+        lemma_lang = code_to_name(lemma_code, gloss_code)
+        gloss_lang = code_to_name(gloss_code, gloss_code)
+        assets[gloss_lang].append(
+            {"name": f"{lemma_lang}-{gloss_lang}", "url": asset["url"]}
+        )
     date = gh_data["publishedAt"]
     return json.dumps({"date": date[: date.index("T")], "assets": assets})
 

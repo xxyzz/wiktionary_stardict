@@ -131,7 +131,7 @@ def build(args):
         zim_path.unlink()
 
     for lemma_lang, glos in glos_dict.items():
-        create_stardict(glos, lemma_lang, edition_lang, args.edition)
+        create_stardict(glos, lemma_lang, args.edition)
 
 
 def main():

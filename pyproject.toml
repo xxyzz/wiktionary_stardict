@@ -16,6 +16,7 @@ dependencies = [
     "requests",
     "python-idzip",
     "libzim",
+    "mediawiki_langcodes",
 ]
 
 [project.optional-dependencies]

@@ -4,7 +4,7 @@
 
 Data source: https://enterprise.wikimedia.com
 
-Download from here: https://xxyzz.github.io/wiktionary_stardict
+Download from here: https://xxyzz.github.io/wiktionary_stardict/
 
 KOReader dictionary install guide: https://github.com/koreader/koreader/wiki/Dictionary-support
 
