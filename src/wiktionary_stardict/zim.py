@@ -8,12 +8,15 @@ def download_zim(edition: str) -> Path:
     if not zim_path.exists():
         subprocess.run(
             [
-                "curl",
-                "-s",
-                "-L",
-                "-o",
-                f"build/{edition}.zim",
-                f"https://github.com/xxyzz/snapshot/releases/latest/download/{edition}.zim",
+                "gh",
+                "release",
+                "download",
+                "-D",
+                "build",
+                "-p",
+                f"{edition}.zim",
+                "-R",
+                "xxyzz/snapshot",
             ],
             check=True,
         )

@@ -1,12 +1,12 @@
 from pathlib import Path
 
-RELEASE_URL = "https://github.com/xxyzz/snapshot/releases/latest/download/"
-
 
 def get_snapshot_chunks(identifier: str) -> tuple[str, int]:
     import requests
 
-    r = requests.get(f"{RELEASE_URL}{identifier}.json")
+    r = requests.get(
+        f"https://github.com/xxyzz/snapshot/releases/latest/download/{identifier}.json"
+    )
     data = r.json()
     return data["date"], data["chunks"]
 
@@ -16,7 +16,18 @@ def download_chunk(chunk: str, path: Path):
 
     path.parent.mkdir(exist_ok=True)
     subprocess.run(
-        ["curl", "-s", "-L", "-o", str(path), f"{RELEASE_URL}{chunk}.zst"], check=True
+        [
+            "gh",
+            "release",
+            "download",
+            "-D",
+            "build",
+            "-p",
+            f"{chunk}.zst",
+            "-R",
+            "xxyzz/snapshot",
+        ],
+        check=True,
     )
 
 

@@ -13,9 +13,6 @@ on:
     branches:
       - master
 
-permissions:
-  contents: write
-
 jobs:
   build:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
@@ -25,6 +22,10 @@ jobs:
         edition: ['en', 'es', 'fr']
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -39,16 +40,12 @@ jobs:
 
       - if: matrix.edition == 'en' && github.event_name != 'workflow_run'
         run: gh release create ${{ steps.get-tag.outputs.tag }} -d
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: python -m pip install .
       - run: dict build ${{ matrix.edition }}
 
       - if: github.event_name != 'workflow_run'
         run: gh release upload ${{ steps.get-tag.outputs.tag }} build/*.tar.zst
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     needs: build

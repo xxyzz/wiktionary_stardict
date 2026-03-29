@@ -85,8 +85,9 @@ def create_stardict(glos, lemma_lang: str, edition: str):
     out_path.mkdir(exist_ok=True)
     glos.write(
         f"build/{folder_name}/{folder_name}.ifo",
-        formatName="StardictMergeSyns",
+        formatName="Stardict",
         dictzip=True,
+        sametypesequence="h",
     )
     css_path = get_css_path(edition)
     if css_path.exists():
