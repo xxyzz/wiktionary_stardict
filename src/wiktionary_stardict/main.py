@@ -48,21 +48,23 @@ def transform(line: str) -> list[list[str]]:
         logger.info(f"None result in page {data['name']}")
         return []
     for data in json_result:
-        data["forms"] = list({f.strip() for f in data["forms"] if f.strip() != ""})
+        data["forms"] = list(
+            dict.fromkeys(f.strip() for f in data["forms"] if f.strip() != "")
+        )
     if zim is not None:
         for data in json_result:
-            extra_forms = set()
+            extra_forms = []
             for zim_page in data["zim_pages"]:
                 page_text = get_zim_page(zim, zim_page)
                 if page_text != "":
                     try:
                         zim_doc = proc.parse_xml(xml_text=page_text)
                         zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
-                        extra_forms |= set(json.loads(zim_result))
+                        extra_forms.extend(json.loads(zim_result))
                     except PySaxonApiError as err:
                         logger.error(f"Error in page: {zim_page} {err}")
-            extra_forms = {f.strip() for f in extra_forms if f.strip() != ""}
-            data["forms"] = list(set(data["forms"]) | extra_forms)
+            extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
+            data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
     return json_result
 
 

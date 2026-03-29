@@ -46,11 +46,11 @@
           <div id="{$lang}"
                class="{if ($lang = 'English') then 'files active' else 'files'}">
             <ul>
-              <xsl:for-each select="1 to array:size($files)">
-                <xsl:variable name="file" select="$files(.)"/>
+              <xsl:for-each select="$files?*">
+                <xsl:sort select="?name"/>
                 <li>
-                  <a href="{$file?url}">
-                    <xsl:value-of select="$file?name"/>
+                  <a href="{?url}">
+                    <xsl:value-of select="?name"/>
                   </a>
                 </li>
               </xsl:for-each>
