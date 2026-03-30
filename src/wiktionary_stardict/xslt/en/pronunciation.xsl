@@ -11,13 +11,13 @@
     <xsl:choose>
       <xsl:when test="$language = 'Japanese'">
         <xsl:apply-templates
-            select="span[@data-mw][myfn:is-template(@data-mw,
+            select="span[@data-mw and myfn:is-template(@data-mw,
                     ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
             mode="clean-content"/>
       </xsl:when>
       <xsl:when test="$language = 'Chinese'">
         <xsl:apply-templates
-            select="div[@data-mw][myfn:is-template(@data-mw, 'zh-pron')]//ul[1]"
+            select="div[@data-mw and myfn:is-template(@data-mw, 'zh-pron')]//ul[1]"
             mode="zh-pron"/>
       </xsl:when>
       <xsl:otherwise>

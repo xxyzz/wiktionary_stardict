@@ -49,7 +49,7 @@ class EnPOSTestCase(XMLTestCase):
 <section><h2>English</h2>
 <section><h3>Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">books</strong></span></p>
-<ol><li><span class="form-of-definition use-with-mention">plural of <span class="form-of-definition-link"><i class="Latn mention" lang="en">book</i></span></span></li></ol>
+<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"plural of"}}}]}'>plural of <span class="form-of-definition-link"><i class="Latn mention" lang="en">book</i></span></span></li></ol>
 </section>
 </section>
 </body>
@@ -597,6 +597,31 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>gloss<dl><dd><span>See also: </span><span class="Hani" lang="zh">年底</span><span>, </span><span class="Hani" lang="zh">月底</span></dd>
 <dd><span lang="zh-Hant" class="Hant">六月<b>底</b></span><span> </span><span><span>[</span>Cantonese<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i>luk<sup>6</sup> jyut<sup>6</sup> <b>dai<sup>2</sup></b> </i></span><span> </span><span><span>[</span>Jyutping<span>]</span></span><span> </span><span> ―</span><span> </span><span> </span><b>end</b><span> of June</span></dd></dl></li></ol>
 </section>""",
+                },
+            ],
+        )
+
+    def test_alt_of_with_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>dike</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
+</section>""",
+                    "forms": ["dike", "dikes"],
                 },
             ],
         )

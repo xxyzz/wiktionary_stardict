@@ -8,14 +8,27 @@
   <xsl:function name="myfn:get-alt-forms" as="xs:string*">
     <xsl:param name="section" as="node()"/>
     <xsl:param name="language" as="xs:string"/>
-    <xsl:variable name="alt-forms-section" select="$section/preceding-sibling::section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | $section/ancestor::section/section[(h3|h4|h5|h6)/text() = 'Alternative forms'] | $section/section[(h4|h5|h6)/text() = 'Alternative forms']"/>
-    <xsl:variable name="alt-forms" select="if ($alt-forms-section) then $alt-forms-section ! myfn:alt-forms-section(.) else ()"/>
+    <xsl:variable
+        name="alt-forms-section"
+        select="$section/preceding-sibling::section[
+                (h3|h4|h5|h6)/text() = 'Alternative forms'] |
+                $section/ancestor::section/section[
+                (h3|h4|h5|h6)/text() = 'Alternative forms'] |
+                $section/section[(h4|h5|h6)/text() = 'Alternative forms']"/>
+    <xsl:variable
+        name="alt-forms"
+        select="if ($alt-forms-section) then
+                $alt-forms-section ! myfn:alt-forms-section(.) else ()"/>
     <xsl:choose>
       <xsl:when test="$language = 'Chinese'">
-        <xsl:sequence select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
+        <xsl:sequence
+            select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
       </xsl:when>
       <xsl:when test="$language = 'Japanese'">
-        <xsl:variable name="above-sections" select="$section/ancestor::section[h2 | h3] | $section/preceding-sibling::section[h3 | h4]"/>
+        <xsl:variable
+            name="above-sections"
+            select="$section/ancestor::section[h2 | h3] |
+                    $section/preceding-sibling::section[h3 | h4]"/>
         <xsl:sequence select="$alt-forms, $above-sections ! myfn:ja-kanjitab(.)"/>
       </xsl:when>
       <xsl:otherwise>
@@ -31,17 +44,26 @@
 
   <xsl:function name="myfn:zh-forms" as="xs:string*">
     <xsl:param name="section" as="node()"/>
-    <xsl:variable name="span_node" select="$section/span[@data-mw][myfn:is-template(@data-mw, 'zh-forms')]"/>
+    <xsl:variable
+        name="span_node"
+        select="$section/span[@data-mw and myfn:is-template(@data-mw, 'zh-forms')]"/>
     <xsl:if test="$span_node">
       <xsl:variable name="table" select="$span_node/following-sibling::table"/>
-      <xsl:variable name="th-forms" select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
-      <xsl:variable name="td-forms" select="$table//td[preceding-sibling::th[1][text() != 'anagram']]//span[starts-with(@lang, 'zh-Han')]//text()"/>
+      <xsl:variable
+          name="th-forms"
+          select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
+      <xsl:variable
+          name="td-forms"
+          select="$table//td[preceding-sibling::th[1][text() != 'anagram']]//
+                  span[starts-with(@lang, 'zh-Han')]//text()"/>
       <xsl:sequence select="$th-forms, $td-forms"/>
     </xsl:if>
   </xsl:function>
 
   <xsl:function name="myfn:ja-kanjitab" as="xs:string*">
     <xsl:param name="section" as="node()"/>
-    <xsl:sequence select="$section/table[.//th[text() = 'Alternative spellings']]//td/span[@lang = 'ja']//text()"/>
+    <xsl:sequence
+        select="$section/table[.//th[text() = 'Alternative spellings']]//
+                td/span[@lang = 'ja']//text()"/>
   </xsl:function>
 </xsl:stylesheet>

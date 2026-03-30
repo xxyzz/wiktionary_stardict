@@ -31,7 +31,7 @@
     <xsl:variable
         name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>
 
-    <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
+    <xsl:if test="ol/li[myfn:is-gloss-li(., $headword-forms)]">
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
@@ -100,7 +100,7 @@
                 span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
                 'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or
-                span[@data-mw][myfn:is-template(@data-mw, 'zh-co')]]"/>
+                span[@data-mw and myfn:is-template(@data-mw, 'zh-co')]]"/>
     <xsl:variable
         name="color-panel"
         select="dd[div[contains-token(@class, 'color-panel')]]"/>
@@ -110,7 +110,7 @@
                 (some $c in ('synonym', 'antonym', 'alternative-form',
                 'coordinate-term', 'near-synonym', 'Active-voice-counterpart')
                 satisfies contains-token(@class, $c))]] |
-                dd[span[@data-mw][myfn:is-template(@data-mw, 'zh-also')]]"/>
+                dd[span[@data-mw and myfn:is-template(@data-mw, 'zh-also')]]"/>
     <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>
@@ -122,26 +122,25 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template
-      match="span[contains-token(@class, 'maintenance-line')]" mode="pos-li"/>
-
   <xsl:template match="*" mode="pos-li">
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>
 
   <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
+    <xsl:param name="headword-forms" as="xs:string*"/>
     <xsl:sequence
         select="boolean(
                 $li/node() and
-                not($li/span[contains-token(@class, 'form-of-definition')]) and
+                not($li/span[contains-token(@class, 'form-of-definition')] and
+                  count($headword-forms) eq 0) and
                 not(myfn:is-rfdef-li($li)))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-rfdef-li" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
-        select="boolean($li/i[@data-mw][myfn:is-template(@data-mw, 'rfdef')])"/>
+        select="boolean($li/i[@data-mw and myfn:is-template(@data-mw, 'rfdef')])"/>
   </xsl:function>
 
   <xsl:template match="span" mode="pos-nyms">

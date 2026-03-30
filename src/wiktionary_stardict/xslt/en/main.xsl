@@ -48,4 +48,7 @@
 
   <!-- Remove "audio" element expanded from "score sound" -->
   <xsl:template match="div[audio]" mode="clean-content"/>
+
+  <xsl:template
+      match="span[contains-token(@class, 'maintenance-line')]" mode="clean-content"/>
 </xsl:stylesheet>
