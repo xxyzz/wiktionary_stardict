@@ -12,8 +12,8 @@ def convert_release_data(tag: str):
         capture_output=True,
     )
     gh_data = json.loads(p.stdout)
-
     assets = defaultdict(list)
+    screenshots = {}
     for asset in gh_data["assets"]:
         if not asset["name"].endswith(".tar.zst"):
             continue
@@ -24,8 +24,20 @@ def convert_release_data(tag: str):
         assets[gloss_lang].append(
             {"name": f"{lemma_lang}-{gloss_lang}", "url": asset["url"]}
         )
+        screenshots[gloss_lang] = f"{gloss_code}.png"
     date = gh_data["publishedAt"]
-    return json.dumps({"date": date[: date.index("T")], "assets": assets})
+    return json.dumps(
+        {"date": date[: date.index("T")], "assets": assets, "screenshots": screenshots}
+    )
+
+
+def download_screenshots():
+    import subprocess
+
+    subprocess.run(
+        ["gh", "release", "download", "20260329", "-D", "_site", "-p", "*.png"],
+        check=True,
+    )
 
 
 def create_github_page(args):
@@ -44,6 +56,7 @@ def create_github_page(args):
     )
     out_path = Path("_site/index.html")
     out_path.parent.mkdir(exist_ok=True)
+    download_screenshots()
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")
         f.write(executable.transform_to_string(xdm_node=doc))

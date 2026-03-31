@@ -22,6 +22,7 @@
         <xsl:element name="style" expand-text="no">
           .files {display: none;}
           .active {display: initial;}
+          .screenshot {float: right; width: 30%;}
         </xsl:element>
       </head>
       <body>
@@ -45,6 +46,8 @@
 
           <div id="{$lang}"
                class="{if ($lang = 'English') then 'files active' else 'files'}">
+            <img class="screenshot" loading="lazy"
+                 src="{$json-data?screenshots($lang)}"/>
             <ul>
               <xsl:for-each select="$files?*">
                 <xsl:sort select="?name"/>
@@ -58,9 +61,9 @@
           </div>
         </xsl:for-each>
 
-        <p>Create date: {$json-data?date}</p>
+        <p>Creation date: {$json-data?date}</p>
         <p>Source code: <a href="https://github.com/xxyzz/wiktionary_stardict">wiktionary_stardict</a></p>
-        <p>Please donate on <a href="https://liberapay.com/xxyzz/donate">Liberapay</a> or <a href="https://paypal.me/worddumb">PayPal</a> to support this project.</p>
+        <p>Please donate via <a href="https://liberapay.com/xxyzz/donate">Liberapay</a> or <a href="https://paypal.me/worddumb">PayPal</a> to support this project.</p>
 
         <xsl:element name="script" expand-text="no">
             document.getElementById("edition").addEventListener(
