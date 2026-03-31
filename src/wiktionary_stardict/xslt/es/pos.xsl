@@ -19,7 +19,9 @@
     <xsl:if test="not(starts-with($pos, 'Forma '))">
       <xsl:variable
           name="headword-forms"
-          select="for $p in p[b] return myfn:headword-forms($p)" as="xs:string*"/>
+          select="for $p in p[child::*[1][self::b[@typeof='mw:Transclusion']]]
+                  return myfn:headword-forms($p)"
+          as="xs:string*"/>
       <xsl:variable
           name="conj-section"
           select="(section | following-sibling::section)
@@ -41,7 +43,9 @@
           <xsl:apply-templates
               select="ancestor::section/table[@data-mw]
                       [myfn:is-template(@data-mw, 'pron-graf')]" mode="pron"/>
-          <xsl:apply-templates select="p[b] | dl" mode="pos"/>
+          <xsl:apply-templates
+              select="p[child::*[1][self::b[@typeof='mw:Transclusion']]] | dl"
+              mode="pos"/>
         </section>
       </xsl:variable>
 
@@ -75,7 +79,8 @@
   <xsl:template match="ul" mode="pos">
     <xsl:variable
         name="linkages"
-        select="li[b/text() = ('Sinónimos:', 'Antónimo:', 'Uso:', 'Ámbito')]"/>
+        select="li[b/text() = ('Sinónimos:', 'Sinónimo:', 'Antónimos', 'Antónimo:',
+                'Uso:', 'Ámbito')]"/>
     <xsl:variable
         name="examples"
         select="li[b/text() = 'Ejemplo:' and

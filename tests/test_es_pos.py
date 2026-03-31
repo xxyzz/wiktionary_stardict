@@ -52,7 +52,7 @@ class EsPOSTestCase(XMLTestCase):
 <body>
 <section><h2><a>Español</a></h2>
 <section><h3><span>Locución sustantiva masculina</span></h3>
-<p><b>arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>arc<span>os</span></a><span> </span><a>iri<span>s</span></a></p>
+<p><b typeof="mw:Transclusion">arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>arc<span>os</span></a><span> </span><a>iri<span>s</span></a></p>
 
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>
@@ -80,7 +80,7 @@ class EsPOSTestCase(XMLTestCase):
 <body>
 <section><h2><a>Español</a></h2>
 <section><h3><span>Sustantivo femenino y masculino</span></h3>
-<p><b>gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>gur<span>ús</span></a><span>, </span><a>gur<span>úes</span></a></p>
+<p><b typeof="mw:Transclusion">gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span><a>gur<span>ús</span></a><span>, </span><a>gur<span>úes</span></a></p>
 
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>
@@ -133,7 +133,7 @@ class EsPOSTestCase(XMLTestCase):
 <body>
 <section><h2>Español</h2>
 <section><h3>Adjetivo</h3>
-<p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span><a>audin<span>os</span></a></p>
+<p><b typeof="mw:Transclusion">audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span><a>audin<span>os</span></a></p>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 <p><br/></p>
 </section>
@@ -147,6 +147,32 @@ class EsPOSTestCase(XMLTestCase):
 <h4>Adjetivo</h4>
 <p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span>audin<span>os</span></p>
 <dl><dt>1</dt><dd>gloss</dd></dl>
+</section>""",
+                },
+            ],
+        )
+
+    def test_facebook_p(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Facebook</title></head>
+<body>
+<section><h2>Español</h2>
+<section><h3>Etimología 1</h3>
+<p><span>Del inglés </span><i>facebook</i> ("directorio de fotos"), compuesto de <span>face</span><span> </span><span>('</span>rostro<span>')</span> y <span>book</span><span> </span><span>('</span>libro<span>')</span>.
+<b typeof="mw:Transclusion">Facebook</b><span> (</span><i>singularia tantum</i><span>)</span></p>
+<dl><dt>1 <span>Internet</span></dt><dd>gloss</dd></dl>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": ["Facebook"],
+                    "def": """<section dir="ltr" lang="es">
+<h4>Etimología 1</h4>
+<dl><dt>1 <span>Internet</span></dt><dd>gloss</dd></dl>
 </section>""",
                 },
             ],

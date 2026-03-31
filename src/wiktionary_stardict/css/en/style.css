@@ -1,16 +1,19 @@
 h4 {
-  margin: 0.25em 0;
+  margin: 0 0 0.25em;
   padding-bottom: 0;
 }
 p {
   margin: 0.5em 0;
 }
 ul {
-  list-style-type: disc !important;
+  list-style-type: disc;
   margin: 0.3em 0 0 1.6em;
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
   padding: 0;
+}
+ul ul {
+  list-style-type: disc;
 }
 .ib-content, .use-with-mention {
   font-style: italic;
@@ -20,6 +23,9 @@ ol {
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
   padding: 0;
+}
+p + ol {
+  margin-top: -0.5em;
 }
 li {
   margin-bottom: 0.1em;
