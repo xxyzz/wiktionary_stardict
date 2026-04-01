@@ -134,7 +134,10 @@ class EnPronunciationTestCase(XMLTestCase):
 <ul><li><a class="extiw">Mandarin</a>
 <dl><dd><small>(<i><a>Standard</a></i>)</small>
 <dl><dd><small>(<i><a>Pinyin</a></i>)</small>: <span class="zhpron-monospace form-of pinyin-ts-form-of" lang="cmn"><span class="Latn" lang="cmn"><a>dàjiā</a></span>, <span class="Latn" lang="cmn"><a>dà'ā</a></span></span></dd>
-<dd><small>(<i><a>Zhuyin</a></i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl></dd></dl></li></ul></div></div>
+<dd><small>(<i><a>Zhuyin</a></i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd>
+<dd><span class="mw-default-size mw-default-audio-height" typeof="mw:File"><span><audio><source/></audio></span></span></dd></dl></dd>
+<dd><small>(<i>Chengdu, Sichuanese Pinyin</i>)</small>: <span class="zhpron-monospace">da<sup>4</sup> jia<sup>1</sup></span></dd>
+</dl></li></ul></div></div>
 <section><h4>Pronoun</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong></span></p>
 <ol><li>gloss</li></ol>
@@ -147,8 +150,12 @@ class EnPronunciationTestCase(XMLTestCase):
                 {
                     "def": """<section dir="ltr" lang="en">
 <h4>Pronoun</h4>
+<ul><li>Mandarin
+<dl><dd><small>(<i>Standard</i>)</small>
 <dl><dd><small>(<i>Pinyin</i>)</small>: <span class="zhpron-monospace form-of pinyin-ts-form-of" lang="cmn"><span class="Latn" lang="cmn">dàjiā</span>, <span class="Latn" lang="cmn">dà'ā</span></span></dd>
-<dd><small>(<i>Zhuyin</i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl>
+<dd><small>(<i>Zhuyin</i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd></dl></dd>
+<dd><small>(<i>Chengdu, Sichuanese Pinyin</i>)</small>: <span class="zhpron-monospace">da<sup>4</sup> jia<sup>1</sup></span></dd>
+</dl></li></ul>
 <p>
   <span class="headword-line">
     <strong class="Hani headword" lang="zh">大家</strong>
@@ -224,6 +231,39 @@ class EnPronunciationTestCase(XMLTestCase):
     <strong class="Latn headword" lang="es">diccionario</strong>
   </span>
 </p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )
+
+    def test_zh_pron_no_mandarin(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>仆街</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Pronunciation</h3>
+<div class="standard-box zhpron">
+<div class="vsSwitcher" data-toggle-category="pronunciations">
+<ul><li>Cantonese <small>(<i>Jyutping</i>)</small>: <span class="zhpron-monospace">puk<sup>1</sup> gaai<sup>1</sup></span></li></ul>
+</div></div>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Hans headword" lang="zh">仆街</strong></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>Cantonese <small>(<i>Jyutping</i>)</small>: <span class="zhpron-monospace">puk<sup>1</sup> gaai<sup>1</sup></span></li></ul>
+<p><span class="headword-line"><strong class="Hans headword" lang="zh">仆街</strong>
+</span></p>
 <ol><li>gloss</li></ol>
 </section>""",
                 }
