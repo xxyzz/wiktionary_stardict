@@ -31,7 +31,7 @@
     <xsl:variable
         name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>
 
-    <xsl:if test="ol/li[myfn:is-gloss-li(., $headword-forms)]">
+    <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
@@ -68,10 +68,14 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
-      <xsl:sequence select="map{'lang': $language,
-                            'forms': array{$unique-forms},
-                            'def': $final-definition,
-                            'images': array{$images}}"/>
+      <xsl:sequence
+          select="map{'lang': $language,
+                  'forms': array{$unique-forms},
+                  'def': $final-definition,
+                  'images': array{$images},
+                  'form_of_targets': array{myfn:form-of-targets(ol//li)},
+                  'form_of_only': boolean(every $li in ol//li
+                  satisfies myfn:is-form-of($li))}"/>
     </xsl:if>
   </xsl:template>
 
@@ -84,7 +88,7 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pos-li">
-    <xsl:if test="node() and not(myfn:is-rfdef-li(.))">
+    <xsl:if test="myfn:is-gloss-li(.)">
       <li><xsl:apply-templates mode="pos-li"/></li>
     </xsl:if>
   </xsl:template>
@@ -128,19 +132,27 @@
 
   <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
-    <xsl:param name="headword-forms" as="xs:string*"/>
-    <xsl:sequence
-        select="boolean(
-                $li/node() and
-                not($li/span[contains-token(@class, 'form-of-definition')] and
-                  count($headword-forms) eq 0) and
-                not(myfn:is-rfdef-li($li)))"/>
+    <xsl:sequence select="boolean($li/node() and not(myfn:is-rfdef-li($li)))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-rfdef-li" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
         select="boolean($li/i[@data-mw and myfn:is-template(@data-mw, 'rfdef')])"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-form-of" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="boolean($li/span[contains-token(@class, 'form-of-definition')])"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:form-of-targets" as="xs:string*">
+    <xsl:param name="li" as="element(li)*"/>
+    <xsl:sequence
+        select="$li/span[contains-token(@class, 'form-of-definition')]/
+                span[contains-token(@class, 'form-of-definition-link')] !
+                normalize-space(.)"/>
   </xsl:function>
 
   <xsl:template match="span" mode="pos-nyms">

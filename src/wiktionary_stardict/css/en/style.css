@@ -15,9 +15,6 @@ ul {
 ul ul {
   list-style-type: disc;
 }
-.ib-content, .use-with-mention {
-  font-style: italic;
-}
 ol {
   margin: 0.3em 0 0 1.6em;
   margin-inline-start: 1.6em;
@@ -40,4 +37,14 @@ dd {
   margin-right: 0;
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
+}
+.ib-content, .use-with-mention, .form-of-definition {
+  font-style: italic;
+}
+.use-with-mention i, .form-of-definition-link {
+  font-style: normal;
+}
+.use-with-mention .mention, .form-of-definition-link .mention {
+  font-style: normal;
+  font-weight: bold;
 }

@@ -70,9 +70,10 @@ def transform(line: str) -> list[list[str]]:
 
 def build(args):
     from concurrent.futures import ProcessPoolExecutor
+    from functools import partial
+    from os import process_cpu_count
 
-    from pyglossary.glossary_v2 import Glossary
-
+    from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
     from .snapshot import (
         decompress_chunk,
@@ -80,22 +81,18 @@ def build(args):
         get_chunk_zst_path,
         get_snapshot_chunks,
     )
-    from .stardict import add_entry, create_glossary, create_stardict
-    from .zim import download_zim, open_zim
+    from .stardict import create_stardict
+    from .zim import download_zim
 
     xsl_path = get_xsl_path(args.edition, "main.xsl")
     edition_lang = EDITIONS[args.edition]["lang"]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
     snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
-    glos_dict = {}
-    add_files = {}
-    Glossary.init()
-    zim = None
+    conn_dict = {}
     zim_path = None
     zim_xsl_path = None
     if "zim_xsl" in EDITIONS[args.edition]:
         zim_path = download_zim(args.edition)
-        zim = open_zim(zim_path)
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
 
     for chunk_idx in range(chunk_num):
@@ -111,29 +108,32 @@ def build(args):
             ) as executor:
                 for results in executor.map(transform, f, chunksize=100):
                     for data in results:
-                        if data["lang"] not in glos_dict:
-                            add_files[data["lang"]] = set()
-                            glos = create_glossary(
-                                data["lang"], edition_lang, snapshot_date
-                            )
-                            glos_dict[data["lang"]] = glos
-                        add_entry(
-                            glos_dict[data["lang"]],
-                            args.edition,
-                            data["forms"],
+                        if data["lang"] not in conn_dict:
+                            conn_dict[data["lang"]] = init_db(data["lang"])
+                        insert_data(
+                            conn_dict[data["lang"]],
                             data["def"],
-                            data["images"],
-                            add_files[data["lang"]],
-                            zim,
+                            data["forms"],
+                            data.get("form_of_only", False),
+                            data.get("form_of_targets", []),
+                            data.get("images", []),
                         )
-        chunk_zst_path.unlink()
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
+
+    for conn in conn_dict.values():
+        create_indexes(conn)
+    with ProcessPoolExecutor(
+        max_workers=min(len(conn_dict), process_cpu_count())
+    ) as executor:
+        executor.map(
+            partial(
+                create_stardict, edition_lang, args.edition, snapshot_date, zim_path
+            ),
+            conn_dict.keys(),
+        )
     if zim_path is not None:
         zim_path.unlink()
-
-    for lemma_lang, glos in glos_dict.items():
-        create_stardict(glos, lemma_lang, args.edition)
 
 
 def main():

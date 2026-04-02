@@ -71,12 +71,31 @@ def get_user_agent() -> str:
     return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
-def create_stardict(glos, lemma_lang: str, edition: str):
+def create_stardict(
+    gloss_lang: str,
+    edition: str,
+    snapshot_date: str,
+    zim_path: Path | None,
+    lemma_lang: str,
+):
     import shutil
     import tarfile
     from pathlib import Path
 
     from mediawiki_langcodes import name_to_code
+    from pyglossary.glossary_v2 import Glossary
+
+    from .db import iter_entries
+    from .zim import open_zim
+
+    add_files = {}
+    zim = None
+    if zim_path is not None:
+        zim = open_zim(zim_path)
+    Glossary.init()
+    glos = create_glossary(lemma_lang, gloss_lang, snapshot_date)
+    for definition, forms, images in iter_entries(lemma_lang):
+        add_entry(glos, edition, forms, definition, images, add_files, zim)
 
     folder_name = f"{name_to_code(lemma_lang, edition)}-{edition}"
     out_path = Path("build") / folder_name

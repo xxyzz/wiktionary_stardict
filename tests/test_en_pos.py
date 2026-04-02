@@ -36,25 +36,9 @@ class EnPOSTestCase(XMLTestCase):
         <li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">clothing<span class="ib-comma label-comma">,</span><span> </span>informal</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Ellipsis of <span class="form-of-definition-link"><i class="Latn mention" lang="en">tee-shirt</i></span></span>.</li>
       </ol>
     </section>""",
+                    "form_of_only": False,
                 },
             ],
-        )
-
-    def test_remove_form_of_gloss(self):
-        self.assertTransformEqual(
-            """<!DOCTYPE html>
-<html>
-<head><title>books</title></head>
-<body>
-<section><h2>English</h2>
-<section><h3>Noun</h3>
-<p><span class="headword-line"><strong class="Latn headword" lang="en">books</strong></span></p>
-<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"plural of"}}}]}'>plural of <span class="form-of-definition-link"><i class="Latn mention" lang="en">book</i></span></span></li></ol>
-</section>
-</section>
-</body>
-</html>""",
-            [],
         )
 
     def test_double_headword_one_ol(self):
@@ -622,6 +606,8 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
 </section>""",
                     "forms": ["dike", "dikes"],
+                    "form_of_targets": ["dyke"],
+                    "form_of_only": True,
                 },
             ],
         )
