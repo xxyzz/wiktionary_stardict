@@ -88,14 +88,14 @@ def create_stardict(
     from .db import iter_entries
     from .zim import open_zim
 
-    add_files = {}
+    added_files = set()
     zim = None
     if zim_path is not None:
         zim = open_zim(zim_path)
     Glossary.init()
     glos = create_glossary(lemma_lang, gloss_lang, snapshot_date)
     for definition, forms, images in iter_entries(lemma_lang):
-        add_entry(glos, edition, forms, definition, images, add_files, zim)
+        add_entry(glos, edition, forms, definition, images, added_files, zim)
 
     folder_name = f"{name_to_code(lemma_lang, edition)}-{edition}"
     out_path = Path("build") / folder_name

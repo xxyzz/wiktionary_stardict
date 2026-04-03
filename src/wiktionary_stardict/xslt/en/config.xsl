@@ -35,5 +35,7 @@
               'Icelandic',
               'Malay',
               'Persian',
-              'Latin')"/>
+              'Latin',
+              'Old English',
+              'Middle English')"/>
 </xsl:stylesheet>

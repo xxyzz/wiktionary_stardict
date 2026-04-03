@@ -22,11 +22,14 @@
               'Arabe',
               'Catalan',
               'Polonais',
+              'Ancien français',
               'Vietnamien',
               'Indonésien',
               'Islandais',
+              'Grec ancien',
               'Coréen',
               'Roumain',
               'Letton',
+              'Ancien occitan',
               'Grec')"/>
 </xsl:stylesheet>

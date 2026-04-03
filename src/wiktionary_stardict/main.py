@@ -126,11 +126,13 @@ def build(args):
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
-        executor.map(
-            partial(
-                create_stardict, edition_lang, args.edition, snapshot_date, zim_path
-            ),
-            conn_dict.keys(),
+        list(
+            executor.map(
+                partial(
+                    create_stardict, edition_lang, args.edition, snapshot_date, zim_path
+                ),
+                conn_dict.keys(),
+            )
         )
     if zim_path is not None:
         zim_path.unlink()
