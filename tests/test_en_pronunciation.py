@@ -137,7 +137,13 @@ class EnPronunciationTestCase(XMLTestCase):
 <dd><small>(<i><a>Zhuyin</a></i>)</small>: <span lang="cmn-Bopo" class="Bopo">ㄉㄚˋ ㄐㄧㄚ, ㄉㄚˋ ㄚ</span></dd>
 <dd><span class="mw-default-size mw-default-audio-height" typeof="mw:File"><span><audio><source/></audio></span></span></dd></dl></dd>
 <dd><small>(<i>Chengdu, Sichuanese Pinyin</i>)</small>: <span class="zhpron-monospace">da<sup>4</sup> jia<sup>1</sup></span></dd>
-</dl></li></ul></div></div>
+</dl></li></ul>
+<div class="vsHide" style="clear:right;">
+<hr/>
+<ul><li>Mandarin
+<ul><li><small>(<i>Standard Chinese</i>)</small><sup><small><abbr title="Add Mandarin homophones"><span class="plainlinks">+</span></abbr></small></sup>
+<ul><li><small><i>Hanyu Pinyin</i></small>: <span class="zhpron-monospace" lang="cmn"><span class="Latn" lang="cmn">dàjiā</span></span></li></ul></li></ul></li></ul>
+</div></div></div>
 <section><h4>Pronoun</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong></span></p>
 <ol><li>gloss</li></ol>
@@ -263,6 +269,38 @@ class EnPronunciationTestCase(XMLTestCase):
 <h4>Noun</h4>
 <ul><li>Cantonese <small>(<i>Jyutping</i>)</small>: <span class="zhpron-monospace">puk<sup>1</sup> gaai<sup>1</sup></span></li></ul>
 <p><span class="headword-line"><strong class="Hans headword" lang="zh">仆街</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )
+
+    def test_parent_preceding_pron(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>tee</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Pronunciation</h3>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup><span>:</span><span> </span><span class="IPA nowrap">/ˈtiː/</span></li></ul></section>
+<section><h3>Etymology 1</h3>
+<section><h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">tee</strong></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>IPA<span>:</span><span> </span><span class="IPA nowrap">/ˈtiː/</span></li></ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">tee</strong>
 </span></p>
 <ol><li>gloss</li></ol>
 </section>""",

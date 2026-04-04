@@ -611,3 +611,20 @@ class EnPOSTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_chinese_alt_form_of(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>琴瑟合鳴</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Idiom</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">琴瑟合鳴</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention">alternative form of <span class="form-of-definition-link"><i class="Hant mention" lang="zh">琴瑟和鳴</i><span class="Zsym mention" style="font-size:100%;"><span> </span>/ </span><i class="Hans mention" lang="zh">琴瑟和鸣</i> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="mention-tr tr Latn">qínsèhémíng</span><span class="mention-gloss-paren annotation-paren">)</span></span></span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"form_of_targets": ["琴瑟和鳴", "琴瑟和鸣"], "form_of_only": True}],
+        )

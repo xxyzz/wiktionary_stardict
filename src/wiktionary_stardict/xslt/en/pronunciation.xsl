@@ -17,7 +17,7 @@
       </xsl:when>
       <xsl:when test="$language = 'Chinese'">
         <xsl:apply-templates
-            select="div[contains-token(@class, 'zhpron')]//ul[1]"
+            select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
             mode="zh-pron"/>
       </xsl:when>
       <xsl:otherwise>
@@ -50,14 +50,14 @@
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>
 
-  <xsl:mode name="zh-pron" on-no-match="shallow-copy"/>
   <xsl:template match="ul" mode="zh-pron">
     <xsl:variable name="li">
-      <xsl:apply-templates select="li[1]" mode="zh-pron"/>
+      <xsl:apply-templates select="li[1]" mode="zh-pron-li"/>
     </xsl:variable>
     <ul>
       <xsl:apply-templates select="$li" mode="clean-content"/>
     </ul>
   </xsl:template>
-  <xsl:template match="dd[span[@typeof='mw:File']]" mode="zh-pron"/>
+  <xsl:mode name="zh-pron-li" on-no-match="shallow-copy"/>
+  <xsl:template match="dd[span[@typeof='mw:File']]" mode="zh-pron-li"/>
 </xsl:stylesheet>

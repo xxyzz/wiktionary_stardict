@@ -12,6 +12,7 @@
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -51,12 +52,19 @@
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-li"/>
           <xsl:apply-templates
-              select="(preceding-sibling::section | ancestor::section/section)
-                      [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')]"
+              select="(parent::section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')]
+                      [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
+          <xsl:apply-templates
+              select="(parent::section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [starts-with(normalize-space(h3|h4|h5|h6), 'Etymology')][last()]"
+              mode="etymology"/>
         </section>
       </xsl:variable>
 
@@ -151,7 +159,7 @@
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
         select="$li/span[contains-token(@class, 'form-of-definition')]/
-                span[contains-token(@class, 'form-of-definition-link')] !
+                span[contains-token(@class, 'form-of-definition-link')]/i[@lang] !
                 normalize-space(.)"/>
   </xsl:function>
 

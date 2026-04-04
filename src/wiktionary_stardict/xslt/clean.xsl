@@ -30,12 +30,8 @@
   </xsl:template>
 
   <!-- Remove hidden elements -->
-  <xsl:template
-      match="*[contains(@style, 'display: none;')]"
-      mode="clean-content"/>
+  <xsl:template match="*[contains(@style, 'display: none;')]" mode="clean-content"/>
 
-  <xsl:template
-      match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
-  <xsl:template
-      match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
+  <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
+  <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
 </xsl:stylesheet>
