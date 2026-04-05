@@ -9,6 +9,7 @@
 
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -35,6 +36,14 @@
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="pos-li"/>
         <xsl:apply-templates select="p | ol" mode="pos-li"/>
+        <xsl:apply-templates
+            select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
+                    [last()]"
+            mode="etymology">
+          <xsl:with-param
+              name="pos-id"
+              select="(h3|h4|h5|h6)/span[contains-token(@class, 'titredef')]/@id"/>
+        </xsl:apply-templates>
       </section>
     </xsl:variable>
 
