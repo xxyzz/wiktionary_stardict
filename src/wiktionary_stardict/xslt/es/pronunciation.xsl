@@ -22,8 +22,12 @@
       <li>
         <xsl:apply-templates select="./node()" mode="clean-content"/>
         <xsl:text>: </xsl:text>
-        <xsl:apply-templates
-            select="following-sibling::td/text()" mode="clean-content"/>
+        <xsl:for-each select="following-sibling::td/text()">
+          <xsl:copy select="normalize-space(.)"/>
+          <xsl:if test="position() != last()">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
       </li>
     </xsl:for-each>
   </xsl:template>

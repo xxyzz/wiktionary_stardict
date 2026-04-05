@@ -11,6 +11,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -42,10 +43,15 @@
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos"/>
           <xsl:apply-templates
               select="ancestor::section/table[@data-mw]
-                      [myfn:is-template(@data-mw, 'pron-graf')]" mode="pron"/>
+                      [myfn:is-template(@data-mw, 'pron-graf')][last()]" mode="pron"/>
           <xsl:apply-templates
               select="p[child::*[1][self::b[@typeof='mw:Transclusion']]] | dl"
               mode="pos"/>
+          <xsl:apply-templates
+              select="(parent::section | preceding-sibling::section)
+                      [starts-with(normalize-space((h3|h4|h5|h6)[1]), 'Etimología')]
+                      [last()]"
+              mode="etymology"/>
         </section>
       </xsl:variable>
 
