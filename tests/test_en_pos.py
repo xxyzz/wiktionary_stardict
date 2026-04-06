@@ -628,3 +628,33 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [{"form_of_targets": ["琴瑟和鳴", "琴瑟和鸣"], "form_of_only": True}],
         )
+
+    def test_usage_notes(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>serendipity</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">serendipity</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Usage notes</h4>
+<ul><li>usage notes text</li></ul>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">serendipity</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Usage notes</h4>
+<ul><li>usage notes text</li></ul>
+</section>
+</section>""",
+                },
+            ],
+        )

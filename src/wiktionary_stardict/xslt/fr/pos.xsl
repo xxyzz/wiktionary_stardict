@@ -35,7 +35,9 @@
       <section lang="fr" dir="ltr">
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="pos-li"/>
-        <xsl:apply-templates select="p | ol" mode="pos-li"/>
+        <xsl:apply-templates
+            select="p | ol | section[normalize-space(h4|h5|h6) = 'Notes']"
+            mode="pos-li"/>
         <xsl:apply-templates
             select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
                     [last()]"
