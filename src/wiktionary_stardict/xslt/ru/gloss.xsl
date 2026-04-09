@@ -10,6 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="morphology.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="gloss">
     <xsl:param name="language"/>
@@ -35,6 +36,9 @@
               select="preceding-sibling::section[normalize-space(h3) = 'Произношение']"
               mode="pronunciation"/>
           <xsl:apply-templates select="$meaning-section" mode="meaning"/>
+          <xsl:apply-templates
+              select="following-sibling::section[normalize-space(h3) = 'Этимология']"
+              mode="etymology"/>
         </section>
       </xsl:variable>
 
