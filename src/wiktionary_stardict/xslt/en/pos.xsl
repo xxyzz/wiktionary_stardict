@@ -26,7 +26,7 @@
         as="xs:string*"/>
     <xsl:variable
         name="headword-forms"
-        select="myfn:ruby_text(
+        select="myfn:get-element-forms(
                 $headword-span//b[contains-token(@class, 'form-of') or @lang])"
         as="xs:string*"/>
     <xsl:variable
@@ -37,7 +37,8 @@
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select="section[(h4 | h5 | h6)//text() = ('Conjugation', 'Declension')]"
+            select="section[(h4 | h5 | h6)//text() =
+                    ('Conjugation', 'Declension', 'Inflection')]"
             mode="conj"/>
       </xsl:variable>
       <xsl:variable

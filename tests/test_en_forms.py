@@ -1,7 +1,7 @@
 from utils import XMLTestCase
 
 
-class EnAltFormsTestCase(XMLTestCase):
+class EnFormsTestCase(XMLTestCase):
     def test_alt_forms_under_pos(self):
         self.assertTransformEqual(
             """<!DOCTYPE html>
@@ -149,4 +149,85 @@ class EnAltFormsTestCase(XMLTestCase):
 </body>
 </html>""",
             [{"forms": ["痛い", "甚い", "イタい", "痛く"]}],
+        )
+
+    def test_russian_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>бегать</title></head>
+<body>
+<section><h2>Russian</h2>
+<section><h3>Alternative forms</h3>
+<ul><li><span class="Cyrl" lang="ru"><a rel="mw:WikiLink" href="./бѣгать#Russian" title="бѣгать">бѣ́гать</a></span><span> </span><span class="mention-gloss-paren annotation-paren">(</span><span lang="ru-Latn" class="tr Latn">bě́gatʹ</span><span class="mention-gloss-paren annotation-paren">)</span><span> </span><span>—</span><span> </span><span class="ib-content label-content"><a>pre-1918 spelling</a></span></li></ul>
+</section>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Cyrl headword" lang="ru">бе́гать</strong> <b class="Cyrl form-of lang-ru verbal_noun-form-of pos-noun target-бе́гание origin-бе́гать origin_transliteration-" lang="ru"><a rel="mw:WikiLink" title="бегание" class="new" typeof="mw:LocalizedAttrs">бе́гание</a></b></span></p>
+<ol><li><span>gloss</span></li></ol>
+<section><h4>Conjugation</h4>
+<div><table><tbody>
+<tr>
+<th>passive</th>
+<td><span>—</span></td><td><span>—</span></td></tr>
+<tr>
+<th>adverbial</th>
+<td><span class="Cyrl form-of lang-ru past|adv|part-form-of origin-бе́гать" lang="ru"><a rel="mw:WikiLink" href="./бегав#Russian" title="бегав">бе́гав</a></span><br/><span lang="ru-Latn" class="tr Latn" style="color:var(--wikt-palette-grey-8,#888);">bégav</span>,<br/><span class="Cyrl form-of lang-ru past|adv|part-form-of origin-бе́гать" lang="ru"><a rel="mw:WikiLink" href="./бегавши#Russian" title="бегавши">бе́гавши</a></span><br/><span lang="ru-Latn" class="tr Latn" style="color:var(--wikt-palette-grey-8,#888);">bégavši</span></td></tr>
+<tr class="rowgroup">
+<th></th>
+<th>present tense</th>
+<th>future tense</th></tr>
+<tr>
+<th><a rel="mw:WikiLink" href="./первое_лицо" title="первое лицо">1st</a> <a rel="mw:WikiLink" href="./единственное_число" title="единственное число">singular</a> (<span lang="ru" class="Cyrl">я</span>)</th>
+<td><span class="Cyrl form-of lang-ru 1|s|pres|ind-form-of origin-бе́гать" lang="ru"><a rel="mw:WikiLink" href="./бегаю#Russian" title="бегаю">бе́гаю</a></span><br/><span lang="ru-Latn" class="tr Latn" style="color:var(--wikt-palette-grey-8,#888);">bégaju</span></td><td><span class="Cyrl" lang="ru"><a rel="mw:WikiLink" href="./буду#Russian" title="буду">бу́ду</a></span><span lang="ru" class="Cyrl"> бе́гать</span><br/><span lang="ru-Latn" class="tr Latn" style="color:var(--wikt-palette-grey-8,#888);">búdu bégatʹ</span></td></tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": [
+                        "бе́гать",  # headword strong
+                        "бегать",
+                        "бѣ́гать",  # alternative forms section
+                        "бѣгать",
+                        "бе́гание",  # headword b
+                        "бегание",
+                        "бе́гав",  # conjugation section table
+                        "бегав",
+                        "бе́гавши",
+                        "бегавши",
+                        "бе́гаю",
+                        "бегаю",
+                    ]
+                }
+            ],
+        )
+
+    def test_greek_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>τρέχω</title></head>
+<body>
+<section><h2>Greek</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Grek headword" lang="el">τρέχω</strong>
+</span></p>
+<ol><li><span>gloss</span></li></ol>
+<section><h4>Conjugation</h4>
+<div><table><tbody>
+<tr><th>3 <span class="gender"><abbr title="plural number">pl</abbr></span></th>
+<td><a rel="mw:WikiLink" title="τρέχουν" class="new">τρέχουν</a>(<a rel="mw:WikiLink" title="τρέχουνε" class="new">ε</a>)</td></tr>
+<tr>
+<th><span><b>Subjunctive mood</b></span></th>
+<td colspan="2">Formed using <i>present</i>, <i>dependent</i> (for <i>simple past</i>) or <i>present perfect</i> from above with a particle (<a rel="mw:WikiLink" href="./να" title="να">να</a>, <a rel="mw:WikiLink" href="./ας" title="ας">ας</a>).</td></tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["τρέχω", "τρέχουν", "τρέχουνε"]}],
         )
