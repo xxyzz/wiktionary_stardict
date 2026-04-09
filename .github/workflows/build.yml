@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        edition: ['en', 'es', 'fr']
+        edition: ['en', 'es', 'fr', 'ru']
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
     permissions:

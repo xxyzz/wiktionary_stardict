@@ -18,7 +18,7 @@
       <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Wiktionary Stardict</title>
+        <title>Wiktionary StarDict</title>
         <xsl:element name="style" expand-text="no">
           .files {display: none;}
           .active {display: initial;}
@@ -26,7 +26,7 @@
         </xsl:element>
       </head>
       <body>
-        <h1>Wiktionary Stardict</h1>
+        <h1>Wiktionary StarDict</h1>
         <label for="edition">Choose Wiktionary edition:</label>
         <select id="edition">
           <xsl:for-each select="map:keys($assets)">
