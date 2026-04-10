@@ -46,6 +46,21 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="dl" mode="pron-ul">
+    <xsl:variable name="lists">
+      <xsl:apply-templates select="dd" mode="pron-ul"/>
+    </xsl:variable>
+    <xsl:if test="$lists/*">
+      <dl><xsl:copy-of select="$lists"/></dl>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dd" mode="pron-ul">
+    <xsl:if test="not(table[contains-token(@class, 'audiotable')])">
+      <dd><xsl:apply-templates mode="pron-ul"/></dd>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="*" mode="pron-ul">
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>

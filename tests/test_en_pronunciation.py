@@ -307,3 +307,36 @@ class EnPronunciationTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_dl_audio(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>severe</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Pronunciation</h3>
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">UK</span></span><span class="ib-brac qualifier-brac">)</span><span> </span><a rel="mw:WikiLink" href="./Wiktionary:International_Phonetic_Alphabet" title="Wiktionary:International Phonetic Alphabet">IPA</a><span>:</span><span> </span><span class="IPA nowrap">/sɪˈvɪə/</span>
+<dl><dd><table class="audiotable"></table></dd></dl></li>
+</ul></section>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">severe</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en">
+<h4>Adjective</h4>
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">UK</span></span><span class="ib-brac qualifier-brac">)</span><span> </span>IPA<span>:</span><span> </span><span class="IPA nowrap">/sɪˈvɪə/</span></li></ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">severe</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )

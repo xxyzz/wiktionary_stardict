@@ -9,7 +9,7 @@
 
   <xsl:template match="section" mode="pronunciation">
     <xsl:variable name="content">
-      <xsl:apply-templates select="ul" mode="pron-ul"/>
+      <xsl:apply-templates select=".//ul" mode="pron-ul"/>
     </xsl:variable>
     <xsl:if test="$content/ul/*">
       <section>
@@ -20,7 +20,7 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pron-ul">
-    <xsl:if test="a[@title = 'w:Международный фонетический алфавит']">
+    <xsl:if test="normalize-space(a[1]) = 'МФА'">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>
