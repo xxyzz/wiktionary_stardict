@@ -3,4 +3,5 @@ EDITIONS = {
     "es": {"lang": "Español"},
     "fr": {"lang": "Français", "zim_xsl": "conjugaison.xsl"},
     "ru": {"lang": "Русский"},
+    "de": {"lang": "Deutsch"},
 }

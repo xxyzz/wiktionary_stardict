@@ -7,5 +7,8 @@
               'Inglés',
               'Alemán',
               'Francés',
-              'Japonés')"/>
+              'Japonés',
+              'Latín',
+              'Italiano',
+              'Portugués')"/>
 </xsl:stylesheet>
