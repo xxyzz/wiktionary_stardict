@@ -14,11 +14,12 @@
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
 
-    <xsl:variable
-        name="headword-forms" select="p/(b|bdi)/normalize-space()" as="xs:string*"/>
+    <xsl:variable name="headword-forms" as="xs:string*"
+        select="p/(b|bdi)/myfn:get-element-forms(.)"/>
     <xsl:variable
         name="table-forms"
-        select="table[contains-token(@class, 'wikitable')]//td/bdi/normalize-space()"
+        select="table[contains-token(@class, 'wikitable')]//td/bdi/
+                myfn:get-element-forms(.)"
         as="xs:string*"/>
     <xsl:variable
         name="unique-forms"

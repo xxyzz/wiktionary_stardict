@@ -23,7 +23,6 @@
     <xsl:sequence select="array{$results}"/>
   </xsl:template>
 
-  <!-- Language section -->
   <xsl:template match="section" mode="language">
     <xsl:variable name="language" select="normalize-space(h1)"/>
     <xsl:apply-templates

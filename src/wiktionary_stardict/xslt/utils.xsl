@@ -23,4 +23,21 @@
         select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies normalize-space($wt) = $templates"/>
   </xsl:function>
+
+  <xsl:function name="myfn:get-element-forms" as="xs:string*">
+    <xsl:param name="ele" as="element()*"/>
+    <xsl:sequence
+        select="for $n in $ele return
+                if ($n/a) then myfn:a-forms($n/a) else myfn:a-forms($n)"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:a-forms" as="xs:string*">
+    <xsl:param name="a-ele" as="element()*"/>
+    <xsl:sequence
+        select="for $a in $a-ele return
+                let $text := myfn:ruby_text($a),
+                $title := normalize-space($a/@title)
+                return if (string-length($text) = 1 and ends-with($title, $text))
+                then $title else ($text, $title)"/>
+  </xsl:function>
 </xsl:stylesheet>
