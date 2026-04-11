@@ -18,7 +18,7 @@
         select="p/(b|bdi)/myfn:get-element-forms(.)"/>
     <xsl:variable
         name="table-forms"
-        select="table[contains-token(@class, 'wikitable')]//td/bdi/
+        select="table[contains-token(@class, 'flextable')]//td/bdi/
                 myfn:get-element-forms(.)"
         as="xs:string*"/>
     <xsl:variable

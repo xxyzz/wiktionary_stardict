@@ -15,12 +15,17 @@
 
     <xsl:variable
         name="table-forms"
-        select="(table[contains-token(@class, 'wikitable')]//td/a/normalize-space())
-                [not(. = ('sein', 'haben'))]"
+        select="(table[contains-token(@class, 'inflection-table')]//
+                td/a/normalize-space())[not(. = ('sein', 'haben'))]"
         as="xs:string*"/>
     <xsl:variable
         name="unique-forms"
         select="distinct-values(($title, $table-forms)[. != ''])"
+        as="xs:string*"/>
+    <xsl:variable
+        name="flexion-links"
+        select="table[contains-token(@class, 'inflection-table')]//th//a
+                [starts-with(@title, 'Flexion:')]/@title"
         as="xs:string*"/>
 
     <xsl:variable name="definition">
@@ -52,7 +57,8 @@
     <xsl:sequence select="map{'lang': $language,
                           'forms': array{$unique-forms},
                           'def': $final-definition,
-                          'images': array{$images}}"/>
+                          'images': array{$images},
+                          'zim_pages': array{$flexion-links}}"/>
   </xsl:template>
 
   <xsl:template match="h3" mode="pos">

@@ -38,6 +38,7 @@ class DeFormsTestCase(XMLTestCase):
 <dl><dd>[1] gloss</dd></dl>
 </section></section>""",
                     "forms": ["sehen", "siehe", "sieh", "gesehen"],
+                    "zim_pages": ["Flexion:sehen"],
                 },
             ],
         )
