@@ -231,3 +231,17 @@ class EnFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["τρέχω", "τρέχουν", "τρέχουνε"]}],
         )
+
+    def test_zh_verb_object(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>上童</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">上⫽童</strong> (<i>verb-object</i>)</span></p>
+<ol><li><span>gloss</span></li></ol>
+</section></section></body></html>""",
+            [{"forms": ["上童"]}],
+        )

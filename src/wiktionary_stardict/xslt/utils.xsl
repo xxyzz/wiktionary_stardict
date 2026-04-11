@@ -10,8 +10,8 @@
     <xsl:param name="nodes" as="node()*"/>
     <xsl:for-each select="$nodes">
       <xsl:sequence
-          select="normalize-space(
-                  string-join(.//text()[not(parent::rp or ancestor::rt)], ''))"/>
+          select=".//text()[not(parent::rp or ancestor::rt)] =>
+                  string-join('') => replace('⫽', '') => normalize-space()"/>
     </xsl:for-each>
   </xsl:function>
 
