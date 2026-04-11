@@ -42,3 +42,42 @@ class DeFormsTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_alt_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Wüstenbeifuß</title></head>
+<body>
+<section><h2>Straßenbahn (<a>Deutsch</a>)</h2>
+<section><h3>Substantiv</h3>
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Alternative Schreibweisen"}}}]}'>Alternative Schreibweisen:</p>
+<dl><dd><a rel="mw:WikiLink" title="Wüsten-Beifuß" class="new">Wüsten-Beifuß</a></dd></dl>
+
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Alternative Schreibweisen"}}}]}'>Alternative Schreibweisen:</p>
+<dl><dd><i><a rel="mw:WikiLink" title="Hilfe:Schweiz und Liechtenstein">Schweiz und Liechtenstein:</a></i> <a rel="mw:WikiLink" title="Wüstenbeifuss">Wüstenbeifuss</a></dd></dl>
+
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Bedeutungen"}}}]}'>Bedeutungen:</p>
+<dl><dd>[1] gloss</dd></dl>
+</section></section>
+</body>
+</html>""",
+            [{"forms": ["Wüstenbeifuß", "Wüsten-Beifuß", "Wüstenbeifuss"]}],
+        )
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>colour</title></head>
+<body>
+<section><h2>colour (<a>Englisch</a>)</h2>
+<section><h3>Substantiv</h3>
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Alternative Schreibweisen"}}}]}'>Alternative Schreibweisen:</p>
+<dl><dd><a rel="mw:WikiLink/Interwiki" title="w:Amerikanisches Englisch"><i>US-amerikanisch:</i></a> <a rel="mw:WikiLink" href="./color" title="color">color</a></dd></dl>
+
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Bedeutungen"}}}]}'>Bedeutungen:</p>
+<dl><dd>[1] gloss</dd></dl>
+</section></section>
+</body>
+</html>""",
+            [{"forms": ["colour", "color"]}],
+        )

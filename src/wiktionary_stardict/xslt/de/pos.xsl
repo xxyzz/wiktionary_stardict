@@ -19,8 +19,13 @@
                 td/a/normalize-space())[not(. = ('sein', 'haben'))]"
         as="xs:string*"/>
     <xsl:variable
+        name="alternative-forms"
+        select="p[@data-mw and myfn:is-template(@data-mw, 'Alternative Schreibweisen')]/
+                following-sibling::dl[1] => myfn:get-alt-forms()"
+        as="xs:string*"/>
+    <xsl:variable
         name="unique-forms"
-        select="distinct-values(($title, $table-forms)[. != ''])"
+        select="distinct-values(($title, $table-forms, $alternative-forms)[. != ''])"
         as="xs:string*"/>
     <xsl:variable
         name="flexion-links"
@@ -84,4 +89,9 @@
       <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
     </section>
   </xsl:template>
+
+  <xsl:function name="myfn:get-alt-forms" as="xs:string*">
+    <xsl:param name="dl" as="element(dl)*"/>
+    <xsl:sequence select="$dl/dd/a[not(ends-with(string(), ':'))]/@title"/>
+  </xsl:function>
 </xsl:stylesheet>

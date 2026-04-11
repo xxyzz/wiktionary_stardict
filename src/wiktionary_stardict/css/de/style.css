@@ -1,0 +1,16 @@
+h4 {
+  margin: 0.25em 0;
+  padding-bottom: 0;
+  font-weight: bold;
+}
+dl {
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+}
+dd {
+  margin-bottom: 0.1em;
+  margin-left: 1.6em;
+  margin-right: 0;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+}
