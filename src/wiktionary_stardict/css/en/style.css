@@ -46,3 +46,9 @@ dd {
   font-style: normal;
   font-weight: bold;
 }
+.mention-tr {
+  font-style: italic;
+}
+pre, code, tt, kbd, samp, .mw-code {
+  font-family: monospace;
+}

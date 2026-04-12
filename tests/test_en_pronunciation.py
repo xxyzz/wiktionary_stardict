@@ -99,7 +99,7 @@ class EnPronunciationTestCase(XMLTestCase):
 <li><table class="audiotable"></table></li></ul>
 </section>
 <section><h3>Adjective</h3>
-<p><span class="headword-line"><strong class="Japn headword" lang="ja">痛い</strong></span></p>
+<p><span class="headword-line"><strong class="Japn headword" lang="ja">痛い</strong><i></i></span></p>
 <ol><li>gloss</li></ol>
 </section>
 </section>
