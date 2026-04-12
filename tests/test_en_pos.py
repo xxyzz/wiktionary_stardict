@@ -557,7 +557,7 @@ class EnPOSTestCase(XMLTestCase):
 <html>
 <head><title>底</title></head>
 <body>
-<section><h2>English</h2>
+<section><h2>Chinese</h2>
 <section><h3>Noun</h3>
 <p>
   <span class="headword-line">
@@ -654,6 +654,34 @@ class EnPOSTestCase(XMLTestCase):
 <section><h4>Usage notes</h4>
 <ul><li>usage notes text</li></ul>
 </section>
+</section>""",
+                },
+            ],
+        )
+
+    def test_zh_x_single_line(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>大家</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
+</span></p>
+<ol><li>gloss
+<dl><dd><span lang="zh-Hant" class="Hant" data-mw='{"parts":[{"template":{"target":{"wt":"zh-x"}}}]}'><b>大家</b>閨秀</span><span lang="zh-Hani" class="Hani">／</span><span lang="zh-Hans" class="Hans"><b>大家</b>闺秀</span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i><b>dàjiā</b>guīxiù</i></span><span> </span><span> ―</span><span> </span><span> unmarried daughter of a noble house</span></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
+</span></p>
+<ol><li>gloss
+<dl><dd><span lang="zh-Hant" class="Hant"><b>大家</b>閨秀</span><span lang="zh-Hani" class="Hani">／</span><span lang="zh-Hans" class="Hans"><b>大家</b>闺秀</span><span> </span><span> ―</span><span> </span><span> </span><span lang="zh-Latn"><i><b>dàjiā</b>guīxiù</i></span><span> </span><span> ―</span><span> </span><span> unmarried daughter of a noble house</span></dd></dl></li></ol>
 </section>""",
                 },
             ],

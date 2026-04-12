@@ -116,7 +116,7 @@
                 span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
                 'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or
-                span[@data-mw and myfn:is-template(@data-mw, 'zh-co')]]"/>
+                span[@data-mw and myfn:is-template(@data-mw, ('zh-co', 'zh-x'))]]"/>
     <xsl:variable
         name="color-panel"
         select="dd[div[contains-token(@class, 'color-panel')]]"/>
