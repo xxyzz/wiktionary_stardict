@@ -69,3 +69,34 @@ class FrPOSTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_h6_notes(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>frigidaire</title></head>
+<body>
+<section><h2><span>Français</span></h2>
+<section><h3><span>Nom commun</span></h3>
+<p><b>frigidaire</b></p>
+<ol><li>gloss</li></ol>
+<section><h6><span>Notes</span></h6>
+<dl><dd>notes</dd></dl>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="fr">
+<h4><span>Nom commun</span></h4>
+<p><b>frigidaire</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Notes</h4>
+<dl><dd>notes</dd></dl>
+</section>
+</section>""",
+                },
+            ],
+        )

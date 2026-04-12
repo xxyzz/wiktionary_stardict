@@ -639,7 +639,7 @@ class EnPOSTestCase(XMLTestCase):
 <section><h3>Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">serendipity</strong></span></p>
 <ol><li>gloss</li></ol>
-<section><h4>Usage notes</h4>
+<section><h5>Usage notes</h5>
 <ul><li>usage notes text</li></ul>
 </section>
 </section>

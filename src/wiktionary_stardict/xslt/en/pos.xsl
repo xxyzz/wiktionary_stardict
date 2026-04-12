@@ -60,9 +60,10 @@
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
+          <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="p | ol | section[normalize-space(h4|h5|h6) = 'Usage notes']"
-              mode="pos-li"/>
+              select="section[normalize-space(h4|h5|h6) = 'Usage notes' and ul]"
+              mode="usage-notes"/>
           <xsl:apply-templates
               select="(parent::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
@@ -180,4 +181,11 @@
                 contains-token(@class, 'alternative-form')]/
                 span[@lang]/normalize-space()"/>
   </xsl:function>
+
+  <xsl:template match="section" mode="usage-notes">
+    <section>
+      <h4>Usage notes</h4>
+      <xsl:apply-templates select="ul" mode="clean-content"/>
+    </section>
+  </xsl:template>
 </xsl:stylesheet>
