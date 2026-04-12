@@ -13,7 +13,7 @@
         <xsl:apply-templates
             select="span[@data-mw and myfn:is-template(@data-mw,
                     ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
-            mode="clean-content"/>
+            mode="ja-pron"/>
       </xsl:when>
       <xsl:when test="$language = 'Chinese'">
         <xsl:apply-templates
@@ -75,4 +75,16 @@
   </xsl:template>
   <xsl:mode name="zh-pron-li" on-no-match="shallow-copy"/>
   <xsl:template match="dd[span[@typeof='mw:File']]" mode="zh-pron-li"/>
+
+  <xsl:template match="ul" mode="ja-pron">
+    <xsl:variable name="li">
+      <xsl:apply-templates select="li" mode="ja-pron-li"/>
+    </xsl:variable>
+    <ul>
+      <xsl:apply-templates select="$li" mode="clean-content"/>
+    </ul>
+  </xsl:template>
+  <xsl:mode name="ja-pron-li" on-no-match="shallow-copy"/>
+  <xsl:template
+      match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
 </xsl:stylesheet>
