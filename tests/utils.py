@@ -31,7 +31,7 @@ class XMLTestCase(unittest.TestCase):
         document = self.proc.parse_xml(xml_text=input_html)
         return json.loads(self.executable.transform_to_string(xdm_node=document))
 
-    def assertTransformEqual(self, input_html, expected_list):
+    def assertTransformEqual(self, input_html, expected_list, prettify=True):
         output = self.transform(input_html)
         if len(expected_list) == 0:
             self.assertTrue(len(output) == 0)
@@ -40,7 +40,7 @@ class XMLTestCase(unittest.TestCase):
         else:
             for result_data, expected_data in zip(output, expected_list):
                 for key in expected_data.keys():
-                    if key == "def":
+                    if key == "def" and prettify:
                         self.assertXMLEqual(result_data["def"], expected_data["def"])
                     else:
                         self.assertEqual(result_data[key], expected_data[key])

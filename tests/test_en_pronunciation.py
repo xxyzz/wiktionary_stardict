@@ -107,20 +107,10 @@ class EnPronunciationTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en">
-<h4>Adjective</h4>
-<ul>
-  <li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">い<span style="border-top:1px solid;position:relative;padding:1px;">た<span style="position:absolute;top:0;bottom:67%;right:0%;border-right:1px solid;"></span></span>い</span> <span class="Latn"><samp>[ìtáꜜì]</samp></span> (Nakadaka – [2])</li>
-  <li>IPA:<span> </span><span class="IPA nowrap">[ita̠i]</span></li></ul>
-<p>
-  <span class="headword-line">
-    <strong class="Japn headword" lang="ja">痛い</strong>
-  </span>
-</p>
-<ol><li>gloss</li></ol>
-</section>""",
+                    "def": """<section lang="en" dir="ltr"><h4>Adjective</h4><ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">Tokyo</span><span class="ib-brac label-brac">)</span></span> <span lang="ja" class="Jpan">い<span style="border-top:1px solid;position:relative;padding:1px;">た<span style="position:absolute;top:0;bottom:67%;right:0%;border-right:1px solid;"></span></span>い</span> <span class="Latn"><samp>[ìtáꜜì]</samp></span> (Nakadaka – [2])</li><li>IPA:<span> </span><span class="IPA nowrap">[ita̠i]</span></li></ul><p><span class="headword-line"><strong class="Japn headword" lang="ja">痛い</strong><i></i></span></p><ol><li>gloss</li></ol></section>""",
                 }
             ],
+            prettify=False,
         )
 
     def test_zh_pron(self):

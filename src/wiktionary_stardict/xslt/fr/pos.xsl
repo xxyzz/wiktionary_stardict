@@ -58,11 +58,13 @@
       <xsl:apply-templates select="$definition" mode="convert-img"/>
     </xsl:variable>
 
-    <xsl:sequence select="map{'lang': $language,
-                          'forms': array{$unique-forms},
-                          'def': $final-definition,
-                          'images': array{$images},
-                          'zim_pages': array{$conj-links}}"/>
+    <xsl:sequence
+        select="map{'lang': $language,
+                'forms': array{$unique-forms},
+                'def': serialize(
+                  $final-definition, map{'method': 'html', 'indent': false()}),
+                'images': array{$images},
+                'zim_pages': array{$conj-links}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-li">

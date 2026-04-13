@@ -34,6 +34,4 @@
 
   <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
-
-  <xsl:template match="i[not(node())]" mode="clean-content"/>
 </xsl:stylesheet>

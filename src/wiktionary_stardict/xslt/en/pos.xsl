@@ -83,7 +83,8 @@
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
-                  'def': $final-definition,
+                  'def': serialize(
+                    $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
                   'form_of_targets': array{myfn:form-of-targets(ol//li)},
                   'form_of_only': boolean(every $li in ol//li
