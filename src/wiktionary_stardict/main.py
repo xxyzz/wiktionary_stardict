@@ -28,24 +28,23 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
         zim_xsl_exec = None
 
 
-def transform(line: str) -> list[list[str]]:
+def transform(chunk_data) -> list[list[str]]:
     import json
 
     from saxonche import PySaxonApiError
 
     from .zim import get_zim_page
 
-    data = json.loads(line)
-    html = data["html"]
+    page_name = chunk_data["name"]
     try:
-        document = proc.parse_xml(xml_text=html)
+        document = proc.parse_xml(xml_text=chunk_data["html"])
         result = executable.transform_to_string(xdm_node=document)
     except PySaxonApiError as err:
-        logger.error(f"Error in page: {data['name']} {err}")
+        logger.error(f"Error in page: {page_name} {err}")
         return []
     json_result = json.loads(result)
     if json_result is None:
-        logger.info(f"None result in page {data['name']}")
+        logger.info(f"None result in page {page_name}")
         return []
     for data in json_result:
         data["forms"] = list(
@@ -66,6 +65,19 @@ def transform(line: str) -> list[list[str]]:
             extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
             data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
     return json_result
+
+
+def iter_chunk_lines(page_names: set[str], f):
+    import json
+
+    for line in f:
+        data = json.loads(line)
+        page_name = data["name"]
+        if page_name in page_names:
+            logger.info(f"Duplicated page: {page_name}")
+        else:
+            page_names.add(page_name)
+            yield data
 
 
 def build(args):
@@ -95,6 +107,7 @@ def build(args):
         zim_path = download_zim(args.edition)
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
 
+    page_names = set()
     for chunk_idx in range(chunk_num):
         chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
@@ -106,7 +119,9 @@ def build(args):
             with ProcessPoolExecutor(
                 initializer=init_worker, initargs=(xsl_path, zim_path, zim_xsl_path)
             ) as executor:
-                for results in executor.map(transform, f, chunksize=100):
+                for results in executor.map(
+                    transform, iter_chunk_lines(page_names, f), chunksize=100
+                ):
                     for data in results:
                         if data["lang"] not in conn_dict:
                             conn_dict[data["lang"]] = init_db(data["lang"])
@@ -121,6 +136,7 @@ def build(args):
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 
+    page_names.clear()
     for conn in conn_dict.values():
         create_indexes(conn)
     with ProcessPoolExecutor(
