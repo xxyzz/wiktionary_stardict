@@ -36,7 +36,7 @@ dd {
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
 }
-.ib-content, .use-with-mention, .form-of-definition {
+.ib-content, .use-with-mention, .form-of-definition, .gender, .number, .noun-class {
   font-style: italic;
 }
 .use-with-mention i, .form-of-definition-link {
@@ -51,4 +51,11 @@ dd {
 }
 pre, code, tt, kbd, samp, .mw-code {
   font-family: monospace;
+}
+abbr[title] {
+  border-bottom: 0;
+  text-decoration: underline dotted;
+}
+abbr {
+  border-bottom-width: 0;
 }

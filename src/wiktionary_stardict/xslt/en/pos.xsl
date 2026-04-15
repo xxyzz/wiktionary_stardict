@@ -87,7 +87,7 @@
                     $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
                   'form_of_targets': array{myfn:form-of-targets(ol//li)},
-                  'form_of_only': boolean(every $li in ol//li
+                  'form_of_only': boolean(every $li in ol//li[node() and parent::ol]
                   satisfies myfn:is-form-of($li))}"/>
     </xsl:if>
   </xsl:template>
@@ -163,9 +163,9 @@
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
-        select="$li/span[contains-token(@class, 'form-of-definition')]/
+        select="distinct-values($li/span[contains-token(@class, 'form-of-definition')]/
                 span[contains-token(@class, 'form-of-definition-link')]/i[@lang] !
-                normalize-space(.)"/>
+                normalize-space(.))"/>
   </xsl:function>
 
   <xsl:template match="span" mode="pos-nyms">

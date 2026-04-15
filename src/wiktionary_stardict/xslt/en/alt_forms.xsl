@@ -10,11 +10,9 @@
     <xsl:param name="language" as="xs:string"/>
     <xsl:variable
         name="alt-forms-section"
-        select="$section/preceding-sibling::section[
-                (h3|h4|h5|h6)/text() = 'Alternative forms'] |
-                $section/ancestor::section/section[
-                (h3|h4|h5|h6)/text() = 'Alternative forms'] |
-                $section/section[(h4|h5|h6)/text() = 'Alternative forms']"/>
+        select="($section/preceding-sibling::section |
+                $section/parent::section/preceding-sibling::section |
+                $section/section)[normalize-space(h3|h4|h5|h6) = 'Alternative forms']"/>
     <xsl:variable
         name="alt-forms"
         select="myfn:alt-forms-section($alt-forms-section)"/>
