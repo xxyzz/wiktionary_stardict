@@ -34,6 +34,7 @@ def add_entry(
 
 def download_image(glos, url: str, edition: str, added_files: set[str], zim):
     import re
+    import urllib.parse
 
     import requests
 
@@ -44,7 +45,7 @@ def download_image(glos, url: str, edition: str, added_files: set[str], zim):
         filename = filename[: filename.index("?")]
     if "math/render/svg/" in url:
         filename += ".svg"
-    filename = re.sub(r"\..*\.", ".", filename)
+    filename = urllib.parse.unquote(re.sub(r"\..*\.", ".", filename))
     if url.startswith("//"):
         url = "https:" + url
     elif url.startswith("/"):

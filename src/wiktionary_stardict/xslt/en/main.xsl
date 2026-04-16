@@ -49,6 +49,14 @@
   <!-- Remove "audio" element expanded from "score sound" -->
   <xsl:template match="div[audio]" mode="clean-content"/>
 
+  <!-- Remove Template:maintenance line -->
   <xsl:template
       match="span[contains-token(@class, 'maintenance-line')]" mode="clean-content"/>
+  <!-- Remove Template:wikipedia Template:multiple images -->
+  <xsl:template
+      match="div[some $class in ('floatright', 'tmulti')
+             satisfies contains-token(@class, $class)]" mode="clean-content"/>
+  <!-- Remove <gallery> image list -->
+  <xsl:template
+      match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
 </xsl:stylesheet>
