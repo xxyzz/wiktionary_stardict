@@ -708,3 +708,27 @@ class EnPOSTestCase(XMLTestCase):
                 {"form_of_only": True, "form_of_targets": ["tear"]},
             ],
         )
+
+    def test_rm_inter_project_class(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>shin</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">shin</strong></span></p>
+<ol><li>gloss<span class="interProject">Wikipedia</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">shin</strong></p>
+<ol><li>gloss</li></ol>
+</section>"""
+                }
+            ],
+        )

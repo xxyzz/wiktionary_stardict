@@ -59,4 +59,7 @@
   <!-- Remove <gallery> image list -->
   <xsl:template
       match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
+  <!-- Remove hidden node from Template:wikipedia inline -->
+  <xsl:template
+      match="*[contains-token(@class, 'interProject')]" mode="clean-content"/>
 </xsl:stylesheet>
