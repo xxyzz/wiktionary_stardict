@@ -66,5 +66,9 @@
               'Slovak',
               'Burmese',
               'Lithuanian',
-              'Estonian')"/>
+              'Estonian',
+              'Uyghur',
+              'Tibetan',
+              'Mongolian',
+              'Zhuang')"/>
 </xsl:stylesheet>

@@ -331,3 +331,40 @@ class EnPronunciationTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_bo_ipa(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>དཀར་པོ</title></head>
+<body>
+<section><h2>Tibetan</h2>
+<section><h3>Pronunciation</h3>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"bo-IPA"}}}]}'>
+<ul><li>Old Tibetan: <span class="IPA">/*tkar.po/</span></li>
+<li>Lhasa: <span class="IPA">/kaː˥˥.po˥˥/</span></li></ul>
+<div class="mw-collapsible-content">
+<hr/>
+<ul><li>Old Tibetan:</li></ul></div></div>
+</section>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Tibt headword" lang="bo">དཀར་པོ</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section dir="ltr" lang="en">
+<h4>Adjective</h4>
+<ul><li>Old Tibetan: <span class="IPA">/*tkar.po/</span></li>
+<li>Lhasa: <span class="IPA">/kaː˥˥.po˥˥/</span></li></ul>
+<p><span class="headword-line"><strong class="Tibt headword" lang="bo">དཀར་པོ</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )

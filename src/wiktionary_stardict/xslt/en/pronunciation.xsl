@@ -20,6 +20,11 @@
             select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
             mode="zh-pron"/>
       </xsl:when>
+      <xsl:when test="$language = 'Tibetan'">
+        <xsl:apply-templates
+            select="div[@data-mw and myfn:is-template(@data-mw, 'bo-IPA')]/ul[1]"
+            mode="ja-pron"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates select="ul" mode="pron-ul"/>
       </xsl:otherwise>
@@ -36,10 +41,11 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pron-ul">
-    <xsl:if test="not(table[contains-token(@class, 'audiotable')]) and
-                  (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
-                  .//text()[normalize-space() = 'Syllabification:'] or
-                  .//span[normalize-space() = 'Hyphenation:'])">
+    <xsl:if
+        test="not(table[contains-token(@class, 'audiotable')]) and
+              (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
+              .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:')] or
+              .//span[normalize-space() = 'Hyphenation:'])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>
