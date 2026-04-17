@@ -145,13 +145,10 @@
 
   <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
-    <xsl:sequence select="boolean($li/node() and not(myfn:is-rfdef-li($li)))"/>
-  </xsl:function>
-
-  <xsl:function name="myfn:is-rfdef-li" as="xs:boolean">
-    <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
-        select="boolean($li/i[@data-mw and myfn:is-template(@data-mw, 'rfdef')])"/>
+        select="boolean($li/node() and
+                not(contains-token($li/@class, 'mw-empty-elt')) and
+                not($li/i[@data-mw and myfn:is-template(@data-mw, 'rfdef')]))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-form-of" as="xs:boolean">

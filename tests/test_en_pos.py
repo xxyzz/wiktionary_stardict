@@ -133,14 +133,15 @@ class EnPOSTestCase(XMLTestCase):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
-<head><title>tee</title></head>
+<head><title>wind down</title></head>
 <body>
 <section><h2>English</h2>
-<section><h3>Noun</h3>
-<p><span class="headword-line"><strong class="Latn headword" lang="en">tee</strong></span></p>
+<section><h3>Verb</h3>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">wind down</strong></span></p>
 <ol>
    <li>gloss 1</li>
-   <li class="mw-empty-elt" id="mwRg"></li>
+   <li class="mw-empty-elt"><link/></li>
 </ol>
 </section>
 </section>
@@ -149,10 +150,10 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "def": """<section dir="ltr" lang="en">
-      <h4>Noun</h4>
+      <h4>Verb</h4>
       <p>
         <span class="headword-line">
-          <strong class="Latn headword" lang="en">tee</strong>
+          <strong class="Latn headword" lang="en">wind down</strong>
         </span>
       </p>
       <ol>
