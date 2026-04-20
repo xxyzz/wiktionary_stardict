@@ -79,6 +79,37 @@
               }
             );
         </xsl:element>
+
+        <h2>Install fonts</h2>
+        <h3>IPA font</h3>
+        <p>Download <a href="https://fonts.google.com/specimen/Gentium+Plus">Gentium Plus</a> font file <code>GentiumPlus-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <h3>CJK fonts</h3>
+        <p>Download these <a href="https://github.com/notofonts/noto-cjk/releases">Noto Sans CJK</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansCJKtc-Regular.otf</code></li>
+          <li><code>NotoSansCJKtc-Bold.otf</code></li>
+          <li><code>NotoSansCJKsc-Regular.otf</code></li>
+          <li><code>NotoSansCJKsc-Bold.otf</code></li>
+          <li><code>NotoSansCJKjp-Regular.otf</code></li>
+          <li><code>NotoSansCJKjp-Bold.otf</code></li>
+          <li><code>NotoSansCJKkr-Regular.otf</code></li>
+          <li><code>NotoSansCJKkr-Bold.otf</code></li>
+        </ul>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mono">Noto Sans Mono</a> font file <code>NotoSansMono-Regular.ttf</code> for Pinyin to <code>koreader/fonts</code> folder</p>
+        <h3>Tibetan fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Tibetan">Noto Serif Tibetan</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSerifTibetan-Regular.ttf</code></li>
+          <li><code>NotoSerifTibetan-Bold.ttf</code></li>
+        </ul>
+        <h3>Mongolian, Manchu fonts</h3>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mongolian">Noto Sans Mongolian</a> font file <code>NotoSansMongolian-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <h3>Devanagari fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Devanagari"> Noto Serif Devanagari</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSerifDevanagari-Regular.ttf</code></li>
+          <li><code>NotoSerifDevanagari-Bold.ttf</code></li>
+        </ul>
       </body>
     </html>
   </xsl:template>

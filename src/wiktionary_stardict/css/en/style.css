@@ -352,7 +352,7 @@ i .mention {
 .Xsux.e-example b,
 .Xsux.e-quotation b,
 .Xsux.e-normalization b {
-  background-color:var(--wikt-palette-pink,#ffe0f0);
+  color: #612042;
   font-size:inherit
 }
 .Latn:lang(ja),
@@ -1000,4 +1000,79 @@ b, strong {
 
 .zhpron-monospace {
   font-family:Consolas,monospace
+}
+
+@font-face {
+  font-family: "Gentium Plus";
+  src: url("fonts/GentiumPlus-Regular.ttf");
+}
+@font-face {
+  font-family: "monospace";
+  src: url("fonts/NotoSansMono-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans CJK TC";
+  src: url("fonts/NotoSansCJKtc-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK TC";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKtc-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK SC";
+  src: url("fonts/NotoSansCJKsc-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK SC";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKsc-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK JP";
+  src: url("fonts/NotoSansCJKjp-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK JP";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKjp-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK KR";
+  src: url("fonts/NotoSansCJKkr-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK KR";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKkr-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Hebrew";
+  src: url("fonts/NotoSansHebrew-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("fonts/NotoNaskhArabic-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Tibetan";
+  src: url("fonts/NotoSerifTibetan-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Tibetan";
+  font-weight: bold;
+  src: url("fonts/NotoSerifTibetan-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Mongolian";
+  src: url("fonts/NotoSansMongolian-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Devanagari";
+  src: url("fonts/NotoSerifDevanagari-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Devanagari";
+  font-weight: bold;
+  src: url("fonts/NotoSerifDevanagari-Bold.ttf");
 }
