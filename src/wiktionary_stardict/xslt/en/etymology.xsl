@@ -25,7 +25,8 @@
       <xsl:apply-templates select="node()" mode="clean-content"/>
     </xsl:variable>
 
-    <xsl:if test="$clean-p/node()">
+    <xsl:if
+        test="normalize-space(string-join($clean-p//*[not(self::style)]/text(), ''))">
       <p><xsl:copy-of select="$clean-p"/></p>
     </xsl:if>
   </xsl:template>

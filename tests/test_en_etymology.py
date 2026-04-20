@@ -6,14 +6,17 @@ class EnEtymologyTestCase(XMLTestCase):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
-<head><title>abequose</title></head>
+<head><title>prickle</title></head>
 <body>
 <section><h2>English</h2>
 <section><h3>Etymology</h3>
-<p><span class="maintenance-line">(This <a>etymology</a> is missing or incomplete. Please add to it, or discuss it at the <a>Etymology scriptorium</a>.)</span></p>
+<p><style>.mw-parser-output</style>
+<span class="maintenance-line">This etymology is missing</span>
+<link rel="mw:PageProp/Category"/></p>
 </section>
 <section><h3>Noun</h3>
-<p><span class="headword-line"><strong class="Latn headword" lang="en">abequose</strong></span></p>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">prickle</strong>
+</span></p>
 <ol><li>gloss</li></ol>
 </section>
 </section>
@@ -24,7 +27,7 @@ class EnEtymologyTestCase(XMLTestCase):
                     "def": """<section dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line">
-<strong class="Latn headword" lang="en">abequose</strong>
+<strong class="Latn headword" lang="en">prickle</strong>
 </span></p>
 <ol><li>gloss</li></ol>
 </section>"""

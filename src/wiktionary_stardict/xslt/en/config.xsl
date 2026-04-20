@@ -70,5 +70,6 @@
               'Uyghur',
               'Tibetan',
               'Mongolian',
-              'Zhuang')"/>
+              'Zhuang',
+              'Manchu')"/>
 </xsl:stylesheet>
