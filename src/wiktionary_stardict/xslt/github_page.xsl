@@ -81,8 +81,9 @@
         </xsl:element>
 
         <h2>Install fonts</h2>
-        <h3>IPA font</h3>
+        <h3>Pronunciation fonts</h3>
         <p>Download <a href="https://fonts.google.com/specimen/Gentium+Plus">Gentium Plus</a> font file <code>GentiumPlus-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mono">Noto Sans Mono</a> font file <code>NotoSansMono-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
         <h3>CJK fonts</h3>
         <p>Download these <a href="https://github.com/notofonts/noto-cjk/releases">Noto Sans CJK</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
@@ -95,7 +96,6 @@
           <li><code>NotoSansCJKkr-Regular.otf</code></li>
           <li><code>NotoSansCJKkr-Bold.otf</code></li>
         </ul>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mono">Noto Sans Mono</a> font file <code>NotoSansMono-Regular.ttf</code> for Pinyin to <code>koreader/fonts</code> folder</p>
         <h3>Tibetan fonts</h3>
         <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Tibetan">Noto Serif Tibetan</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
@@ -110,6 +110,10 @@
           <li><code>NotoSerifDevanagari-Regular.ttf</code></li>
           <li><code>NotoSerifDevanagari-Bold.ttf</code></li>
         </ul>
+        <h3>Arabic font</h3>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic">Noto Naskh Arabic</a> font file <code>NotoNaskhArabic-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <h3>Hebrew font</h3>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew"> Noto Sans Hebrew</a> font file <code>NotoSansHebrew-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
       </body>
     </html>
   </xsl:template>
