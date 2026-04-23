@@ -391,7 +391,7 @@ i .mention {
 .ug-Arab,
 .ur-Arab,
 .ms-Arab {
-  font-family:'Noto Naskh Arabic','Iranian Sans',Tahoma,'Microsoft Sans Serif','Arial Unicode MS',sans-serif;
+  font-family:'Noto Naskh Arabic',sans-serif;
   font-size:133%;
   direction:rtl;
   unicode-bidi:isolate
@@ -401,10 +401,10 @@ i .mention {
   font-family:'Iranian Sans','Geeza Pro',Tahoma,sans-serif
 }
 .ks-Arab {
-  font-family:'Noto Naskh Arabic',Amiri,Mirza,'Scheherazade New',Scheherazade,'Geeza Pro',Tahoma,sans-serif
+  font-family:'Noto Naskh Arabic',sans-serif
 }
 .ku-Arab {
-  font-family:'Noto Naskh Arabic',Tahoma,'Arial Unicode MS','UT Cairo','UT Naskh',sans-serif
+  font-family:'Noto Naskh Arabic',sans-serif
 }
 .pa-Arab,
 .ur-Arab {
@@ -455,7 +455,7 @@ i .mention {
   font-size:130%
 }
 .Bopo {
-  font-family:MOESongUN,DFKai-SB,'Microsoft Yahei','Microsoft Jhenghei','Source Han Sans TC','Source Han Sans TW','Noto Sans CJK TC',sans-serif
+  font-family:'Noto Sans CJK TC',sans-serif
 }
 .Brah {
   font-family:'Segoe UI Historic','Noto Sans Brahmi'
@@ -510,7 +510,7 @@ i .mention {
   font-size:125%
 }
 .Deva {
-  font-family:'Adobe Devanagari','Noto Serif Devanagari',Utsaah,'Devanagari MT',Raghu,Gargi,JanaSanskrit,JanaHindi,Siddhanta,sans-serif;
+  font-family:'Noto Serif Devanagari',sans-serif;
   font-size:120%
 }
 .Dogr {
@@ -552,11 +552,11 @@ strong.Goth {
 .Grek:lang(sq),
 .Grek:lang(pnt),
 .Grek:lang(tsd) {
-  font-family:'Gentium Plus','Gentium','Lucida Sans Unicode',sans-serif
+  font-family:'Gentium Plus',sans-serif
 }
 .polytonic,
 .Polyt {
-  font-family:'SBL Greek','SBL BibLit','New Athena Unicode','DejaVu Sans',Athena,Gentium,'Gentium Plus','Palatino Linotype',Menaion,Times,'Arial Unicode MS','Lucida Sans Unicode','Lucida Grande','Code2000',sans-serif
+  font-family:'Gentium Plus',sans-serif
 }
 .Gujr {
   font-family:'Noto Sans Gujarati','Gujarati Sangam MN','Gujarati MT',Shruti,'Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','Code2000','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
@@ -567,11 +567,11 @@ strong.Goth {
   font-size:125%
 }
 .Hans {
-  font-family:'PingFang SC',DengXian,'Source Han Sans SC','Source Han Sans CN','Noto Sans CJK SC','Microsoft Yahei',SimHei,SimSun,NSimSun,SimSun-ExtB,Song,'Heiti SC',HanaMinA,HanaMinB,sans-serif
+  font-family:'Noto Sans CJK SC',sans-serif
 }
 .Hani,
 .Hant {
-  font-family:'PingFang TC','Source Han Sans TC','Source Han Sans TW','Noto Sans CJK TC','Microsoft Jhenghei',MOESongUN,PMingLiU,PMingLiU-ExtB,MingLiU,MingLiU-ExtB,Ming,'Heiti TC',HanaMinA,HanaMinB,sans-serif
+  font-family:'Noto Sans CJK TC',sans-serif
 }
 .Hani,
 .Hans,
@@ -591,7 +591,7 @@ strong.Goth {
   direction:rtl
 }
 .Hebr {
-  font-family:'SBL Hebrew','SBL BibLit','Taamey David CLM','Taamey Frank CLM',Alef,'Noto Sans Hebrew',Narkisim,Miriam,Kinryu,'Arial Hebrew',Arial,'Adobe Hebrew',serif;
+  font-family:'Noto Sans Hebrew',serif;
   font-size:133%;
   direction:rtl;
   unicode-bidi:isolate
@@ -606,12 +606,12 @@ strong.Goth {
 .Hira,
 .Jpan,
 .Kana {
-  font-family:'Hiragino Kaku Gothic Pro',Osaka,'Yu Gothic',Meiryo,'Source Han Sans J','Source Han Sans JP','Noto Sans CJK JP','Droid Sans Japanese','MS PGothic','MS Gothic','MS PMincho','MS Mincho',HanaMinA,HanaMinB,sans-serif;
+  font-family:'Noto Sans CJK JP',sans-serif;
   font-size:120%;
   line-height:1
 }
 .Jpan ruby rt {
-  font-family:'Yu Gothic UI','Meiryo UI','MS UI Gothic',sans-serif;
+  font-family:'Noto Sans CJK JP',sans-serif;
   font-size:60%;
 }
 .Kali,
@@ -634,7 +634,7 @@ strong.Goth {
 }
 .Kore,
 .Hang {
-  font-family:'Apple SD Gothic Neo','Malgun Gothic',Dotum,Gulim,'NanumBarunGothic YetHangul',NanumBarunGothic,UnDotum,'Source Han Sans K','Source Han Sans KR','Noto Sans CJK KR',NanumGothic,'NanumMyeongjo YetHangul',NanumMyeongjo,Batang,UnBatang,sans-serif;
+  font-family:'Noto Sans CJK KR',sans-serif;
   font-size:120%;
   line-height:1
 }
@@ -696,7 +696,7 @@ strong.Goth {
 .mnc-Mong,
 .sjo-Mong,
 .xwo-Mong {
-  font-family:'Mongolian Baiti','Noto Sans Mongolian',sans-serif;
+  font-family:'Noto Sans Mongolian',sans-serif;
   font-size:140%;
   -webkit-writing-mode:vertical-lr;
   -moz-writing-mode:vertical-lr;
@@ -877,7 +877,7 @@ b .Ogam {
   font-size:125%
 }
 .Tibt {
-  font-family:'Noto Serif Tibetan','Noto Sans Tibetan',Jomolhari-ID,'Tibetan Machine Uni','Tibetan Machine Web',Jomolhari,'Microsoft Himalaya',sans-serif;
+  font-family:'Noto Serif Tibetan',sans-serif;
   font-size:130%
 }
 .Ugar {
@@ -912,12 +912,12 @@ b .Ogam {
   font-size:1.2em
 }
 .enPR {
-  font-family:'Arial Unicode MS','Lucida Grande',Gentium,'Gentium Plus','Gentium Alternative','TITUS Cyberbit Basic','Code2000','Lucida Sans Unicode',sans-serif
+  font-family:'Gentium Plus',sans-serif
 }
 .IPA,
 .Ipach,
 .IPAchar {
-  font-family:Gentium,'Gentium Plus',GentiumAlt,'DejaVu Sans','Segoe UI','Lucida Grande','Charis SIL','Doulos SIL','TITUS Cyberbit Basic','Code2000','Lucida Sans Unicode',sans-serif;
+  font-family:'Gentium Plus',sans-serif;
   font-size:110%;
   font-variant-ligatures:no-common-ligatures
 }
@@ -1000,6 +1000,10 @@ b, strong {
 
 .zhpron-monospace {
   font-family:Consolas,monospace
+}
+/* inline <style> has no effect */
+.defdate {
+  font-size: smaller;
 }
 
 @font-face {

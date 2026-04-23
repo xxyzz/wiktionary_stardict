@@ -61,7 +61,7 @@ dd {
 }
 
 .API {
-  font-family:'DejaVu Sans','Segoe UI','Lucida Grande','Charis SIL','Gentium Plus','Doulos SIL',sans-serif;
+  font-family:'Gentium Plus',sans-serif;
   font-size:110%;
   text-decoration:none
 }
@@ -123,7 +123,7 @@ dd {
 .lang-acm,
 .lang-apd,
 .lang-ms span[dir="rtl"] {
-  font-family:'Noto Sans Arabic','Noto Naskh Arabic','SF Arabic','Tahoma','DejaVu Sans','Arial Unicode MS','Code2000','Traditional Arabic',sans-serif;
+  font-family:'Noto Naskh Arabic',sans-serif;
   font-size:133%;
   line-height:1.2em
 }
@@ -131,7 +131,7 @@ dd {
 .lang-ps,
 .lang-skr,
 .lang-ur {
-  font-family:"Noto Nastaliq Urdu",'Noto Sans Arabic',"Scheherazade New",'Noto Naskh Arabic','SF Arabic','Tahoma','DejaVu Sans','Arial Unicode MS','Code2000','Traditional Arabic',"Arial",serif;
+  font-family:'Noto Naskh Arabic',serif;
   font-size:133%;
   line-height:1.2em
 }
