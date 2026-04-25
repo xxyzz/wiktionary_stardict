@@ -25,7 +25,7 @@ class RuFormsTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section dir="ltr" lang="ru" class="mw-parser-output">
 <section><h4>Тип и синтаксические свойства сочетания</h4>
 <p><b>Кра́с<span class="hyph" style="color:lightgreen;">-</span>на<span class="hyph-dot" style="color:red;">·</span>я Ша́<span class="hyph" style="color:lightgreen;">-</span>поч<span class="hyph" style="color:lightgreen;">-</span>ка</b></p>
 <p><span>Корень: </span><b>-хорош-</b></p>
@@ -109,7 +109,7 @@ class RuFormsTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <section><h4>Тип и синтаксические свойства сочетания</h4>
 <p><b>бе<span class="hyph" style="color:lightgreen;">-</span>жа́ть</b><span> </span>(<span title="написание в дореформенной орфографии" style="border-bottom: 1px dotted; cursor: help">дореформ.</span> <span style="font-family:'Palatino Linotype'">бѣжа́ть</span>)</p>
 </section>

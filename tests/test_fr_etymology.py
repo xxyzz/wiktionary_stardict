@@ -28,7 +28,7 @@ class FrEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4><span class="titredef">Nom commun 1</span></h4>
 <p><b>dame</b> <span class="API" title="Prononciation API">\\dam\\</span> <span class="ligne-de-forme"><i>féminin</i></span></p>
 <ol><li>Femme qui appartient à la noblesse.</li></ol>
@@ -39,7 +39,7 @@ class FrEtymologyTestCase(XMLTestCase):
 </section>""",
                 },
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4><span class="titredef">Nom commun 2</span></h4>
 <p><b>dame</b> <span class="API" title="Prononciation API">\\dam\\</span> <span class="ligne-de-forme"><i>féminin</i></span></p>
 <ol><li>Digue, ou pièce de maçonnerie, installée sur un cours d’eau pour permettre la construction d’un ouvrage.</li></ol>
@@ -71,7 +71,7 @@ class FrEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4>Nom commun</h4>
 <p><b>Hörsaal</b></p>
 <ol><li>gloss</li></ol>

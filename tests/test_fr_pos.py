@@ -28,7 +28,7 @@ class FrPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4><span>Verbe</span></h4>
 <p><b>courir</b> <span class="API" title="Prononciation API">\\ku.ʁiʁ\\</span> <span class="ligne-de-forme"><i>transitif</i></span> ou <span class="ligne-de-forme"><i>intransitif</i></span> 3<sup style="font-size:83.33%;line-height:1">e</sup> groupe</p>
 <ol>
@@ -61,7 +61,7 @@ class FrPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4><span>Nom commun</span></h4>
 <p><b>book</b> <span class="API" title="Prononciation API">\\bʊk\\</span></p>
 <ol><li>Cahier.</li></ol>
@@ -89,7 +89,7 @@ class FrPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="fr">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
 <h4><span>Nom commun</span></h4>
 <p><b>frigidaire</b></p>
 <ol><li>gloss</li></ol>

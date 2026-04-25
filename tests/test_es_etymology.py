@@ -29,7 +29,7 @@ class EsEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo masculino</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 <section><h4>Etimología</h4>
@@ -38,7 +38,7 @@ class EsEtymologyTestCase(XMLTestCase):
 </section>""",
                 },
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo femenino</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 <section><h4>Etimología</h4>
@@ -67,7 +67,7 @@ class EsEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo masculino</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",

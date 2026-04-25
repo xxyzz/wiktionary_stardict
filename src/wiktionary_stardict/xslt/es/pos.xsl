@@ -39,7 +39,7 @@
           as="xs:string*"/>
 
       <xsl:variable name="definition">
-        <section lang="es" dir="ltr">
+        <section class="mw-parser-output" dir="ltr" lang="es">
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos"/>
           <xsl:apply-templates
               select="ancestor::section/table[@data-mw]

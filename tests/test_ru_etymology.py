@@ -21,7 +21,7 @@ class RuEtymologyTestCase(XMLTestCase):
 </body></html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <h4>Значение</h4>
 <ol><li>gloss</li></ol>
 <section><h4>Этимология</h4>
@@ -49,7 +49,7 @@ class RuEtymologyTestCase(XMLTestCase):
 </body></html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <h4>Значение</h4>
 <ol><li>gloss</li></ol>
 </section>""",

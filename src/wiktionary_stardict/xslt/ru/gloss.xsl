@@ -30,7 +30,7 @@
                 'Тип и свойства сочетания')]"/>
 
       <xsl:variable name="definition">
-        <section lang="ru" dir="ltr">
+        <section class="mw-parser-output" dir="ltr" lang="ru">
           <xsl:apply-templates select="$morphology-section" mode="morphology"/>
           <xsl:apply-templates
               select="preceding-sibling::section[normalize-space(h3) = 'Произношение']"

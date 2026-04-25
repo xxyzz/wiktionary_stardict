@@ -30,7 +30,7 @@ class EsPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["correr"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4><span>Verbo intransitivo</span></h4>
 <dl><dt>1</dt><dd>Desplazarse rápidamente sobre el suelo mediante el movimiento alternado de las piernas o de las patas.</dd>
 <dt>2</dt><dd>Desplazarse rápidamente de cualquier otra forma, un vehículo, cosa o ser.
@@ -62,7 +62,7 @@ class EsPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["arco iris", "arcos iris"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4><span>Locución sustantiva masculina</span></h4>
 <p><b>arc<span>o</span> iri<span>s</span></b><span> (</span><i>copulativa</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>arc<span>os</span><span> </span>iri<span>s</span></p>
 
@@ -90,7 +90,7 @@ class EsPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["gurú", "gurús", "gurúes"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4><span>Sustantivo femenino y masculino</span></h4>
 <p><b>gur<span>ú</span></b><span> (</span><i>sin género</i><span>)</span><span> </span><span>¦</span><span> </span><span>plural: </span>gur<span>ús</span><span>, </span>gur<span>úes</span></p>
 
@@ -117,7 +117,7 @@ class EsPOSTestCase(XMLTestCase):
                 {
                     "lang": "Japonés",
                     "forms": ["世界"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo</h4>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
@@ -143,7 +143,7 @@ class EsPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["audino", "audinos"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Adjetivo</h4>
 <p><b>audin<span>o</span></b><span> </span><span>¦</span><span> </span><span>plural: </span>audin<span>os</span></p>
 <dl><dt>1</dt><dd>gloss</dd></dl>
@@ -170,7 +170,7 @@ class EsPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["Facebook"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Etimología 1</h4>
 <dl><dt>1 <span>Internet</span></dt><dd>gloss</dd></dl>
 </section>""",

@@ -32,7 +32,7 @@ class EsPronunciationTestCase(XMLTestCase):
             [
                 {
                     "forms": ["acontecer"],
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Verbo intransitivo y terciopersonal</h4>
 <ul>
 <li><b>seseante</b> (AFI): [akõn̪t̪eˈseɾ]</li>
@@ -77,7 +77,7 @@ class EsPronunciationTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo masculino</h4>
 <ul>
 <li><b>pronunciación</b> (AFI): [(ˈ)li(ː.)vʁ(ə)]</li>
@@ -86,7 +86,7 @@ class EsPronunciationTestCase(XMLTestCase):
 </section>""",
                 },
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Adjetivo</h4>
 <ul>
 <li><b>Portugal</b> (AFI): [ˈli.vɾɨ]</li>
@@ -118,7 +118,7 @@ class EsPronunciationTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="es">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo</h4>
 <ul>
 <li><b>pronunciación</b> (AFI): [ʃɪntoˈɪsmʊs], [ʃɪntoˈʔɪsmʊs]</li>

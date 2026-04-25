@@ -32,7 +32,7 @@ class DeFormsTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="de">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="de">
 <h4>Verb, <i>unregelmäßig</i></h4>
 <section><h4>Bedeutungen:</h4>
 <dl><dd>[1] gloss</dd></dl>

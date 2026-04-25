@@ -24,7 +24,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line">
 <strong class="Latn headword" lang="en">prickle</strong>
@@ -62,7 +62,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line">
 <strong class="Latn headword" lang="en">tee</strong>
@@ -75,7 +75,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </section>"""
                 },
                 {
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line">
 <strong class="Latn headword" lang="en">tee</strong>
@@ -110,7 +110,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Idiom</h4>
 <p><span class="headword-line">
 <strong class="Hani headword" lang="zh">月明星稀</strong>

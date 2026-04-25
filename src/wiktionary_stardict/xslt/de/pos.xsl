@@ -34,7 +34,7 @@
         as="xs:string*"/>
 
     <xsl:variable name="definition">
-      <section lang="de" dir="ltr">
+      <section class="mw-parser-output" dir="ltr" lang="de">
         <xsl:apply-templates select="h3" mode="pos"/>
         <xsl:apply-templates
             select="p[@data-mw and myfn:is-template(@data-mw, 'Worttrennung')]"

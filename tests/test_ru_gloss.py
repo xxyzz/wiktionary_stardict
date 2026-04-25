@@ -25,7 +25,7 @@ class RuGlossTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <h4>Значение</h4>
 <ol><li>иметь, хранить <span class="example-fullblock"><span>◆</span><span> </span><span class="example-block">to <b class="example-select">keep</b> smb. in prison<span class="example-translate"><span> </span>—<span> </span><b class="example-select">держать</b> кого-л. в тюрьме</span> <span class="example-details"> <i><span class="citation-source"> </span></i></span></span></span> </li>
 <li>держать, содержать
@@ -53,7 +53,7 @@ class RuGlossTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <h4>Значение</h4>
 <ol><li>gloss </li></ol>
 </section>""",

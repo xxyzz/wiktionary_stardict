@@ -33,7 +33,7 @@
         as="xs:string*"/>
 
     <xsl:variable name="definition">
-      <section lang="fr" dir="ltr">
+      <section class="mw-parser-output" lang="fr" dir="ltr">
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="pos-li"/>
         <xsl:apply-templates select="p | ol" mode="pos-li"/>

@@ -1001,10 +1001,6 @@ b, strong {
 .zhpron-monospace {
   font-family:Consolas,monospace
 }
-/* inline <style> has no effect */
-.defdate {
-  font-size: smaller;
-}
 
 @font-face {
   font-family: "Gentium Plus";

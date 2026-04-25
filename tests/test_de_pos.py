@@ -27,7 +27,7 @@ class DePosTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="de">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="de">
 <h4>Substantiv, <em>m</em></h4>
 <section>
 <dl><dd>Keim, <span style="font-size:95%;">Plural:</span> Kei·me</dd></dl>

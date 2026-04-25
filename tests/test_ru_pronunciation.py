@@ -22,7 +22,7 @@ class RuPronunciationTestCase(XMLTestCase):
 </body></html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <section><h4>Произношение</h4>
 <ul style="margin-left:0; list-style:none;" class="transcription"><li>МФА<span> </span>(Великобритания): ед.<span> </span>ч.<span> </span><span>[</span><span class="IPA" style="white-space: nowrap;">bʊk</span><span>]</span><span> </span> мн.<span> </span>ч.<span> </span><span>[</span><span class="IPA" style="white-space: nowrap;">bʊks</span><span>]</span></li></ul>
 </section>
@@ -50,7 +50,7 @@ class RuPronunciationTestCase(XMLTestCase):
 </body></html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="ru">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
 <section><h4>Произношение</h4>
 <ul><li>МФА: ед.<span> </span>ч.<span> </span><span>[</span><span class="IPA" style="white-space: nowrap;">ˈknʲiɡə</span><span>]</span><span> </span></li></ul>
 </section>

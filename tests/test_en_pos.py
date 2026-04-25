@@ -22,7 +22,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["tee", "tees"],
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
       <h4>Noun</h4>
       <p>
         <span class="headword-line">
@@ -59,7 +59,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["-ego"],
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -102,7 +102,7 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["-άρης"],
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
       <h4>Suffix</h4>
       <p>
         <span class="headword-line">
@@ -149,7 +149,7 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
       <h4>Verb</h4>
       <p>
         <span class="headword-line">
@@ -186,7 +186,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">binomial series</strong>
@@ -225,7 +226,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Proper noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="None headword" lang="egy">
@@ -260,7 +262,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="fi">säteri</strong>
@@ -293,7 +296,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Nile blue</strong>
@@ -327,7 +331,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">rhombus</strong>
@@ -365,7 +370,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">Italian augmented sixth chord</strong>
@@ -406,7 +412,8 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["the binomial theorem", "binomial theorem"],
-                    "def": """<section dir="ltr" lang="en"><h4>Proper noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">the binomial theorem</strong>
@@ -449,7 +456,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">hypocrite</strong>
@@ -486,7 +494,8 @@ class EnPOSTestCase(XMLTestCase):
             [
                 {
                     "forms": ["portmanteau", "portemanteau", "portmantua"],
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">portmanteau</strong>
@@ -540,7 +549,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Latn headword" lang="en">hinge</strong>
@@ -573,7 +583,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p>
   <span class="headword-line">
     <strong class="Hani headword" lang="zh">底</strong>
@@ -602,7 +613,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
 </section>""",
@@ -649,7 +661,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">serendipity</strong></span></p>
 <ol><li>gloss</li></ol>
 <section><h4>Usage notes</h4>
@@ -678,7 +691,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
 </span></p>
 <ol><li>gloss
@@ -726,7 +740,8 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section dir="ltr" lang="en"><h4>Noun</h4>
+                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">shin</strong></p>
 <ol><li>gloss</li></ol>
 </section>"""

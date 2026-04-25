@@ -122,11 +122,7 @@ class EnFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {
-                    "forms": ["門閥", "门阀"],
-                }
-            ],
+            [{"forms": ["門閥", "门阀"]}],
         )
 
     def test_ja_kanjitab(self):
