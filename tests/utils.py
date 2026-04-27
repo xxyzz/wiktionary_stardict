@@ -9,9 +9,10 @@ class XMLTestCase(unittest.TestCase):
     def setUp(self):
         from saxonche import PySaxonProcessor
 
-        from wiktionary_stardict.main import get_xsl_path
+        from wiktionary_stardict.main import config_proc, get_xsl_path
 
         self.proc = PySaxonProcessor(license=False)
+        config_proc(self.proc)
         xsltproc = self.proc.new_xslt30_processor()
         self.executable = xsltproc.compile_stylesheet(
             stylesheet_file=get_xsl_path(self.edition, self.xsl_file)

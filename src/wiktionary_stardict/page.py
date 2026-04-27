@@ -48,7 +48,10 @@ def create_github_page(args):
 
     from saxonche import PySaxonProcessor
 
+    from .main import config_proc
+
     proc = PySaxonProcessor(license=False)
+    config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
     xsltproc.set_parameter(
         "data", proc.make_string_value(convert_release_data(args.tag))

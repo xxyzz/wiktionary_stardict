@@ -11,6 +11,29 @@ def get_xsl_path(edition: str, file: str) -> str:
     return str(files("wiktionary_stardict") / "xslt" / edition / file)
 
 
+def config_proc(proc):
+    # https://www.saxonica.com/documentation12/index.html#!configuration/config-features
+    # https://xerces.apache.org/xerces2-j/features.html
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserFeature?uri=http://apache.org/xml/features/nonvalidating/load-external-dtd",
+        "false",
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserFeature?uri=http://xml.org/sax/features/external-general-entities",
+        "false",
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserFeature?uri=http://xml.org/sax/features/external-parameter-entities",
+        "false",
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/allowedProtocols", "file"
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/allow-external-functions", "false"
+    )
+
+
 def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None):
     from saxonche import PySaxonProcessor
 
@@ -18,6 +41,7 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
 
     global proc, executable, zim, zim_xsl_exec
     proc = PySaxonProcessor(license=False)
+    config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
     executable = xsltproc.compile_stylesheet(stylesheet_file=xsl_path)
     if zim_path is not None:
