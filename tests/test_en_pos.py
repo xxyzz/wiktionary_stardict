@@ -613,7 +613,7 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
@@ -661,7 +661,7 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">serendipity</strong></span></p>
 <ol><li>gloss</li></ol>
@@ -691,7 +691,7 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
 </span></p>
@@ -740,10 +740,37 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [
                 {
-                    "def": """<section  class="mw-parser-output" dir="ltr" lang="en">
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">shin</strong></p>
 <ol><li>gloss</li></ol>
+</section>"""
+                }
+            ],
+        )
+
+    def test_lang_conversion_disabled(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>大家</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>名詞</h3>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
+</span></p>
+<ol><li>gloss <span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;a>室外&lt;/a>"}}'></span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>名詞</h4>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
+</span></p>
+<ol><li>gloss 室外</li></ol>
 </section>"""
                 }
             ],

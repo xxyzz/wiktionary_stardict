@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
     expand-text="yes"
     exclude-result-prefixes="#all">
 
@@ -34,4 +35,15 @@
 
   <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
+
+  <!-- https://www.mediawiki.org/wiki/Language_Converter -->
+  <!-- https://www.mediawiki.org/wiki/Specs/HTML#Language_conversion_blocks -->
+  <xsl:template
+      match="(span|meta|div)[@typeof='mw:LanguageVariant']" mode="clean-content">
+    <xsl:variable name="json-data" select="parse-json(@data-mw-variant)"/>
+    <xsl:if test="map:contains($json-data, 'disabled')">
+      <xsl:apply-templates
+          select="parse-xml-fragment($json-data?disabled?t)" mode="clean-content"/>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>
