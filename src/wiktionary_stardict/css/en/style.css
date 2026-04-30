@@ -398,7 +398,7 @@ i .mention {
 }
 .fa-Arab,
 .ota-Arab {
-  font-family:'Iranian Sans','Geeza Pro',Tahoma,sans-serif
+  font-family:'Noto Nastaliq Urdu',sans-serif
 }
 .ks-Arab {
   font-family:'Noto Naskh Arabic',sans-serif
@@ -408,7 +408,7 @@ i .mention {
 }
 .pa-Arab,
 .ur-Arab {
-  font-family:'Noto Nastaliq Urdu',Tahoma,'Arial Unicode MS','UT Cairo','UT Naskh',sans-serif
+  font-family:'Noto Nastaliq Urdu',sans-serif
 }
 .ps-Arab {
   font-family:Pokhto,'Pashto Kror Asiatype','Scheherazade New',Scheherazade,sans-serif
@@ -417,7 +417,7 @@ i .mention {
   font-family:'MB Sindhi',Tahoma,'MBSarang Sattar','MB Bhitai Sattar','MB Lateefi','Ayaz Gul','Iranian Sans',sans-serif
 }
 .ug-Arab {
-  font-family:'UKIJ Tuz','Microsoft Uighur','Scheherazade New',Scheherazade,'Iranian Sans','Code2000',sans-serif
+  font-family:'Noto Nastaliq Urdu',sans-serif
 }
 .Armi {
   font-family:'Segoe UI Historic','Aramaic Imperial Yeb','Noto Sans Imperial Aramaic',sans-serif;
@@ -446,12 +446,8 @@ i .mention {
 .Batk {
   font-family:Batak-Unicode,sans-serif
 }
-.Beng {
-  font-family:'Bangla Sangam MN',UniBangla,'Code2000',Likhan,'UT Bengali Dhaka',Vrinda,sans-serif;
-  font-size:130%
-}
-.as-Beng {
-  font-family:'Bangla Sangam MN',UniBangla,'Code2000',Likhan,'UT Bengali Dhaka',Vrinda,sans-serif;
+.Beng, .as-Beng {
+  font-family:'Noto Sans Bengali',sans-serif;
   font-size:130%
 }
 .Bopo {
@@ -563,7 +559,7 @@ strong.Goth {
   font-size:125%
 }
 .Guru {
-  font-family:'Gurmukhi MN','Gurmukhi MT','UT Punjabi Amritsar','Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','Code2000','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
+  font-family:'Noto Sans Gurmukhi',sans-serif;
   font-size:125%
 }
 .Hans {
@@ -625,7 +621,7 @@ strong.Goth {
   unicode-bidi:isolate
 }
 .Khmr {
-  font-family:'Khmer OS','Khmer OS Content','Leelawadee UI','Noto Sans Khmer','Code2000','Khmer Mondulkiri U OT ls',sans-serif;
+  font-family:'Noto Sans Khmer',sans-serif;
   font-size:125%
 }
 .Knda {
@@ -645,7 +641,7 @@ strong.Goth {
   font-family:'Lanna Alif','Noto Sans Tai Tham',sans-serif
 }
 .Laoo {
-  font-family:'Phetsarath OT','Saysettha OT','JG Basic Lao Opentype','JG Basic2 Lao Opentype','JG LaoTimes Opentype','Phagnoum Lao Unicode Opentype','JG Lao Old Arial Opentype',DokChampa,'Code2000','JG Lao Classic Opentype','Alice0 Unicode','Alice1 Unicode','Alice2 Unicode','Alice3 Unicode','Alice4 Unicode','Alice5 Unicode',sans-serif;
+  font-family:'Noto Sans Lao',sans-serif;
   font-size:125%
 }
 .Lepc {
@@ -706,7 +702,7 @@ strong.Goth {
   font-family:'Eeyek Unicode','Noto Sans Meetei Mayek',sans-serif
 }
 .Mymr {
-  font-family:TharLon,Padauk,'Myanmar Text','Myanmar3','Myanmar2','Myanmar1',ParabaikSans,'MyMyanmar sans-serif';
+  font-family:'Noto Sans Myanmar';
   font-size:130%
 }
 big.Mymr,
@@ -873,7 +869,7 @@ b .Ogam {
   font-family:'Bisaya Hervas','Noto Sans Tagalog','Tagalog Stylized','Baybayin Lopez','Tagalog Doctrina 1593',Quivira,'Code2000',sans-serif
 }
 .Thai {
-  font-family:'Leelawadee UI',Leelawadee,'Arial Unicode MS','Code2000',sans-serif;
+  font-family:'Noto Sans Thai',sans-serif;
   font-size:125%
 }
 .Tibt {
@@ -1075,4 +1071,62 @@ b, strong {
   font-family: "Noto Serif Devanagari";
   font-weight: bold;
   src: url("fonts/NotoSerifDevanagari-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Lao";
+  src: url("fonts/NotoSansLao-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Lao";
+  font-weight: bold;
+  src: url("fonts/NotoSansLao-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Khmer";
+  src: url("fonts/NotoSansKhmer-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Khmer";
+  font-weight: bold;
+  src: url("fonts/NotoSansKhmer-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Thai";
+  src: url("fonts/NotoSansThai-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Thai";
+  font-weight: bold;
+  src: url("fonts/NotoSansThai-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  src: url("fonts/NotoSansMyanmar-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  font-weight: bold;
+  src: url("fonts/NotoSansMyanmar-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Nastaliq Urdu";
+  src: url("fonts/NotoNastaliqUrdu-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Gurmukhi";
+  src: url("fonts/NotoSansGurmukhi-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Gurmukhi";
+  font-weight: bold;
+  src: url("fonts/NotoSansGurmukhi-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Bengali";
+  src: url("fonts/NotoSansBengali-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Bengali";
+  font-weight: bold;
+  src: url("fonts/NotoSansBengali-Bold.ttf");
 }

@@ -40,9 +40,6 @@
     </xsl:apply-templates>
   </xsl:template>
 
-  <!-- Remove empty li elements -->
-  <xsl:template match="li[not(node())]" mode="clean-content"/>
-
   <!-- IPA key link -->
   <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
 

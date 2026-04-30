@@ -71,5 +71,9 @@
               'Tibetan',
               'Mongolian',
               'Zhuang',
-              'Manchu')"/>
+              'Manchu',
+              'Khmer',
+              'Lao',
+              'Punjabi',
+              'Urdu')"/>
 </xsl:stylesheet>

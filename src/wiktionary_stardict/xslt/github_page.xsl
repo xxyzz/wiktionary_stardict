@@ -105,7 +105,7 @@
         <h3>Mongolian, Manchu fonts</h3>
         <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mongolian">Noto Sans Mongolian</a> font file <code>NotoSansMongolian-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
         <h3>Devanagari fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Devanagari"> Noto Serif Devanagari</a> font files to <code>koreader/fonts</code> folder:</p>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Devanagari">Noto Serif Devanagari</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
           <li><code>NotoSerifDevanagari-Regular.ttf</code></li>
           <li><code>NotoSerifDevanagari-Bold.ttf</code></li>
@@ -113,7 +113,45 @@
         <h3>Arabic font</h3>
         <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic">Noto Naskh Arabic</a> font file <code>NotoNaskhArabic-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
         <h3>Hebrew font</h3>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew"> Noto Sans Hebrew</a> font file <code>NotoSansHebrew-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew">Noto Sans Hebrew</a> font file <code>NotoSansHebrew-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <h3>Lao fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Lao">Noto Sans Lao</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansLao-Regular.ttf</code></li>
+          <li><code>NotoSansLao-Bold.ttf</code></li>
+        </ul>
+        <h3>Khmer fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Khmer">Noto Sans Khmer</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansKhmer-Regular.ttf</code></li>
+          <li><code>NotoSansKhmer-Bold.ttf</code></li>
+        </ul>
+        <h3>Thai fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Thai">Noto Sans Thai</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansThai-Regular.ttf</code></li>
+          <li><code>NotoSansThai-Bold.ttf</code></li>
+        </ul>
+        <h3>Burmese fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Myanmar">Noto Sans Myanmar</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansMyanmar-Regular.ttf</code></li>
+          <li><code>NotoSansMyanmar-Bold.ttf</code></li>
+        </ul>
+        <h3>Persian, Punjabi, Urdu, Uyghur font</h3>
+        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Nastaliq+Urdu">Noto Nastaliq Urdu</a> font file <code>NotoNastaliqUrdu-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
+        <h3>Gurmukhī fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Gurmukhi">Noto Sans Gurmukhi</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansGurmukhi-Regular.ttf</code></li>
+          <li><code>NotoSansGurmukhi-Bold.ttf</code></li>
+        </ul>
+        <h3>Bengali fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Bengali">Noto Sans Bengali</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansBengali-Regular.ttf</code></li>
+          <li><code>NotoSansBengali-Bold.ttf</code></li>
+        </ul>
       </body>
     </html>
   </xsl:template>
