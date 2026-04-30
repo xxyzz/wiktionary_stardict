@@ -25,6 +25,17 @@
             select="div[@data-mw and myfn:is-template(@data-mw, 'bo-IPA')]/ul[1]"
             mode="ja-pron"/>
       </xsl:when>
+      <xsl:when test="$language = 'Thai'">
+        <xsl:apply-templates
+            select="table[@data-mw and myfn:is-template(@data-mw, 'th-pron')]"
+            mode="th-pron"/>
+      </xsl:when>
+      <xsl:when test="$language = 'Khmer'">
+        <xsl:apply-templates
+            select="span[@data-mw and myfn:is-template(@data-mw, 'km-IPA')]/
+                    following-sibling::table[1]"
+            mode="th-pron"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates select="ul" mode="pron-ul"/>
       </xsl:otherwise>
@@ -93,4 +104,16 @@
   <xsl:mode name="ja-pron-li" on-no-match="shallow-copy"/>
   <xsl:template
       match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
+
+  <xsl:template match="table" mode="th-pron">
+    <xsl:variable
+        name="ipa-th"
+        select=".//tr/th[a[@title = 'Wiktionary:International Phonetic Alphabet']]"/>
+    <xsl:if test="$ipa-th">
+      <ul><li>IPA: <xsl:apply-templates
+      select="$ipa-th/following-sibling::td/span[contains-token(@class, 'IPA')]"
+      mode="clean-content"/>
+      </li></ul>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>

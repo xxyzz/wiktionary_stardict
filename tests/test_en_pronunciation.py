@@ -368,3 +368,74 @@ class EnPronunciationTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_th_pron(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>ไทย</title></head>
+<body>
+<section><h2>Thai</h2>
+<section><h3>Pronunciation</h3>
+<table data-mw='{"parts":[{"template":{"target":{"wt":"th-pron"}}}]}'>
+<tbody>
+<tr><th colspan="2">(<i><a>standard</a></i>) <a title="Wiktionary:International Phonetic Alphabet">IPA</a></th><td><span class="IPA">/tʰaj˧/</span><sup>(<a>R</a>)</sup></td></tr>
+</tbody></table>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Thai headword" lang="th">ไทย</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>IPA: <span class="IPA">/tʰaj˧/</span></li></ul>
+<p><span class="headword-line"><strong class="Thai headword" lang="th">ไทย</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )
+
+    def test_km_ipa(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>កក</title></head>
+<body>
+<section><h2>Khmer</h2>
+<section><h3>Pronunciation</h3>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"km-IPA"}}}]}'></span><table>
+<tbody><tr><td>
+<table><tbody>
+<tr><th>(<i><a>standard</a></i>) <a title="Wiktionary:International Phonetic Alphabet">IPA</a></th>
+<td><span class="IPA" lang="km" style="font-size:110%">/kɑːʔ/</span></td></tr>
+</tbody></table></td></tr>
+</tbody></table>
+</section>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Khmr headword" lang="km">កក</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Adjective</h4>
+<ul><li>IPA: <span class="IPA" lang="km" style="font-size:110%">/kɑːʔ/</span></li></ul>
+<p><span class="headword-line"><strong class="Khmr headword" lang="km">កក</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )
