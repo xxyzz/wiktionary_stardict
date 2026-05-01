@@ -109,6 +109,8 @@ def build(args):
     from functools import partial
     from os import process_cpu_count
 
+    from mediawiki_langcodes import name_to_code
+
     from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
     from .snapshot import (
@@ -147,10 +149,15 @@ def build(args):
                     transform, iter_chunk_lines(page_names, f), chunksize=100
                 ):
                     for data in results:
-                        if data["lang"] not in conn_dict:
-                            conn_dict[data["lang"]] = init_db(data["lang"])
+                        conn_key = (
+                            name_to_code(data["lang"], args.edition)
+                            if args.edition == "zh"
+                            else data["lang"]
+                        )
+                        if conn_key not in conn_dict:
+                            conn_dict[conn_key] = init_db(conn_key)
                         insert_data(
-                            conn_dict[data["lang"]],
+                            conn_dict[conn_key],
                             data["def"],
                             data["forms"],
                             data.get("form_of_only", False),
