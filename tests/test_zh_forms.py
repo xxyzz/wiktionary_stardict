@@ -53,3 +53,46 @@ class ZhFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["司奶", "司乃", "獅奈", "狮奈", "西乃"]}],
         )
+
+    def test_ja_verb_suru(self):
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>加速</title></head>
+<body>
+<section><h2>日語</h2>
+<section><h3>名詞</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja"><span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;ruby>加&lt;rp id=\"mwAXM\">(&lt;/rp>&lt;rt>&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"か\"}}&apos;>&lt;/span>&lt;/a>&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;ruby>速&lt;rp>(&lt;/rp>&lt;rt>&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"そく\"}}&apos;>&lt;/span>&lt;/a>&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"する\"}}&apos;>&lt;/span>&lt;/a>"}}'></span></strong> <a>•</a> (<span class="headword-tr tr" dir="ltr"><span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;!---->&lt;span class=\"Latn\" lang=\"ja\">&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"&amp;lt;!-- -->&amp;lt;a>&amp;lt;span typeof=\\\"mw:LanguageVariant\\\" data-mw-variant=&amp;apos;{\\\"disabled\\\":{\\\"t\\\":\\\"kasoku\\\"}}&amp;apos;>&amp;lt;/span>&amp;lt;/a> &amp;lt;!-- -->&amp;lt;a>&amp;lt;span typeof=\\\"mw:LanguageVariant\\\" data-mw-variant=&amp;apos;{\\\"disabled\\\":{\\\"t\\\":\\\"suru\\\"}}&amp;apos;>&amp;lt;/span>&amp;lt;/a>\"}}&apos;>&lt;/span>&lt;/span>&lt;!---->"}}'></span></span>)<span> </span><i>自動詞<span> </span><abbr title="サ行活用">サ行</abbr></i> (連用形<span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":" &lt;b class=\"Jpan\" lang=\"ja\">&lt;ruby>加&lt;rp>(&lt;/rp>&lt;rt>か&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;ruby>速&lt;rp>(&lt;/rp>&lt;rt>そく&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"し\"}}&apos;>&lt;/span>&lt;/a>&lt;/b> &lt;span class=\"mention-gloss-paren annotation-paren\">(&lt;/span>&lt;span class=\"tr\">&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"&amp;lt;!---->kasoku &amp;lt;a>shi&amp;lt;/a>&amp;lt;!---->\"}}&apos;>&lt;/span>&lt;/span>&lt;span class=\"mention-gloss-paren annotation-paren\">)&lt;/span>"}}'></span>，過去式<span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":" &lt;b class=\"Jpan\" lang=\"ja\">&lt;ruby>加&lt;rp>(&lt;/rp>&lt;rt>か&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;ruby>速&lt;rp>(&lt;/rp>&lt;rt>そく&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby>&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"した\"}}&apos;>&lt;/span>&lt;/a>&lt;/b> &lt;span class=\"mention-gloss-paren annotation-paren\">(&lt;/span>&lt;span class=\"tr\">&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"&amp;lt;!---->kasoku &amp;lt;a>shita&amp;lt;/a>&amp;lt;!---->\"}}&apos;>&lt;/span>&lt;/span>&lt;span class=\"mention-gloss-paren annotation-paren\">)&lt;/span>"}}'></span>)</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["加速する", "加速", "加速し", "加速した"]}],
+        )
+
+    def test_ja_suru(self):
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>加速</title></head>
+<body>
+<section><h2>日語</h2>
+<section><h3>名詞</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja">加速</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>活用</h4>
+<div><table class="inflection-table"><tbody><tr>
+<th><span class="Jpan" lang="ja"><span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"命令形\"}}&apos;>&lt;/span>&lt;/a>"}}'></span></span></th>
+<td><span class="Jpan" lang="ja-Jpan">加速せよ<span>¹</span><br/>加速しろ<span>²</span></span></td>
+<td><span class="Jpan" lang="ja-Jpan">かそくせよ<span>¹</span><br/>かそくしろ<span>²</span></span></td>
+<td><span class="Latn" lang="ja-Latn">kasoku seyo<span>¹</span><br/>kasoku shiro<span>²</span></span></td>
+</tr></tbody></table></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["加速", "加速せよ", "加速しろ", "かそくせよ", "かそくしろ"]}],
+        )

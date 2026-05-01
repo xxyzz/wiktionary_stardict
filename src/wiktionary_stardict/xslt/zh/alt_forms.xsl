@@ -64,7 +64,7 @@
   <xsl:function name="myfn:ja-kanjitab" as="xs:string*">
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence
-        select="$section/table[.//th[starts-with(text(), 'Alternative spelling')]]//
+        select="$section/table[.//th[text() = '其他表記']]//
                 td/span[@lang = 'ja']//text()"/>
   </xsl:function>
 </xsl:stylesheet>

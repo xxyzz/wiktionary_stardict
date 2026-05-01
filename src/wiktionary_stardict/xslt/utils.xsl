@@ -29,7 +29,10 @@
     <xsl:param name="ele" as="element()*"/>
     <xsl:sequence
         select="for $n in $ele return
-                if ($n/a) then myfn:a-forms($n/a) else myfn:a-forms($n)"/>
+                if ($n/ruby) then myfn:ruby_text($n)
+                else if ($n/self::a) then myfn:a-forms($n)
+                else if ($n/a) then myfn:a-forms($n/a)
+                else myfn:not-a-forms($n)"/>
   </xsl:function>
 
   <xsl:function name="myfn:a-forms" as="xs:string*">
@@ -40,6 +43,14 @@
                 $title := normalize-space($a/@title)
                 return if (string-length($text) = 1 and ends-with($title, $text))
                 then $title else ($text, $title)"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:not-a-forms" as="xs:string*">
+    <xsl:param name="elements" as="element()*"/>
+    <xsl:sequence
+        select="for $n in $elements return
+                if ($n/br) then $n/text() ! normalize-space()
+                else normalize-space($n)"/>
   </xsl:function>
 
   <!-- https://www.mediawiki.org/wiki/Language_Converter -->
