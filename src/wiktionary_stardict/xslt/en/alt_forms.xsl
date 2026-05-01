@@ -54,7 +54,7 @@
       <xsl:variable
           name="td-forms"
           select="$table//td[preceding-sibling::th[1][text() != 'anagram']]//
-                  span[starts-with(@lang, 'zh-Han')]//text()"/>
+                  span[starts-with(@lang, 'zh')]/normalize-space(.)[. != '／']"/>
       <xsl:sequence select="$th-forms, $td-forms"/>
     </xsl:if>
   </xsl:function>

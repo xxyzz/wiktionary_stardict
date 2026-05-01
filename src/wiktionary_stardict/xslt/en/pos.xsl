@@ -16,29 +16,26 @@
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
-    <xsl:variable
-        name="headword-span"
-        select="p/span[@class='headword-line']"/>
-    <xsl:variable
-        name="headword-strong"
-        select="myfn:ruby_text(
-                $headword-span/strong[contains-token(@class, 'headword')])"
-        as="xs:string*"/>
-    <xsl:variable
-        name="headword-forms"
-        select="myfn:get-element-forms(
-                $headword-span//b[contains-token(@class, 'form-of') or @lang])"
-        as="xs:string*"/>
-    <xsl:variable
-        name="pos" select="(h3 | h4 | h5 | h6)[1]/text()" as="xs:string"/>
-
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
+      <xsl:variable
+          name="headword-span"
+          select="p/span[@class='headword-line']"/>
+      <xsl:variable
+          name="headword-strong"
+          select="myfn:ruby_text(
+                  $headword-span/strong[contains-token(@class, 'headword')])"
+          as="xs:string*"/>
+      <xsl:variable
+          name="headword-forms"
+          select="myfn:get-element-forms(
+                  $headword-span//b[contains-token(@class, 'form-of') or @lang])"
+          as="xs:string*"/>
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select="section[(h4 | h5 | h6)//text() =
-                    ('Conjugation', 'Declension', 'Inflection')]"
+                    ('Conjugation', 'Declension', 'Inflection', 'Mutation')]"
             mode="conj"/>
       </xsl:variable>
       <xsl:variable
@@ -87,7 +84,8 @@
                     $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
                   'form_of_targets': array{myfn:form-of-targets(ol//li)},
-                  'form_of_only': boolean(every $li in ol//li[node() and parent::ol]
+                  'form_of_only': boolean(
+                    every $li in ol//li[myfn:is-gloss-li(.) and parent::ol]
                   satisfies myfn:is-form-of($li))}"/>
     </xsl:if>
   </xsl:template>
@@ -164,13 +162,6 @@
                 span[contains-token(@class, 'form-of-definition-link')]/i[@lang] !
                 normalize-space(.))"/>
   </xsl:function>
-
-  <xsl:template match="span" mode="pos-nyms">
-    <span>
-      <xsl:copy-of select="@*"/>
-      <xsl:copy-of select="node()[not(self::i or preceding-sibling::i)]"/>
-    </span>
-  </xsl:template>
 
   <xsl:function name="myfn:li-alt-forms" as="xs:string*">
     <xsl:param name="ol" as="element(ol)*"/>

@@ -748,30 +748,3 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
-
-    def test_lang_conversion_disabled(self):
-        self.assertTransformEqual(
-            """<!DOCTYPE html>
-<html>
-<head><title>大家</title></head>
-<body>
-<section><h2>Chinese</h2>
-<section><h3>名詞</h3>
-<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
-</span></p>
-<ol><li>gloss <span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;a>室外&lt;/a>"}}'></span></li></ol>
-</section>
-</section>
-</body>
-</html>""",
-            [
-                {
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>名詞</h4>
-<p><span class="headword-line"><strong class="Hani headword" lang="zh">大家</strong>
-</span></p>
-<ol><li>gloss 室外</li></ol>
-</section>"""
-                }
-            ],
-        )

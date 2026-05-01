@@ -241,3 +241,38 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"forms": ["上童"]}],
         )
+
+    def test_zh_forms_alt_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>司奶</title></head>
+<body>
+<section><h2>Chinese</h2>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"zh-forms"}}}]}'></span><table>
+<tbody><tr>
+<th colspan="2"></th>
+<th colspan="1">company; control</th>
+<th colspan="1">breast; lady; milk</th></tr>
+<tr>
+<th colspan="2"><a>trad.</a> <span style="font-size:140%">(<span lang="zh-Hant" class="Hant"><a>司奶</a></span>)</span></th>
+<td lang="zh-Hant" class="Hant"><a>司</a></td>
+<td lang="zh-Hant" class="Hant"><a>奶</a></td></tr>
+<tr>
+<th colspan="2"><a>simp.</a> <sup><span class="explain" title="Using the same code points as the traditional form due to Han unification. Without proper font support, it may be displayed as the same as the traditional form.">#</span></sup><span style="font-size:140%">(<span lang="zh-Hans" class="Hans"><a class="mw-selflink-fragment">司奶</a></span>)</span></th>
+<td lang="zh-Hans" class="Hans"><a>司</a></td>
+<td lang="zh-Hans" class="Hans"><a>奶</a></td></tr>
+<tr>
+<th colspan="2">alternative forms</th>
+<td colspan="2"><div class="vsSwitcher" data-toggle-category="Chinese alternative forms"><div class="vsShow"><span style="white-space:nowrap;"><span class="Hani" lang="zh"><a>司乃</a></span></span><br/><span style="white-space:nowrap;"><span class="Hant" lang="zh-Hant"><a>獅奈</a></span><span class="Hani" lang="zh">／</span><span class="Hans" lang="zh-Hans"><a>狮奈</a></span></span></div><div class="vsHide"><span style="white-space:nowrap;"><span class="Hani" lang="zh"><a>西乃</a></span></span></div><span class="vsToggleElement" style="display:block;width:fit-content;margin:auto"><span typeof="mw:Entity"> </span></span></div></td></tr>
+</tbody></table>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">司奶</strong>
+</span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["司奶", "司乃", "獅奈", "狮奈", "西乃"]}],
+        )
