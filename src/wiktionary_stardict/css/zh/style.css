@@ -1,0 +1,972 @@
+.IPA,
+.IPAchar {
+  font-family:'Gentium Plus',sans-serif;
+  font-size:110%;
+  color:inherit
+}
+.Arab,
+.lang-ar {
+  font-family:'Noto Naskh Arabic',sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Arab,
+.Arab *,
+.fa-Arab,
+.fa-Arab *,
+.glk-Arab,
+.glk-Arab *,
+.kk-Arab,
+.kk-Arab *,
+.ks-Arab,
+.ks-Arab *,
+.ku-Arab,
+.ku-Arab *,
+.mzn-Arab,
+.mzn-Arab *,
+.ota-Arab,
+.ota-Arab *,
+.pa-Arab,
+.pa-Arab *,
+.ps-Arab,
+.ps-Arab *,
+.sd-Arab,
+.sd-Arab *,
+.tt-Arab,
+.tt-Arab *,
+.ug-Arab,
+.ug-Arab *,
+.ur-Arab,
+.ur-Arab *,
+.ms-Arab,
+.ms-Arab * {
+  font-style:normal;
+  font-weight:normal
+}
+.fa-Arab,
+.ks-Arab,
+.ota-Arab,
+.pa-Arab,
+.ur-Arab,
+.lang-fa,
+.lang-ur {
+  font-family:'Noto Naskh Arabic',sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.ku-Arab {
+  font-family:'Noto Naskh Arabic',sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.ps-Arab {
+  font-family:Pokhto,Tahoma,Pashto Kror Asiatype,sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.sd-Arab {
+  font-family:MB Sindhi,MBSarang Sattar,MB Bhitai Sattar,MB Lateefi,Ayaz Gul,Tahoma,sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.ug-Arab {
+  font-family:'Noto Nastaliq Urdu',sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Armi {
+  font-family:Aramaic Imperial Yeb,sans-serif;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Armn,
+.lang-hy,
+.lang-xcl {
+  font-family:Tahoma,Arian AMU,DejaVu Sans,Sylfaen,Code2000,Arial Unicode MS,sans-serif
+}
+.Armn,
+.Armn * {
+  font-style:normal
+}
+.Avst {
+  font-family:Avestan,Ahuramzda,'Noto Sans Avestan',sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed;
+  font-variant-ligatures:none
+}
+.Avst,
+.Avst * {
+  font-style:normal
+}
+.Avst:lang(pal) {
+  font-variant-ligatures:normal
+}
+.Beng, .as-Beng {
+  font-family:'Noto Sans Bengali',sans-serif;
+  font-size:130%
+}
+.Beng,
+.Beng * {
+  font-style:normal
+}
+.as-Beng,
+.as-Beng * {
+  font-style:normal
+}
+.Bopo {
+  font-family:'Noto Sans CJK TC',sans-serif
+}
+.Brai {
+  font-size:150%
+}
+.Bugi {
+  font-family:Code2000,'MPH 2B Damase',sans-serif
+}
+.Cans {
+  font-family:Euphemia UCAS,Euphemia,Aboriginal Sans,OskiBlackfoot,Code2000,Everson Mono Unicode,sans-serif;
+  font-size:110%
+}
+.Cari,
+.Ital,
+.Linb,
+.Lyci,
+.Lydi {
+  font-family:Aegean,sans-serif;
+  font-size:125%
+}
+.CGK {
+  font-family:은 자모 바탕,UnJamoBatang,은 바탕,UnBatang,Code2002,Code2001,Code2000,serif
+}
+.Cham {
+  font-family:Code2000,sans-serif;
+  font-size:1.1em
+}
+.Cher {
+  font-family:Digohweli,Aboriginal Sans,Code2000,Marin,Rotinonhsonni Sans,Everson Mono Unicode,sans-serif;
+  font-size:110%
+}
+.Hani, .Hant {
+  font-family:'Noto Sans CJK TC',sans-serif;
+  font-size:120%
+}
+.Hans {
+  font-family:'Noto Sans CJK SC',sans-serif;
+  font-size:120%
+}
+.Copt {
+  font-family:Quivira,New Athena Unicode,Code2000,sans-serif;
+  font-size:1.3em
+}
+.Cprt {
+  font-family:Aegean,sans-serif;
+  font-size:1.15em;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Cyrl,
+.lang-be,
+.lang-bg,
+.lang-mk,
+.lang-ru,
+.lang-uk {
+  font-family:Arial Unicode MS,Lucida Sans Unicode,Code2000,sans-serif
+}
+.Cyrs,
+.lang-cu {
+  font-family:BukyVede,Kliment Std,RomanCyrillic Std,Menaion,Menaion Medieval,Lazov,Dilyana,Code2000,DejaVu Sans,Lucida Grande,Arial Unicode MS,Lucida Sans Unicode,sans-serif;
+  font-size:100%
+}
+.Cyrl,
+.Cyrl * {
+  font-style:normal
+}
+.Cyrs {
+  font-family:BukyVede,'Kliment Std','RomanCyrillic Std',Menaion,'Menaion Medieval',Lazov,Dilyana,'Hirmos Ponomar','Hirmos Ponomar TT','Fedorovsk Unicode','Fedorovsk Unicode TT','Code2000','DejaVu Sans','Lucida Grande','Arial Unicode MS','Lucida Sans Unicode',sans-serif;
+  font-size:125%
+}
+.Cyrs,
+.Cyrs * {
+  font-style:normal
+}
+.Deva {
+  font-family:'Noto Serif Devanagari',sans-serif;
+  font-size:120%
+}
+i.Deva {
+  font-style:normal
+}
+.Egyp {
+  font-family:Aegyptus,sans-serif;
+  font-size:150%
+}
+.Ethi {
+  font-family:Nyala,Code2000,Ethiopia Jiret,GF Zemen Unicode,TITUS Cyberbit Basic,Visual Geez Unicode,Visual Geez Unicode Agazian,Visual Geez Unicode Title,sans-serif;
+  font-size:120%
+}
+.Geor,
+.lang-ka {
+  font-family:DejaVu Sans,Arial Unicode MS,Sylfaen
+}
+.Glag {
+  font-family:Dilyana,sans-serif
+}
+.Goth,
+.lang-got {
+  font-family:Code2001,Skeirs,'MPH 2B Damase',sans-serif
+}
+.Grek,
+.lang-el {
+  font-family:'Gentium Plus',sans-serif;
+  font-family :inherit
+}
+.polytonic,
+.Polyt {
+  font-family:'Gentium Plus',sans-serif
+}
+.Gujr {
+  font-family:'Noto Sans Gujarati','Gujarati Sangam MN','Gujarati MT',Shruti,'Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','Code2000','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
+  font-size:125%
+}
+.Gujr,
+.Gujr * {
+  font-style:normal
+}
+.Guru {
+  font-family:'Noto Sans Gurmukhi',sans-serif;
+  font-size:125%
+}
+.Guru,
+.Guru * {
+  font-style:normal
+}
+.Hano {
+  font-family:Quivira,'MPH 2B Damase',sans-serif;
+  font-size:1.1em
+}
+.Hebr,
+.lang-he,
+.lang-yi,
+.lang-arc {
+  font-family:'Noto Sans Hebrew',serif;
+  font-size:115%;
+  font-style:normal;
+  direction:rtl;
+  unicode-bidi:embed
+}
+big.Hebr,
+big.lang-he,
+big.lang-yi,
+big.lang-arc {
+  font-size:144%
+}
+.Java {
+  font-family:adjisaka,sans-serif
+}
+.Jpan,
+.lang-ja {
+  font-family:'Noto Sans CJK JP',sans-serif;
+  font-size:120%;
+  line-height:1
+}
+.Jpan,
+.Jpan * {
+  font-style:normal
+}
+.Jpan ruby rt {
+  font-family:'Noto Sans CJK JP',sans-serif;
+  font-size:60%
+}
+.Khar {
+  font-family:'MPH 2B Damase',sans-serif;
+  font-size:1.1em;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Khmr {
+  font-family:'Noto Sans Khmer',sans-serif;
+  font-size:125%
+}
+.Knda {
+  font-family:'Kannada Sangam MN',JanaKannada,Tunga,Kedage,RaghuKannada,Sampige,'Arial Unicode MS','Code2000','Bitstream Cyberbit','Bitstream CyberBase',sans-serif;
+  font-size:125%
+}
+.Knda,
+.Knda * {
+  font-style:normal
+}
+.Lana {
+  font-family:Lanna Alif,sans-serif
+}
+.Laoo {
+  font-family:'Noto Sans Lao',sans-serif;
+  font-size:125%
+}
+.Laoo,
+.Laoo * {
+  font-style:normal
+}
+.Latf {
+  font-family:Walbaum-Fraktur,HumboldtFraktur,Code2001,Tahoma,Arial Unicode MS,sans-serif;
+  font-size:125%
+}
+.pjt-Latn {
+  font-family:Microsoft Sans Serif,Tahoma,Code2000,sans-serif
+}
+.latinx {
+  font-family:TITUS Cyberbit Basic,Junicode,Code2000,Microsoft Sans Serif,sans-serif;
+  font-family :inherit
+}
+.Limb {
+  font-family:Code2000,'MPH 2B Damase',sans-serif
+}
+.Mlym {
+  font-family:Kartika,Code2000,Lucida Grande,Arial Unicode MS,Lucida Sans Unicode,TITUS Cyberbit Basic,Doulos SIL,Chrysanthi Unicode,Bitstream Cyberbit,Bitstream CyberBase,Bitstream Vera,Gentium,GentiumAlt,Visual Geez Unicode,sans-serif;
+  font-size:125%
+}
+.Mong,
+.mnc-Mong,
+.sjo-Mong,
+.xwo-Mong {
+  font-family:'Noto Sans Mongolian',sans-serif;
+  font-size:140%;
+  -webkit-writing-mode:vertical-lr;
+  -moz-writing-mode:vertical-lr;
+  writing-mode:vertical-lr;
+  layout-flow:vertical-ideographic
+}
+.Mong,
+.Mong *,
+.mnc-Mong,
+.mnc-Mong *,
+.sjo-Mong,
+.sjo-Mong *,
+.xwo-Mong,
+.xwo-Mong * {
+  font-style:normal
+}
+.Mtei {
+  font-family:Eeyek Unicode,sans-serif
+}
+.Mymr {
+  font-family:'Noto Sans Myanmar';
+  font-size:130%
+}
+.Mymr,
+.Mymr * {
+  font-style:normal;
+  font-weight:normal
+}
+big.Mymr,
+strong.Mymr,
+b.Mymr,
+b .Mymr {
+  font-size:162%
+}
+.Mymr b {
+  font-size:130%
+}
+.Ogam {
+  font-family:Beth-Luis-Nion,Pollach,Maigh Nuad,Craobh Ruadh,Everson Mono Ogham,Cog,Crosta,TITUS Ogham,Ragnarok Ogham,sans-serif;
+  font-size:125%
+}
+.Kali,
+.Olck {
+  font-family:'Code2000',sans-serif
+}
+.Kali,
+.Kali *,
+.Olck,
+.Olck *,
+.Rjng,
+.Rjng * {
+  font-style:normal
+}
+.Orkh {
+  font-family:Old Turkic,sans-serif
+}
+.Orya {
+  font-size:125%;
+  font-style:normal
+}
+.Phag {
+  font-family:'BabelStone Phags-pa Book',Microsoft PhagsPa,sans-serif
+}
+.Phli {
+  font-family:ZH Mono,sans-serif
+}
+.Phnx,
+.Ugar {
+  font-family:Aegean,sans-serif;
+  font-size:125%;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Prti {
+  font-family:ZH Mono,sans-serif
+}
+.Runr {
+  font-family:Junicode,Free Mono,Caslon Roman,Code2000,Everson Mono,TITUS Cyberbit Basic,sans-serif;
+  font-size:130%
+}
+.Sarb {
+  font-family:Qataban,sans-serif
+}
+.Sinh {
+  font-family:KaputaUnicode,KandyUnicode,Dinamina,DinaminaUniWeb,Potha,Madhura,sans-serif;
+  font-size:125%
+}
+.Sund {
+  font-family:Sundanese Unicode,sans-serif
+}
+.Syrc {
+  font-size:1.3em;
+  font-family:Lucida Grande,Arial Unicode MS,Lucida Sans Unicode,TITUS Cyberbit Basic,Code2000,Doulos SIL,Chrysanthi Unicode,Bitstream Cyberbit,Bitstream CyberBase,Bitstream Vera,Gentium,GentiumAlt,Visual Geez Unicode,sans-serif;
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Tagb {
+  font-family:Quivira,Tagbanwa,sans-serif;
+  font-size:1.1em
+}
+.Tale {
+  font-family:Microsoft Tai Le,Tai Le Valentinium,'MPH 2B Damase',sans-serif
+}
+.Talu {
+  font-family:'Noto Sans New Tai Lue','Microsoft New Tai Lue','Dai Banna SIL Book','Husb_New_Tai_Lue_WB',sans-serif
+}
+.Talu,
+.Talu * {
+  font-style:normal
+}
+.Taml {
+  font-family:'Tamil Sangam MN',InaiMathi,Vijaya,Akshar,JanaTamil,'Code2000',ETTamilNew,'Lohit Tamil','Arial Unicode MS','Free Serif',Latha,sans-serif;
+  font-size:125%
+}
+.Taml,
+.Taml * {
+  font-style:normal
+}
+.Tang {
+  font-family:'BabelStone Tangut Wenhai','Tangut N4694','Tangut Yinchuan','New Tangut','New Tangut Std','Tangut TWU','Babelstone Tangut Wenhai',sans-serif;
+  font-size:1.2em;
+  text-orientation:upright;
+  -webkit-text-orientation:upright
+}
+.Tang,
+.Tang * {
+  font-style:normal;
+  font-weight:normal
+}
+.Tavt {
+  font-family:'Tai Heritage Pro',sans-serif
+}
+.Telu {
+  font-family:'Telugu Sangam MN',sans-serif;
+  font-size:125%
+}
+.Telu,
+.Telu * {
+  font-style:normal
+}
+.Tibt {
+  font-family:'Noto Serif Tibetan',sans-serif;
+  font-size:130%
+}
+.Tfng {
+  font-family:'Hapax Berbère',Ebrima,Code2000,DejaVu,sans-serif;
+  font-size:120%
+}
+.Thai,
+.lang-th {
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:125%
+}
+.Thai,
+.Thai * {
+  font-style:normal
+}
+.Vaii {
+  font-family:Ebrima,Code2000,sans-serif;
+  font-size:1.1em
+}
+.Xpeo {
+  font-family:Aegean,Xerxes,sans-serif
+}
+.Xsux {
+  font-size:125%
+}
+.Zsym {
+  font-family:Symbola,sans-serif
+}
+.Hani,
+.Hani *,
+.Hans,
+.Hans *,
+.Hant,
+.Hant * {
+  font-style:normal
+}
+.Kore,
+.Hang {
+  font-family:'Noto Sans CJK KR',sans-serif;
+  font-size:120%;
+  line-height:1
+}
+.Kore,
+.Kore *,
+.Hang,
+.Hang * {
+  font-style:normal
+}
+.Arab,
+.fa-Arab,
+.glk-Arab,
+.kk-Arab,
+.ks-Arab,
+.ku-Arab,
+.mzn-Arab,
+.ota-Arab,
+.pa-Arab,
+.ps-Arab,
+.sd-Arab,
+.tt-Arab,
+.ug-Arab,
+.ur-Arab,
+.ms-Arab,
+.Armi,
+.Avst,
+.Cprt,
+.Hebr,
+.Khar,
+.Phnx,
+.Samr,
+.Syrc {
+  direction:rtl;
+  unicode-bidi:embed
+}
+.Arab,
+.Arab *,
+.fa-Arab,
+.fa-Arab *,
+.glk-Arab,
+.glk-Arab *,
+.kk-Arab,
+.kk-Arab *,
+.ks-Arab,
+.ks-Arab *,
+.ku-Arab,
+.ku-Arab *,
+.mzn-Arab,
+.mzn-Arab *,
+.ota-Arab,
+.ota-Arab *,
+.pa-Arab,
+.pa-Arab *,
+.ps-Arab,
+.ps-Arab *,
+.sd-Arab,
+.sd-Arab *,
+.tt-Arab,
+.tt-Arab *,
+.ug-Arab,
+.ug-Arab *,
+.ur-Arab,
+.ur-Arab *,
+.ms-Arab,
+.ms-Arab *,
+.Armi,
+.Armi *,
+.Armn,
+.Armn *,
+.Avst,
+.Avst *,
+.Bali,
+.Bali *,
+.Bamu,
+.Bamu *,
+.Batk,
+.Batk *,
+.Beng,
+.Beng *,
+.Bopo,
+.Bopo *,
+.Brah,
+.Brah *,
+.Brai,
+.Brai *,
+.Bugi,
+.Bugi *,
+.Buhd,
+.Buhd *,
+.Cakm,
+.Cakm *,
+.Cans,
+.Cans *,
+.Cari,
+.Cari *,
+.Ital,
+.Ital *,
+.Linb,
+.Linb *,
+.Lyci,
+.Lyci *,
+.Lydi,
+.Lydi *,
+.Cham,
+.Cham *,
+.Cher,
+.Cher *,
+.Copt,
+.Copt *,
+.Cprt,
+.Cprt *,
+.Cyrl,
+.Cyrl *,
+.Cyrs,
+.Cyrs *,
+i.Deva,
+.Dsrt,
+.Dsrt *,
+.Egyd,
+.Egyd *,
+.Egyp,
+.Egyp *,
+.Ethi,
+.Ethi *,
+.Geor,
+.Geor *,
+.Glag,
+.Glag *,
+.Goth,
+.Goth *,
+.Grek,
+.Grek *,
+.Polyt,
+.Polyt *,
+.polytonic,
+.polytonic *,
+.Gujr,
+.Gujr *,
+.Guru,
+.Guru *,
+.Hani,
+.Hans,
+.Hans *,
+.Hant,
+.Hant *,
+.Hano,
+.Hano *,
+.Hebr,
+.Hebr *,
+.Java,
+.Java *,
+.Hira,
+.Hira *,
+.Jpan,
+.Jpan *,
+.Kana,
+.Kana *,
+.Kali,
+.Kali *,
+.Olck,
+.Olck *,
+.Rjng,
+.Rjng *,
+.Khar,
+.Khar *,
+.Khmr,
+.Khmr *,
+.Knda,
+.Knda *,
+.Kore,
+.Kore *,
+.Hang,
+.Hang *,
+.CGK,
+.CGK *,
+.Kthi,
+.Kthi *,
+.Lana,
+.Lana *,
+.Laoo,
+.Laoo *,
+.Lepc,
+.Lepc *,
+.Limb,
+.Limb *,
+.Lisu,
+.Lisu *,
+.Mand,
+.Mand *,
+.Mani,
+.Mani *,
+.Merc,
+.Merc *,
+.Mero,
+.Mero *,
+.Mlym,
+.Mlym *,
+.Mong,
+.Mong *,
+.Mtei,
+.Mtei *,
+.Mymr,
+.Mymr *,
+.Nkoo,
+.Nkoo *,
+.Ogam,
+.Ogam *,
+.Orkh,
+.Orkh *,
+.Orya,
+.Orya *,
+.Osma,
+.Osma *,
+.Phag,
+.Phag *,
+.Phli,
+.Phli *,
+.Phlv,
+.Phlv *,
+.Phnx,
+.Phnx *,
+.Plrd,
+.Plrd *,
+.Prti,
+.Prti *,
+.Runr,
+.Runr *,
+.Samr,
+.Samr *,
+.Sarb,
+.Sarb *,
+.Saur,
+.Saur *,
+.Sgnw,
+.Sgnw *,
+.Shaw,
+.Shaw *,
+.Shrd,
+.Shrd *,
+.Sinh,
+.Sinh *,
+.Sora,
+.Sora *,
+.Sund,
+.Sund *,
+.Sylo,
+.Sylo *,
+.Syrc,
+.Syrc *,
+.Tagb,
+.Tagb *,
+.Tale,
+.Tale *,
+.Talu,
+.Talu *,
+.Taml,
+.Taml *,
+.Tang,
+.Tang *,
+.Tavt,
+.Tavt *,
+.Telu,
+.Telu *,
+.Tfng,
+.Tfng *,
+.Tglg,
+.Tglg *,
+.Thaa,
+.Thaa *,
+.Thai,
+.Thai *,
+.Tibt,
+.Tibt *,
+.xzh-Tibt,
+.xzh-Tibt *,
+.Ugar,
+.Ugar *,
+.Vaii,
+.Vaii *,
+.Xpeo,
+.Xpeo *,
+.Xsux,
+.Xsux *,
+.Yiii,
+.Yiii *,
+.Zmth,
+.Zmth *,
+.Zsym,
+.Zsym *,
+.IPA,
+.IPA *,
+.Ipach,
+.Ipach *,
+.Music,
+.Music * {
+  font-style:normal
+}
+.zhpron-monospace {
+  font-family:Consolas,monospace
+}
+.enPR {
+  font-family:'Gentium Plus',sans-serif
+}
+.usage-label-sense {
+  font-size:smaller
+}
+
+h4 {
+  margin: 0.25em 0;
+  padding-bottom: 0;
+  font-weight: bold;
+}
+p {
+  margin: 0.5em 0;
+}
+ul {
+  list-style-type: disc !important;
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+ol {
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+p + ol {
+  margin-top: -0.5em;
+}
+li {
+  margin-bottom: 0.1em;
+}
+dl {
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+}
+dd {
+  margin-bottom: 0.1em;
+  margin-left: 1.6em;
+  margin-right: 0;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+}
+b, strong {
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Gentium Plus";
+  src: url("fonts/GentiumPlus-Regular.ttf");
+}
+@font-face {
+  font-family: "monospace";
+  src: url("fonts/NotoSansMono-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans CJK TC";
+  src: url("fonts/NotoSansCJKtc-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK TC";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKtc-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK SC";
+  src: url("fonts/NotoSansCJKsc-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK SC";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKsc-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK JP";
+  src: url("fonts/NotoSansCJKjp-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK JP";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKjp-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK KR";
+  src: url("fonts/NotoSansCJKkr-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK KR";
+  font-weight: bold;
+  src: url("fonts/NotoSansCJKkr-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Hebrew";
+  src: url("fonts/NotoSansHebrew-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("fonts/NotoNaskhArabic-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Tibetan";
+  src: url("fonts/NotoSerifTibetan-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Tibetan";
+  font-weight: bold;
+  src: url("fonts/NotoSerifTibetan-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Mongolian";
+  src: url("fonts/NotoSansMongolian-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Devanagari";
+  src: url("fonts/NotoSerifDevanagari-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Serif Devanagari";
+  font-weight: bold;
+  src: url("fonts/NotoSerifDevanagari-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Thai";
+  src: url("fonts/NotoSansThai-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Thai";
+  font-weight: bold;
+  src: url("fonts/NotoSansThai-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  src: url("fonts/NotoSansMyanmar-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  font-weight: bold;
+  src: url("fonts/NotoSansMyanmar-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Nastaliq Urdu";
+  src: url("fonts/NotoNastaliqUrdu-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Bengali";
+  src: url("fonts/NotoSansBengali-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Bengali";
+  font-weight: bold;
+  src: url("fonts/NotoSansBengali-Bold.ttf");
+}

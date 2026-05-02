@@ -89,7 +89,7 @@
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
-    <h4><xsl:apply-templates mode="clean-content"/></h4>
+    <h4 class="Hant"><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">
@@ -113,8 +113,8 @@
                 span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
                 'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or
-                span[@data-mw and
-                myfn:is-template(@data-mw, ('zh-co', 'zh-x', 'zh-cot'))]]"/>
+                span[@data-mw and myfn:is-template(@data-mw, ('zh-co', 'zh-x', 'zh-cot',
+                'ja-usex', 'ja-usex-inline'))]]"/>
     <xsl:variable
         name="color-panel"
         select="dd[div[contains-token(@class, 'color-panel')]]"/>
@@ -171,7 +171,7 @@
 
   <xsl:template match="section" mode="usage-notes">
     <section>
-      <h4>使用說明</h4>
+      <h4 class="Hant">使用說明</h4>
       <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
     </section>
   </xsl:template>
