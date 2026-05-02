@@ -5,6 +5,8 @@ def convert_release_data(tag: str):
 
     from mediawiki_langcodes import code_to_name
 
+    from .edition import EDITIONS, ZH_CODE_TO_NAME
+
     p = subprocess.run(
         ["gh", "release", "view", tag, "--json", "assets,publishedAt"],
         check=True,
@@ -19,10 +21,12 @@ def convert_release_data(tag: str):
             continue
         name = asset["name"].removesuffix(".tar.zst")
         lemma_code, gloss_code = name.split("-", 1)
-        lemma_lang = code_to_name(lemma_code, gloss_code)
+        gloss_lang = EDITIONS[gloss_code]["lang"]
+        if gloss_code == "zh" and lemma_code in ZH_CODE_TO_NAME:
+            lemma_lang = ZH_CODE_TO_NAME[lemma_code]
+        else:
+            lemma_lang = code_to_name(lemma_code, gloss_code)
         lemma_lang = lemma_lang[0].upper() + lemma_lang[1:]
-        gloss_lang = code_to_name(gloss_code, gloss_code)
-        gloss_lang = gloss_lang[0].upper() + gloss_lang[1:]
         assets[gloss_lang].append(
             {"name": f"{lemma_lang}-{gloss_lang}", "url": asset["url"]}
         )

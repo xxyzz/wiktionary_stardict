@@ -9,31 +9,27 @@
   <xsl:template match="section" mode="pron">
     <xsl:param name="language"/>
     <xsl:choose>
-      <xsl:when test="$language = 'Japanese'">
+      <xsl:when test="$language = ('日語', '日语')">
         <xsl:apply-templates
             select="span[@data-mw and myfn:is-template(@data-mw,
-                    ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
+                    ('ja-pron', 'ja-IPA', 'ja-accent-dialectal'))]/
+                    following-sibling::ul[1]"
             mode="ja-pron"/>
       </xsl:when>
-      <xsl:when test="$language = 'Chinese'">
+      <xsl:when test="$language = ('漢語', '汉语')">
         <xsl:apply-templates
             select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
             mode="zh-pron"/>
       </xsl:when>
-      <xsl:when test="$language = 'Tibetan'">
+      <xsl:when test="$language = '藏語'">
         <xsl:apply-templates
-            select="div[@data-mw and myfn:is-template(@data-mw, 'bo-IPA')]/ul[1]"
+            select="div[@data-mw and
+                    myfn:is-template(@data-mw, ('bo-IPA', 'bo-pron'))]/ul[1]"
             mode="ja-pron"/>
       </xsl:when>
-      <xsl:when test="$language = 'Thai'">
+      <xsl:when test="$language = ('泰語', '泰语')">
         <xsl:apply-templates
             select="table[@data-mw and myfn:is-template(@data-mw, 'th-pron')]"
-            mode="th-pron"/>
-      </xsl:when>
-      <xsl:when test="$language = 'Khmer'">
-        <xsl:apply-templates
-            select="span[@data-mw and myfn:is-template(@data-mw, 'km-IPA')]/
-                    following-sibling::table[1]"
             mode="th-pron"/>
       </xsl:when>
       <xsl:otherwise>
@@ -51,15 +47,12 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- 'Syllabification:' from Template:es-pr
-       'Tone numbers:' from Template:za-pron
-       'Hyphenation:' from Template:hyphenation -->
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
-              (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
-              .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:')] or
-              .//span[normalize-space() = 'Hyphenation:'])">
+              (.//a[@title = 'Wiktionary:國際音標'] or
+              .//text()[normalize-space() = ('音節化：', '聲調數字：')] or
+              .//span[normalize-space() = '斷字：'])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>
@@ -109,9 +102,7 @@
       match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
 
   <xsl:template match="table" mode="th-pron">
-    <xsl:variable
-        name="ipa-th"
-        select=".//tr/th[a[@title = 'Wiktionary:International Phonetic Alphabet']]"/>
+    <xsl:variable name="ipa-th" select=".//tr/th[a[@title = 'Wiktionary:國際音標']]"/>
     <xsl:if test="$ipa-th">
       <ul><li>IPA: <xsl:apply-templates
       select="$ipa-th/following-sibling::td/span[contains-token(@class, 'IPA')]"

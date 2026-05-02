@@ -10,6 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -48,6 +49,15 @@
         <section class="mw-parser-output" dir="ltr" lang="zh">
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+          <xsl:apply-templates
+              select="(parent::section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [some $title in ('發音', '发音', '读音', '讀音', '注音', '讀法')
+                      satisfies starts-with(normalize-space(h3|h4|h5|h6), $title)]
+                      [last()]"
+              mode="pron">
+            <xsl:with-param name="language" select="$language"/>
+          </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) =
