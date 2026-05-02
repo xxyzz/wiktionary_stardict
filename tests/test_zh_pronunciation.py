@@ -29,7 +29,7 @@ class ZhPronTestCase(XMLTestCase):
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="zh">
-<h4>形容詞</h4>
+<h4 class="Hant">形容詞</h4>
 <ul><li>官話
 <dl><dd><small>(拼音)</small>：<span class="zhpron-monospace" lang="cmn">zàozào</span></dd>
 <dd><small>(注音)</small>：<span lang="cmn-Bopo" class="Bopo">ㄗㄠˋ ㄗㄠˋ</span></dd></dl></li></ul>

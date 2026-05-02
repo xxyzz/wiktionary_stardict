@@ -14,7 +14,7 @@
 
     <xsl:if test="$content/node()">
       <section>
-        <h4>Etymology</h4>
+        <h4 class="Hant">詞源</h4>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>

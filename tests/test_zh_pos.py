@@ -25,7 +25,7 @@ class ZhPOSTestCase(XMLTestCase):
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="zh">
-<h4>名詞</h4>
+<h4 class="Hant">名詞</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">詞典</strong>
 </span></p>
 <ol><li>gloss

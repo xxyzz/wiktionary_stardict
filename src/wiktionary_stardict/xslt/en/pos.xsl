@@ -125,8 +125,8 @@
                 (some $c in ('synonym', 'antonym', 'alternative-form',
                 'coordinate-term', 'near-synonym', 'Active-voice-counterpart')
                 satisfies contains-token(@class, $c))]] |
-                dd[span[@data-mw and myfn:is-template(@data-mw, 'zh-also', 'ja-usex',
-                'ja-usex-inline')]]"/>
+                dd[span[@data-mw and myfn:is-template(@data-mw, ('zh-also', 'ja-usex',
+                'ja-usex-inline'))]]"/>
     <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>

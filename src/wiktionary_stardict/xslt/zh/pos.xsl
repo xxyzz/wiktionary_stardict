@@ -11,6 +11,7 @@
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -52,8 +53,9 @@
           <xsl:apply-templates
               select="(parent::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
-                      [some $title in ('發音', '发音', '读音', '讀音', '注音', '讀法')
-                      satisfies starts-with(normalize-space(h3|h4|h5|h6), $title)]
+                      [some $section-title in
+                      ('發音', '发音', '读音', '讀音', '注音', '讀法') satisfies
+                      starts-with(normalize-space(h3|h4|h5|h6), $section-title)]
                       [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
@@ -64,6 +66,14 @@
                       ('使用說明', '用法說明', '用法说明', '使用注意', '使用註解', '使用説明',
                       '使用備注', '使用说明', '用法')]"
               mode="usage-notes"/>
+          <xsl:apply-templates
+              select="(parent::section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [some $section-title in ('詞源', '词源', '典故', '語源', '语源',
+                      '字源', '詞語', '組成', '出處', '出处') satisfies
+                      starts-with(normalize-space(h3|h4|h5|h6), $section-title)]
+                      [last()]"
+              mode="etymology"/>
         </section>
       </xsl:variable>
 
