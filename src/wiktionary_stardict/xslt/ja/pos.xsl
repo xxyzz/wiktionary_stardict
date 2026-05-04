@@ -12,6 +12,7 @@
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -69,6 +70,13 @@
               select="section[normalize-space(h4|h5|h6) =
                       ('用法', '注意点', '留意点', '注意', '備考', '表記', '補足', '補足')]"
               mode="usage-notes"/>
+          <xsl:apply-templates
+              select="(parent::section | section | preceding-sibling::section |
+                      following-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [some $prefix in ('語源', '由来', '字源', '出典', '語誌') satisfies
+                      starts-with(normalize-space(h3|h4|h5|h6), $prefix)][last()]"
+              mode="etymology"/>
         </section>
       </xsl:variable>
 
@@ -138,7 +146,8 @@
   <xsl:template match="ul" mode="pos-li">
     <xsl:variable
         name="examples"
-        select="li[node() and not(contains-token(., 'mw-empty-elt'))]"/>
+        select="li[node() and not(table[contains-token(@class, 'audiotable')])
+                and not(contains-token(., 'mw-empty-elt'))]"/>
     <xsl:if test="li">
       <ul>
         <xsl:apply-templates

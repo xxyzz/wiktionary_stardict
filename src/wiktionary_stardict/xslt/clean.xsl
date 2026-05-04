@@ -47,4 +47,7 @@
        https://www.mediawiki.org/wiki/Help:Images#Rendering_a_gallery_of_images-->
   <xsl:template
       match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
+
+  <xsl:template
+      match="li[contains-token(@class, 'mw-empty-elt')]" mode="clean-content"/>
 </xsl:stylesheet>
