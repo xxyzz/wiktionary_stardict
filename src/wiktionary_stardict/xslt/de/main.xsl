@@ -16,6 +16,9 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
+  <!-- Page structure: https://de.wiktionary.org/wiki/Hilfe:Formatvorlage
+       Title templates:
+       https://de.wiktionary.org/wiki/Kategorie:Wiktionary:Textbausteine -->
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates

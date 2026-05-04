@@ -19,7 +19,7 @@
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable
           name="headword-span"
-          select="p/span[@class='headword-line']"/>
+          select="p/span[contains-token(@class, 'headword-line')]"/>
       <xsl:variable
           name="headword-strong"
           select="myfn:ruby_text(
@@ -83,10 +83,10 @@
                   'def': serialize(
                     $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
-                  'form_of_targets': array{myfn:form-of-targets(ol//li)},
+                  'form_of_targets': array{myfn:form-of-targets(ol/li)},
                   'form_of_only': boolean(
-                    every $li in ol//li[myfn:is-gloss-li(.) and parent::ol]
-                  satisfies myfn:is-form-of($li))}"/>
+                    every $li in ol/li[myfn:is-gloss-li(.)]
+                    satisfies myfn:is-form-of($li))}"/>
     </xsl:if>
   </xsl:template>
 

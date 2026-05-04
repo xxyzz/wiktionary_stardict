@@ -25,6 +25,16 @@
                 satisfies normalize-space($wt) = $templates"/>
   </xsl:function>
 
+  <xsl:function name="myfn:is-template-suffix" as="xs:boolean">
+    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="suffixes" as="xs:string*"/>
+    <xsl:variable name="json" select="parse-json($data-mw)"/>
+    <xsl:sequence
+        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+                satisfies (some $suffix in $suffixes satisfies
+                ends-with(normalize-space($wt), $suffix))"/>
+  </xsl:function>
+
   <xsl:function name="myfn:get-element-forms" as="xs:string*">
     <xsl:param name="ele" as="element()*"/>
     <xsl:sequence

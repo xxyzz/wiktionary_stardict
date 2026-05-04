@@ -14,6 +14,8 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
+  <!-- https://en.wiktionary.org/wiki/Wiktionary:Entry_layout
+       https://en.wiktionary.org/wiki/Wiktionary:Style_guide -->
   <xsl:template match="/">
     <xsl:choose>
       <xsl:when test="not(ends-with($title, '/translations'))">
@@ -34,7 +36,7 @@
   <xsl:template match="section" mode="language">
     <xsl:variable name="language" select="h2/text()"/>
     <xsl:apply-templates
-        select=".//section[p/span[@class='headword-line'] and ol]"
+        select=".//section[p/span[contains-token(@class, 'headword-line')] and ol]"
         mode="pos">
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>
@@ -43,9 +45,6 @@
   <!-- IPA key link -->
   <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
 
-  <!-- Remove "audio" element expanded from "score sound" -->
-  <xsl:template match="div[audio]" mode="clean-content"/>
-
   <!-- Remove Template:maintenance line -->
   <xsl:template
       match="span[contains-token(@class, 'maintenance-line')]" mode="clean-content"/>
@@ -53,9 +52,6 @@
   <xsl:template
       match="div[some $class in ('floatright', 'tmulti')
              satisfies contains-token(@class, $class)]" mode="clean-content"/>
-  <!-- Remove <gallery> image list -->
-  <xsl:template
-      match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
   <!-- Remove hidden node from Template:wikipedia inline -->
   <xsl:template
       match="*[contains-token(@class, 'interProject')]" mode="clean-content"/>

@@ -35,4 +35,16 @@
 
   <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
+  <xsl:template match="audio" mode="clean-content"/>
+
+  <!-- Remove "audio" element expanded from <score>
+       https://www.mediawiki.org/wiki/Extension:Score -->
+  <xsl:template
+      match="div[contains-token(@class, 'mw-ext-score')]/div[audio]"
+      mode="clean-content"/>
+
+  <!-- Remove <gallery> image list
+       https://www.mediawiki.org/wiki/Help:Images#Rendering_a_gallery_of_images-->
+  <xsl:template
+      match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
 </xsl:stylesheet>

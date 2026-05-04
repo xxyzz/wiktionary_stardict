@@ -14,6 +14,8 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
+  <!-- Entry layout: https://es.wiktionary.org/wiki/Wikcionario:Estructura
+       Style guide: https://es.wiktionary.org/wiki/Wikcionario:Guía_de_estilo-->
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates

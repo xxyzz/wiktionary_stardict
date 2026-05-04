@@ -8,22 +8,20 @@
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
 
   <xsl:include href="../clean.xsl"/>
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="config.xsl"/>
   <xsl:include href="pos.xsl"/>
 
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
-  <!-- https://zh.wiktionary.org/wiki/Wiktionary:佈局解釋
-       https://zh.wiktionary.org/wiki/Wiktionary:體例說明 -->
+  <!-- https://ja.wiktionary.org/wiki/Wiktionary:スタイルマニュアル -->
   <xsl:template match="/">
     <xsl:choose>
-      <xsl:when test="not(some $suffix in ('/翻譯', '/衍生詞')
-                      satisfies ends-with($title, $suffix))">
+      <xsl:when
+          test="not(starts-with($title, 'シソーラス:') or ends-with($title, '(活用)'))">
         <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
-              select="html/body/section[h2/text() = $allowed-languages]"
+              select="html/body/section[normalize-space(h2) = $allowed-languages]"
               mode="language"/>
         </xsl:variable>
         <xsl:sequence select="array{$results}"/>
@@ -36,29 +34,29 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="h2/text()"/>
-    <xsl:variable name="new-section">
-      <xsl:apply-templates select="." mode="lang-converter"/>
-    </xsl:variable>
+    <xsl:variable name="language" select="normalize-space(h2)"/>
     <xsl:apply-templates
-        select="$new-section//section[p/span[contains-token(@class, 'headword-line')]
-                and ol]"
+        select=".//section[
+                  ol and (p/strong[contains-token(@class, 'headword')] or p//b)]"
         mode="pos">
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>
   </xsl:template>
 
-  <!-- IPA key link -->
-  <xsl:template match="sup[normalize-space() = '(幫助)']" mode="clean-content"/>
+  <!-- IPA appendix link -->
+  <xsl:template match="small[normalize-space() = '(?)']" mode="clean-content"/>
 
   <!-- Remove Template:maintenance line -->
   <xsl:template
       match="span[contains-token(@class, 'maintenance-line')]" mode="clean-content"/>
-  <!-- Remove Template:wikipedia Template:multiple images -->
+  <!-- Remove Template:wikipedia -->
   <xsl:template
-      match="div[some $class in ('floatright', 'tmulti')
-             satisfies contains-token(@class, $class)]" mode="clean-content"/>
-  <!-- Remove hidden node from Template:Pedialite -->
-  <xsl:template
-      match="*[contains-token(@class, 'interProject')]" mode="clean-content"/>
+      match="div[contains-token(@class, 'sisterproject')]" mode="clean-content"/>
+
+  <xsl:template match="a[contains-token(@class, 'mw-selflink')]" mode="clean-content">
+    <b><xsl:apply-templates mode="clean-content"/></b>
+  </xsl:template>
+
+  <!-- Template:wikipedia-s -->
+  <xsl:template match="sup[normalize-space() = '(wp)']" mode="clean-content"/>
 </xsl:stylesheet>

@@ -14,6 +14,7 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
+  <!-- https://ru.wiktionary.org/wiki/Викисловарь:Правила_оформления_статей -->
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates

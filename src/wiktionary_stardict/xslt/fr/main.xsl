@@ -14,6 +14,7 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
+  <!-- https://fr.wiktionary.org/wiki/Convention:Structure_des_pages -->
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates

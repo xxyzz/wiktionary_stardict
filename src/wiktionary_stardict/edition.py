@@ -5,6 +5,7 @@ EDITIONS = {
     "ru": {"lang": "Русский"},
     "de": {"lang": "Deutsch", "zim_xsl": "flexion.xsl"},
     "zh": {"lang": "漢語"},
+    "ja": {"lang": "日本語"},
 }
 
 ZH_CODE_TO_NAME = {
