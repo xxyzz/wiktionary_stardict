@@ -11,6 +11,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -54,6 +55,15 @@
         <section class="mw-parser-output" dir="ltr" lang="ja">
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+          <xsl:apply-templates
+              select="(parent::section | section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [some $prefix in ('発音', '音価')
+                      satisfies starts-with(normalize-space(h3|h4|h5|h6), $prefix)]
+                      [last()]"
+              mode="pron">
+            <xsl:with-param name="language" select="$language"/>
+          </xsl:apply-templates>
           <xsl:apply-templates select="p | ul | ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) =

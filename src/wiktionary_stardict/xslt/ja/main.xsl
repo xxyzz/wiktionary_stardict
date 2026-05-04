@@ -44,7 +44,7 @@
   </xsl:template>
 
   <!-- IPA appendix link -->
-  <xsl:template match="small[normalize-space() = '(?)']" mode="clean-content"/>
+  <xsl:template match="(small|sup)[normalize-space() = '(?)']" mode="clean-content"/>
 
   <!-- Remove Template:maintenance line -->
   <xsl:template
