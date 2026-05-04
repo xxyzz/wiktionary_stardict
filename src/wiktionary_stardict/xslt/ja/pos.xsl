@@ -10,6 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
+  <xsl:include href="conjugation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -36,17 +37,24 @@
           as="xs:string*"/>
       <xsl:variable
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(.)"/>
+      <xsl:variable name="conj-forms" as="xs:string*">
+        <xsl:apply-templates
+            select=". | section[normalize-space(h4 | h5 | h6) = ('活用', 'サ変動詞')]"
+            mode="conj">
+          <xsl:with-param name="language" select="$language"/>
+        </xsl:apply-templates>
+      </xsl:variable>
       <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-strong, $title, $alt-forms,
-                  $headword-forms)[. != ''])"
+                  $headword-forms, $conj-forms)[. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="ja">
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-heading"/>
-          <xsl:apply-templates select="p | ol" mode="pos-li"/>
+          <xsl:apply-templates select="p | ul | ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) =
                       ('用法', '注意点', '留意点', '注意', '備考', '表記', '補足', '補足')]"
