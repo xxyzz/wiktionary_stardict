@@ -84,17 +84,25 @@
         <h3>Pronunciation fonts</h3>
         <p>Download <a href="https://fonts.google.com/specimen/Gentium+Plus">Gentium Plus</a> font file <code>GentiumPlus-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
         <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mono">Noto Sans Mono</a> font file <code>NotoSansMono-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>CJK fonts</h3>
-        <p>Download these <a href="https://github.com/notofonts/noto-cjk/releases">Noto Sans CJK</a> font files to <code>koreader/fonts</code> folder:</p>
+        <h3>Chinese fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+TC">Noto Sans Traditional Chinese</a> and <a href="https://fonts.google.com/noto/specimen/Noto+Sans+SC">Noto Sans Simplified Chinese</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
-          <li><code>NotoSansCJKtc-Regular.otf</code></li>
-          <li><code>NotoSansCJKtc-Bold.otf</code></li>
-          <li><code>NotoSansCJKsc-Regular.otf</code></li>
-          <li><code>NotoSansCJKsc-Bold.otf</code></li>
-          <li><code>NotoSansCJKjp-Regular.otf</code></li>
-          <li><code>NotoSansCJKjp-Bold.otf</code></li>
-          <li><code>NotoSansCJKkr-Regular.otf</code></li>
-          <li><code>NotoSansCJKkr-Bold.otf</code></li>
+          <li><code>NotoSansTC-Regular.ttf</code></li>
+          <li><code>NotoSansTC-Bold.ttf</code></li>
+          <li><code>NotoSansSC-Regular.ttf</code></li>
+          <li><code>NotoSansSC-Bold.ttf</code></li>
+        </ul>
+        <h3>Japanese fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+JP">Noto Sans Japanese</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansJP-Regular.ttf</code></li>
+          <li><code>NotoSansJP-Bold.ttf</code></li>
+        </ul>
+        <h3>Korean fonts</h3>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+KR">Noto Sans Korean</a> font files to <code>koreader/fonts</code> folder:</p>
+        <ul>
+          <li><code>NotoSansKR-Regular.ttf</code></li>
+          <li><code>NotoSansKR-Bold.ttf</code></li>
         </ul>
         <h3>Tibetan fonts</h3>
         <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Tibetan">Noto Serif Tibetan</a> font files to <code>koreader/fonts</code> folder:</p>

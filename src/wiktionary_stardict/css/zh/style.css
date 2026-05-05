@@ -875,39 +875,39 @@ b, strong {
 }
 @font-face {
   font-family: "Noto Sans CJK TC";
-  src: url("fonts/NotoSansCJKtc-Regular.otf");
+  src: url("fonts/NotoSansTC-Regular.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK TC";
   font-weight: bold;
-  src: url("fonts/NotoSansCJKtc-Bold.otf");
+  src: url("fonts/NotoSansTC-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK SC";
-  src: url("fonts/NotoSansCJKsc-Regular.otf");
+  src: url("fonts/NotoSansSC-Regular.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK SC";
   font-weight: bold;
-  src: url("fonts/NotoSansCJKsc-Bold.otf");
+  src: url("fonts/NotoSansSC-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK JP";
-  src: url("fonts/NotoSansCJKjp-Regular.otf");
+  src: url("fonts/NotoSansJP-Regular.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK JP";
   font-weight: bold;
-  src: url("fonts/NotoSansCJKjp-Bold.otf");
+  src: url("fonts/NotoSansJP-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK KR";
-  src: url("fonts/NotoSansCJKkr-Regular.otf");
+  src: url("fonts/NotoSansKR-Regular.ttf");
 }
 @font-face {
   font-family: "Noto Sans CJK KR";
   font-weight: bold;
-  src: url("fonts/NotoSansCJKkr-Bold.otf");
+  src: url("fonts/NotoSansKR-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans Hebrew";
