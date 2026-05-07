@@ -15,7 +15,7 @@
     <xsl:param name="language"/>
 
     <xsl:variable name="headword-forms" as="xs:string*"
-        select="p/(b|bdi)/myfn:get-element-forms(.)"/>
+                  select="p/(b|bdi)/myfn:get-element-forms(.)"/>
     <xsl:variable
         name="table-forms"
         select="table[contains-token(@class, 'flextable')]//td/bdi/

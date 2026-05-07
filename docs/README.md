@@ -11,3 +11,4 @@
 * [Saxon 12 documentation](https://www.saxonica.com/documentation12/documentation.xml)
 * [StarDict TextualDictionaryFileFormat](https://github.com/huzheng001/stardict-3/blob/master/dict/doc/TextualDictionaryFileFormat)
 * [stardict-textual-dict-example.xml](https://github.com/huzheng001/stardict-3/blob/master/dict/doc/stardict-textual-dict-example.xml)
+* [CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch)

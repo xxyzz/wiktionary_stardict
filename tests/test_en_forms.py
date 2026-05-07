@@ -276,3 +276,127 @@ class EnFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["司奶", "司乃", "獅奈", "狮奈", "西乃"]}],
         )
+
+    def test_en_adj_head(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>fun</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">fun</strong> (<i><a>comparative</a></i> <b class="Latn form-of lang-en comparative-form-of" lang="en">more <a>fun</a></b> <i>or</i> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-sense"><a>informal</a></span></span><span class="ib-brac qualifier-brac">)</span> <b class="Latn form-of lang-en comparative-form-of" lang="en"><a title="funner">funner</a></b>, <i><a>superlative</a></i> <b class="Latn form-of lang-en superlative-form-of" lang="en">most <a>fun</a></b> <i>or</i> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-sense"><a>informal</a></span></span><span class="ib-brac qualifier-brac">)</span> <b class="Latn form-of lang-en superlative-form-of" lang="en"><a>funnest</a></b>)</span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["fun", "more fun", "funner", "most fun", "funnest"]}],
+        )
+
+    def test_el_verb_b_no_lang_attr_outside_span(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>τρέχω</title></head>
+<body>
+<section><h2>Greek</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Grek headword" lang="el">τρέχω</strong> <a>•</a> (<span lang="el-Latn" class="headword-tr tr Latn" dir="ltr">trécho</span>)</span><span> </span><span>(</span><i><a>past</a></i><span> </span><b><span class="Grek" lang="el"><a>έτρεξα</a></span></b><span>, </span><i><a>passive</a></i><span> —)</span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["τρέχω", "έτρεξα"]}],
+        )
+
+    def test_ru_adj_headword(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>слабый</title></head>
+<body>
+<section><h2>Russian</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Cyrl headword" lang="ru">сла́бый</strong> <a>•</a> (<span lang="ru-Latn" class="headword-tr tr Latn" dir="ltr">slábyj</span>) (<i><a>comparative</a></i> <b class="Cyrl form-of lang-ru comparative-form-of target-слабе́е origin-сла́бый origin_transliteration-" lang="ru"><a title="послабее">(по)</a><a title="слабее">слабе́е</a></b></span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": [
+                        "сла́бый",
+                        "слабый",
+                        "слабе́е",
+                        "слабее",
+                        "послабе́е",
+                        "послабее",
+                    ]
+                }
+            ],
+        )
+
+    def test_ja_suru(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>加速</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>加<rp>(</rp><rt><a title="かそく">か</a></rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt><a title="かそく">そく</a></rt><rp>)</rp></ruby><a title="する">する</a></strong> <a title="Wiktionary:Japanese transliteration">•</a> (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja"><a>kasoku</a> <a>suru</a></span></span>)<span> </span><i>intransitive<span> </span><abbr title="suru (group 3) conjugation">suru</abbr></i> (<i>stem</i> <b class="Jpan" lang="ja"><ruby>加<rp>(</rp><rt>か</rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt>そく</rt><rp>)</rp></ruby><a title="し">し</a></b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">kasoku <a>shi</a></span><span class="mention-gloss-paren annotation-paren">)</span>, <i>past</i> <b class="Jpan" lang="ja"><ruby>加<rp>(</rp><rt>か</rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt>そく</rt><rp>)</rp></ruby><a>した</a></b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">kasoku <a>shita</a></span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
+<ol><li><span>gloss</span></li></ol>
+<section><h4>Conjugation</h4><div><table class="inflection-table"><tbody>
+<tr>
+<th><a><i>Meireikei</i></a> ("imperative")</th>
+<td><span class="Jpan" lang="ja">加速せよ<span>¹</span><br/>加速しろ<span>²</span></span></td>
+<td><span class="Jpan" lang="ja">かそくせよ<span>¹</span><br/>かそくしろ<span>²</span></span></td>
+<td><span class="Latn" lang="ja-Latn">kasoku seyo<span>¹</span><br/>kasoku shiro<span>²</span></span></td></tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": [
+                        "加速する",
+                        "加速",
+                        "加速し",
+                        "加速した",
+                        "加速せよ",
+                        "加速しろ",
+                        "かそくせよ",
+                        "かそくしろ",
+                    ]
+                }
+            ],
+        )
+
+    def test_ja_conj_ex(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>飛ぶ</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>飛<rp>(</rp><rt><a title="とぶ">と</a></rt><rp>)</rp></ruby>ぶ</strong></span></p>
+<ol><li><span>gloss</span></li></ol>
+<section><h4>Conjugation</h4><div><table class="inflection-table"><tbody>
+<tr>
+<th>Conjunctive (<i>te</i>-form)</th>
+<td><span class="Jpan" lang="ja"><a>飛んで</a></span> <span>[tonde]</span></td>
+<td><span class="Jpan" lang="ja"><a>飛ばない</a><a>で</a></span> <span>[tobanai de]</span><br/><span class="Jpan" lang="ja"><a>飛ば</a><a>なくて</a></span> <span>[tobanakute]</span></td></tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["飛ぶ", "飛んで", "飛ばないで", "飛ばなくて"]}],
+        )

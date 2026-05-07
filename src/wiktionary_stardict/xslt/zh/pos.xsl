@@ -21,7 +21,7 @@
           select="p/span[contains-token(@class, 'headword-line')]"/>
       <xsl:variable
           name="headword-strong"
-          select="myfn:ruby_text(
+          select="myfn:ruby-text(
                   $headword-span/strong[contains-token(@class, 'headword')])"
           as="xs:string*"/>
       <xsl:variable
@@ -37,7 +37,9 @@
                     ('变格', '變格', '变位', '变形', '变位形式', '變位', '詞形變化', '词形变化',
                     '輔音變化', '辅音变化', '語尾變化', '活用', '活用型', '活用形', '賓格',
                     '屈折', '屈折形式', '曲折形式', '軟化變形', '詞首音變')]"
-            mode="conj"/>
+            mode="conj">
+          <xsl:with-param name="language" select="$language"/>
+        </xsl:apply-templates>
       </xsl:variable>
       <xsl:variable
           name="unique-forms"

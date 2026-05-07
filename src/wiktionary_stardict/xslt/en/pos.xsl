@@ -18,25 +18,24 @@
     <xsl:param name="language"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable
-          name="headword-span"
-          select="p/span[contains-token(@class, 'headword-line')]"/>
+          name="headword-p"
+          select="p[span[contains-token(@class, 'headword-line')]]"/>
       <xsl:variable
           name="headword-strong"
-          select="myfn:ruby_text(
-                  $headword-span/strong[contains-token(@class, 'headword')])"
+          select="myfn:ruby-text(
+                  $headword-p//strong[contains-token(@class, 'headword')])"
           as="xs:string*"/>
-      <xsl:variable
-          name="headword-forms"
-          select="myfn:get-element-forms(
-                  $headword-span//b[contains-token(@class, 'form-of') or @lang])"
-          as="xs:string*"/>
+      <xsl:variable name="headword-forms" as="xs:string*"
+                    select="myfn:get-element-forms($headword-p//b)"/>
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select="section[(h4 | h5 | h6)//text() =
                     ('Conjugation', 'Declension', 'Inflection', 'Mutation')]"
-            mode="conj"/>
+            mode="conj">
+          <xsl:with-param name="language" select="$language"/>
+        </xsl:apply-templates>
       </xsl:variable>
       <xsl:variable
           name="unique-forms"

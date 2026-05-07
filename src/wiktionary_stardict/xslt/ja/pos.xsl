@@ -25,7 +25,7 @@
           select="for $b in (
                   let $strong := $headword-p/strong[contains-token(@class, 'headword')]
                   return if ($strong) then $strong else $headword-p//b[1]) return
-                  let $text := myfn:ruby_text($b)
+                  let $text := myfn:ruby-text($b)
                   return if ($headword-p/span[@data-mw and myfn:is-template(@data-mw,
                     ('jachars', 'zhchars', 'kochar', 'vichar'))])
                     then replace($text, ' ', '') else $text"
@@ -35,7 +35,7 @@
           select="for $b in $headword-p//b[not(parent::span[@data-mw and
                   myfn:is-template(@data-mw,
                   ('jachars', 'zhchars', 'kochar', 'vichar'))])]
-                  return myfn:ruby_text($b)"
+                  return myfn:ruby-text($b)"
           as="xs:string*"/>
       <xsl:variable
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(.)"/>
