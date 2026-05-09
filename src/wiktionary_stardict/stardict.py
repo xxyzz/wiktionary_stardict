@@ -57,10 +57,7 @@ def download_image(glos, url: str, edition: str, added_files: set[str], zim):
                 glos.addEntry(glos.newDataEntry(filename, data))
                 added_files.add(filename)
                 return
-        r = requests.get(
-            url,
-            headers={"user-agent": get_user_agent()},
-        )
+        r = requests.get(url, headers={"user-agent": get_user_agent()})
         if r.ok:
             glos.addEntry(glos.newDataEntry(filename, r.content))
             added_files.add(filename)

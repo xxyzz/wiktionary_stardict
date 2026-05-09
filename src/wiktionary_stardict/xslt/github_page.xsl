@@ -123,10 +123,10 @@
         <h3>Hebrew font</h3>
         <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew">Noto Sans Hebrew</a> font file <code>NotoSansHebrew-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
         <h3>Lao fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Lao">Noto Sans Lao</a> font files to <code>koreader/fonts</code> folder:</p>
+        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Lao+Looped">Noto Sans Lao Looped</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
-          <li><code>NotoSansLao-Regular.ttf</code></li>
-          <li><code>NotoSansLao-Bold.ttf</code></li>
+          <li><code>NotoSansLaoLooped-Regular.ttf</code></li>
+          <li><code>NotoSansLaoLooped-Bold.ttf</code></li>
         </ul>
         <h3>Khmer fonts</h3>
         <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Khmer">Noto Sans Khmer</a> font files to <code>koreader/fonts</code> folder:</p>
@@ -135,10 +135,10 @@
           <li><code>NotoSansKhmer-Bold.ttf</code></li>
         </ul>
         <h3>Thai fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Thai">Noto Sans Thai</a> font files to <code>koreader/fonts</code> folder:</p>
+        <p>Download these <a href="https://fonts.google.com/specimen/Sarabun">Sarabun</a> font files to <code>koreader/fonts</code> folder:</p>
         <ul>
-          <li><code>NotoSansThai-Regular.ttf</code></li>
-          <li><code>NotoSansThai-Bold.ttf</code></li>
+          <li><code>Sarabun-Regular.ttf</code></li>
+          <li><code>Sarabun-Bold.ttf</code></li>
         </ul>
         <h3>Burmese fonts</h3>
         <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Myanmar">Noto Sans Myanmar</a> font files to <code>koreader/fonts</code> folder:</p>

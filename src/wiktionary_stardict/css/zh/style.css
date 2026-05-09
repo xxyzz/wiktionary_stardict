@@ -485,7 +485,7 @@ b .Mymr {
 }
 .Thai,
 .lang-th {
-  font-family:'Noto Sans Thai',sans-serif;
+  font-family:Sarabun,sans-serif;
   font-size:125%
 }
 .Thai,
@@ -940,13 +940,13 @@ b, strong {
   src: url("fonts/NotoSerifDevanagari-Bold.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Thai";
-  src: url("fonts/NotoSansThai-Regular.ttf");
+  font-family: Sarabun;
+  src: url("fonts/Sarabun-Regular.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Thai";
+  font-family: Sarabun;
   font-weight: bold;
-  src: url("fonts/NotoSansThai-Bold.ttf");
+  src: url("fonts/Sarabun-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans Myanmar";

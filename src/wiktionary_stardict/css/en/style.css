@@ -641,7 +641,7 @@ strong.Goth {
   font-family:'Lanna Alif','Noto Sans Tai Tham',sans-serif
 }
 .Laoo {
-  font-family:'Noto Sans Lao',sans-serif;
+  font-family:'Noto Sans Lao Looped',sans-serif;
   font-size:125%
 }
 .Lepc {
@@ -869,7 +869,7 @@ b .Ogam {
   font-family:'Bisaya Hervas','Noto Sans Tagalog','Tagalog Stylized','Baybayin Lopez','Tagalog Doctrina 1593',Quivira,'Code2000',sans-serif
 }
 .Thai {
-  font-family:'Noto Sans Thai',sans-serif;
+  font-family:Sarabun,sans-serif;
   font-size:125%
 }
 .Tibt {
@@ -1073,13 +1073,13 @@ b, strong {
   src: url("fonts/NotoSerifDevanagari-Bold.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Lao";
-  src: url("fonts/NotoSansLao-Regular.ttf");
+  font-family: "Noto Sans Lao Looped";
+  src: url("fonts/NotoSansLaoLooped-Regular.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Lao";
+  font-family: "Noto Sans Lao Looped";
   font-weight: bold;
-  src: url("fonts/NotoSansLao-Bold.ttf");
+  src: url("fonts/NotoSansLaoLooped-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans Khmer";
@@ -1091,13 +1091,13 @@ b, strong {
   src: url("fonts/NotoSansKhmer-Bold.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Thai";
-  src: url("fonts/NotoSansThai-Regular.ttf");
+  font-family: Sarabun;
+  src: url("fonts/Sarabun-Regular.ttf");
 }
 @font-face {
-  font-family: "Noto Sans Thai";
+  font-family: Sarabun;
   font-weight: bold;
-  src: url("fonts/NotoSansThai-Bold.ttf");
+  src: url("fonts/Sarabun-Bold.ttf");
 }
 @font-face {
   font-family: "Noto Sans Myanmar";
