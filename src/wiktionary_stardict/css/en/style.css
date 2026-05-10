@@ -414,7 +414,7 @@ i .mention {
   font-family:Pokhto,'Pashto Kror Asiatype','Scheherazade New',Scheherazade,sans-serif
 }
 .sd-Arab {
-  font-family:'MB Sindhi',Tahoma,'MBSarang Sattar','MB Bhitai Sattar','MB Lateefi','Ayaz Gul','Iranian Sans',sans-serif
+  font-family:'Noto Kufi Arabic',sans-serif
 }
 .ug-Arab {
   font-family:'Noto Nastaliq Urdu',sans-serif
@@ -555,7 +555,7 @@ strong.Goth {
   font-family:'Gentium Plus',sans-serif
 }
 .Gujr {
-  font-family:'Noto Sans Gujarati','Gujarati Sangam MN','Gujarati MT',Shruti,'Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','Code2000','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
+  font-family:'Noto Sans Gujarati',sans-serif;
   font-size:125%
 }
 .Guru {
@@ -625,7 +625,7 @@ strong.Goth {
   font-size:125%
 }
 .Knda {
-  font-family:'Kannada Sangam MN',JanaKannada,Tunga,Kedage,RaghuKannada,Sampige,'Arial Unicode MS','Code2000','Bitstream Cyberbit','Bitstream CyberBase',sans-serif;
+  font-family:'Noto Sans Kannada',sans-serif;
   font-size:125%
 }
 .Kore,
@@ -685,7 +685,7 @@ strong.Goth {
   font-size:150%
 }
 .Mlym {
-  font-family:'Malayalam Sangam MN',Kartika,'Code2000','Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
+  font-family:'Noto Sans Malayalam',sans-serif;
   font-size:125%
 }
 .Mong,
@@ -738,7 +738,7 @@ b .Ogam {
   font-family:'Segoe UI Historic',Orkun,'Old Turkic',sans-serif
 }
 .Orya {
-  font-family:'Oriya Sangam MN',sans-serif;
+  font-family:'Noto Sans Oriya',sans-serif;
   font-size:125%
 }
 .Ougr {
@@ -1129,4 +1129,44 @@ b, strong {
   font-family: "Noto Sans Bengali";
   font-weight: bold;
   src: url("fonts/NotoSansBengali-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Gujarati";
+  src: url("fonts/NotoSansGujarati-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Gujarati";
+  font-weight: bold;
+  src: url("fonts/NotoSansGujarati-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Kannada";
+  src: url("fonts/NotoSansKannada-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Kannada";
+  font-weight: bold;
+  src: url("fonts/NotoSansKannada-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Oriya";
+  src: url("fonts/NotoSansOriya-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Oriya";
+  font-weight: bold;
+  src: url("fonts/NotoSansOriya-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Malayalam";
+  src: url("fonts/NotoSansMalayalam-Regular.ttf");
+}
+@font-face {
+  font-family: "Noto Sans Malayalam";
+  font-weight: bold;
+  src: url("fonts/NotoSansMalayalam-Bold.ttf");
+}
+@font-face {
+  font-family: "Noto Kufi Arabic";
+  src: url("fonts/NotoKufiArabic-Regular.ttf");
 }

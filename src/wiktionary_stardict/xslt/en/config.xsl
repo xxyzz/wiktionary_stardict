@@ -76,5 +76,16 @@
               'Khmer',
               'Lao',
               'Punjabi',
-              'Urdu')"/>
+              'Urdu',
+              'Pali',
+              'Marathi',
+              'Gujarati',
+              'Kannada',
+              'Odia',
+              'Malayalam',
+              'Assamese',
+              'Kashmiri',
+              'Nepali',
+              'Sindhi',
+              'Konkani')"/>
 </xsl:stylesheet>

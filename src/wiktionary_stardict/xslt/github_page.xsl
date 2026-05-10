@@ -19,6 +19,9 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Wiktionary StarDict</title>
+        <meta name="description" content="Wiktionary StarDict dictionaries for KOReader and other e-readers."/>
+        <meta property="og:title" content="Wiktionary StarDict"/>
+        <meta property="og:type" content="website"/>
         <xsl:element name="style" expand-text="no">
           .files {display: none;}
           .active {display: initial;}
@@ -81,85 +84,7 @@
         </xsl:element>
 
         <h2>Install fonts</h2>
-        <h3>Pronunciation fonts</h3>
-        <p>Download <a href="https://fonts.google.com/specimen/Gentium+Plus">Gentium Plus</a> font file <code>GentiumPlus-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mono">Noto Sans Mono</a> font file <code>NotoSansMono-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>Chinese fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+TC">Noto Sans Traditional Chinese</a> and <a href="https://fonts.google.com/noto/specimen/Noto+Sans+SC">Noto Sans Simplified Chinese</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansTC-Regular.ttf</code></li>
-          <li><code>NotoSansTC-Bold.ttf</code></li>
-          <li><code>NotoSansSC-Regular.ttf</code></li>
-          <li><code>NotoSansSC-Bold.ttf</code></li>
-        </ul>
-        <h3>Japanese fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+JP">Noto Sans Japanese</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansJP-Regular.ttf</code></li>
-          <li><code>NotoSansJP-Bold.ttf</code></li>
-        </ul>
-        <h3>Korean fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+KR">Noto Sans Korean</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansKR-Regular.ttf</code></li>
-          <li><code>NotoSansKR-Bold.ttf</code></li>
-        </ul>
-        <h3>Tibetan fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Tibetan">Noto Serif Tibetan</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSerifTibetan-Regular.ttf</code></li>
-          <li><code>NotoSerifTibetan-Bold.ttf</code></li>
-        </ul>
-        <h3>Mongolian, Manchu fonts</h3>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Mongolian">Noto Sans Mongolian</a> font file <code>NotoSansMongolian-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>Devanagari fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Serif+Devanagari">Noto Serif Devanagari</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSerifDevanagari-Regular.ttf</code></li>
-          <li><code>NotoSerifDevanagari-Bold.ttf</code></li>
-        </ul>
-        <h3>Arabic font</h3>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic">Noto Naskh Arabic</a> font file <code>NotoNaskhArabic-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>Hebrew font</h3>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Hebrew">Noto Sans Hebrew</a> font file <code>NotoSansHebrew-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>Lao fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Lao+Looped">Noto Sans Lao Looped</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansLaoLooped-Regular.ttf</code></li>
-          <li><code>NotoSansLaoLooped-Bold.ttf</code></li>
-        </ul>
-        <h3>Khmer fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Khmer">Noto Sans Khmer</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansKhmer-Regular.ttf</code></li>
-          <li><code>NotoSansKhmer-Bold.ttf</code></li>
-        </ul>
-        <h3>Thai fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/specimen/Sarabun">Sarabun</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>Sarabun-Regular.ttf</code></li>
-          <li><code>Sarabun-Bold.ttf</code></li>
-        </ul>
-        <h3>Burmese fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Myanmar">Noto Sans Myanmar</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansMyanmar-Regular.ttf</code></li>
-          <li><code>NotoSansMyanmar-Bold.ttf</code></li>
-        </ul>
-        <h3>Persian, Punjabi, Urdu, Uyghur font</h3>
-        <p>Download <a href="https://fonts.google.com/noto/specimen/Noto+Nastaliq+Urdu">Noto Nastaliq Urdu</a> font file <code>NotoNastaliqUrdu-Regular.ttf</code> to <code>koreader/fonts</code> folder</p>
-        <h3>Gurmukhī fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Gurmukhi">Noto Sans Gurmukhi</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansGurmukhi-Regular.ttf</code></li>
-          <li><code>NotoSansGurmukhi-Bold.ttf</code></li>
-        </ul>
-        <h3>Bengali fonts</h3>
-        <p>Download these <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Bengali">Noto Sans Bengali</a> font files to <code>koreader/fonts</code> folder:</p>
-        <ul>
-          <li><code>NotoSansBengali-Regular.ttf</code></li>
-          <li><code>NotoSansBengali-Bold.ttf</code></li>
-        </ul>
+        <p>Read the <a href="./fonts.html">fonts document</a> of how to install required fonts.</p>
       </body>
     </html>
   </xsl:template>

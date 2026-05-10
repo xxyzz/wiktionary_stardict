@@ -65,6 +65,7 @@ def create_github_page(args):
     )
     out_path = Path("_site/index.html")
     out_path.parent.mkdir(exist_ok=True)
+    Path("docs/fonts.html").copy_into(out_path.parent)
     download_screenshots()
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")
