@@ -1,6 +1,6 @@
 .IPA,
 .IPAchar {
-  font-family:'Gentium Plus',sans-serif;
+  font-family:'Gentium',sans-serif;
   font-size:110%;
   color:inherit
 }
@@ -121,7 +121,7 @@
   font-style:normal
 }
 .Bopo {
-  font-family:'Noto Sans CJK TC',sans-serif
+  font-family:'Source Han Sans TW',sans-serif
 }
 .Brai {
   font-size:150%
@@ -153,11 +153,11 @@
   font-size:110%
 }
 .Hani, .Hant {
-  font-family:'Noto Sans CJK TC',sans-serif;
+  font-family:'Source Han Sans TW',sans-serif;
   font-size:120%
 }
 .Hans {
-  font-family:'Noto Sans CJK SC',sans-serif;
+  font-family:'Source Han Sans CN',sans-serif;
   font-size:120%
 }
 .Copt {
@@ -223,12 +223,12 @@ i.Deva {
 }
 .Grek,
 .lang-el {
-  font-family:'Gentium Plus',sans-serif;
+  font-family:'Gentium',sans-serif;
   font-family :inherit
 }
 .polytonic,
 .Polyt {
-  font-family:'Gentium Plus',sans-serif
+  font-family:'Gentium',sans-serif
 }
 .Gujr {
   font-family:'Noto Sans Gujarati','Gujarati Sangam MN','Gujarati MT',Shruti,'Lucida Grande','Arial Unicode MS','Lucida Sans Unicode','Code2000','TITUS Cyberbit Basic','Chrysanthi Unicode','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','Visual Geez Unicode',sans-serif;
@@ -271,7 +271,7 @@ big.lang-arc {
 }
 .Jpan,
 .lang-ja {
-  font-family:'Noto Sans CJK JP',sans-serif;
+  font-family:'Source Han Sans JP',sans-serif;
   font-size:120%;
   line-height:1
 }
@@ -280,7 +280,7 @@ big.lang-arc {
   font-style:normal
 }
 .Jpan ruby rt {
-  font-family:'Noto Sans CJK JP',sans-serif;
+  font-family:'Source Han Sans JP',sans-serif;
   font-size:60%
 }
 .Khar {
@@ -515,7 +515,7 @@ b .Mymr {
 }
 .Kore,
 .Hang {
-  font-family:'Noto Sans CJK KR',sans-serif;
+  font-family:'Source Han Sans KR',sans-serif;
   font-size:120%;
   line-height:1
 }
@@ -817,7 +817,7 @@ i.Deva,
   font-family:Consolas,monospace
 }
 .enPR {
-  font-family:'Gentium Plus',sans-serif
+  font-family:'Gentium',sans-serif
 }
 .usage-label-sense {
   font-size:smaller
@@ -866,78 +866,78 @@ b, strong {
 }
 
 @font-face {
-  font-family: "Gentium Plus";
-  src: url("fonts/GentiumPlus-Regular.ttf");
+  font-family: "Gentium";
+  src: url("fonts/Gentium-Regular.ttf");
 }
 @font-face {
   font-family: "monospace";
   src: url("fonts/NotoSansMono-Regular.ttf");
 }
 @font-face {
-  font-family: "Noto Sans CJK TC";
-  src: url("fonts/NotoSansTC-Regular.ttf");
+  font-family: "Source Han Sans TW";
+  src: url("fonts/SourceHanSansTW-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK TC";
+  font-family: "Source Han Sans TW";
   font-weight: bold;
-  src: url("fonts/NotoSansTC-Bold.ttf");
+  src: url("fonts/SourceHanSansTW-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK SC";
-  src: url("fonts/NotoSansSC-Regular.ttf");
+  font-family: "Source Han Sans CN";
+  src: url("fonts/SourceHanSansCN-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK SC";
+  font-family: "Source Han Sans CN";
   font-weight: bold;
-  src: url("fonts/NotoSansSC-Bold.ttf");
+  src: url("fonts/SourceHanSansCN-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK JP";
-  src: url("fonts/NotoSansJP-Regular.ttf");
+  font-family: "Source Han Sans JP";
+  src: url("fonts/SourceHanSansJP-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK JP";
+  font-family: "Source Han Sans JP";
   font-weight: bold;
-  src: url("fonts/NotoSansJP-Bold.ttf");
+  src: url("fonts/SourceHanSansJP-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK KR";
-  src: url("fonts/NotoSansKR-Regular.ttf");
+  font-family: "Source Han Sans KR";
+  src: url("fonts/SourceHanSansKR-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Source Han Sans KR";
   font-weight: bold;
-  src: url("fonts/NotoSansKR-Bold.ttf");
+  src: url("fonts/SourceHanSansKR-Bold.otf");
 }
 @font-face {
   font-family: "Noto Sans Hebrew";
-  src: url("fonts/NotoSansHebrew-Regular.ttf");
+  src: url("fonts/NotoSansHebrew-Regular.otf");
 }
 @font-face {
   font-family: "Noto Naskh Arabic";
-  src: url("fonts/NotoNaskhArabic-Regular.ttf");
+  src: url("fonts/NotoNaskhArabic-Regular.otf");
 }
 @font-face {
   font-family: "Noto Serif Tibetan";
-  src: url("fonts/NotoSerifTibetan-Regular.ttf");
+  src: url("fonts/NotoSerifTibetan-Regular.otf");
 }
 @font-face {
   font-family: "Noto Serif Tibetan";
   font-weight: bold;
-  src: url("fonts/NotoSerifTibetan-Bold.ttf");
+  src: url("fonts/NotoSerifTibetan-Bold.otf");
 }
 @font-face {
   font-family: "Noto Sans Mongolian";
-  src: url("fonts/NotoSansMongolian-Regular.ttf");
+  src: url("fonts/NotoSansMongolian-Regular.otf");
 }
 @font-face {
   font-family: "Noto Serif Devanagari";
-  src: url("fonts/NotoSerifDevanagari-Regular.ttf");
+  src: url("fonts/NotoSerifDevanagari-Regular.otf");
 }
 @font-face {
   font-family: "Noto Serif Devanagari";
   font-weight: bold;
-  src: url("fonts/NotoSerifDevanagari-Bold.ttf");
+  src: url("fonts/NotoSerifDevanagari-Bold.otf");
 }
 @font-face {
   font-family: Sarabun;
@@ -950,23 +950,23 @@ b, strong {
 }
 @font-face {
   font-family: "Noto Sans Myanmar";
-  src: url("fonts/NotoSansMyanmar-Regular.ttf");
+  src: url("fonts/NotoSansMyanmar-Regular.otf");
 }
 @font-face {
   font-family: "Noto Sans Myanmar";
   font-weight: bold;
-  src: url("fonts/NotoSansMyanmar-Bold.ttf");
+  src: url("fonts/NotoSansMyanmar-Bold.otf");
 }
 @font-face {
   font-family: "Noto Nastaliq Urdu";
-  src: url("fonts/NotoNastaliqUrdu-Regular.ttf");
+  src: url("fonts/NotoNastaliqUrdu-Regular.otf");
 }
 @font-face {
   font-family: "Noto Sans Bengali";
-  src: url("fonts/NotoSansBengali-Regular.ttf");
+  src: url("fonts/NotoSansBengali-Regular.otf");
 }
 @font-face {
   font-family: "Noto Sans Bengali";
   font-weight: bold;
-  src: url("fonts/NotoSansBengali-Bold.ttf");
+  src: url("fonts/NotoSansBengali-Bold.otf");
 }

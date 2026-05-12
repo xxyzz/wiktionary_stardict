@@ -1,20 +1,20 @@
 .IPA, .Jones {
-  font-family: 'Gentium Plus',sans-serif;
+  font-family: 'Gentium',sans-serif;
 }
 .Jpan {
-  font-family: 'Noto Sans CJK JP',sans-serif;
+  font-family: 'Source Han Sans JP',sans-serif;
 }
 pre, code, tt, kbd, samp, .mw-code {
   font-family: monospace;
 }
 .zh-simp, .Hans {
-  font-family:'Noto Sans CJK TC',sans-serif;
+  font-family:'Source Han Sans CN',sans-serif;
 }
 .zh-mt, .zh-trad, .Hani, .Hant {
-  font-family:'Noto Sans CJK TC',sans-serif;
+  font-family:'Source Han Sans TW',sans-serif;
 }
 .Kore {
-  font-family:'Noto Sans CJK KR',sans-serif;
+  font-family:'Source Han Sans KR',sans-serif;
 }
 .Thai {
   font-family:Sarabun,sans-serif;
@@ -80,54 +80,54 @@ section {
   src: url("fonts/NotoSansJP-Bold.ttf");
 }
 @font-face {
-  font-family: "Gentium Plus";
-  src: url("fonts/GentiumPlus-Regular.ttf");
+  font-family: "Gentium";
+  src: url("fonts/Gentium-Regular.ttf");
 }
 @font-face {
   font-family: "monospace";
   src: url("fonts/NotoSansMono-Regular.ttf");
 }
 @font-face {
-  font-family: "Noto Sans CJK TC";
-  src: url("fonts/NotoSansTC-Regular.ttf");
+  font-family: "Source Han Sans TW";
+  src: url("fonts/SourceHanSansTW-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK TC";
+  font-family: "Source Han Sans TW";
   font-weight: bold;
-  src: url("fonts/NotoSansTC-Bold.ttf");
+  src: url("fonts/SourceHanSansTW-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK SC";
-  src: url("fonts/NotoSansSC-Regular.ttf");
+  font-family: "Source Han Sans CN";
+  src: url("fonts/SourceHanSansCN-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK SC";
+  font-family: "Source Han Sans CN";
   font-weight: bold;
-  src: url("fonts/NotoSansSC-Bold.ttf");
+  src: url("fonts/SourceHanSansCN-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK JP";
-  src: url("fonts/NotoSansJP-Regular.ttf");
+  font-family: "Source Han Sans JP";
+  src: url("fonts/SourceHanSansJP-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK JP";
+  font-family: "Source Han Sans JP";
   font-weight: bold;
-  src: url("fonts/NotoSansJP-Bold.ttf");
+  src: url("fonts/SourceHanSansJP-Bold.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK KR";
-  src: url("fonts/NotoSansKR-Regular.ttf");
+  font-family: "Source Han Sans KR";
+  src: url("fonts/SourceHanSansKR-Regular.otf");
 }
 @font-face {
-  font-family: "Noto Sans CJK KR";
+  font-family: "Source Han Sans KR";
   font-weight: bold;
-  src: url("fonts/NotoSansKR-Bold.ttf");
+  src: url("fonts/SourceHanSansKR-Bold.otf");
 }
 @font-face {
   font-family: "Noto Sans Hebrew";
-  src: url("fonts/NotoSansHebrew-Regular.ttf");
+  src: url("fonts/NotoSansHebrew-Regular.otf");
 }
 @font-face {
   font-family: "Noto Naskh Arabic";
-  src: url("fonts/NotoNaskhArabic-Regular.ttf");
+  src: url("fonts/NotoNaskhArabic-Regular.otf");
 }
