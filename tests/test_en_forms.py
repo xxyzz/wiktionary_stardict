@@ -400,3 +400,28 @@ class EnFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["飛ぶ", "飛んで", "飛ばないで", "飛ばなくて"]}],
         )
+
+    def test_ja_examples_table(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>難読</title></head>
+<body>
+<section><h2>Japanese</h2>
+<table class="wikitable floatright">
+<tbody><tr><th style="font-weight:normal">Alternative spelling</th></tr>
+<tr>
+<td style="text-align:center;font-size:108%"><span class="Jpan" lang="ja" style="font-family:游ゴシック, HanaMinA, sans-serif; font-size:140%;"><a><span>難</span>讀</a></span> <small><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">kyūjitai</span><span class="ib-brac label-brac">)</span></span></small></td></tr>
+</tbody></table>
+<table class="examples floatright">
+<tbody><tr><th>Examples<span> </span>(<i>nandoku <a>kanji</a></i>)</th></tr>
+</tbody></table>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Jpan headword" lang="ja">難読</strong></span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["難読", "難讀"]}],
+        )
