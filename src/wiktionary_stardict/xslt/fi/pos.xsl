@@ -9,55 +9,61 @@
 
   <xsl:include href="../image.xsl"/>
   <xsl:include href="../utils.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
-
-    <xsl:variable name="headword-p" select="p[b]"/>
-    <xsl:variable
-        name="headword-b" select="normalize-space($headword-p/b[1])" as="xs:string"/>
-    <xsl:variable
-        name="headword-forms" as="xs:string*"
-        select="myfn:get-element-forms(tail($headword-p/b))"/>
-    <xsl:variable
+    <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
+      <xsl:variable name="headword-p" select="p[b]"/>
+      <xsl:variable
+          name="headword-b" select="normalize-space($headword-p/b[1])" as="xs:string"/>
+      <xsl:variable
+          name="headword-forms" as="xs:string*"
+          select="myfn:get-element-forms(tail($headword-p/b))"/>
+      <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-b, $title, $headword-forms)[. != ''])"
           as="xs:string*"/>
 
-    <xsl:variable name="definition">
-      <section class="mw-parser-output" dir="ltr" lang="fi">
-        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
-        <xsl:apply-templates select="p | ol" mode="pos-li"/>
-        <xsl:apply-templates
-            select="section[normalize-space(h4|h5|h6) = ('Huomautukset', 'Etymologia')]"
-            mode="usage-notes"/>
-      </section>
-    </xsl:variable>
+      <xsl:variable name="definition">
+        <section class="mw-parser-output" dir="ltr" lang="fi">
+          <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h4|h5|h6) = 'Ääntäminen']" mode="pron"/>
+          <xsl:apply-templates select="p | ol" mode="pos-li"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h4|h5|h6) =
+                      ('Huomautukset', 'Etymologia')]"
+              mode="usage-notes"/>
+        </section>
+      </xsl:variable>
 
-    <xsl:variable name="images" as="xs:string*">
-      <xsl:sequence select="$definition//img/@src"/>
-    </xsl:variable>
+      <xsl:variable name="images" as="xs:string*">
+        <xsl:sequence select="$definition//img/@src"/>
+      </xsl:variable>
 
-    <xsl:variable name="final-definition">
-      <xsl:apply-templates select="$definition" mode="convert-img"/>
-    </xsl:variable>
+      <xsl:variable name="final-definition">
+        <xsl:apply-templates select="$definition" mode="convert-img"/>
+      </xsl:variable>
 
-    <xsl:variable name="is-form-only" as="xs:boolean">
+      <xsl:variable name="is-form-only" as="xs:boolean">
+        <xsl:sequence
+            select="boolean(myfn:is-form-of(.) or
+                    (every $li in ol/li[myfn:is-gloss-li(.)]
+                    satisfies myfn:is-form-of($li)))"/>
+      </xsl:variable>
+
       <xsl:sequence
-          select="boolean(myfn:is-form-of(.) or
-                  (every $li in ol/li satisfies myfn:is-form-of($li)))"/>
-    </xsl:variable>
-
-    <xsl:sequence
-        select="map{'lang': $language,
-                'forms': array{$unique-forms},
-                'def': serialize(
-                  $final-definition, map{'method': 'html', 'indent': false()}),
-                'images': array{$images},
-                'form_of_targets': array{
-                  myfn:form-of-targets(ol/li[if ($is-form-only) then true() else
-                    myfn:is-form-of(.)])},
-                'form_of_only': $is-form-only}"/>
+          select="map{'lang': $language,
+                  'forms': array{$unique-forms},
+                  'def': serialize(
+                    $final-definition, map{'method': 'html', 'indent': false()}),
+                  'images': array{$images},
+                  'form_of_targets': array{
+                    myfn:form-of-targets(ol/li[if ($is-form-only) then true() else
+                      myfn:is-form-of(.)])},
+                  'form_of_only': $is-form-only}"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
@@ -69,7 +75,9 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pos-li">
-    <li><xsl:apply-templates mode="pos-li"/></li>
+    <xsl:if test="myfn:is-gloss-li(.)">
+      <li><xsl:apply-templates mode="pos-li"/></li>
+    </xsl:if>
   </xsl:template>
 
   <!-- Find the shortest usage example -->
@@ -85,6 +93,13 @@
   <xsl:template match="*" mode="pos-li">
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>
+
+  <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="boolean($li/node() and
+                not(contains-token($li/@class, 'mw-empty-elt')))"/>
+  </xsl:function>
 
   <xsl:function name="myfn:is-form-of" as="xs:boolean">
     <xsl:param name="node" as="element()"/>
