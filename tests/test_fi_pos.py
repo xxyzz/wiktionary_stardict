@@ -80,3 +80,42 @@ class FiPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_notes(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>nainen</title></head>
+<body>
+<section><h2>Suomi</h2>
+<section><h3>Substantiivi</h3>
+<p><b lang="fi" class="hakusana Zzzz">nainen</b><span> </span><span> (</span><a>38</a><span>)</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Huomautukset</h4>
+<ul><li>Yhdyssanojen alkuosana sana esiintyy muodossa <i>nais-.</i></li></ul>
+<dl><dd><i><b>Nais</b>kansanedustajien määrä nousi eduskuntavaaleissa 93:een.</i> (yle.fi)</dd></dl>
+</section>
+<section><h4>Etymologia</h4>
+<p>samasta vartalosta kuin<sup class="mw-ref reference"></sup></p>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fi">
+<h4>Substantiivi</h4>
+<p><b lang="fi" class="hakusana Zzzz">nainen</b><span> </span><span> (</span>38<span>)</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Huomautukset</h4>
+<ul><li>Yhdyssanojen alkuosana sana esiintyy muodossa <i>nais-.</i></li></ul>
+<dl><dd><i><b>Nais</b>kansanedustajien määrä nousi eduskuntavaaleissa 93:een.</i> (yle.fi)</dd></dl>
+</section>
+<section><h4>Etymologia</h4>
+<p>samasta vartalosta kuin</p>
+</section>
+</section>"""
+                }
+            ],
+        )

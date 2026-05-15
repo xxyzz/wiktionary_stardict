@@ -26,9 +26,11 @@
 
     <xsl:variable name="definition">
       <section class="mw-parser-output" dir="ltr" lang="fi">
-        <xsl:apply-templates
-            select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
         <xsl:apply-templates select="p | ol" mode="pos-li"/>
+        <xsl:apply-templates
+            select="section[normalize-space(h4|h5|h6) = ('Huomautukset', 'Etymologia')]"
+            mode="usage-notes"/>
       </section>
     </xsl:variable>
 
@@ -95,4 +97,11 @@
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence select="distinct-values($li/b ! normalize-space(.))"/>
   </xsl:function>
+
+  <xsl:template match="section" mode="usage-notes">
+    <section>
+      <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+      <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
+    </section>
+  </xsl:template>
 </xsl:stylesheet>
