@@ -79,7 +79,7 @@
           <xsl:otherwise>
             <xsl:variable
                 name="a-forms"
-                select="myfn:combine-a-forms(myfn:a-forms($e/a[position() gt 1]))"/>
+                select="myfn:combine-a-forms(myfn:a-forms(tail($e/a)))"/>
             <xsl:sequence
                 select="$a-forms, for $a-form in $a-forms return $prefix || $a-form"/>
           </xsl:otherwise>
