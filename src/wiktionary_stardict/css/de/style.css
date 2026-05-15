@@ -14,3 +14,12 @@ dd {
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
 }
+
+.ipa, ipa2 {
+  font-family:Gentium,sans-serif
+}
+
+@font-face {
+  font-family: "Gentium";
+  src: url("fonts/Gentium-Regular.ttf");
+}

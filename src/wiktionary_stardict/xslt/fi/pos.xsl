@@ -10,6 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="inflection.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -21,8 +22,16 @@
           name="headword-forms" as="xs:string*"
           select="myfn:get-element-forms(tail($headword-p/b))"/>
       <xsl:variable
+          name="headword-table-forms" as="xs:string*"
+          select="myfn:get-headword-table-forms(table)"/>
+      <xsl:variable
+          name="inflection-forms" as="xs:string*"
+          select="myfn:get-inflection-section-forms(
+                  section[normalize-space(h4 | h5 | h6) = 'Taivutus'])"/>
+      <xsl:variable
           name="unique-forms"
-          select="distinct-values(($headword-b, $title, $headword-forms)[. != ''])"
+          select="distinct-values(($headword-b, $title, $headword-forms,
+                  $headword-table-forms, $inflection-forms)[. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
