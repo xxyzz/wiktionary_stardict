@@ -65,7 +65,8 @@
                 'def': serialize(
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
-                'zim_pages': array{$flexion-links}}"/>
+                'zim_pages': array{$flexion-links},
+                'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
   </xsl:template>
 
   <xsl:template match="h3" mode="pos">

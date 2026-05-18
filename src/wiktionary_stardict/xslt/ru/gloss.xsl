@@ -7,6 +7,7 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
+  <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="morphology.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
@@ -61,7 +62,8 @@
                   'forms': array{$unique-forms},
                   'def': serialize(
                     $final-definition, map{'method': 'html', 'indent': false()}),
-                  'images': array{$images}}"/>
+                  'images': array{$images},
+                  'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 

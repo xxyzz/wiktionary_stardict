@@ -85,7 +85,8 @@
                   'form_of_targets': array{myfn:form-of-targets(ol/li)},
                   'form_of_only': boolean(
                     every $li in ol/li[myfn:is-gloss-li(.)]
-                    satisfies myfn:is-form-of($li))}"/>
+                    satisfies myfn:is-form-of($li)),
+                  'ids': array{myfn:get-pos-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 

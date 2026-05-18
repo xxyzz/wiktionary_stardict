@@ -64,7 +64,8 @@
                 'def': serialize(
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
-                'zim_pages': array{$conj-links}}"/>
+                'zim_pages': array{$conj-links},
+                'ids': array{myfn:fr-pos-section-ids(.)}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-li">
@@ -113,4 +114,18 @@
       <xsl:apply-templates select="p | dl | ul" mode="clean-content"/>
     </section>
   </xsl:template>
+
+  <xsl:function name="myfn:fr-pos-section-ids" as="xs:string*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:sequence select="myfn:get-heading-ids(
+                          ($section | $section/ancestor::section)/(h2|h3|h4))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-heading-ids" as="xs:string*">
+    <xsl:param name="heading" as="element()*"/>
+    <xsl:variable
+        name="span-ids" select="$heading/span/@id[not(starts-with(., 'mw'))]"/>
+    <xsl:sequence
+        select="$heading/@id[not(starts-with(., 'mw'))], $span-ids"/>
+  </xsl:function>
 </xsl:stylesheet>

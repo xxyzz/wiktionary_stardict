@@ -71,7 +71,8 @@
                   'form_of_targets': array{
                     myfn:form-of-targets(ol/li[if ($is-form-only) then true() else
                       myfn:is-form-of(.)])},
-                  'form_of_only': $is-form-only}"/>
+                  'form_of_only': $is-form-only,
+                  'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 

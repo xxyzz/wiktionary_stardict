@@ -100,3 +100,22 @@ class FrPOSTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_section_ids(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>eat</title></head>
+<body>
+<section><h2 id="Anglais"><span id="en">Anglais</span></h2>
+<section><h3 id="Verbe">
+<span id="en-verb-1">Verbe</span><span id="en-verb"></span>
+</h3>
+<p><b>eat</b></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"ids": ["Anglais", "Verbe", "en", "en-verb-1", "en-verb"]}],
+        )

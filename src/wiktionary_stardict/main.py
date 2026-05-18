@@ -34,12 +34,20 @@ def config_proc(proc):
     )
 
 
-def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None):
+def init_worker(
+    xsl_path: str,
+    zim_path: Path | None,
+    zim_xsl_path: Path | None,
+    redirect_db_path: Path,
+):
+    import atexit
+    import sqlite3
+
     from saxonche import PySaxonProcessor
 
     from .zim import open_zim
 
-    global proc, executable, zim, zim_xsl_exec
+    global proc, executable, zim, zim_xsl_exec, redirect_db_conn
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
@@ -50,6 +58,12 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
     else:
         zim = None
         zim_xsl_exec = None
+    redirect_db_conn = sqlite3.connect(redirect_db_path)
+    atexit.register(exit_worker)
+
+
+def exit_worker():
+    redirect_db_conn.close()
 
 
 def transform(chunk_data) -> list[list[str]]:
@@ -57,6 +71,7 @@ def transform(chunk_data) -> list[list[str]]:
 
     from saxonche import PySaxonApiError
 
+    from .redirect import add_redirects
     from .zim import get_zim_page
 
     page_name = chunk_data["name"]
@@ -88,6 +103,8 @@ def transform(chunk_data) -> list[list[str]]:
                         logger.error(f"Error in page: {zim_page} {err}")
             extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
             data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
+
+    add_redirects(redirect_db_conn, page_name, json_result)
     return json_result
 
 
@@ -113,6 +130,7 @@ def build(args):
 
     from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
+    from .redirect import download_redirect_db
     from .snapshot import (
         decompress_chunk,
         download_chunk,
@@ -129,6 +147,7 @@ def build(args):
     conn_dict = {}
     zim_path = None
     zim_xsl_path = None
+    redirect_db_path = download_redirect_db(args.edition)
     if "zim_xsl" in EDITIONS[args.edition]:
         zim_path = download_zim(args.edition)
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
@@ -143,7 +162,8 @@ def build(args):
         logger.info(f"start chunk {chunk_identifier}")
         with ndjson_path.open() as f:
             with ProcessPoolExecutor(
-                initializer=init_worker, initargs=(xsl_path, zim_path, zim_xsl_path)
+                initializer=init_worker,
+                initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
             ) as executor:
                 for results in executor.map(
                     transform, iter_chunk_lines(page_names, f), chunksize=100
@@ -168,6 +188,7 @@ def build(args):
         logger.info(f"chunk {chunk_identifier} done")
 
     page_names.clear()
+    redirect_db_path.unlink()
     for conn in conn_dict.values():
         create_indexes(conn)
     with ProcessPoolExecutor(

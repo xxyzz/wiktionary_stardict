@@ -122,4 +122,18 @@
     </xsl:if>
   </xsl:template>
   <xsl:mode name="lang-converter" on-no-match="shallow-copy"/>
+
+  <xsl:function name="myfn:get-pos-section-ids" as="xs:string*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:variable
+        name="ancestor-section-ids" select="myfn:get-ancestor-section-ids($section)"/>
+    <xsl:variable name="li-ids" select="$section/ol/li/@id[not(starts-with(., 'mw'))]"/>
+    <xsl:sequence select="$ancestor-section-ids, $li-ids"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-ancestor-section-ids" as="xs:string*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:sequence select="($section | $section/ancestor::section)/(h1|h2|h3|h4)/@id[
+                          not(starts-with(., 'mw'))]"/>
+  </xsl:function>
 </xsl:stylesheet>

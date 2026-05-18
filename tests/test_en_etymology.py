@@ -41,20 +41,20 @@ class EnEtymologyTestCase(XMLTestCase):
 <html>
 <head><title>tee</title></head>
 <body>
-<section><h2>English</h2>
-<section><h3>Etymology 1</h3>
+<section><h2 id="English">English</h2>
+<section><h3 id="Etymology_1">Etymology 1</h3>
 <ul><li>From <span class="etyl">Middle English</span><span> </span><small>[Term?]</small>, from <span class="etyl">Old English</span><span> </span><i class="Latn mention" lang="ang">te</i>, from <span class="etyl">Latin</span><span> </span><i class="Latn mention" lang="la">tē</i><span> </span><span class="mention-gloss-paren annotation-paren">(</span><span class="ann-pos">the name of the letter T</span><span class="mention-gloss-paren annotation-paren">)</span>.</li></ul>
-<section><h3>Noun</h3>
+<section><h3 id="Noun">Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">tee</strong></span></p>
-<ol><li>gloss</li></ol>
+<ol><li id="English:_T-shirt">gloss</li></ol>
 </section>
 </section>
 
-<section><h3>Etymology 2</h3>
+<section><h3 id="Etymology_2">Etymology 2</h3>
 <p>First attested in the 17th century as <i class="Latn mention" lang="en">teaz</i>, back-formation from obsolete <span class="etyl">Scots</span><span> </span><i class="Latn mention" lang="sco">teaz</i>, later reanalyzed as a plural.<sup class="mw-ref reference"><span class="mw-reflink-text"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></span></sup> <span class="maintenance-line"><i>This etymology is incomplete. You can help Wiktionary by elaborating on the origins of this term. </i></span></p>
-<section><h4>Noun</h4>
+<section><h4 id="Noun_2">Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">tee</strong></span></p>
-<ol><li>gloss</li></ol>
+<ol><li id="mwdA">gloss</li></ol>
 </section>
 </section>
 </section>
@@ -72,7 +72,8 @@ class EnEtymologyTestCase(XMLTestCase):
 <h4>Etymology</h4>
 <ul><li>From <span class="etyl">Middle English</span><span> </span><small>[Term?]</small>, from <span class="etyl">Old English</span><span> </span><i class="Latn mention" lang="ang">te</i>, from <span class="etyl">Latin</span><span> </span><i class="Latn mention" lang="la">tē</i><span> </span><span class="mention-gloss-paren annotation-paren">(</span><span class="ann-pos">the name of the letter T</span><span class="mention-gloss-paren annotation-paren">)</span>.</li></ul>
 </section>
-</section>"""
+</section>""",
+                    "ids": ["English", "Etymology_1", "Noun", "English:_T-shirt"],
                 },
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
@@ -85,7 +86,8 @@ class EnEtymologyTestCase(XMLTestCase):
 <h4>Etymology</h4>
 <p>First attested in the 17th century as <i class="Latn mention" lang="en">teaz</i>, back-formation from obsolete <span class="etyl">Scots</span><span> </span><i class="Latn mention" lang="sco">teaz</i>, later reanalyzed as a plural. </p>
 </section>
-</section>"""
+</section>""",
+                    "ids": ["English", "Etymology_2", "Noun_2"],
                 },
             ],
         )
