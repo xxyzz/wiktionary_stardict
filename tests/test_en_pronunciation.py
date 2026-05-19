@@ -439,3 +439,72 @@ class EnPronunciationTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_fi_p(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>idiomi</title></head>
+<body>
+<section><h2>Finnish</h2>
+<section><h3>Pronunciation</h3>
+<ul><li>Syllabification<sup>(<a>key</a>)</sup>: <span class="Latn" lang="fi">i‧di‧o‧mi</span></li>
+<li>Hyphenation<sup>(<a>key</a>)</sup>: <span class="Latn" lang="fi">idio‧mi</span></li></ul>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="fi">idiomi</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>Syllabification: <span class="Latn" lang="fi">i‧di‧o‧mi</span></li>
+<li>Hyphenation: <span class="Latn" lang="fi">idio‧mi</span></li></ul>
+<p><span class="headword-line"><strong class="Latn headword" lang="fi">idiomi</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )
+
+    def test_grc_ipa(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>ἰδίωμα</title></head>
+<body>
+<section><h2>Ancient Greek</h2>
+<section><h3>Pronunciation</h3>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"grc-IPA"}}}]}'>
+<div class="vsShow">
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(<a>key</a>)</sup>:<span> </span><span class="IPA nowrap">/i.dí.ɔː.ma/</span> → <span class="IPA nowrap">/iˈði.o.ma/</span> → <span class="IPA nowrap">/iˈði.o.ma/</span></li></ul></div>
+<div class="vsHide">
+<ul><li><span class="usage-label-accent"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>5<sup>th</sup> <small class="ce-date2">BCE</small> Attic</a></span><span class="ib-brac label-brac">)</span></span> <a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(<a>key</a>)</sup>:<span> </span><span class="IPA nowrap">/i.dí.ɔː.ma/</span></li></ul></div>
+</div>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Polyt headword" lang="grc">ἰδίωμα</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">/i.dí.ɔː.ma/</span> → <span class="IPA nowrap">/iˈði.o.ma/</span> → <span class="IPA nowrap">/iˈði.o.ma/</span></li></ul>
+<p><span class="headword-line"><strong class="Polyt headword" lang="grc">ἰδίωμα</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )

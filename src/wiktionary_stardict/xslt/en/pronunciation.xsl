@@ -36,6 +36,12 @@
                     following-sibling::table[1]"
             mode="th-pron"/>
       </xsl:when>
+      <xsl:when test="$language = 'Ancient Greek'">
+        <xsl:apply-templates
+            select="div[@data-mw and myfn:is-template(@data-mw, 'grc-IPA')]/
+                    div[contains-token(@class, 'vsShow')]/ul"
+            mode="pron-ul"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates select="ul" mode="pron-ul"/>
       </xsl:otherwise>
@@ -51,14 +57,15 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- 'Syllabification:' from Template:es-pr
+  <!-- 'Syllabification:' from Template:es-pr, Template:fi-p
        'Tone numbers:' from Template:za-pron
        'Hyphenation:' from Template:hyphenation -->
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
               (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
-              .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:')] or
+              .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:',
+              'Syllabification', 'Hyphenation')] or
               .//span[normalize-space() = 'Hyphenation:'])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
