@@ -22,8 +22,12 @@
                 myfn:get-element-forms(.)"
         as="xs:string*"/>
     <xsl:variable
+        name="title-form"
+        select="if (not(starts-with($title, 'Titres non pris en charge/')))
+                then $title else ''"/>
+    <xsl:variable
         name="unique-forms"
-        select="distinct-values(($headword-forms, $title, $table-forms)[. != ''])"
+        select="distinct-values(($headword-forms, $title-form, $table-forms)[. != ''])"
         as="xs:string*"/>
     <xsl:variable
         name="conj-links"

@@ -38,8 +38,12 @@
         </xsl:apply-templates>
       </xsl:variable>
       <xsl:variable
+          name="title-form"
+          select="if (not(starts-with($title, 'Unsupported titles/')))
+                  then $title else ''"/>
+      <xsl:variable
           name="unique-forms"
-          select="distinct-values(($headword-strong, $title, $alt-forms,
+          select="distinct-values(($headword-strong, $title-form, $alt-forms,
                   $headword-forms, $conj-forms, myfn:li-alt-forms(ol))
                   [. != ''])"
           as="xs:string*"/>

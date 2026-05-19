@@ -42,8 +42,11 @@
         </xsl:apply-templates>
       </xsl:variable>
       <xsl:variable
+        name="title-form"
+        select="if (not(starts-with($title, '不支援的頁面名稱/'))) then $title else ''"/>
+      <xsl:variable
           name="unique-forms"
-          select="distinct-values(($headword-strong, $title, $alt-forms,
+          select="distinct-values(($headword-strong, $title-form, $alt-forms,
                   $headword-forms, $conj-forms, myfn:li-alt-forms(ol))
                   [. != ''])"
           as="xs:string*"/>
