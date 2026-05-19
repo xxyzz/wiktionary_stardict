@@ -119,3 +119,39 @@ class FiPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_idiom_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>tosi</title></head>
+<body>
+<section><h2 id="Suomi">Suomi</h2>
+<section><h3 id="Adjektiivi">Adjektiivi</h3>
+<p><b lang="fi" class="hakusana Zzzz">tosi</b></p>
+<ol><li>gloss</li></ol>
+<section><h4 id="Idiomit">Idiomit</h4>
+<ul><li><b>totta kai</b></li>
+<li><b>totta puhuen</b>
+<ol><li>puhuja ilmaisee</li></ol></li></ul>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fi">
+<h4>Adjektiivi</h4>
+<p><b lang="fi" class="hakusana Zzzz">tosi</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Idiomit</h4>
+<ul><li><b>totta kai</b></li>
+<li><b>totta puhuen</b>
+<ol><li>puhuja ilmaisee</li></ol></li></ul>
+</section>
+</section>""",
+                    "ids": ["Suomi", "Adjektiivi", "Idiomit"],
+                }
+            ],
+        )

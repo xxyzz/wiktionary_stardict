@@ -42,7 +42,7 @@
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) =
-                      ('Huomautukset', 'Etymologia')]"
+                      ('Huomautukset', 'Etymologia', 'Idiomit')]"
               mode="usage-notes"/>
         </section>
       </xsl:variable>
@@ -72,7 +72,8 @@
                     myfn:form-of-targets(ol/li[if ($is-form-only) then true() else
                       myfn:is-form-of(.)])},
                   'form_of_only': $is-form-only,
-                  'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
+                  'ids': array{
+                    myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 
@@ -129,4 +130,9 @@
       <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
     </section>
   </xsl:template>
+
+  <xsl:function name="myfn:get-child-section-ids" as="xs:string*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:sequence select="$section/section/(h4|h5|h6)/@id[not(starts-with(., 'mw'))]"/>
+  </xsl:function>
 </xsl:stylesheet>
