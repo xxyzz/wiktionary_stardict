@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet
     version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <!-- https://fr.wiktionary.org/wiki/Wiktionnaire:Statistiques -->
   <xsl:variable
       name="allowed-languages"
       select="('Français',
@@ -31,5 +32,30 @@
               'Roumain',
               'Letton',
               'Ancien occitan',
-              'Grec')"/>
+              'Grec',
+              'Same du Nord',
+              'Tchèque',
+              'Suédois',
+              'Breton',
+              'Basque',
+              'Gallo',
+              'Danois',
+              'Malgache',
+              'Estonien',
+              'Afrikaans',
+              'Roumain',
+              'Sicilien',
+              'Kazakh',
+              'Turc',
+              'Hongrois',
+              'Gallois',
+              'Luxembourgeois',
+              'Slovaque',
+              'Francoprovençal',
+              'Papiamento',
+              'Norvégien',
+              'Norvégien (nynorsk)',
+              'Norvégien (bokmål)',
+              'Islandais',
+              'Persan')"/>
 </xsl:stylesheet>
