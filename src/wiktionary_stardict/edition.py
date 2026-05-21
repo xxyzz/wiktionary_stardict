@@ -6,6 +6,8 @@ EDITIONS = {
     "de": {"lang": "Deutsch", "zim_xsl": "flexion.xsl"},
     "zh": {"lang": "漢語"},
     "ja": {"lang": "日本語"},
+    "fi": {"lang": "Suomi"},
+    "sv": {"lang": "Svenska"},
 }
 
 ZH_CODE_TO_NAME = {
