@@ -1,7 +1,9 @@
 from pathlib import Path
 
 
-def create_glossary(lemma_lang: str, gloss_lang: str, snapshot_date: str):
+def create_glossary(
+    lemma_lang: str, gloss_lang: str, snapshot_date: str, wiki_name: str
+):
     from datetime import date
 
     from pyglossary.glossary_v2 import Glossary
@@ -9,7 +11,7 @@ def create_glossary(lemma_lang: str, gloss_lang: str, snapshot_date: str):
     return Glossary(
         {
             "version": "3.0.0",
-            "bookname": f"Wiktionary {lemma_lang}-{gloss_lang}",
+            "bookname": f"{wiki_name} {lemma_lang}-{gloss_lang}",
             "author": "xxyzz",
             "website": "https://github.com/xxyzz/wiktionary_stardict",
             "description": f"Snapshot {snapshot_date}. Wiktionary license CC BY-SA 4.0",
@@ -70,7 +72,6 @@ def get_user_agent() -> str:
 
 
 def create_stardict(
-    gloss_lang: str,
     edition: str,
     snapshot_date: str,
     zim_path: Path | None,
@@ -84,7 +85,7 @@ def create_stardict(
     from pyglossary.glossary_v2 import Glossary
 
     from .db import iter_entries
-    from .edition import ZH_CODE_TO_NAME
+    from .edition import EDITIONS, ZH_CODE_TO_NAME
     from .zim import open_zim
 
     added_files = set()
@@ -101,7 +102,12 @@ def create_stardict(
     else:
         lemma_lang = conn_key
         lemma_code = name_to_code(lemma_lang, edition)
-    glos = create_glossary(lemma_lang, gloss_lang, snapshot_date)
+    glos = create_glossary(
+        lemma_lang,
+        EDITIONS[edition]["lang"],
+        snapshot_date,
+        EDITIONS[edition]["wiki_name"],
+    )
     for definition, forms, images in iter_entries(conn_key):
         add_entry(glos, edition, forms, definition, images, added_files, zim)
 

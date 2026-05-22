@@ -864,7 +864,19 @@ dd {
 b, strong {
   font-weight: bold;
 }
+section {
+  font-family:sans-serif;
+}
 
+@font-face {
+  font-family: sans-serif;
+  src: url("fonts/SourceHanSansTW-Regular.otf");
+}
+@font-face {
+  font-family: sans-serif;
+  font-weight: bold;
+  src: url("fonts/SourceHanSansTW-Bold.otf");
+}
 @font-face {
   font-family: "Gentium";
   src: url("fonts/Gentium-Regular.ttf");

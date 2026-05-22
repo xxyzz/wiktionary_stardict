@@ -141,7 +141,6 @@ def build(args):
     from .zim import download_zim
 
     xsl_path = get_xsl_path(args.edition, "main.xsl")
-    edition_lang = EDITIONS[args.edition]["lang"]
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
     snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
     conn_dict = {}
@@ -196,9 +195,7 @@ def build(args):
     ) as executor:
         list(
             executor.map(
-                partial(
-                    create_stardict, edition_lang, args.edition, snapshot_date, zim_path
-                ),
+                partial(create_stardict, args.edition, snapshot_date, zim_path),
                 conn_dict.keys(),
             )
         )

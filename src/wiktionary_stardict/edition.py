@@ -1,13 +1,17 @@
 EDITIONS = {
-    "en": {"lang": "English"},
-    "es": {"lang": "Español"},
-    "fr": {"lang": "Français", "zim_xsl": "conjugaison.xsl"},
-    "ru": {"lang": "Русский"},
-    "de": {"lang": "Deutsch", "zim_xsl": "flexion.xsl"},
-    "zh": {"lang": "漢語"},
-    "ja": {"lang": "日本語"},
-    "fi": {"lang": "Suomi"},
-    "sv": {"lang": "Svenska"},
+    "en": {"lang": "English", "wiki_name": "Wiktionary"},
+    "es": {"lang": "Español", "wiki_name": "Wikcionario"},
+    "fr": {
+        "lang": "Français",
+        "zim_xsl": "conjugaison.xsl",
+        "wiki_name": "Wiktionnaire",
+    },
+    "ru": {"lang": "Русский", "wiki_name": "Викисловарь"},
+    "de": {"lang": "Deutsch", "zim_xsl": "flexion.xsl", "wiki_name": "Wiktionary"},
+    "zh": {"lang": "漢語", "wiki_name": "維基詞典"},
+    "ja": {"lang": "日本語", "wiki_name": "ウィクショナリー"},
+    "fi": {"lang": "Suomi", "wiki_name": "Wikisanakirja"},
+    "sv": {"lang": "Svenska", "wiki_name": "Wiktionary"},
 }
 
 ZH_CODE_TO_NAME = {
