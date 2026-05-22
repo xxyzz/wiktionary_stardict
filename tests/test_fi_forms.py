@@ -132,3 +132,22 @@ class FiFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_double_headword_lines(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>alkotest</title></head>
+<body>
+<section><h2>Ruotsi</h2>
+<section><h3>Substantiivi</h3>
+<p><b lang="sv" class="hakusana Zzzz">alkotest</b><span> </span><span title="yleinen suku"><i>yl.</i></span><span> (</span>3<span>) (</span><i>yks. määr.</i><span> </span><b><span class="Zzzz linkki" lang="sv"><a>alkotesten</a></span></b><span> </span><span class="luo-nappi plainlinks"><a><span>[</span>luo<span>]</span></a></span></p>
+
+<p><b lang="sv" class="hakusana Zzzz">alkotest</b><span> </span><i><span title="neutri">n.</span></i><span> (</span><a>5</a><span>) (</span><i>yks. määr.</i><span> </span><b><span class="Zzzz linkki" lang="sv"><a>alkotestet</a></span></b><span><a><span>[</span>luo<span>]</span></a></span></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["alkotest", "alkotesten", "alkotestet"]}],
+        )

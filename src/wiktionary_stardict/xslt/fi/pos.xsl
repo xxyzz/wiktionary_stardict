@@ -16,8 +16,8 @@
     <xsl:param name="language"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable name="headword-p" select="p[b]"/>
-      <xsl:variable
-          name="headword-b" select="normalize-space($headword-p/b[1])" as="xs:string"/>
+      <xsl:variable name="headword-b" as="xs:string*"
+                    select="$headword-p/b[1] ! normalize-space(.)"/>
       <xsl:variable
           name="headword-forms" as="xs:string*"
           select="myfn:get-element-forms(tail($headword-p/b))"/>

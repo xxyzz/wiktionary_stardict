@@ -8,6 +8,8 @@
 
   <xsl:template match="section" mode="pron">
     <xsl:apply-templates select="ul" mode="pron-ul"/>
+    <xsl:apply-templates
+        select="section[normalize-space(h5|h6) = 'Tavutus']" mode="pron"/>
   </xsl:template>
 
   <xsl:template match="ul" mode="pron-ul">
@@ -20,7 +22,11 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pron-ul">
-    <xsl:if test="a[@title = 'Liite:Ääntäminen'] or starts-with(text(), 'tavutus:')">
+    <xsl:if
+        test="node() and not(contains-token(@class, 'mw-empty-elt')) and
+              (a[@title = 'Liite:Ääntäminen'] or (
+              some $text in text() satisfies starts-with($text, 'tavutus:')) or
+              span[contains-token(@class, 'IPA')])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>

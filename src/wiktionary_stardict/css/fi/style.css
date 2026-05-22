@@ -36,6 +36,10 @@ dd {
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
 }
+.luo-nappi {
+  font-size: 0.8em;
+  color: #c473e7;
+}
 
 .Jpan {
   font-family:'Source Han Sans JP',sans-serif;
