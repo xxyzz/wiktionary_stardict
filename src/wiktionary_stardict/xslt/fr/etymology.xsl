@@ -6,28 +6,26 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="etymology">
-    <xsl:param name="pos-id" as="xs:string?"/>
+    <xsl:param name="pos-ids" as="xs:string*"/>
     <xsl:variable
-        name="dl-element"
+        name="dl-elements"
         select="dl[not(.//link[@rel = 'mw:PageProp/Category' and starts-with(@href,
-                './Catégorie:Wiktionnaire:Étymologies_manquantes_en')])][1]"/>
-    <xsl:if test="$dl-element">
+                './Catégorie:Wiktionnaire:Étymologies_manquantes_en')])]"/>
+    <xsl:if test="$dl-elements">
       <xsl:variable
           name="matched-dd"
-          select="$dl-element/dd[i/a[ends-with(@href, '#' || $pos-id)]]"/>
+          select="($dl-elements/dd[some $id in $pos-ids satisfies
+                  i/a[contains-token(@class, 'mw-selflink-fragment') and
+                      ends-with(@href, '#' || $id)]])[1]"/>
       <xsl:variable name="content">
         <xsl:choose>
           <xsl:when test="$matched-dd">
             <dl>
-              <dd>
-                <xsl:copy-of
-                    select="$matched-dd/node()
-                            [not(self::i and not(preceding-sibling::i))]"/>
-              </dd>
+              <xsl:copy-of select="$matched-dd"/>
             </dl>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:copy-of select="$dl-element"/>
+            <xsl:copy-of select="$dl-elements"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>

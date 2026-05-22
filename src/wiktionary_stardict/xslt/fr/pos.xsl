@@ -47,9 +47,7 @@
             select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
                     [last()]"
             mode="etymology">
-          <xsl:with-param
-              name="pos-id"
-              select="(h3|h4|h5|h6)/span[contains-token(@class, 'titredef')]/@id"/>
+          <xsl:with-param name="pos-ids" select="(h3|h4|h5|h6)/span/@id"/>
         </xsl:apply-templates>
       </section>
     </xsl:variable>
