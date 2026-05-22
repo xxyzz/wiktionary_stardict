@@ -20,10 +20,18 @@
         select="td[b[normalize-space() = 'silabación'] or
                 a[@title = 'Alfabeto Fonético Internacional']]">
       <li>
+        <xsl:variable
+            name="is-ipa" as="xs:boolean"
+            select="boolean(./a[@title = 'Alfabeto Fonético Internacional'])"/>
         <xsl:apply-templates select="./node()" mode="clean-content"/>
         <xsl:text>: </xsl:text>
         <xsl:for-each select="following-sibling::td/text()">
-          <xsl:copy select="normalize-space(.)"/>
+          <span>
+            <xsl:if test="$is-ipa">
+              <xsl:attribute name="class" select="'IPA'"/>
+            </xsl:if>
+            <xsl:copy select="normalize-space(.)"/>
+          </span>
           <xsl:if test="position() != last()">
             <xsl:text>, </xsl:text>
           </xsl:if>

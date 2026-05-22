@@ -35,8 +35,8 @@ class EsPronunciationTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Verbo intransitivo y terciopersonal</h4>
 <ul>
-<li><b>seseante</b> (AFI): [akõn̪t̪eˈseɾ]</li>
-<li><b>silabación</b>: a-con-te-cer</li>
+<li><b>seseante</b> (AFI): <span class="IPA">[akõn̪t̪eˈseɾ]</span></li>
+<li><b>silabación</b>: <span>a-con-te-cer</span></li>
 </ul>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
@@ -80,7 +80,7 @@ class EsPronunciationTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo masculino</h4>
 <ul>
-<li><b>pronunciación</b> (AFI): [(ˈ)li(ː.)vʁ(ə)]</li>
+<li><b>pronunciación</b> (AFI): <span class='IPA'>[(ˈ)li(ː.)vʁ(ə)]</span></li>
 </ul>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
@@ -89,7 +89,7 @@ class EsPronunciationTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Adjetivo</h4>
 <ul>
-<li><b>Portugal</b> (AFI): [ˈli.vɾɨ]</li>
+<li><b>Portugal</b> (AFI): <span class='IPA'>[ˈli.vɾɨ]</span></li>
 </ul>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",
@@ -121,7 +121,7 @@ class EsPronunciationTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="es">
 <h4>Sustantivo</h4>
 <ul>
-<li><b>pronunciación</b> (AFI): [ʃɪntoˈɪsmʊs], [ʃɪntoˈʔɪsmʊs]</li>
+<li><b>pronunciación</b> (AFI): <span class='IPA'>[ʃɪntoˈɪsmʊs]</span>, <span class='IPA'>[ʃɪntoˈʔɪsmʊs]</span></li>
 </ul>
 <dl><dt>1</dt><dd>gloss</dd></dl>
 </section>""",

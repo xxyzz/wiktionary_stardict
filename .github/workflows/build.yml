@@ -21,7 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        edition: ['en', 'es', 'fr', 'ru', 'de']
+        edition:
+          - 'en'
+          - 'es'
+          - 'fr'
+          - 'ru'
+          - 'de'
+          - 'zh'
+          - 'ja'
+          - 'fi'
+          - 'sv'
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
     permissions:
