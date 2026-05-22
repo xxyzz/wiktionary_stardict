@@ -2,23 +2,19 @@ h4 {
   margin: 0.25em 0;
   padding: 0;
 }
-
 ul {
-  list-style-type: disc !important;
+  list-style-type: disc;
   margin: 0.3em 0 0 1.6em;
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
   padding: 0;
 }
-
 li {
   margin-bottom: 0.1em;
 }
-
 p {
   margin: 0.5em 0;
 }
-
 ol {
   list-style-type: decimal;
   margin: 0.3em 0 0 1.6em;
@@ -26,28 +22,31 @@ ol {
   margin-inline-end: 0;
   padding: 0;
 }
-
 p + ol {
   margin-top: -0.5em;
 }
-
+ul ul {
+  list-style-type:disc
+}
 ol ul {
-  list-style-type: square;
+  list-style-type:square
 }
-
 ol ol {
-  list-style-type: lower-alpha;
+  list-style-type:lower-alpha
 }
-
+ol ol ul {
+  list-style-type:square
+}
 ol ol ol {
-  list-style-type: lower-roman;
+  list-style-type:lower-roman
 }
-
+ol ol ol ul {
+  list-style-type:square
+}
 dl {
   margin-top: 0.2em;
   margin-bottom: 0.5em;
 }
-
 dd {
   margin-bottom: 0.1em;
   margin-left: 1.6em;
