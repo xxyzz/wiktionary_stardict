@@ -36,3 +36,22 @@ class SvFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_double_headword_lines(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>búa</title></head>
+<body>
+<section><h2>Isländska</h2>
+<section><h3>Verb</h3>
+<p><b>búa</b></p>
+<ol><li>gloss</li></ol>
+<p><b>búast við</b></p>
+<ol><li>gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["búa", "búast við"]}],
+        )

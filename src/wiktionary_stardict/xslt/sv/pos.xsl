@@ -15,14 +15,14 @@
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
     <xsl:variable
-        name="headword-form" select="normalize-space(p/b[1])" as="xs:string"/>
+        name="headword-forms" select="p/b[1] ! normalize-space(.)" as="xs:string*"/>
     <xsl:variable
         name="table-forms" as="xs:string*"
         select="myfn:get-grammar-table-forms(
                 table[contains-token(@class, 'grammar')])"/>
     <xsl:variable
         name="unique-forms" as="xs:string*"
-        select="distinct-values(($headword-form, $title, $table-forms)[. != ''])"/>
+        select="distinct-values(($headword-forms, $title, $table-forms)[. != ''])"/>
 
     <xsl:variable name="definition">
       <section class="mw-parser-output" dir="ltr" lang="sv">
