@@ -26,11 +26,11 @@ class ZhEtymologyTestCase(XMLTestCase):
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="zh">
-<h4 class="Hant">成語</h4>
+<h4>成語</h4>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">目不識丁</strong>
 </span></p>
 <ol><li>gloss</li></ol>
-<section><h4 class="Hant">詞源</h4>
+<section><h4>詞源</h4>
 <p>出自《舊唐書．卷一二九．張延賞列傳》中張弘靖對士兵說的話：</p>
 <dl><dd><div><dl class="zhusex"><span lang="zh-Hant" class="Hant">「……今天下無事，汝輩挽得兩石力弓，<b>不</b>如<b>識</b>一<b>丁</b>字。」</span><span class="vsToggleElement" style="color:darkgreen; font-size:x-small;padding-left:10px"></span><hr/><dd>「……現在天下太平，你們雖然能拉兩石力氣的弓，還不如去認識一個『丁』字來得有用。</dd></dl></div></dd></dl>
 </section>

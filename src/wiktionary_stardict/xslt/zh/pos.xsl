@@ -105,7 +105,7 @@
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
-    <h4 class="Hant"><xsl:apply-templates mode="clean-content"/></h4>
+    <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">
@@ -187,7 +187,7 @@
 
   <xsl:template match="section" mode="usage-notes">
     <section>
-      <h4 class="Hant">使用說明</h4>
+      <h4>使用說明</h4>
       <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
     </section>
   </xsl:template>
