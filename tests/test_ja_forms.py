@@ -211,3 +211,47 @@ class JaFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_two_tables(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>殺伐</title></head>
+<body>
+<section><h2>日本語</h2>
+<section><h3>形容動詞</h3>
+<p><strong class="Jpan headword" lang="ja">殺伐</strong></p>
+<ol><li>gloss</li></ol>
+<section><h4>活用</h4>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"日本語タルト活用"}}}]}'>
+<div class="NavHead">活用と結合例</div>
+<div class="NavContent">
+<table class="wikitable">
+<tbody>
+<tr>
+<td>殺伐</td><td>(無し)</td><td>と</td></tr>
+</tbody></table>
+<table class="wikitable">
+<tbody><tr>
+<td>自動詞化</td><td>殺伐とする</td><td>連用形 + <a>する</a></td></tr>
+</tbody></table>
+</div></div>
+<div class="NavFrame" data-mw='{"parts":[{"template":{"target":{"wt":"日本語ダ活用"}}}]}'>
+<div class="NavHead">活用と結合例</div>
+<div class="NavContent">
+<table class="wikitable">
+<tbody><tr>
+<td>殺伐</td><td>だろ</td></tr>
+</tbody></table>
+<table class="wikitable">
+<tbody><tr>
+<td>推量・意志</td><td>殺伐だろう</td><td>未然形 + <a>う</a></td></tr>
+</tbody></table>
+</div></div>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["殺伐", "殺伐と", "殺伐とする", "殺伐だろ", "殺伐だろう"]}],
+        )

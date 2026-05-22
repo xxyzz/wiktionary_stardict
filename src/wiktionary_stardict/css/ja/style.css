@@ -27,6 +27,9 @@ pre, code, tt, kbd, samp, .mw-code {
   font-family:'Noto Naskh Arabic',sans-serif;
   direction:rtl;
 }
+.SAMPA, .Webster {
+  font-family: monospace;
+}
 
 h4 {
   margin: 0.25em 0;
@@ -72,12 +75,12 @@ section {
 
 @font-face {
   font-family: sans-serif;
-  src: url("fonts/NotoSansJP-Regular.ttf");
+  src: url("fonts/SourceHanSansJP-Regular.otf");
 }
 @font-face {
   font-family: sans-serif;
   font-weight: bold;
-  src: url("fonts/NotoSansJP-Bold.ttf");
+  src: url("fonts/SourceHanSansJP-Bold.otf");
 }
 @font-face {
   font-family: "Gentium";

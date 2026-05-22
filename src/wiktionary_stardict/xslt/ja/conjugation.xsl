@@ -53,28 +53,34 @@
 
   <!-- テンプレート:日本語助動詞活用 -->
   <xsl:function name="myfn:ja-aux-verb-forms" as="xs:string*">
-    <xsl:param name="table" as="element(table)*"/>
-    <xsl:sequence select="$table//td[position() le 6]/text()/normalize-space()"/>
+    <xsl:param name="tables" as="element(table)*"/>
+    <xsl:for-each select="$tables">
+      <xsl:sequence select=".//td[position() le 6]/text()/normalize-space()"/>
+    </xsl:for-each>
   </xsl:function>
 
   <xsl:function name="myfn:ja-classical-conj-forms" as="xs:string*">
-    <xsl:param name="table" as="element(table)*"/>
-    <xsl:variable name="stem" as="xs:string"
-                  select="normalize-space($table//td[@rowspan and position() = 2])"/>
-    <xsl:sequence
-        select="for $td in $table//td[not(@rowspan)] return
-                let $td-text := normalize-space($td) => replace('[\(\)\-○]', '') return
-                if ($td-text) then $stem || $td-text else ()"/>
+    <xsl:param name="tables" as="element(table)*"/>
+    <xsl:for-each select="$tables">
+      <xsl:variable name="stem" as="xs:string"
+                    select="normalize-space(.//td[@rowspan and position() = 2])"/>
+      <xsl:sequence
+          select="for $td in .//td[not(@rowspan)] return
+                  let $td-text := normalize-space($td) => replace('[\(\)\-○]', '')
+                  return if ($td-text) then $stem || $td-text else ()"/>
+    </xsl:for-each>
   </xsl:function>
 
   <xsl:function name="myfn:ja-combine-forms" as="xs:string*">
-    <xsl:param name="div" as="element(div)*"/>
-    <xsl:variable name="first" as="xs:string*"
-                  select="myfn:first-ja-combine-table($div//table[1])"/>
-    <xsl:variable
-        name="second" as="xs:string*"
-        select="$div//table[2]//td[position() mod 2 = 0]/text() ! normalize-space()"/>
-    <xsl:sequence select="$first, $second"/>
+    <xsl:param name="div-nodes" as="element(div)*"/>
+    <xsl:for-each select="$div-nodes">
+      <xsl:variable name="first" as="xs:string*"
+                    select="myfn:first-ja-combine-table(.//table[1])"/>
+      <xsl:variable
+          name="second" as="xs:string*"
+          select=".//table[2]//td[position() mod 2 = 0]/text() ! normalize-space()"/>
+      <xsl:sequence select="$first, $second"/>
+    </xsl:for-each>
   </xsl:function>
 
   <xsl:function name="myfn:first-ja-combine-table" as="xs:string*">
