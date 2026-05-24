@@ -9,14 +9,14 @@
   <xsl:template match="section" mode="pron">
     <xsl:param name="language"/>
     <xsl:choose>
-      <xsl:when test="$language = ('日語', '日语')">
+      <xsl:when test="$language = '日語'">
         <xsl:apply-templates
             select="span[@data-mw and myfn:is-template(@data-mw,
                     ('ja-pron', 'ja-IPA', 'ja-accent-dialectal'))]/
                     following-sibling::ul[1]"
             mode="ja-pron"/>
       </xsl:when>
-      <xsl:when test="$language = ('漢語', '汉语')">
+      <xsl:when test="$language = '漢語'">
         <xsl:apply-templates
             select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
             mode="zh-pron"/>
@@ -27,7 +27,7 @@
                     myfn:is-template(@data-mw, ('bo-IPA', 'bo-pron'))]/ul[1]"
             mode="ja-pron"/>
       </xsl:when>
-      <xsl:when test="$language = ('泰語', '泰语')">
+      <xsl:when test="$language = '泰語'">
         <xsl:apply-templates
             select="table[@data-mw and myfn:is-template(@data-mw, 'th-pron')]"
             mode="th-pron"/>

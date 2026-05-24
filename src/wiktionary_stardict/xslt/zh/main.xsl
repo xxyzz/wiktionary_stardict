@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
@@ -23,7 +24,8 @@
                       satisfies ends-with($title, $suffix))">
         <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
-              select="html/body/section[h2/text() = $allowed-languages]"
+              select="html/body/section[
+                      myfn:combine-lang(normalize-space(h2)) = $allowed-languages]"
               mode="language"/>
         </xsl:variable>
         <xsl:sequence select="array{$results}"/>
@@ -36,7 +38,7 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="h2/text()"/>
+    <xsl:variable name="language" select="myfn:combine-lang(normalize-space(h2))"/>
     <xsl:variable name="new-section">
       <xsl:apply-templates select="." mode="lang-converter"/>
     </xsl:variable>

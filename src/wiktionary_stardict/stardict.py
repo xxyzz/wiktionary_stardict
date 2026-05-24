@@ -75,17 +75,17 @@ def create_stardict(
     edition: str,
     snapshot_date: str,
     zim_path: Path | None,
-    conn_key: str,
+    lemma_lang: str,
 ):
     import shutil
     import tarfile
     from pathlib import Path
 
-    from mediawiki_langcodes import code_to_name, name_to_code
+    from mediawiki_langcodes import name_to_code
     from pyglossary.glossary_v2 import Glossary
 
     from .db import iter_entries
-    from .edition import EDITIONS, ZH_CODE_TO_NAME
+    from .edition import EDITIONS
     from .zim import open_zim
 
     added_files = set()
@@ -93,22 +93,14 @@ def create_stardict(
     if zim_path is not None:
         zim = open_zim(zim_path)
     Glossary.init()
-    if edition == "zh":
-        lemma_code = conn_key
-        if lemma_code in ZH_CODE_TO_NAME:
-            lemma_lang = ZH_CODE_TO_NAME[lemma_code]
-        else:
-            lemma_lang = code_to_name(conn_key, edition)
-    else:
-        lemma_lang = conn_key
-        lemma_code = name_to_code(lemma_lang, edition)
+    lemma_code = name_to_code(lemma_lang, edition)
     glos = create_glossary(
         lemma_lang,
         EDITIONS[edition]["lang"],
         snapshot_date,
         EDITIONS[edition]["wiki_name"],
     )
-    for definition, forms, images in iter_entries(conn_key):
+    for definition, forms, images in iter_entries(lemma_lang):
         add_entry(glos, edition, forms, definition, images, added_files, zim)
 
     folder_name = f"{lemma_code}-{edition}"

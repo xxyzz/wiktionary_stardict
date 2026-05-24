@@ -1,38 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet
-    version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
+    xmlns:myfn="https://github.com/xxyzz">
   <xsl:variable
       name="allowed-languages"
       select="('漢語',
-              '汉语',
               '朝鮮語',
-              '朝鲜语',
               '意大利語',
-              '意大利语',
               '拉丁語',
-              '拉丁语',
               '西班牙語',
-              '西班牙语',
               '德語',
-              '德语',
               '英語',
-              '英语',
               '葡萄牙語',
-              '葡萄牙语',
               '俄語',
-              '俄语',
               '瑞典語',
-              '瑞典语',
               '日語',
-              '日语',
               '法語',
-              '法语',
               '越南語',
-              '越南语',
               '波蘭語',
-              '波兰语',
               '芬蘭語',
-              '芬兰语',
               '羅馬尼亞語',
               '土耳其語',
               '希臘語',
@@ -40,7 +28,6 @@
               '匈牙利語',
               '馬其頓語',
               '荷蘭語',
-              '荷兰语',
               '拉脫維亞語',
               '阿塞拜疆語',
               '阿拉伯語',
@@ -49,20 +36,46 @@
               '泰盧固語',
               '印地語',
               '書面挪威語',
-              '书面挪威语',
               '滿語',
               '壯語',
               '新挪威語',
-              '新挪威语',
               '波斯語',
               '丹麥語',
               '藏語',
               '印尼語',
               '蒙古語',
               '泰語',
-              '泰语',
               '希伯來語',
-              '希伯来语',
               '緬甸語',
               '孟加拉語')"/>
+
+  <xsl:variable
+      name="lang-map"
+      select="map {
+              '汉语': '漢語',
+              '朝鲜语': '朝鮮語',
+              '意大利语': '意大利語',
+              '拉丁语': '拉丁語',
+              '西班牙语': '西班牙語',
+              '德语': '德語',
+              '英语': '英語',
+              '葡萄牙语': '葡萄牙語',
+              '俄语': '俄語',
+              '瑞典语': '瑞典语',
+              '日语': '日語',
+              '法语': '法語',
+              '越南语': '越南語',
+              '波兰语': '波蘭語',
+              '芬兰语': '芬蘭語',
+              '荷兰语': '荷蘭語',
+              '书面挪威语': '書面挪威語',
+              '新挪威语': '新挪威語',
+              '泰语': '泰語',
+              '希伯来语': '希伯來語'}"/>
+
+  <xsl:function name="myfn:combine-lang" as="xs:string">
+    <xsl:param name="lang" as="xs:string"/>
+    <xsl:sequence select="if (map:contains($lang-map, $lang))
+                          then $lang-map($lang) else $lang"/>
+  </xsl:function>
 </xsl:stylesheet>

@@ -19,11 +19,11 @@
         name="alt-forms"
         select="myfn:alt-forms-section($alt-forms-section)"/>
     <xsl:choose>
-      <xsl:when test="$language = ('漢語', '汉语')">
+      <xsl:when test="$language = '漢語'">
         <xsl:sequence
             select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
       </xsl:when>
-      <xsl:when test="$language = ('日語', '日语')">
+      <xsl:when test="$language = '日語'">
         <xsl:variable
             name="above-sections"
             select="$section/ancestor::section[h2 | h3] |

@@ -10,7 +10,7 @@
   <xsl:template match="section" mode="conj" as="xs:string*">
     <xsl:param name="language" as="xs:string"/>
     <xsl:choose>
-      <xsl:when test="$language = ('日語', '日语')">
+      <xsl:when test="$language = '日語'">
         <xsl:variable name="spans"
                       select=".//tbody//td/span[starts-with(@lang, 'ja') and
                               not(ends-with(@lang, '-Latn'))]"/>
