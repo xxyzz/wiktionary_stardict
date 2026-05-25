@@ -77,9 +77,13 @@ jobs:
       - uses: actions/setup-python@v6
       - run: gh release edit ${{ needs.build.outputs.tag }} --draft=false --latest
       - run: |
-          python -m pip install .
+          python -m pip install .[koreader]
           dict page ${{ needs.build.outputs.tag }}
       - uses: actions/upload-pages-artifact@v5
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/koreader
+          archive: false
 
   deploy:
     if: needs.release.result == 'success' && github.event_name != 'workflow_run'

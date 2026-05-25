@@ -7,16 +7,18 @@ def convert_release_data(tag: str):
 
     from .edition import EDITIONS, ZH_CODE_TO_NAME
 
-    p = subprocess.run(
-        ["gh", "release", "view", tag, "--json", "assets,publishedAt"],
-        check=True,
-        text=True,
-        capture_output=True,
-    )
-    gh_data = json.loads(p.stdout)
+    with open("build/release.json", "w") as f:
+        subprocess.run(
+            ["gh", "release", "view", tag, "--json", "assets,publishedAt"],
+            check=True,
+            text=True,
+            stdout=f,
+        )
+    with open("build/release.json") as f:
+        release_data = json.load(f)
     assets = defaultdict(list)
     screenshots = {}
-    for asset in gh_data["assets"]:
+    for asset in release_data["assets"]:
         if not asset["name"].endswith(".tar.zst"):
             continue
         name = asset["name"].removesuffix(".tar.zst")
@@ -31,7 +33,7 @@ def convert_release_data(tag: str):
             {"name": f"{lemma_lang}-{gloss_lang}", "url": asset["url"]}
         )
         screenshots[gloss_lang] = f"{gloss_code}.png"
-    date = gh_data["publishedAt"]
+    date = release_data["publishedAt"]
     return json.dumps(
         {"date": date[: date.index("T")], "assets": assets, "screenshots": screenshots}
     )
@@ -52,6 +54,7 @@ def create_github_page(args):
 
     from saxonche import PySaxonProcessor
 
+    from .koreader import koreader_file
     from .main import config_proc
 
     proc = PySaxonProcessor(license=False)
@@ -70,3 +73,4 @@ def create_github_page(args):
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")
         f.write(executable.transform_to_string(xdm_node=doc))
+    koreader_file(args.tag)

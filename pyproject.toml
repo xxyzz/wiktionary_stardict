@@ -21,6 +21,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["ruff", "beautifulsoup4"]
+koreader = ["pycountry"]
 
 [project.scripts]
 dict = "wiktionary_stardict.main:main"
