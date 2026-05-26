@@ -344,6 +344,29 @@ ruby rt {
   margin-top:0.25em;
   margin-bottom:0.25em
 }
+.wikitable {
+  background-color: #f8f9fa;
+  color: #202122;
+  margin: 1em 0;
+  border: 1px solid #a2a9b1;
+  border-collapse: collapse;
+}
+.wikitable > tr > th,
+.wikitable > tr > td,
+.wikitable > * > tr > th,
+.wikitable > * > tr > td {
+  border: 1px solid #a2a9b1;
+  padding: 0.2em 0.4em;
+}
+.wikitable > tr > th,
+.wikitable > * > tr > th {
+  background-color: #eaecf0;
+  color: #202122;
+  text-align: center;
+}
+.wikitable > caption {
+  font-weight: bold;
+}
 
 @font-face {
   font-family: "Gentium";
