@@ -60,7 +60,7 @@
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
-          <xsl:apply-templates select="p | ol" mode="pos-li"/>
+          <xsl:apply-templates select="p | ol | table" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) = 'Usage notes']"
               mode="usage-notes"/>
@@ -179,7 +179,7 @@
   <xsl:template match="section" mode="usage-notes">
     <section>
       <h4>Usage notes</h4>
-      <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
+      <xsl:apply-templates select="p | ul | dl | table" mode="clean-content"/>
     </section>
   </xsl:template>
 </xsl:stylesheet>
