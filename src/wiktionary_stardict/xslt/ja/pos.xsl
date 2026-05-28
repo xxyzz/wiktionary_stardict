@@ -25,9 +25,9 @@
           select="for $b in (
                   let $strong := $headword-p/strong[contains-token(@class, 'headword')]
                   return if ($strong) then $strong else $headword-p//b[1]) return
-                  let $text := myfn:ruby-text($b)
-                  return if ($headword-p/span[@data-mw and myfn:is-template(@data-mw,
-                    ('jachars', 'zhchars', 'kochar', 'vichar'))])
+                  for $text in myfn:ruby-text($b) return
+                    if ($headword-p/span[@data-mw and myfn:is-template(@data-mw,
+                         ('jachars', 'zhchars', 'kochar', 'vichar'))])
                     then replace($text, ' ', '') else $text"
           as="xs:string*"/>
       <xsl:variable

@@ -45,9 +45,10 @@
   <!-- IPA key link -->
   <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
 
-  <!-- Remove Template:maintenance line -->
+  <!-- Remove Template:maintenance line, also used in Template:ja-see -->
   <xsl:template
-      match="span[contains-token(@class, 'maintenance-line')]" mode="clean-content"/>
+      match="(span|small)[contains-token(@class, 'maintenance-line')]"
+      mode="clean-content"/>
   <!-- Remove Template:wikipedia Template:multiple images -->
   <xsl:template
       match="div[some $class in ('floatright', 'tmulti')

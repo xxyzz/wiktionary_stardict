@@ -11,9 +11,22 @@
   <xsl:function name="myfn:ruby-text" as="xs:string*">
     <xsl:param name="nodes" as="node()*"/>
     <xsl:for-each select="$nodes">
-      <xsl:sequence
-          select=".//text()[not(parent::rp or ancestor::rt)] =>
-                  string-join('') => replace('⫽', '') => normalize-space()"/>
+      <xsl:choose>
+        <xsl:when test="self::ruby or .//ruby">
+          <xsl:variable
+              name="kanji-form"
+              select=".//text()[not(ancestor::rp or ancestor::rt)] =>
+                      string-join() => normalize-space()"/>
+          <xsl:variable
+              name="kana-form"
+              select=".//text()[ancestor::rt or not(ancestor::ruby)] =>
+                      string-join() => normalize-space()"/>
+          <xsl:sequence select="$kanji-form, $kana-form"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="normalize-space(.)"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
   </xsl:function>
 
@@ -67,7 +80,7 @@
     <xsl:param name="e" as="element()"/>
     <xsl:choose>
       <xsl:when test="count($e/a) gt 1">
-        <xsl:variable name="first-a-str" select="myfn:ruby-text($e/a[1])"/>
+        <xsl:variable name="first-a-str" select="myfn:ruby-text($e/a[1])[1]"/>
         <xsl:variable
             name="prefix"
             select="if (starts-with($first-a-str, '(') and ends-with($first-a-str, ')'))
@@ -95,10 +108,11 @@
     <xsl:param name="a-ele" as="element(a)*"/>
     <xsl:sequence
         select="for $a in $a-ele return
-                let $text := myfn:ruby-text($a),
-                $title := normalize-space($a/@title)
-                return if (string-length($text) = 1 and ends-with($title, $text))
-                then array{$title} else array{$text, $title}"/>
+                  let $title := normalize-space($a/@title) return
+                    for $text in myfn:ruby-text($a) return
+                      if ($title = $text or
+                         (string-length($text) = 1 and ends-with($title, $text)))
+                      then array{$title} else array{$text, $title}"/>
   </xsl:function>
 
   <xsl:function name="myfn:combine-a-forms" as="xs:string*">

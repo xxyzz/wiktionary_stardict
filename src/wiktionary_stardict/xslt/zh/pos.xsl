@@ -22,7 +22,8 @@
       <xsl:variable
           name="headword-strong"
           select="myfn:ruby-text(
-                  $headword-span/strong[contains-token(@class, 'headword')])"
+                  $headword-span/strong[contains-token(@class, 'headword')]) !
+                  replace(., '⫽', '')"
           as="xs:string*"/>
       <xsl:variable
           name="headword-forms"

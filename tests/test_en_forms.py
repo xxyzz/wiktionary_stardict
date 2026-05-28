@@ -144,7 +144,7 @@ class EnFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [{"forms": ["痛い", "甚い", "イタい", "痛く"]}],
+            [{"forms": ["痛い", "いたい", "甚い", "イタい", "痛く", "いたく"]}],
         )
 
     def test_russian_forms(self):
@@ -365,10 +365,13 @@ class EnFormsTestCase(XMLTestCase):
                 {
                     "forms": [
                         "加速する",
+                        "かそくする",
                         "加速",
                         "加速し",
+                        "かそくし",
                         "加速した",
-                        "加速せよ",
+                        "かそくした",
+                        "加速せよ",  # table
                         "加速しろ",
                         "かそくせよ",
                         "かそくしろ",
@@ -398,7 +401,7 @@ class EnFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [{"forms": ["飛ぶ", "飛んで", "飛ばないで", "飛ばなくて"]}],
+            [{"forms": ["飛ぶ", "とぶ", "飛んで", "飛ばないで", "飛ばなくて"]}],
         )
 
     def test_ja_examples_table(self):

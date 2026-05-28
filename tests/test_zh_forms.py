@@ -68,7 +68,19 @@ class ZhFormsTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [{"forms": ["加速する", "加速", "加速し", "加速した"]}],
+            [
+                {
+                    "forms": [
+                        "加速する",
+                        "かそくする",
+                        "加速",
+                        "加速し",
+                        "かそくし",
+                        "加速した",
+                        "かそくした",
+                    ]
+                }
+            ],
         )
 
     def test_ja_suru(self):
