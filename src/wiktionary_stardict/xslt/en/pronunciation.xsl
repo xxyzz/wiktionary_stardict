@@ -58,15 +58,13 @@
   </xsl:template>
 
   <!-- 'Syllabification:' from Template:es-pr, Template:fi-p
-       'Tone numbers:' from Template:za-pron
-       'Hyphenation:' from Template:hyphenation -->
+       'Tone numbers:' from Template:za-pron -->
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
               (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
               .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:',
-              'Syllabification', 'Hyphenation')] or
-              .//span[normalize-space() = 'Hyphenation:'])">
+              'Syllabification')])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>

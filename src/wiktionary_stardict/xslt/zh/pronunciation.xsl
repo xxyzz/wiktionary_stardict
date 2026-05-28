@@ -51,8 +51,7 @@
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
               (.//a[@title = 'Wiktionary:國際音標'] or
-              .//text()[normalize-space() = ('音節化：', '聲調數字：')] or
-              .//span[normalize-space() = '斷字：'])">
+              .//text()[normalize-space() = ('音節化：', '聲調數字：')])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>

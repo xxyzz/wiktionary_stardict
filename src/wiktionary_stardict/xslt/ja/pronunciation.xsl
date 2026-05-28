@@ -41,13 +41,10 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- '分綴:' from Template:es-pr Template:hyphenation -->
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
-              (.//a[@title = 'w:国際音声記号'] or
-              .//text()[normalize-space() = '分綴:'] or
-              .//span[starts-with(normalize-space(), '分綴:')])">
+              .//a[@title = 'w:国際音声記号']">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
       </li>

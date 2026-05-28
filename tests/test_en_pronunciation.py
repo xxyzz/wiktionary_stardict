@@ -34,7 +34,6 @@ class EnPronunciationTestCase(XMLTestCase):
 </ul></li>
 <li>Adjective:
 <ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">Received Pronunciation</span></span><span class="ib-brac qualifier-brac">)</span><span> </span>IPA<span>:</span><span> </span><span class="IPA nowrap">/bəˈzɜːk/</span></li></ul></li>
-<li><span>Hyphenation: </span><span class="Latn" lang="en">ber‧serk</span></li>
 </ul>
 <p><span class="headword-line">
 <strong class="Latn headword" lang="en">berserk</strong>
@@ -463,8 +462,7 @@ class EnPronunciationTestCase(XMLTestCase):
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
-<ul><li>Syllabification: <span class="Latn" lang="fi">i‧di‧o‧mi</span></li>
-<li>Hyphenation: <span class="Latn" lang="fi">idio‧mi</span></li></ul>
+<ul><li>Syllabification: <span class="Latn" lang="fi">i‧di‧o‧mi</span></li></ul>
 <p><span class="headword-line"><strong class="Latn headword" lang="fi">idiomi</strong>
 </span></p>
 <ol><li>gloss</li></ol>
