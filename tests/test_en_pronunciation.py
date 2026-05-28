@@ -506,3 +506,178 @@ class EnPronunciationTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_ancestor_pron(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>determinate</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Pronunciation 1</h3>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup><span>:</span><span> </span><span class="IPA nowrap">/dɪˈtɜːmɪnət/</span></li></ul>
+<section><h4>Etymology 1</h4>
+<p>Etymology 1</p>
+<section><h5>Adjective</h5>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>adj gloss</li></ol>
+</section>
+</section>
+
+<section><h4>Etymology 2</h4>
+<p>Etymology 2</p>
+<section><h5>Noun</h5>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>noun gloss</li></ol>
+</section></section></section>
+
+<section><h3>Pronunciation 2</h3>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup><span>:</span><span> </span><span class="IPA nowrap">/dɪˈtɜːmɪneɪt/</span></li></ul>
+<section><h4>Etymology 3</h4>
+<p>Etymology 3</p>
+<section><h5>Verb</h5>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>verb gloss</li></ol>
+</section></section></section></section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Adjective</h4>
+<ul><li>IPA<span>:</span><span> </span><span class="IPA nowrap">/dɪˈtɜːmɪnət/</span></li></ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>adj gloss</li></ol>
+<section>
+<h4>Etymology</h4>
+<p>Etymology 1</p>
+</section>
+</section>""",
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>IPA<span>:</span><span> </span><span class="IPA nowrap">/dɪˈtɜːmɪnət/</span></li></ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>noun gloss</li></ol>
+<section>
+<h4>Etymology</h4>
+<p>Etymology 2</p>
+</section></section>""",
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Verb</h4>
+<ul><li>IPA<span>:</span><span> </span><span class="IPA nowrap">/dɪˈtɜːmɪneɪt/</span></li></ul>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">determinate</strong>
+</span></p>
+<ol><li>verb gloss</li></ol>
+<section>
+<h4>Etymology</h4>
+<p>Etymology 3</p>
+</section></section>""",
+                },
+            ],
+        )
+
+    def test_ignore_previous_pos_pron_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>余り</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Pronunciation 1</h3>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"ja-pron"}}}]}'></span>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup>:<span> </span><span class="IPA nowrap">[a̠ma̠ɾʲi]</span></li></ul>
+<p><b>Emphatic adjective:</b></p>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"ja-pron"}}}]}'></span>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup>:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
+<section><h4>Adjective</h4>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+<ol><li>adj gloss</li></ol>
+</section>
+<section><h4>Noun</h4>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+<ol><li>noun gloss</li></ol>
+</section>
+</section>
+
+<section><h3>Pronunciation 2</h3>
+<p><b>Emphatic:</b></p>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"ja-pron"}}}]}'></span>
+<ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup>:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
+<section><h4>Adverb</h4>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+<ol><li>adv gloss</li></ol>
+</section>
+</section>
+
+<section><h3>Suffix</h3>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+<ol><li>suffix gloss</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Adjective</h4>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[a̠ma̠ɾʲi]</span></li></ul>
+<p><b>Emphatic adjective:</b></p>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+</span></p>
+<ol><li>adj gloss</li></ol>
+</section>""",
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[a̠ma̠ɾʲi]</span></li></ul>
+<p><b>Emphatic adjective:</b></p>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+<ol><li>noun gloss</li></ol>
+</section>""",
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Adverb</h4>
+<p><b>Emphatic:</b></p>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+</span></p>
+<ol><li>adv gloss</li></ol>
+</section>""",
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Suffix</h4>
+<p><span class="headword-line">
+<strong class="Jpan headword" lang="ja">余り</strong></span></p>
+</span></p>
+<ol><li>suffix gloss</li></ol>
+</section>""",
+                },
+            ],
+        )

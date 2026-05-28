@@ -11,7 +11,7 @@
     <xsl:choose>
       <xsl:when test="$language = 'Japanese'">
         <xsl:apply-templates
-            select="span[@data-mw and myfn:is-template(@data-mw,
+            select="p | span[@data-mw and myfn:is-template(@data-mw,
                     ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
             mode="ja-pron"/>
       </xsl:when>
@@ -112,6 +112,7 @@
   <xsl:mode name="ja-pron-li" on-no-match="shallow-copy"/>
   <xsl:template
       match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
+  <xsl:mode name="ja-pron" on-no-match="shallow-copy"/>
 
   <xsl:template match="table" mode="th-pron">
     <xsl:variable

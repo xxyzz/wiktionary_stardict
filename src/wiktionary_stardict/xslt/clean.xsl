@@ -35,7 +35,7 @@
 
   <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
-  <xsl:template match="audio" mode="clean-content"/>
+  <xsl:template match="audio | script" mode="clean-content"/>
 
   <!-- Remove "audio" element expanded from <score>
        https://www.mediawiki.org/wiki/Extension:Score -->
