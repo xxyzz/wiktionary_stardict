@@ -12,7 +12,7 @@ def get_xsl_path(edition: str, file: str) -> str:
 
 
 def config_proc(proc):
-    # https://www.saxonica.com/documentation12/index.html#!configuration/config-features
+    # https://www.saxonica.com/documentation13/index.html#!configuration/config-features
     # https://xerces.apache.org/xerces2-j/features.html
     proc.set_configuration_property(
         "http://saxon.sf.net/feature/parserFeature?uri=http://apache.org/xml/features/nonvalidating/load-external-dtd",

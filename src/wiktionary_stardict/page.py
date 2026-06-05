@@ -1,11 +1,12 @@
 def convert_release_data(tag: str):
     import json
+    import shutil
     import subprocess
+    import tarfile
     from collections import defaultdict
+    from pathlib import Path
 
-    from mediawiki_langcodes import code_to_name
-
-    from .edition import EDITIONS, ZH_CODE_TO_NAME
+    from .koreader import koreader_file
 
     with open("build/release.json", "w") as f:
         subprocess.run(
@@ -18,22 +19,38 @@ def convert_release_data(tag: str):
         release_data = json.load(f)
     assets = defaultdict(list)
     screenshots = {}
+    all_ko_data = []
     for asset in release_data["assets"]:
         if not asset["name"].endswith(".tar.zst"):
             continue
-        name = asset["name"].removesuffix(".tar.zst")
-        lemma_code, gloss_code = name.split("-", 1)
-        gloss_lang = EDITIONS[gloss_code]["lang"]
-        if gloss_code == "zh" and lemma_code in ZH_CODE_TO_NAME:
-            lemma_lang = ZH_CODE_TO_NAME[lemma_code]
-        else:
-            lemma_lang = code_to_name(lemma_code, gloss_code)
-        lemma_lang = lemma_lang[0].upper() + lemma_lang[1:]
-        assets[gloss_lang].append(
-            {"name": f"{lemma_lang}-{gloss_lang}", "url": asset["url"]}
+        subprocess.run(
+            ["gh", "release", "download", tag, "-p", asset["name"]],
+            check=True,
         )
-        screenshots[gloss_lang] = f"{gloss_code}.png"
+        zst_path = Path("build") / asset["name"]
+        zst_name = asset["name"].removesuffix(".tar.zst")
+        dict_folder = Path("build") / zst_name
+        dict_folder.mkdir(exist_ok=True)
+        with tarfile.open(name=zst_path, mode="r") as tar_f:
+            tar_f.extractall(path=dict_folder)
+        zst_path.unlink()
+        with open(dict_folder / f"{dict_folder.name}.ifo") as f:
+            ko_data = {"codes": zst_name}
+            book_name = ""
+            for line in f:
+                if line.startswith("bookname="):
+                    book_name = line.removeprefix("bookname=").strip()
+                    ko_data["name"] = book_name
+                elif line.startswith("wordcount="):
+                    ko_data["entries"] = int(line.removeprefix("wordcount="))
+            all_ko_data.append(ko_data)
+            gloss_code = zst_name.rsplit("-", 1)[-1]
+            gloss_name = book_name.rsplit("-", 1)[-1]
+            assets[gloss_name].append({"name": book_name, "url": asset["url"]})
+            screenshots[gloss_name] = f"{gloss_code}.png"
+        shutil.rmtree(dict_folder)
     date = release_data["publishedAt"]
+    koreader_file(all_ko_data)
     return json.dumps(
         {"date": date[: date.index("T")], "assets": assets, "screenshots": screenshots}
     )
@@ -54,7 +71,6 @@ def create_github_page(args):
 
     from saxonche import PySaxonProcessor
 
-    from .koreader import koreader_file
     from .main import config_proc
 
     proc = PySaxonProcessor(license=False)
@@ -73,4 +89,3 @@ def create_github_page(args):
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")
         f.write(executable.transform_to_string(xdm_node=doc))
-    koreader_file(args.tag)
