@@ -24,7 +24,7 @@ def convert_release_data(tag: str):
         if not asset["name"].endswith(".tar.zst"):
             continue
         subprocess.run(
-            ["gh", "release", "download", tag, "-p", asset["name"]],
+            ["gh", "release", "download", tag, "-D", "build", "-p", asset["name"]],
             check=True,
         )
         zst_path = Path("build") / asset["name"]
