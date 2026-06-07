@@ -15,7 +15,8 @@ def init_db(lemma_lang: str) -> Connection:
       id           INTEGER PRIMARY KEY,
       title        TEXT,
       definition   TEXT,
-      form_of_only INTEGER
+      form_of_only INTEGER,
+      index_num    INTEGER
     );
 
     CREATE TABLE form (
@@ -51,17 +52,12 @@ def create_indexes(conn: Connection):
     PRAGMA optimize;
     """)
     conn.commit()
-    conn.close()
 
 
-def iter_entries(lemma_lang: str):
-    import sqlite3
-    from pathlib import Path
-
-    db_path = Path(f"build/{lemma_lang}.db")
-    conn = sqlite3.connect(db_path)
-    for definition, forms, images in conn.execute("""
-    SELECT e.definition, group_concat(f.form, '<sep>'), group_concat(i.url, '<sep>')
+def iter_entries(conn: Connection):
+    for index, (entry_id, definition, title, images) in enumerate(
+        conn.execute("""
+    SELECT e.id, e.definition, e.title, group_concat(i.url, '<sep>')
     FROM entry e
     LEFT JOIN form f ON f.entry_id = e.id
     LEFT JOIN image i on i.entry_id = e.id
@@ -79,15 +75,28 @@ def iter_entries(lemma_lang: str):
           )
         )
       )
-    )) GROUP by e.id
-    """):
+    )) GROUP by e.id ORDER BY e.title
+    """)
+    ):
+        conn.execute("UPDATE entry SET index_num = ? WHERE id = ?", (index, entry_id))
         yield (
+            index,
             definition,
-            forms.split("<sep>"),
+            title,
             images.split("<sep>") if images is not None else [],
         )
-    conn.close()
-    db_path.unlink()
+    conn.commit()
+
+
+def iter_forms(conn: Connection):
+    for form, index in conn.execute("""
+    SELECT f.form, e.index_num
+    FROM form f
+    LEFT JOIN entry e ON f.entry_id = e.id
+    WHERE e.index_num IS NOT NULL
+    ORDER BY f.form
+    """):
+        yield form, index
 
 
 def insert_data(
@@ -107,7 +116,7 @@ def insert_data(
     ):
         conn.executemany(
             "INSERT INTO form (entry_id, form) VALUES(?, ?)",
-            ((entry_id, form) for form in forms),
+            ((entry_id, form) for form in forms[1:]),
         )
         conn.executemany(
             "INSERT INTO form_of (entry_id, target) VALUES(?, ?)",
