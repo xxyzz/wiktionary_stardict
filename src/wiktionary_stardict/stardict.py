@@ -60,6 +60,7 @@ def create_stardict(
     from mediawiki_langcodes import name_to_code
 
     from .edition import EDITIONS
+    from .main import logger
     from .zim import open_zim
 
     added_files = set()
@@ -74,10 +75,13 @@ def create_stardict(
     out_path.mkdir(exist_ok=True)
     db_path = Path(f"build/{lemma_lang}.db")
     with sqlite3.connect(db_path) as conn:
+        logger.info(f"start creating {folder_name} dict and idx files")
         wordcount, idxfilesize = create_dict_idx_file(
             out_path, conn, edition, added_files, zim
         )
+        logger.info(f"{folder_name} dict and idx files created")
         synwordcount = create_syn_file(out_path, conn)
+        logger.info(f"{folder_name} syn file created")
     create_ifo_file(
         out_path,
         f"{EDITIONS[edition]['wiki_name']} {lemma_lang}-{EDITIONS[edition]['lang']}",

@@ -65,3 +65,20 @@ class DBTest(TestCase):
             self.assertEqual(e_def, "TACO def")
         conn.close()
         Path("build/English_2.db").unlink()
+
+    def test_word_sort_order(self):
+        conn = init_db("sort_order")
+        insert_data(conn, "Book", ["Book", "Books"], False, [], [])
+        insert_data(conn, "book", ["book", "books", "booking", "booked"], False, [], [])
+        insert_data(conn, "apple", ["apple", "apples"], False, [], [])
+        words = []
+        for _, _, title, *_ in iter_entries(conn):
+            words.append(title)
+        forms = []
+        for form_data in iter_forms(conn):
+            forms.append(form_data)
+        self.assertEqual(words, ["apple", "Book", "book"])
+        self.assertEqual(
+            forms,
+            [("apples", 0), ("booked", 2), ("booking", 2), ("Books", 1), ("books", 2)],
+        )

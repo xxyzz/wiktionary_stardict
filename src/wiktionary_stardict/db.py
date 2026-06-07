@@ -14,15 +14,17 @@ def init_db(lemma_lang: str) -> Connection:
     CREATE TABLE entry (
       id           INTEGER PRIMARY KEY,
       title        TEXT,
+      title_lower  TEXT,
       definition   TEXT,
       form_of_only INTEGER,
       index_num    INTEGER
     );
 
     CREATE TABLE form (
-      id       INTEGER PRIMARY KEY,
-      entry_id INTEGER,
-      form     TEXT,
+      id         INTEGER PRIMARY KEY,
+      entry_id   INTEGER,
+      form       TEXT,
+      form_lower TEXT,
       FOREIGN KEY(entry_id) REFERENCES entry(id)
     );
 
@@ -45,8 +47,8 @@ def init_db(lemma_lang: str) -> Connection:
 
 def create_indexes(conn: Connection):
     conn.executescript("""
-    CREATE INDEX entry_index ON entry (title);
-    CREATE INDEX form_index ON form (entry_id);
+    CREATE INDEX entry_index ON entry (title_lower, title);
+    CREATE INDEX form_index ON form (form_lower, form, entry_id);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
     PRAGMA optimize;
@@ -75,7 +77,7 @@ def iter_entries(conn: Connection):
           )
         )
       )
-    )) GROUP by e.id ORDER BY e.title
+    )) GROUP by e.id ORDER BY e.title_lower, e.title
     """)
     ):
         conn.execute("UPDATE entry SET index_num = ? WHERE id = ?", (index, entry_id))
@@ -92,9 +94,9 @@ def iter_forms(conn: Connection):
     for form, index in conn.execute("""
     SELECT f.form, e.index_num
     FROM form f
-    LEFT JOIN entry e ON f.entry_id = e.id
+    JOIN entry e ON f.entry_id = e.id
     WHERE e.index_num IS NOT NULL
-    ORDER BY f.form
+    ORDER BY f.form_lower, f.form
     """):
         yield form, index
 
@@ -109,14 +111,14 @@ def insert_data(
 ):
     for (entry_id,) in conn.execute(
         """
-        INSERT INTO entry (title, definition, form_of_only)
-        VALUES(?, ?, ?) RETURNING id
+        INSERT INTO entry (title, title_lower, definition, form_of_only)
+        VALUES(?, ?, ?, ?) RETURNING id
         """,
-        (forms[0], definition, form_of_only),
+        (forms[0], forms[0].lower(), definition, form_of_only),
     ):
         conn.executemany(
-            "INSERT INTO form (entry_id, form) VALUES(?, ?)",
-            ((entry_id, form) for form in forms[1:]),
+            "INSERT INTO form (entry_id, form, form_lower) VALUES(?, ?, ?)",
+            ((entry_id, form, form.lower()) for form in forms[1:]),
         )
         conn.executemany(
             "INSERT INTO form_of (entry_id, target) VALUES(?, ?)",
