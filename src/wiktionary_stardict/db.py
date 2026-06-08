@@ -47,9 +47,9 @@ def init_db(lemma_lang: str) -> Connection:
 
 def create_indexes(conn: Connection):
     conn.executescript("""
-    CREATE INDEX entry_index ON entry (title_lower, title);
-    CREATE INDEX form_index ON form (form_lower, form, entry_id);
-    CREATE INDEX form_of_index ON form_of (entry_id);
+    CREATE INDEX entry_index ON entry (title);
+    CREATE INDEX form_index ON form (entry_id, form);
+    CREATE INDEX form_of_index ON form_of (entry_id, target);
     CREATE INDEX image_index ON image (entry_id);
     PRAGMA optimize;
     """)
@@ -61,20 +61,24 @@ def iter_entries(conn: Connection):
         conn.execute("""
     SELECT e.id, e.definition, e.title, group_concat(i.url, '<sep>')
     FROM entry e
-    LEFT JOIN form f ON f.entry_id = e.id
     LEFT JOIN image i on i.entry_id = e.id
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
-        SELECT 1 FROM form_of fo
-        WHERE fo.entry_id = e.id AND fo.target IN (SELECT title FROM entry)
+        SELECT 1 FROM form_of fo JOIN entry e2
+        WHERE fo.entry_id = e.id AND fo.target = e2.title
       )
       OR EXISTS (
-        SELECT 1 FROM form f2
-        WHERE f2.entry_id = e.id AND f2.form NOT IN (
-          SELECT f3.form FROM form f3 JOIN entry e2 ON f3.entry_id = e2.id
-          WHERE e2.title IN (
-            SELECT fo.target FROM form_of fo WHERE fo.entry_id = e.id
+        SELECT 1 FROM form f1
+        WHERE f1.entry_id = e.id AND f1.form NOT IN (
+          WITH targets AS (
+            SELECT e2.id AS target_id
+            FROM form_of fo
+            JOIN entry e2 ON fo.target = e2.title
+            WHERE fo.entry_id = e.id
           )
+          SELECT f2.form
+          FROM form f2
+          WHERE f2.entry_id IN (SELECT target_id FROM targets)
         )
       )
     )) GROUP by e.id ORDER BY e.title_lower, e.title
