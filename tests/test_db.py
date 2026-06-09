@@ -82,3 +82,14 @@ class DBTest(TestCase):
             forms,
             [("apples", 0), ("booked", 2), ("booking", 2), ("Books", 1), ("books", 2)],
         )
+
+    def test_title_not_in_target_forms(self):
+        conn = init_db("English_3")
+        insert_data(
+            conn, "flying colors", ["flying colors"], True, ["flying colours"], []
+        )
+        insert_data(conn, "flying colours", ["flying colours"], False, [], [])
+        words = []
+        for _, _, title, *_ in iter_entries(conn):
+            words.append(title)
+        self.assertEqual(words, ["flying colors", "flying colours"])

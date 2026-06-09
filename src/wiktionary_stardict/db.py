@@ -68,8 +68,14 @@ def iter_entries(conn: Connection):
         WHERE fo.entry_id = e.id AND fo.target = e2.title
       )
       OR EXISTS (
-        SELECT 1 FROM form f1
-        WHERE f1.entry_id = e.id AND f1.form NOT IN (
+        SELECT 1 FROM (
+          SELECT f1.form AS form
+          FROM form f1
+          WHERE f1.entry_id = e.id
+          UNION
+          SELECT e.title AS form
+        ) forms
+        WHERE forms.form NOT IN (
           WITH targets AS (
             SELECT e2.id AS target_id
             FROM form_of fo
