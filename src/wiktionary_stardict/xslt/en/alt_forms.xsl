@@ -37,8 +37,10 @@
   <xsl:function name="myfn:alt-forms-section" as="xs:string*">
     <xsl:param name="section" as="element(section)*"/>
     <xsl:sequence
-        select="myfn:get-element-forms($section/ul/li/span
-                [@lang and not(ends-with(@lang, '-Latn'))])"/>
+        select="myfn:get-element-forms($section/ul/li/(
+                if (span[@lang and not(ends-with(@lang, '-Latn'))]) then
+                  span[@lang and not(ends-with(@lang, '-Latn'))]
+                else a))"/>
   </xsl:function>
 
   <xsl:function name="myfn:zh-forms" as="xs:string*">

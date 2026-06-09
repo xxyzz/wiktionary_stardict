@@ -428,3 +428,22 @@ class EnFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["難読", "難讀"]}],
         )
+
+    def test_alt_form_only_link_no_alt_template(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>flying colours</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Alternative forms</h3>
+<ul><li><a>flying colors</a> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">US spelling</span><span class="ib-brac qualifier-brac">)</span></li></ul></section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">flying colours</strong></span></p>
+<ol><li><span>gloss</span></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["flying colours", "flying colors"]}],
+        )
