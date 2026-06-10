@@ -51,7 +51,7 @@
       mode="clean-content"/>
   <!-- Remove Template:wikipedia Template:multiple images -->
   <xsl:template
-      match="div[some $class in ('floatright', 'tmulti')
+      match="(div|table)[some $class in ('floatright', 'tmulti')
              satisfies contains-token(@class, $class)]" mode="clean-content"/>
   <!-- Remove hidden node from Template:wikipedia inline -->
   <xsl:template
