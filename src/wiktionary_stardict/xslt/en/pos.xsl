@@ -40,7 +40,8 @@
       </xsl:variable>
       <xsl:variable
           name="title-form"
-          select="if (not(starts-with($title, 'Unsupported titles/')))
+          select="if (not(starts-with($title, 'Unsupported titles/') or
+                          contains($title, '/languages ')))
                   then $title else ''"/>
       <xsl:variable
           name="unique-forms"
