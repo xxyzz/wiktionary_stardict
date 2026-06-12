@@ -55,10 +55,9 @@
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-li"/>
           <xsl:apply-templates
-              select="((ancestor::section | parent::section/preceding-sibling::section)
-                      [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')] |
-                      preceding-sibling::section
-                      [normalize-space(h3|h4|h5|h6) = 'Pronunciation'])
+              select="(ancestor::section | preceding-sibling::section |
+                      parent::section/preceding-sibling::section)
+                      [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')]
                       [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
@@ -68,7 +67,7 @@
               select="section[normalize-space(h4|h5|h6) = 'Usage notes']"
               mode="usage-notes"/>
           <xsl:apply-templates
-              select="(parent::section | preceding-sibling::section |
+              select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
                       [starts-with(normalize-space(h3|h4|h5|h6), 'Etymology')][last()]"
               mode="etymology"/>

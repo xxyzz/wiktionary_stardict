@@ -591,13 +591,16 @@ class EnPronunciationTestCase(XMLTestCase):
             ],
         )
 
-    def test_ignore_previous_pos_pron_section(self):
+    def test_parent_pron_parent_preceding_sib_ety(self):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>余り</title></head>
 <body>
 <section><h2>Japanese</h2>
+<section><h3>Etymology</h3>
+<p>Etymology text</p>
+</section>
 <section><h3>Pronunciation 1</h3>
 <span data-mw='{"parts":[{"template":{"target":{"wt":"ja-pron"}}}]}'></span>
 <ul><li><a title="Wiktionary:International Phonetic Alphabet">IPA</a><sup>(key)</sup>:<span> </span><span class="IPA nowrap">[a̠ma̠ɾʲi]</span></li></ul>
@@ -625,12 +628,11 @@ class EnPronunciationTestCase(XMLTestCase):
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 <ol><li>adv gloss</li></ol>
 </section>
-</section>
-
-<section><h3>Suffix</h3>
+<section><h4>Suffix</h4>
 <p><span class="headword-line">
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 <ol><li>suffix gloss</li></ol>
+</section>
 </section>
 </section>
 </body>
@@ -646,6 +648,9 @@ class EnPronunciationTestCase(XMLTestCase):
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 </span></p>
 <ol><li>adj gloss</li></ol>
+<section><h4>Etymology</h4>
+<p>Etymology text</p>
+</section>
 </section>""",
                 },
                 {
@@ -657,6 +662,9 @@ class EnPronunciationTestCase(XMLTestCase):
 <p><span class="headword-line">
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 <ol><li>noun gloss</li></ol>
+<section><h4>Etymology</h4>
+<p>Etymology text</p>
+</section>
 </section>""",
                 },
                 {
@@ -668,15 +676,23 @@ class EnPronunciationTestCase(XMLTestCase):
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 </span></p>
 <ol><li>adv gloss</li></ol>
+<section><h4>Etymology</h4>
+<p>Etymology text</p>
+</section>
 </section>""",
                 },
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Suffix</h4>
+<p><b>Emphatic:</b></p>
+<ul><li>IPA:<span> </span><span class="IPA nowrap">[ã̠mːa̠ɾʲi]</span></li></ul>
 <p><span class="headword-line">
 <strong class="Jpan headword" lang="ja">余り</strong></span></p>
 </span></p>
 <ol><li>suffix gloss</li></ol>
+<section><h4>Etymology</h4>
+<p>Etymology text</p>
+</section>
 </section>""",
                 },
             ],

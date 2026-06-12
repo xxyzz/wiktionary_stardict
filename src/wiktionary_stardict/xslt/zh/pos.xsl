@@ -57,7 +57,7 @@
           <xsl:apply-templates
               select="h3 | h4 | h5 | h6" mode="pos-heading"/>
           <xsl:apply-templates
-              select="(parent::section | preceding-sibling::section |
+              select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
                       [some $section-title in
                       ('發音', '发音', '读音', '讀音', '注音', '讀法') satisfies
@@ -73,7 +73,7 @@
                       '使用備注', '使用说明', '用法')]"
               mode="usage-notes"/>
           <xsl:apply-templates
-              select="(parent::section | preceding-sibling::section |
+              select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
                       [some $section-title in ('詞源', '词源', '典故', '語源', '语源',
                       '字源', '詞語', '組成', '出處', '出处') satisfies
