@@ -528,6 +528,25 @@ class EnPOSTestCase(XMLTestCase):
 </html>""",
             [],
         )
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>snuff</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">snuff</strong>
+  </span>
+</p>
+<ol><li class="senseid" id="English:_sexuality" data-lang="en" data-id="sexuality" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"senseid"}}}," ",{"template":{"target":{"wt":"lb"}}}," ",{"template":{"target":{"wt":"rfdef"}}},"\n#* "]}'> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">informal<span class="ib-comma label-comma">,</span><span> </span>sexuality</span><span class="ib-brac label-brac">)</span></span> <i>This term needs a definition. Please help out and <b>add a definition</b>, then remove the text <code style="white-space:pre-wrap"><span>{</span><span>{</span>rfdef<span>}</span><span>}</span></code></i>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [],
+        )
 
     def test_rm_maintenance_line(self):
         self.assertTransformEqual(

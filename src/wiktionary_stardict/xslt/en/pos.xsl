@@ -153,7 +153,7 @@
     <xsl:sequence
         select="boolean($li/node() and
                 not(contains-token($li/@class, 'mw-empty-elt')) and
-                not($li/i[@data-mw and myfn:is-template(@data-mw, 'rfdef')]))"/>
+                not(($li|$li/i)[@data-mw and myfn:is-template(@data-mw, 'rfdef')]))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-form-of" as="xs:boolean">
