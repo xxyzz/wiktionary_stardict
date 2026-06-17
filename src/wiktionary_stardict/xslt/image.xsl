@@ -6,31 +6,15 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
-  <xsl:template match="img" mode="convert-img">
-    <img>
-      <xsl:copy-of select="@*[not(local-name() = 'src')]"/>
-      <xsl:attribute name="src">
-        <xsl:choose>
-          <xsl:when test="contains(@src, 'math/render/svg/')">
-            <xsl:value-of select="substring-after(@src, 'math/render/svg/')"/>
-            <xsl:text>.svg</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of
-                select="replace(
-                        substring-before(tokenize(@src, '/')[last()] || '?', '?'),
-                        '\..*\.',
-                        '.')"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </img>
-  </xsl:template>
+  <xsl:mode name="convert-img" on-no-match="shallow-copy"/>
 
-  <xsl:template match="*" mode="convert-img">
-    <xsl:element name="{local-name()}">
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates mode="convert-img"/>
-    </xsl:element>
+  <xsl:template match="img/@src" mode="convert-img">
+    <xsl:attribute name="src">
+      <xsl:value-of
+          select="if (contains(., 'math/render/svg/')) then
+                  substring-after(., 'math/render/svg/') || '.svg' else
+                  replace(substring-before(tokenize(., '/')[last()] || '?', '?'),
+                  '\..*\.', '.')"/>
+    </xsl:attribute>
   </xsl:template>
 </xsl:stylesheet>

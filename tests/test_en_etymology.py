@@ -121,7 +121,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <section>
 <h4>Etymology</h4>
 <p>From <i>Duan Ge Xing</i> by <span class="Hani" lang="zh">曹操</span> (Cao Cao):</p>
-<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲南飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:var(--wikt-palette-forestgreen, #235923);padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
+<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲南飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:#235923;padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
 </section>
 </section>"""
                 }

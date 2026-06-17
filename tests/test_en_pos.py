@@ -378,7 +378,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
-<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><img src="rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/></div></i></div></dd></dl></li></ol>
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><img src="rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/><div style="margin-top: 3px;"></div></div></i></div></dd></dl></li></ol>
 </section>""",
                     "images": [
                         "//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.png"
