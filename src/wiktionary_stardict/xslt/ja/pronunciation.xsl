@@ -97,12 +97,11 @@
       match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
 
   <xsl:template match="table" mode="th-pron">
-    <xsl:variable name="ipa-th" select=".//tr/th[a[@title = 'w:国際音声記号']]"/>
-    <xsl:if test="$ipa-th">
-      <ul><li>IPA: <xsl:apply-templates
-      select="$ipa-th/following-sibling::td/span[contains-token(@class, 'IPA')]"
-      mode="clean-content"/>
-      </li></ul>
-    </xsl:if>
+    <xsl:variable name="output">
+      <xsl:apply-templates select="." mode="th-pron-tr"/>
+    </xsl:variable>
+    <xsl:apply-templates select="$output" mode="clean-content"/>
   </xsl:template>
+  <xsl:mode name="th-pron-tr" on-no-match="shallow-copy"/>
+  <xsl:template match="td/sup[normalize-space(.) = '(R)']" mode="th-pron-tr"/>
 </xsl:stylesheet>

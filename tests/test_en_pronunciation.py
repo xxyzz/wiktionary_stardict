@@ -379,6 +379,7 @@ class EnPronunciationTestCase(XMLTestCase):
 <table data-mw='{"parts":[{"template":{"target":{"wt":"th-pron"}}}]}'>
 <tbody>
 <tr><th colspan="2">(<i><a>standard</a></i>) <a title="Wiktionary:International Phonetic Alphabet">IPA</a></th><td><span class="IPA">/tʰaj˧/</span><sup>(<a>R</a>)</sup></td></tr>
+<tr><th><i>Audio</i></th></tr>
 </tbody></table>
 </section>
 <section><h3>Noun</h3>
@@ -393,7 +394,10 @@ class EnPronunciationTestCase(XMLTestCase):
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
-<ul><li>IPA: <span class="IPA">/tʰaj˧/</span></li></ul>
+<table>
+<tbody>
+<tr><th colspan="2">(<i>standard</i>) IPA</th><td><span class="IPA">/tʰaj˧/</span></td></tr>
+</tbody></table>
 <p><span class="headword-line"><strong class="Thai headword" lang="th">ไทย</strong>
 </span></p>
 <ol><li>gloss</li></ol>
@@ -430,7 +434,13 @@ class EnPronunciationTestCase(XMLTestCase):
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Adjective</h4>
-<ul><li>IPA: <span class="IPA" lang="km" style="font-size:110%">/kɑːʔ/</span></li></ul>
+<table>
+<tbody><tr><td>
+<table><tbody>
+<tr><th>(<i>standard</i>) IPA</th>
+<td><span class="IPA" lang="km" style="font-size:110%">/kɑːʔ/</span></td></tr>
+</tbody></table></td></tr>
+</tbody></table>
 <p><span class="headword-line"><strong class="Khmr headword" lang="km">កក</strong>
 </span></p>
 <ol><li>gloss</li></ol>
