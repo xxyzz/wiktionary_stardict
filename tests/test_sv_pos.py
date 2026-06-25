@@ -92,7 +92,7 @@ class SvPOSTestCase(XMLTestCase):
             [
                 {
                     "form_of_only": False,
-                    "form_of_targets": ["bok"],
+                    "form_of_targets": [],
                 },
                 {
                     "form_of_only": True,

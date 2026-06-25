@@ -48,8 +48,8 @@ def init_db(lemma_lang: str) -> Connection:
 def create_indexes(conn: Connection):
     conn.executescript("""
     CREATE INDEX entry_index ON entry (title);
-    CREATE INDEX form_index ON form (entry_id, form);
-    CREATE INDEX form_of_index ON form_of (entry_id, target);
+    CREATE INDEX form_index ON form (entry_id);
+    CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
     PRAGMA optimize;
     """)
@@ -58,35 +58,13 @@ def create_indexes(conn: Connection):
 
 def check_def_len(conn: Connection) -> bool:
     for (use_64_bits,) in conn.execute("""
-    SELECT sum(def_len) > 0xFFFF_FFFF FROM (
-    SELECT octet_length(e.definition) AS def_len
+    SELECT sum(octet_length(e.definition)) > 0xFFFF_FFFF
     FROM entry e
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo JOIN entry e2
         WHERE fo.entry_id = e.id AND fo.target = e2.title
-      )
-      OR EXISTS (
-        SELECT 1 FROM (
-          SELECT f1.form AS form
-          FROM form f1
-          WHERE f1.entry_id = e.id
-          UNION
-          SELECT e.title AS form
-        ) forms
-        WHERE forms.form NOT IN (
-          WITH targets AS (
-            SELECT e2.id AS target_id
-            FROM form_of fo
-            JOIN entry e2 ON fo.target = e2.title
-            WHERE fo.entry_id = e.id
-          )
-          SELECT f2.form
-          FROM form f2
-          WHERE f2.entry_id IN (SELECT target_id FROM targets)
-        )
-      )
-    )) GROUP BY e.id)
+      )))
     """):
         return bool(use_64_bits)
     return False
@@ -103,26 +81,6 @@ def iter_entries(conn: Connection):
         SELECT 1 FROM form_of fo JOIN entry e2
         WHERE fo.entry_id = e.id AND fo.target = e2.title
       )
-      OR EXISTS (
-        SELECT 1 FROM (
-          SELECT f1.form AS form
-          FROM form f1
-          WHERE f1.entry_id = e.id
-          UNION
-          SELECT e.title AS form
-        ) forms
-        WHERE forms.form NOT IN (
-          WITH targets AS (
-            SELECT e2.id AS target_id
-            FROM form_of fo
-            JOIN entry e2 ON fo.target = e2.title
-            WHERE fo.entry_id = e.id
-          )
-          SELECT f2.form
-          FROM form f2
-          WHERE f2.entry_id IN (SELECT target_id FROM targets)
-        )
-      )
     )) GROUP BY e.id ORDER BY e.title_lower, e.title
     """)
     ):
@@ -133,11 +91,28 @@ def iter_entries(conn: Connection):
 
 def iter_forms(conn: Connection):
     for form, index in conn.execute("""
-    SELECT f.form, e.index_num
-    FROM form f
-    JOIN entry e ON f.entry_id = e.id
-    WHERE e.index_num IS NOT NULL
-    ORDER BY f.form_lower, f.form
+    WITH form_only_forms AS MATERIALIZED (
+      SELECT e.title_lower, e.title, f.form_lower, f.form, t_e.index_num
+      FROM entry e
+      JOIN form_of fo ON fo.entry_id = e.id
+      JOIN entry t_e ON t_e.title = fo.target
+      LEFT JOIN form f ON f.entry_id = e.id
+      WHERE e.index_num IS NULL
+    )
+    SELECT DISTINCT form, index_num FROM (
+      SELECT f.form_lower, f.form, e.index_num
+      FROM form f
+      JOIN entry e ON f.entry_id = e.id
+      WHERE e.index_num IS NOT NULL
+      UNION ALL
+      SELECT title_lower AS form_lower, title AS form, index_num
+      FROM form_only_forms
+      UNION ALL
+      SELECT form_lower, form, index_num
+      FROM form_only_forms
+      WHERE form IS NOT NULL
+    )
+    ORDER BY form_lower, form
     """):
         yield form, index
 

@@ -39,16 +39,20 @@
       <xsl:apply-templates select="$definition" mode="convert-img"/>
     </xsl:variable>
 
+    <xsl:variable name="form-of-only" as="xs:boolean">
+      <xsl:sequence
+          select="boolean(every $li in ol/li satisfies myfn:is-form-of($li))"/>
+    </xsl:variable>
+
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
                 'def': serialize(
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
-                'form_of_targets': array{
-                  myfn:form-of-targets(ol/li[myfn:is-form-of(.)])},
-                'form_of_only': boolean(
-                  every $li in ol/li satisfies myfn:is-form-of($li)),
+                'form_of_targets': array{if ($form-of-only) then
+                  myfn:form-of-targets(ol/li) else ()},
+                'form_of_only': $form-of-only,
                 'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
   </xsl:template>
 

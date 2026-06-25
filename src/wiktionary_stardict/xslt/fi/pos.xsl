@@ -55,7 +55,7 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
-      <xsl:variable name="is-form-only" as="xs:boolean">
+      <xsl:variable name="form-of-only" as="xs:boolean">
         <xsl:sequence
             select="boolean(myfn:is-form-of(.) or
                     (every $li in ol/li[myfn:is-gloss-li(.)]
@@ -68,10 +68,9 @@
                   'def': serialize(
                     $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
-                  'form_of_targets': array{
-                    myfn:form-of-targets(ol/li[if ($is-form-only) then true() else
-                      myfn:is-form-of(.)])},
-                  'form_of_only': $is-form-only,
+                  'form_of_targets': array{if ($form-of-only) then
+                    myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
+                  'form_of_only': $form-of-only,
                   'ids': array{
                     myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)}}"/>
     </xsl:if>
