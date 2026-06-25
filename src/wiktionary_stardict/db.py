@@ -56,6 +56,42 @@ def create_indexes(conn: Connection):
     conn.commit()
 
 
+def check_def_len(conn: Connection) -> bool:
+    for (use_64_bits,) in conn.execute("""
+    SELECT sum(def_len) > 0xFFFF_FFFF FROM (
+    SELECT octet_length(e.definition) AS def_len
+    FROM entry e
+    WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
+      NOT EXISTS (
+        SELECT 1 FROM form_of fo JOIN entry e2
+        WHERE fo.entry_id = e.id AND fo.target = e2.title
+      )
+      OR EXISTS (
+        SELECT 1 FROM (
+          SELECT f1.form AS form
+          FROM form f1
+          WHERE f1.entry_id = e.id
+          UNION
+          SELECT e.title AS form
+        ) forms
+        WHERE forms.form NOT IN (
+          WITH targets AS (
+            SELECT e2.id AS target_id
+            FROM form_of fo
+            JOIN entry e2 ON fo.target = e2.title
+            WHERE fo.entry_id = e.id
+          )
+          SELECT f2.form
+          FROM form f2
+          WHERE f2.entry_id IN (SELECT target_id FROM targets)
+        )
+      )
+    )) GROUP BY e.id)
+    """):
+        return bool(use_64_bits)
+    return False
+
+
 def iter_entries(conn: Connection):
     for index, (entry_id, definition, title, images) in enumerate(
         conn.execute("""
@@ -87,16 +123,11 @@ def iter_entries(conn: Connection):
           WHERE f2.entry_id IN (SELECT target_id FROM targets)
         )
       )
-    )) GROUP by e.id ORDER BY e.title_lower, e.title
+    )) GROUP BY e.id ORDER BY e.title_lower, e.title
     """)
     ):
         conn.execute("UPDATE entry SET index_num = ? WHERE id = ?", (index, entry_id))
-        yield (
-            index,
-            definition,
-            title,
-            images.split("<sep>") if images is not None else [],
-        )
+        yield (definition, title, images.split("<sep>") if images is not None else [])
     conn.commit()
 
 

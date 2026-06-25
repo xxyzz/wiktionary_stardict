@@ -32,8 +32,7 @@ class DBTest(TestCase):
             [],
         )
         create_indexes(conn)
-        for index, e_def, title, *_ in iter_entries(conn):
-            self.assertEqual(index, 0)
+        for e_def, title, *_ in iter_entries(conn):
             self.assertEqual(e_def, "maldizer def")
             self.assertEqual(title, "maldizer")
         forms = []
@@ -51,7 +50,7 @@ class DBTest(TestCase):
         insert_data(conn, "dike def", ["dike", "dikes"], True, ["dyke"], [])
         create_indexes(conn)
         entry_data = []
-        for _, e_def, *_ in iter_entries(conn):
+        for e_def, *_ in iter_entries(conn):
             entry_data.append(e_def)
         self.assertCountEqual(entry_data, ["dyke def", "dike def"])
         conn.close()
@@ -61,7 +60,7 @@ class DBTest(TestCase):
         conn = init_db("English_2")
         insert_data(conn, "TACO def", ["TACO"], True, ["Trump always chickens out"], [])
         create_indexes(conn)
-        for _, e_def, *_ in iter_entries(conn):
+        for e_def, *_ in iter_entries(conn):
             self.assertEqual(e_def, "TACO def")
         conn.close()
         Path("build/English_2.db").unlink()
@@ -72,7 +71,7 @@ class DBTest(TestCase):
         insert_data(conn, "book", ["book", "books", "booking", "booked"], False, [], [])
         insert_data(conn, "apple", ["apple", "apples"], False, [], [])
         words = []
-        for _, _, title, *_ in iter_entries(conn):
+        for _, title, *_ in iter_entries(conn):
             words.append(title)
         forms = []
         for form_data in iter_forms(conn):
@@ -90,6 +89,6 @@ class DBTest(TestCase):
         )
         insert_data(conn, "flying colours", ["flying colours"], False, [], [])
         words = []
-        for _, _, title, *_ in iter_entries(conn):
+        for _, title, *_ in iter_entries(conn):
             words.append(title)
         self.assertEqual(words, ["flying colors", "flying colours"])

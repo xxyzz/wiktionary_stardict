@@ -76,7 +76,7 @@ def create_stardict(
     db_path = Path(f"build/{lemma_lang}.db")
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
-        wordcount, idxfilesize = create_dict_idx_file(
+        wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
             out_path, conn, edition, added_files, zim
         )
         logger.info(f"{folder_name} dict and idx files created")
@@ -89,6 +89,7 @@ def create_stardict(
         synwordcount,
         idxfilesize,
         snapshot_date,
+        64 if use_64_bits_offset else 32,
     )
     css_path = get_css_path(edition)
     if css_path.exists():
@@ -108,33 +109,34 @@ def get_css_path(edition: str) -> Path:
     return files("wiktionary_stardict") / "css" / edition / "style.css"
 
 
-def convert_number(number: int) -> bytes:
+def convert_number(number: int, use_64_bits: bool = False) -> bytes:
     import struct
 
-    return struct.pack("!I", number)
+    return struct.pack("!Q" if use_64_bits else "!I", number)
 
 
 def create_dict_idx_file(
     folder: Path, conn: Connection, edition: str, added_files: set[str], zim
-) -> tuple[int, int]:
+) -> tuple[int, int, bool]:
     from idzip import IdzipFile
 
-    from .db import iter_entries
+    from .db import check_def_len, iter_entries
 
     dict_path = folder / (folder.name + ".dict.dz")
     idx_path = folder / (folder.name + ".idx")
     res_path = folder / "res"
+    use_64_bits_offset = check_def_len(conn)
     with IdzipFile(str(dict_path), "wb") as dict_f, idx_path.open("wb") as idx_f:
         offset = 0
         wordcount = 0
-        for index, definition, title, images in iter_entries(conn):
+        for definition, title, images in iter_entries(conn):
             def_bytes = definition.encode("utf-8")
             dict_f.write(def_bytes)
             def_len = len(def_bytes)
             idx_f.write(
                 title.encode("utf-8")
                 + b"\0"
-                + convert_number(offset)
+                + convert_number(offset, use_64_bits_offset)
                 + convert_number(def_len)
             )
             offset += def_len
@@ -142,7 +144,7 @@ def create_dict_idx_file(
             for image in images:
                 download_image(res_path, image, edition, added_files, zim)
 
-    return wordcount, idx_path.stat().st_size
+    return wordcount, idx_path.stat().st_size, use_64_bits_offset
 
 
 def create_syn_file(folder: Path, conn: Connection) -> int:
@@ -164,6 +166,7 @@ def create_ifo_file(
     synwordcount: int,
     idxfilesize: int,
     snapshot_date: str,
+    idxoffsetbits: int,
 ):
     from datetime import date
 
@@ -174,6 +177,7 @@ bookname={bookname}
 wordcount={wordcount}
 synwordcount={synwordcount}
 idxfilesize={idxfilesize}
+idxoffsetbits={idxoffsetbits}
 author=xxyzz
 website=https://github.com/xxyzz/wiktionary_stardict
 description=Snapshot {snapshot_date}, Wiktionary license CC BY-SA 4.0

@@ -186,6 +186,7 @@ def build(args):
     redirect_db_path.unlink()
     for conn in conn_dict.values():
         create_indexes(conn)
+        conn.close()
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
