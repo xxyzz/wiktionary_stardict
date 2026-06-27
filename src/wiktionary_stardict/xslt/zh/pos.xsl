@@ -12,6 +12,7 @@
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="../en/linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -55,7 +56,7 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="zh">
           <xsl:apply-templates
-              select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+              select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
@@ -72,6 +73,11 @@
                       ('使用說明', '用法說明', '用法说明', '使用注意', '使用註解', '使用説明',
                       '使用備注', '使用说明', '用法')]"
               mode="usage-notes"/>
+          <xsl:apply-templates select="myfn:get-alt-form-section(.)[1]" mode="linkage"/>
+          <xsl:apply-templates
+              mode="linkage"
+              select="myfn:get-linkage-section(.,
+                      ('同義詞', '近義詞', '反義詞', '同义词', '近义词', '反义词'))"/>
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
@@ -109,7 +115,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
@@ -191,9 +197,12 @@
   </xsl:function>
 
   <xsl:template match="section" mode="usage-notes">
-    <section>
-      <h4>使用說明</h4>
-      <xsl:apply-templates select="p | ul | dl | table" mode="clean-content"/>
-    </section>
+    <xsl:variable name="content" select="p | ul | dl | table"/>
+    <xsl:if test="$content">
+      <section>
+        <h4>使用說明</h4>
+        <xsl:apply-templates select="$content" mode="clean-content"/>
+      </section>
+    </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

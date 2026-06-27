@@ -13,6 +13,7 @@
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="../en/linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -55,7 +56,7 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="ja">
           <xsl:apply-templates
-              select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+              select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates
               select="(ancestor::section | section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
@@ -70,6 +71,11 @@
               select="section[normalize-space(h4|h5|h6) =
                       ('用法', '注意点', '留意点', '注意', '備考', '表記', '補足', '補足')]"
               mode="usage-notes"/>
+          <xsl:apply-templates select="myfn:get-alt-form-section(.)[1]" mode="linkage"/>
+          <xsl:apply-templates
+              mode="linkage"
+              select="myfn:get-linkage-section(.,
+                      ('類義語', '同義句', '同義語', '対義語', '対義句'))"/>
           <xsl:apply-templates
               select="(ancestor::section | section | preceding-sibling::section |
                       following-sibling::section |
@@ -108,7 +114,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4 class="Jpan"><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
@@ -190,9 +196,12 @@
   </xsl:function>
 
   <xsl:template match="section" mode="usage-notes">
-    <section>
-      <h4 class="Jpan">用法</h4>
-      <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
-    </section>
+    <xsl:variable name="content" select="p | ul | dl"/>
+    <xsl:if test="$content">
+      <section>
+        <h4 class="Jpan">用法</h4>
+        <xsl:apply-templates select="$content" mode="clean-content"/>
+      </section>
+    </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

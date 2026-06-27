@@ -5,16 +5,21 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:myfn="https://github.com/xxyzz">
 
-  <xsl:function name="myfn:get-alt-forms" as="xs:string*">
+  <xsl:function name="myfn:get-alt-form-section" as="element(section)*">
     <xsl:param name="section" as="element(section)"/>
-    <xsl:param name="language" as="xs:string"/>
-    <xsl:variable
-        name="alt-forms-section"
+    <xsl:sequence
         select="($section/preceding-sibling::section |
                 $section/parent::section/preceding-sibling::section |
                 $section/section)[normalize-space(h3|h4|h5|h6) =
                 ('其他寫法', '其他形式', '其他拼写方式', '其他拼写方法', '其他拼寫', '其他拼法',
                 '替代寫法', '替代形式', '其它拼寫', '其它拼写', '其它寫法', '其它写法')]"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-alt-forms" as="xs:string*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:param name="language" as="xs:string"/>
+    <xsl:variable
+        name="alt-forms-section" select="myfn:get-alt-form-section($section)"/>
     <xsl:variable
         name="alt-forms"
         select="myfn:alt-forms-section($alt-forms-section)"/>

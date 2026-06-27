@@ -440,10 +440,21 @@ class EnFormsTestCase(XMLTestCase):
 <ul><li><a>flying colors</a> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">US spelling</span><span class="ib-brac qualifier-brac">)</span></li></ul></section>
 <section><h3>Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">flying colours</strong></span></p>
-<ol><li><span>gloss</span></li></ol>
+<ol><li>gloss</li></ol>
 </section>
 </section>
 </body>
 </html>""",
-            [{"forms": ["flying colours", "flying colors"]}],
+            [
+                {
+                    "forms": ["flying colours", "flying colors"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">flying colours</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Alternative forms</h4>
+<ul><li>flying colors <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">US spelling</span><span class="ib-brac qualifier-brac">)</span></li></ul></section></section></section>""",
+                }
+            ],
         )

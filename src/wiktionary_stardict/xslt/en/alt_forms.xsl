@@ -5,14 +5,20 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:myfn="https://github.com/xxyzz">
 
+
+  <xsl:function name="myfn:get-alt-form-section" as="element(section)*">
+    <xsl:param name="section" as="element(section)"/>
+    <xsl:sequence
+        select="($section/preceding-sibling::section |
+                $section/parent::section/preceding-sibling::section |
+                $section/section)[normalize-space(h3|h4|h5|h6) = 'Alternative forms']"/>
+  </xsl:function>
+
   <xsl:function name="myfn:get-alt-forms" as="xs:string*">
     <xsl:param name="section" as="element(section)"/>
     <xsl:param name="language" as="xs:string"/>
     <xsl:variable
-        name="alt-forms-section"
-        select="($section/preceding-sibling::section |
-                $section/parent::section/preceding-sibling::section |
-                $section/section)[normalize-space(h3|h4|h5|h6) = 'Alternative forms']"/>
+        name="alt-forms-section" select="myfn:get-alt-form-section($section)"/>
     <xsl:variable
         name="alt-forms"
         select="myfn:alt-forms-section($alt-forms-section)"/>
