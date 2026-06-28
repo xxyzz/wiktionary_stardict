@@ -27,7 +27,7 @@
   <xsl:template match="section" mode="language">
     <xsl:variable name="language" select="normalize-space(h1)"/>
     <xsl:apply-templates
-        select=".//section[normalize-space(h3|h4|h5|h6) = 'Семантические свойства']"
+        select=".//section[normalize-space((h3|h4|h5|h6)[1]) = 'Семантические свойства']"
         mode="gloss">
       <xsl:with-param
           name="language"

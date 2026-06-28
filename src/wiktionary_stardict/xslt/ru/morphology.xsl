@@ -9,7 +9,7 @@
 
   <xsl:template match="section" mode="morphology">
     <section>
-      <h4>Тип и синтаксические свойства сочетания</h4>
+      <xsl:apply-templates select="h3[1]" mode="section-title"/>
       <xsl:apply-templates select="p" mode="clean-content"/>
     </section>
   </xsl:template>

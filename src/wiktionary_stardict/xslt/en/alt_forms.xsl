@@ -5,7 +5,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:myfn="https://github.com/xxyzz">
 
-
   <xsl:function name="myfn:get-alt-form-section" as="element(section)*">
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence

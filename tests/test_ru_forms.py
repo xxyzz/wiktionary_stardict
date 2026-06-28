@@ -30,7 +30,7 @@ class RuFormsTestCase(XMLTestCase):
 <p><b>Кра́с<span class="hyph" style="color:lightgreen;">-</span>на<span class="hyph-dot" style="color:red;">·</span>я Ша́<span class="hyph" style="color:lightgreen;">-</span>поч<span class="hyph" style="color:lightgreen;">-</span>ка</b></p>
 <p><span>Корень: </span><b>-хорош-</b></p>
 </section>
-<h4>Значение</h4>
+<h4><span></span>Значение</h4>
 <ol><li>gloss</li></ol>
 </section>""",
                     "forms": ["Красная Шапочка", "Кра́сная Ша́почка"],
@@ -110,10 +110,10 @@ class RuFormsTestCase(XMLTestCase):
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="ru">
-<section><h4>Тип и синтаксические свойства сочетания</h4>
+<section><h4>Морфологические и синтаксические свойства</h4>
 <p><b>бе<span class="hyph" style="color:lightgreen;">-</span>жа́ть</b><span> </span>(<span title="написание в дореформенной орфографии" style="border-bottom: 1px dotted; cursor: help">дореформ.</span> <span style="font-family:'Palatino Linotype'">бѣжа́ть</span>)</p>
 </section>
-<h4>Значение</h4>
+<h4><span></span>Значение</h4>
 <p>(Во всех значениях, кроме указанных особо, глагол <span class="label mark" title="несовершенный вид">несов.</span> вида и <span class="label mark" title="непереходный глагол">неперех.</span>)</p>
 <ol><li>gloss</li></ol>
 </section>""",
