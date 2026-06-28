@@ -12,7 +12,7 @@
     </xsl:variable>
     <xsl:if test="$content">
       <section>
-        <xsl:apply-templates select="h4 | h5 | h6" mode="section-title"/>
+        <xsl:apply-templates select="h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>

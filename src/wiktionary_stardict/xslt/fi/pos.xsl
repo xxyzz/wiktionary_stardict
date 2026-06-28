@@ -36,13 +36,13 @@
 
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="fi">
-          <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+          <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates
               select="section[normalize-space(h4|h5|h6) = 'Ääntäminen']" mode="pron"/>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) =
-                      ('Huomautukset', 'Etymologia', 'Idiomit')]"
+              select=".//section[normalize-space(h4|h5|h6) =
+                      ('Huomautukset', 'Etymologia', 'Idiomit', 'Synonyymit')]"
               mode="usage-notes"/>
         </section>
       </xsl:variable>
@@ -76,7 +76,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="pos-heading">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 
@@ -125,7 +125,7 @@
 
   <xsl:template match="section" mode="usage-notes">
     <section>
-      <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos-heading"/>
+      <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
       <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
     </section>
   </xsl:template>

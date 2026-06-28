@@ -54,7 +54,7 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="en">
           <xsl:apply-templates
-              select="h3 | h4 | h5 | h6" mode="section-title"/>
+              select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
@@ -106,7 +106,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="section-title">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 

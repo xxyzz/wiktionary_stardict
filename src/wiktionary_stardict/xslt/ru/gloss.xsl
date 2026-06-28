@@ -76,7 +76,7 @@
   </xsl:template>
 
   <xsl:template match="section" mode="meaning">
-    <xsl:apply-templates select="h4[1]" mode="section-title"/>
+    <xsl:apply-templates select="h4[1]" mode="section-heading"/>
     <xsl:apply-templates select="p | ol" mode="gloss-li"/>
   </xsl:template>
 
@@ -108,7 +108,7 @@
     <xsl:apply-templates select="." mode="clean-content"/>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="section-title">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 </xsl:stylesheet>

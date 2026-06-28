@@ -155,3 +155,42 @@ class FiPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_synonymy_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>pää</title></head>
+<body>
+<section><h2>Suomi</h2>
+<section><h3>Substantiivi</h3>
+<p><b lang="fi" class="hakusana Zzzz">pää</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Etymologia</h4>
+<ul><li>etymology</li></ul>
+</section>
+<section><h4>Liittyvät sanat</h4>
+<section><h5>Synonyymit</h5>
+<ul><li>(<i>puhekieltä</i>) nuppi</li></ul>
+</section></section>
+<section><h4>Idiomit</h4>
+<ul><li><b>aukoa päätään</b></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fi">
+<h4>Substantiivi</h4>
+<p><b lang="fi" class="hakusana Zzzz">pää</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Etymologia</h4>
+<ul><li>etymology</li></ul>
+</section>
+<section><h4>Synonyymit</h4>
+<ul><li>(<i>puhekieltä</i>) nuppi</li></ul>
+</section>
+<section><h4>Idiomit</h4>
+<ul><li><b>aukoa päätään</b></li></ul>
+</section></section>""",
+                }
+            ],
+        )

@@ -97,7 +97,7 @@ def iter_forms(conn: Connection):
       JOIN form_of fo ON fo.entry_id = e.id
       JOIN entry t_e ON t_e.title = fo.target
       LEFT JOIN form f ON f.entry_id = e.id
-      WHERE e.index_num IS NULL
+      WHERE e.index_num IS NULL AND t_e.index_num IS NOT NULL
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num

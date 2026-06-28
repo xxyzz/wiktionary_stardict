@@ -10,7 +10,7 @@
     <xsl:variable name="lists" select=".//ul"/>
     <xsl:if test="$lists">
       <section>
-        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-title"/>
+        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates select="$lists" mode="linkage"/>
       </section>
     </xsl:if>

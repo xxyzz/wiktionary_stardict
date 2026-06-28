@@ -39,7 +39,7 @@
 
     <xsl:variable name="definition">
       <section class="mw-parser-output" lang="fr" dir="ltr">
-        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-title"/>
+        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates select="p | ol" mode="pos-li"/>
         <xsl:apply-templates
             select="section[normalize-space(h4|h5|h6) = 'Notes']" mode="notes"/>
@@ -74,7 +74,7 @@
                 'ids': array{myfn:fr-pos-section-ids(.)}}"/>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="section-title">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 

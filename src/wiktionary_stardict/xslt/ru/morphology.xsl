@@ -9,7 +9,7 @@
 
   <xsl:template match="section" mode="morphology">
     <section>
-      <xsl:apply-templates select="h3[1]" mode="section-title"/>
+      <xsl:apply-templates select="h3[1]" mode="section-heading"/>
       <xsl:apply-templates select="p" mode="clean-content"/>
     </section>
   </xsl:template>

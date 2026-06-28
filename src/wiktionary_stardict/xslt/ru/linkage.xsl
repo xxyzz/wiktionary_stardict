@@ -11,7 +11,7 @@
     <xsl:variable name="content" select="myfn:filter-linkage-li(ol)"/>
     <xsl:if test="$content">
       <section>
-        <xsl:apply-templates select="h4" mode="section-title"/>
+        <xsl:apply-templates select="h4" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>
@@ -27,7 +27,7 @@
     <xsl:variable name="content" select="myfn:filter-linkage-li($list)"/>
     <xsl:if test="$content">
       <section>
-        <xsl:apply-templates select="." mode="section-title"/>
+        <xsl:apply-templates select="." mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>
