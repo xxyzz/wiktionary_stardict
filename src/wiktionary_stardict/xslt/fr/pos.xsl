@@ -10,6 +10,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -38,11 +39,14 @@
 
     <xsl:variable name="definition">
       <section class="mw-parser-output" lang="fr" dir="ltr">
-        <xsl:apply-templates
-            select="h3 | h4 | h5 | h6" mode="pos-li"/>
+        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-title"/>
         <xsl:apply-templates select="p | ol" mode="pos-li"/>
         <xsl:apply-templates
             select="section[normalize-space(h4|h5|h6) = 'Notes']" mode="notes"/>
+        <xsl:apply-templates
+            select="section[normalize-space(h4|h5|h6) =
+                    ('Synonymes', 'Quasi-synonymes', 'Antonymes')]"
+            mode="linkage"/>
         <xsl:apply-templates
             select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
                     [last()]"
@@ -70,7 +74,7 @@
                 'ids': array{myfn:fr-pos-section-ids(.)}}"/>
   </xsl:template>
 
-  <xsl:template match="h3 | h4 | h5 | h6" mode="pos-li">
+  <xsl:template match="h3 | h4 | h5 | h6" mode="section-title">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
   </xsl:template>
 

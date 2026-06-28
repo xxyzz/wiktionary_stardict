@@ -367,6 +367,32 @@ ruby rt {
 .wikitable > caption {
   font-weight: bold;
 }
+div.NavFrame {
+  margin: 0;
+  padding: 2px;
+  border: 1px solid #aaa;
+  text-align: center;
+  border-collapse: collapse;
+  overflow: auto;
+}
+div.NavHead {
+  font-weight: bold;
+  background-color: #efefef;
+}
+.boite {
+  border: 1px solid #aaa;
+  overflow: auto;
+  background-color: #f7f8ff;
+}
+.boite .NavFrame {
+  background: transparent;
+  border: 0;
+  clear: both;
+}
+.boite .NavHead {
+  text-align: left;
+  padding-left: 0.5em;
+}
 
 @font-face {
   font-family: "Gentium";
