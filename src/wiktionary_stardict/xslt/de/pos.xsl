@@ -43,11 +43,10 @@
             select="p[@data-mw and myfn:is-template(@data-mw, 'Aussprache')]"
             mode="pronunciation"/>
         <xsl:apply-templates
-            select="p[@data-mw and myfn:is-template(@data-mw, 'Bedeutungen')]"
-            mode="meaning"/>
-        <xsl:apply-templates
-            select="p[@data-mw and myfn:is-template(@data-mw, 'Herkunft')]"
-            mode="etymology"/>
+            select="p[@data-mw and myfn:is-template(@data-mw, ('Bedeutungen',
+                    'Herkunft', 'Synonyme', 'Sinnverwandte Redewendungen',
+                    'Gegenwörter'))]"
+            mode="p-section"/>
       </section>
     </xsl:variable>
 
@@ -79,16 +78,9 @@
     </section>
   </xsl:template>
 
-  <xsl:template match="p" mode="meaning">
+  <xsl:template match="p" mode="p-section">
     <section>
-      <h4>Bedeutungen:</h4>
-      <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
-    </section>
-  </xsl:template>
-
-  <xsl:template match="p" mode="etymology">
-    <section>
-      <h4>Herkunft:</h4>
+      <h4>{normalize-space(.)}</h4>
       <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
     </section>
   </xsl:template>
