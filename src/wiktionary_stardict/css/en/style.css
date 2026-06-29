@@ -425,7 +425,7 @@ i .mention {
   unicode-bidi:isolate
 }
 .Armn {
-  font-family:Mshtakan,Arial,'Segoe UI',Tahoma,'Arian AMU','DejaVu Sans',sans-serif
+  font-family:'Noto Sans Armenian',sans-serif
 }
 .Avst {
   font-family:Avestan,Ahuramzda,'Noto Sans Avestan',sans-serif;
@@ -816,7 +816,7 @@ b .Ogam {
   font-family:'Noto Sans Syloti Nagri',sans-serif
 }
 .Syrc {
-  font-family:'Estrangelo Edessa','San Francisco','Code2000','Bitstream Cyberbit','Bitstream CyberBase','Bitstream Vera','TITUS Cyberbit Basic',sans-serif;
+  font-family:'Noto Sans Syriac',sans-serif;
   font-size:1.3em;
   direction:rtl;
   unicode-bidi:isolate
@@ -826,7 +826,7 @@ b .Ogam {
   font-family:'Noto Sans Syriac Western','Serto Jerusalem','Noto Sans Syriac'
 }
 .Syrc:lang(aii) {
-  font-family:'Noto Sans Syriac Eastern','Noto Sans Syriac'
+  font-family:'Noto Sans Syriac Eastern',sans-serif
 }
 .Tagb {
   font-family:Quivira,Tagbanwa,sans-serif;
@@ -839,7 +839,7 @@ b .Ogam {
   font-family:'Noto Sans New Tai Lue','Microsoft New Tai Lue','Dai Banna SIL Book','Husb_New_Tai_Lue_WB',sans-serif
 }
 .Taml {
-  font-family:'Tamil Sangam MN',InaiMathi,Vijaya,Akshar,JanaTamil,'Code2000',ETTamilNew,'Lohit Tamil','Arial Unicode MS','Free Serif',Latha,sans-serif;
+  font-family:'Noto Sans Tamil',sans-serif;
   font-size:125%
 }
 .Tang {
@@ -1191,4 +1191,26 @@ b, strong {
 @font-face {
   font-family: "Noto Kufi Arabic";
   src: url("fonts/NotoKufiArabic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Armenian";
+  src: url("fonts/NotoSansArmenian-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Armenian";
+  font-weight: bold;
+  src: url("fonts/NotoSansArmenian-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Syriac Eastern";
+  src: url("fonts/NotoSansSyriacEastern-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Tamil";
+  src: url("fonts/NotoSansTamil-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-weight: bold;
+  src: url("fonts/NotoSansTamil-Bold.otf");
 }

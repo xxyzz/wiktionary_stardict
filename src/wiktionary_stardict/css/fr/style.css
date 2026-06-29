@@ -84,11 +84,13 @@ dd {
 .script-Cyrl,
 .lang-bg,
 .lang-mk,
-.lang-mn,
 .lang-ru,
 .lang-sr,
 .lang-uk {
   font-family:'Segoe UI','DejaVu Sans','Tahoma','Verdana','Arial Unicode MS','Code2000','FreeSans','Lucida Sans Console',sans-serif
+}
+.lang-mn {
+  font-family:'Noto Sans Mongolian',sans-serif
 }
 .script-Armn,
 .lang-hy {
@@ -437,4 +439,8 @@ div.NavHead {
 @font-face {
   font-family: "Noto Naskh Arabic";
   src: url("fonts/NotoNaskhArabic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Mongolian";
+  src: url("fonts/NotoSansMongolian-Regular.otf");
 }
