@@ -52,3 +52,35 @@ class SimplePOSTestCase(XMLTestCase):
 </html>""",
             [{"form_of_only": True, "form_of_targets": ["book"]}],
         )
+
+    def test_other_spellings(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>practise</title></head>
+<body>
+<section><h3>Other spellings</h3>
+<ul><li><a>practice</a> <span>(</span><i>US</i><span>)</span></li></ul>
+</section>
+<section><h2>Verb</h2>
+<ol><li>gloss</li></ol>
+<section><h3>Usage notes</h3>
+<p>notes</p>
+</section></section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Verb</h4>
+<ol><li>gloss</li></ol>
+<section><h4>Usage notes</h4>
+<p>notes</p>
+</section>
+<section><h4>Other spellings</h4>
+<ul><li>practice <span>(</span><i>US</i><span>)</span></li></ul>
+</section></section>""",
+                    "forms": ["practise"],
+                }
+            ],
+        )

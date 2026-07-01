@@ -11,6 +11,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="config.xsl"/>
+  <xsl:include href="alt_forms.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
@@ -21,14 +22,13 @@
                       map:contains($unsupported-titles, $title))
                   then $unsupported-titles($title) else $title"/>
       <xsl:variable
-          name="table-form"
+          name="table-forms"
           as="xs:string*"
           select="table[contains-token(@class, 'inflection-table')]//td//
                   span[contains-token(@class, 'form-of')] ! normalize-space()"/>
       <xsl:variable
           name="unique-forms"
-          select="distinct-values(($title-form, $table-form)
-                  [. != ''])"
+          select="distinct-values(($title-form, $table-forms)[. != ''])"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
@@ -37,6 +37,7 @@
           <xsl:apply-templates select="ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h3) = 'Usage notes']" mode="usage-notes"/>
+          <xsl:apply-templates select="myfn:get-alt-form-section(.)" mode="alt-form"/>
         </section>
       </xsl:variable>
 
@@ -124,10 +125,10 @@
   </xsl:function>
 
   <xsl:template match="section" mode="usage-notes">
-    <xsl:variable name="content" select="ul"/>
+    <xsl:variable name="content" select="p | ul"/>
     <xsl:if test="$content">
       <section>
-        <h4>Usage notes</h4>
+        <xsl:apply-templates select="h3" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>
