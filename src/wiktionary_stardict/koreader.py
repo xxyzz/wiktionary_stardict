@@ -11,12 +11,17 @@ def koreader_file(all_data: list[dict[str, str]]):
                 if len(lang_in) == 2
                 else lang_in
             )
+            lang_out_code = (
+                "eng"
+                if lang_out == "simple"
+                else pycountry.languages.get(alpha_2=lang_out).alpha_3
+            )
             data_list.append(
                 {
                     "license": "GPLv3+ and CC BY-SA 4.0",
                     "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/latest/download/{data['codes']}.tar.zst",
                     "lang_in": lang_in_code,
-                    "lang_out": pycountry.languages.get(alpha_2=lang_out).alpha_3,
+                    "lang_out": lang_out_code,
                     "name": data["name"],
                     "entries": data["entries"],
                 }

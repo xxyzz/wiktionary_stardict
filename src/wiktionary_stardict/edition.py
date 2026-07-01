@@ -12,4 +12,5 @@ EDITIONS = {
     "ja": {"lang": "日本語", "wiki_name": "ウィクショナリー"},
     "fi": {"lang": "Suomi", "wiki_name": "Wikisanakirja"},
     "sv": {"lang": "Svenska", "wiki_name": "Wiktionary"},
+    "simple": {"lang": "Simple English", "wiki_name": "Wiktionary"},
 }

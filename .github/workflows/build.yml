@@ -32,6 +32,7 @@ jobs:
           - 'ja'
           - 'fi'
           - 'sv'
+          - 'simple'
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
     permissions:
