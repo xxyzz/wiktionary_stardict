@@ -84,3 +84,23 @@ class SimplePOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_pron(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>book</title></head>
+<body>
+<section><h3>Pronunciation</h3>
+<ul><li>enPR<span>: </span><span title="English phonemic representation" class="AHD enPR">bo͝ok</span>, <a title="w:en:IPA chart for English">IPA</a><span> </span><sup>(key)</sup><span>: </span><span class="IPA">/bʊk/</span></li></ul></section>
+<section><h2>Noun</h2>
+<ol><li>gloss</li></ol></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ul><li>enPR<span>: </span><span title="English phonemic representation" class="AHD enPR">bo͝ok</span>, IPA<span> </span><span>: </span><span class="IPA">/bʊk/</span></li></ul>
+<ol><li>gloss</li></ol></section>""",
+                }
+            ],
+        )

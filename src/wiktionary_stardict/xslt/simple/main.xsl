@@ -14,10 +14,13 @@
       name="title" select="html/head/title/text()" as="xs:string"/>
 
   <!-- https://simple.wiktionary.org/wiki/Wiktionary:Entry_layout_explained -->
-   <xsl:template match="/">
-     <xsl:variable name="results" as="map(*)*">
-       <xsl:apply-templates select="html/body/section[h2]" mode="pos"/>
-     </xsl:variable>
-     <xsl:sequence select="array{$results}"/>
+  <xsl:template match="/">
+    <xsl:variable name="results" as="map(*)*">
+      <xsl:apply-templates select="html/body/section[h2]" mode="pos"/>
+    </xsl:variable>
+    <xsl:sequence select="array{$results}"/>
   </xsl:template>
+
+  <!-- IPA key link -->
+  <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
 </xsl:stylesheet>

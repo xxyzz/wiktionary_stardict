@@ -12,6 +12,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="config.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
@@ -34,6 +35,9 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="en">
           <xsl:apply-templates select="h2" mode="section-heading"/>
+          <xsl:apply-templates
+              select="preceding-sibling::section[normalize-space(h3) = 'Pronunciation']"
+              mode="pron"/>
           <xsl:apply-templates select="ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h3) = 'Usage notes']" mode="usage-notes"/>
