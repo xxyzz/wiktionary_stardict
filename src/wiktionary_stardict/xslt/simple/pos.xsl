@@ -13,6 +13,7 @@
   <xsl:include href="config.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
@@ -42,6 +43,9 @@
           <xsl:apply-templates
               select="section[normalize-space(h3) = 'Usage notes']" mode="usage-notes"/>
           <xsl:apply-templates select="myfn:get-alt-form-section(.)" mode="alt-form"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h3) = ('Synonyms', 'Antonyms')]"
+              mode="linkage"/>
         </section>
       </xsl:variable>
 

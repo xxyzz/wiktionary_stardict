@@ -41,3 +41,7 @@ dd {
   font-family: Gentium;
   src: url("fonts/Gentium-Regular.ttf");
 }
+@font-face {
+  font-family: monospace;
+  src: url("fonts/NotoSansMono-Regular.ttf");
+}

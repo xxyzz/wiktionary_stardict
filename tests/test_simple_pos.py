@@ -104,3 +104,26 @@ class SimplePOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_linkage_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>headword</title></head>
+<body>
+<section><h2>Noun</h2>
+<ol><li>gloss</li></ol>
+<section><h3>Synonyms</h3>
+<ul><li>head</li></ul>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<ul><li>head</li></ul>
+</section></section>""",
+                }
+            ],
+        )
