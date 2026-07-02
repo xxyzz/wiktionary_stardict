@@ -33,7 +33,7 @@
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select="section[(h4 | h5 | h6)//text() =
+            select="section[normalize-space(h4 | h5 | h6) =
                     ('Conjugation', 'Declension', 'Inflection', 'Mutation')]"
             mode="conj">
           <xsl:with-param name="language" select="$language"/>
@@ -141,8 +141,7 @@
                 (some $c in ('synonym', 'antonym', 'alternative-form',
                 'coordinate-term', 'near-synonym', 'Active-voice-counterpart')
                 satisfies contains-token(@class, $c))]] |
-                dd[span[@data-mw and myfn:is-template(@data-mw, ('zh-also', 'ja-usex',
-                'ja-usex-inline'))]]"/>
+                dd[span[@data-mw and myfn:is-template(@data-mw, 'zh-also')]]"/>
     <xsl:if test="$examples or $color-panel or $nyms">
       <dl>
         <xsl:apply-templates select="$color-panel" mode="clean-content"/>

@@ -19,9 +19,6 @@ ol {
   margin-inline-end: 0;
   padding: 0;
 }
-p + ol {
-  margin-top: -0.5em;
-}
 li {
   margin-bottom: 0.1em;
 }
