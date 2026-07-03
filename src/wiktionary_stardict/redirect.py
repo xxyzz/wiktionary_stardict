@@ -43,20 +43,18 @@ def get_redirect_pages(conn: Connection, target: str) -> list[tuple[str, str]]:
 def add_redirects(
     conn: Connection, page_title: str, page_data_list: list[dict[str, list[str]]]
 ):
-    redirects = get_redirect_pages(conn, page_title)
-    if len(redirects) > 0:
-        for redirect_title, fragment in redirects:
-            if fragment != "":
-                added = False
-                for page_data in page_data_list:
-                    if fragment in page_data.get("ids", []):
-                        add_redirect(redirect_title, page_data)
-                        added = True
-                        break
-                if added:
-                    break
+    for redirect_title, fragment in get_redirect_pages(conn, page_title):
+        if fragment != "":
+            added = False
             for page_data in page_data_list:
-                add_redirect(redirect_title, page_data)
+                if fragment in page_data.get("ids", []):
+                    add_redirect(redirect_title, page_data)
+                    added = True
+                    break
+            if added:
+                continue
+        for page_data in page_data_list:
+            add_redirect(redirect_title, page_data)
 
 
 def add_redirect(title: str, page_data):
