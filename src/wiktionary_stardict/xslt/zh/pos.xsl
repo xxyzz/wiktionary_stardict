@@ -35,7 +35,7 @@
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select="section[(h4 | h5 | h6)//text() =
+            select="section[normalize-space(h4 | h5 | h6) =
                     ('变格', '變格', '变位', '变形', '变位形式', '變位', '詞形變化', '词形变化',
                     '輔音變化', '辅音变化', '語尾變化', '活用', '活用型', '活用形', '賓格',
                     '屈折', '屈折形式', '曲折形式', '軟化變形', '詞首音變')]"

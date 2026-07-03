@@ -112,16 +112,18 @@ def iter_chunk_lines(page_names: set[str], f):
     import json
 
     dup_pages = 0
+    total_pages = 0
     for line in f:
         data = json.loads(line)
         page_name = data["name"]
+        total_pages += 1
         if page_name in page_names:
             dup_pages += 1
         else:
             page_names.add(page_name)
             yield data
     if dup_pages > 0:
-        logger.info(f"Duplicated page number: {dup_pages}")
+        logger.info(f"{dup_pages} duplicated pages in {total_pages} pages")
 
 
 def build(args):

@@ -46,18 +46,16 @@
         <xsl:for-each select="map:keys($assets)">
           <xsl:variable name="lang" select="."/>
           <xsl:variable name="files" select="$assets($lang)"/>
+          <xsl:variable name="lang_code" select="$json-data?gloss_codes($lang)"/>
 
-          <div id="{$lang}"
+          <div id="{$lang}" lang="{$lang_code}"
                class="{if ($lang = 'English') then 'files active' else 'files'}">
-            <img class="screenshot" loading="lazy"
-                 src="{$json-data?screenshots($lang)}"/>
+            <img class="screenshot" loading="lazy" src="{$lang_code}.png"/>
             <ul>
               <xsl:for-each select="$files?*">
                 <xsl:sort select="?name"/>
                 <li>
-                  <a href="{?url}">
-                    <xsl:value-of select="?name"/>
-                  </a>
+                  <a href="{?url}">{?name}</a>
                 </li>
               </xsl:for-each>
             </ul>

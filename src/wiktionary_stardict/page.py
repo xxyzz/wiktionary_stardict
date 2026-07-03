@@ -18,7 +18,7 @@ def convert_release_data(tag: str):
     with open("build/release.json") as f:
         release_data = json.load(f)
     assets = defaultdict(list)
-    screenshots = {}
+    gloss_codes = {}
     all_ko_data = []
     for asset in release_data["assets"]:
         if not asset["name"].endswith(".tar.zst"):
@@ -47,12 +47,12 @@ def convert_release_data(tag: str):
             gloss_code = zst_name.rsplit("-", 1)[-1]
             gloss_name = book_name.rsplit("-", 1)[-1]
             assets[gloss_name].append({"name": book_name, "url": asset["url"]})
-            screenshots[gloss_name] = f"{gloss_code}.png"
+            gloss_codes[gloss_name] = gloss_code
         shutil.rmtree(dict_folder)
     date = release_data["publishedAt"]
     koreader_file(all_ko_data)
     return json.dumps(
-        {"date": date[: date.index("T")], "assets": assets, "screenshots": screenshots}
+        {"date": date[: date.index("T")], "assets": assets, "gloss_codes": gloss_codes}
     )
 
 
