@@ -125,10 +125,13 @@
   </xsl:template>
 
   <xsl:template match="section" mode="notes">
-    <section>
-      <h4>Notes</h4>
-      <xsl:apply-templates select="p | dl | ul" mode="clean-content"/>
-    </section>
+    <xsl:variable name="content" select="p | dl | ul | ol"/>
+    <xsl:if test="$content">
+      <section>
+        <h4>Notes</h4>
+        <xsl:apply-templates select="$content" mode="clean-content"/>
+      </section>
+    </xsl:if>
   </xsl:template>
 
   <xsl:function name="myfn:fr-pos-section-ids" as="xs:string*">

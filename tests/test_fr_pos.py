@@ -211,3 +211,33 @@ class FrPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_notes_ol(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>社會</title></head>
+<body>
+<section><h2>Chinois</h2>
+<section><h3>Nom commun</h3>
+<p><b>社會</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Notes</h4>
+<ul><li>classificateur<span> </span>: <span class="Hani" lang="zh">個</span><span>／</span><span class="Hani" lang="zh">个</span><span> (</span><i><span class="tr Latn">gè</span></i><span>)</span></li></ul>
+<ol><li><ul><li class="mw-empty-elt"></li><li><span class="example"><q><bdi lang="zh" class="lang-zh">一個社會</bdi></q></span><br/><bdi lang="zh-Latn" class="lang-zh-Latn"><i>yī gè shèhuì</i></bdi>
+<dl><dd>une société</dd></dl></li></ul></li></ol>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
+<h4>Nom commun</h4>
+<p><b>社會</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Notes</h4>
+<ul><li>classificateur<span> </span>: <span class="Hani" lang="zh">個</span><span>／</span><span class="Hani" lang="zh">个</span><span> (</span><i><span class="tr Latn">gè</span></i><span>)</span></li></ul>
+<ol><li><ul><li><span class="example"><q><bdi lang="zh" class="lang-zh">一個社會</bdi></q></span><br/><bdi lang="zh-Latn" class="lang-zh-Latn"><i>yī gè shèhuì</i></bdi>
+<dl><dd>une société</dd></dl></li></ul></li></ol>
+</section></section>"""
+                }
+            ],
+        )
