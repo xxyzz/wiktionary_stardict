@@ -189,3 +189,25 @@ class FrPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"form_of_only": True, "form_of_targets": ["doner"]}],
         )
+
+    def test_préciser(self):
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>à cropton</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3>Locution adverbiale</h3>
+<p><b>à cropton</b> <span title="Prononciation à préciser">\<small><span class="plainlinks stubedit">Prononciation<span> </span>?</span></small>\</span> <span class="ligne-de-forme"><i>invariable</i></span></p>
+<ol><li><span><i>(Canton de Vaud)</i></span> Être baissé, proche du sol. <small title="Cette information devrait être précisée ou vérifiée."><span> </span>(information<span> </span><i>à préciser ou à vérifier</i>)</small></li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
+<h4>Locution adverbiale</h4>
+<p><b>à cropton</b>  <span class="ligne-de-forme"><i>invariable</i></span></p>
+<ol><li><span><i>(Canton de Vaud)</i></span> Être baissé, proche du sol. </li></ol>
+</section>"""
+                }
+            ],
+        )

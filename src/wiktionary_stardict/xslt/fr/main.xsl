@@ -39,4 +39,19 @@
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>
   </xsl:template>
+
+  <!-- Modèle:référence nécessaire -->
+  <xsl:template match="span[@title='Cette information a besoin d’être sourcée']"
+                mode="clean-content"/>
+  <!-- Modèle:référence souhaitée -->
+  <xsl:template
+      match="div[@title = 'Cette information n’est pas remise en cause, mais une référence serait un plus.']"
+      mode="clean-content"/>
+  <!-- Modèle:préciser -->
+  <xsl:template
+      match="small[@title = 'Cette information devrait être précisée ou vérifiée.']"
+      mode="clean-content"/>
+  <!-- Modèle:pron-recons -->
+  <xsl:template match="abbr[@title = 'Prononciation théorique']" mode="clean-content"/>
+  <xsl:template match="span[@title = 'Prononciation à préciser']" mode="clean-content"/>
 </xsl:stylesheet>
