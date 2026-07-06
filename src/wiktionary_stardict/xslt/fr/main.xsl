@@ -15,6 +15,10 @@
       name="title" select="html/head/title/text()" as="xs:string"/>
 
   <!-- https://fr.wiktionary.org/wiki/Convention:Structure_des_pages -->
+  <!-- https://fr.wiktionary.org/wiki/Modèle:S -->
+  <!-- https://fr.wiktionary.org/wiki/Wiktionnaire:Liste_des_sections -->
+  <!-- https://fr.wiktionary.org/wiki/Wiktionnaire:Liste_des_sections_de_types_de_mots -->
+  <!-- https://fr.wiktionary.org/wiki/Module:types_de_mots/data -->
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates

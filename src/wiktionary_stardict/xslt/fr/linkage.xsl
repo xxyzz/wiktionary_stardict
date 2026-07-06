@@ -7,7 +7,7 @@
     exclude-result-prefixes="#all">
   <xsl:template match="section" mode="linkage">
     <xsl:variable name="content">
-      <xsl:apply-templates select="div[contains-token(@class, 'boite')] | ul"
+      <xsl:apply-templates select="div[contains-token(@class, 'boite')] | dl | ul"
                            mode="linkage-list"/>
     </xsl:variable>
     <xsl:if test="$content">

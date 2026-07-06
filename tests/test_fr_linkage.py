@@ -63,3 +63,35 @@ class FrLinkageTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_dl(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>bras</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3>Nom commun</h3>
+<p><b>bras</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonymes</h4>
+<dl><dt>(1)</dt></dl>
+<ul><li>arrière-bras</li></ul>
+</section>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="fr">
+<h4>Nom commun</h4>
+<p><b>bras</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonymes</h4>
+<dl><dt>(1)</dt></dl>
+<ul><li>arrière-bras</li></ul>
+</section>""",
+                },
+            ],
+        )
