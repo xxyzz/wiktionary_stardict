@@ -133,3 +133,59 @@ class FrPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [],
         )
+
+    def test_variante_hanja_de(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>地圖</title></head>
+<body>
+<section><h2>Coréen</h2>
+<section><h3>Nom commun</h3>
+<p><b>地圖</b></p>
+<ol><li><span class="emploi" data-mw='{"parts":[{"template":{"target":{"wt":"variante hanja de"}}}]}'><span id="désuet"></span><i>(<span class="texte">Désuet</span>)</i></span><span> </span><i>Écriture en sinogrammes de</i><span> </span><bdi lang="ko" class="lang-ko">지도</bdi><span> («</span><span> </span><span>carte géographique</span><span> </span><span>»)</span>.</li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["지도"]}],
+        )
+
+    def test_variante_de(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>contindre</title></head>
+<body>
+<section><h2>Catalan</h2>
+<section><h3>Verb</h3>
+<p><b>contindre</b></p>
+<ol><li><span>(</span><i>Valencien</i><span>)</span> <i data-mw='{"parts":[{"template":{"target":{"wt":"variante de"}}}]}'>Variante<span> </span>de</i><span> </span><bdi lang="fr" class="lang-fr">contenir</bdi>.</li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["contenir"]}],
+        )
+
+    def test_form_of_plain_text(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>ouighour</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3>Adjectif</h3>
+<p><b>ouighour</b></p>
+<ol><li>Variante de <i><a>ouïghour</a>.</i></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["ouïghour"]}],
+        )
+
+    def test_form_of_i(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>donner</title></head>
+<body>
+<section><h2>Ancien français</h2>
+<section><h3>Verbe</h3>
+<p><b>donner</b></p>
+<ol><li><i>Variante tardive de</i> <bdi lang="fro" class="lang-fro">doner</bdi>.</li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["doner"]}],
+        )

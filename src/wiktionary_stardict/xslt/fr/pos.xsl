@@ -65,6 +65,11 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
+      <xsl:variable
+          name="form-of-only" as="xs:boolean"
+          select="boolean(every $li in ol/li[myfn:is-gloss-li(.)]
+                  satisfies myfn:is-form-of($li))"/>
+
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
@@ -72,7 +77,10 @@
                     $final-definition, map{'method': 'html', 'indent': false()}),
                   'images': array{$images},
                   'zim_pages': array{$conj-links},
-                  'ids': array{myfn:fr-pos-section-ids(.)}}"/>
+                  'ids': array{myfn:fr-pos-section-ids(.)},
+                  'form_of_targets': array{if ($form-of-only) then
+                    myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
+                  'form_of_only': $form-of-only}"/>
     </xsl:if>
   </xsl:template>
 
@@ -143,5 +151,23 @@
         select="boolean($li/node() and
                 not(contains-token($li/@class, 'mw-empty-elt')) and
                 not($li/i[@data-mw and myfn:is-template(@data-mw, 'ébauche-déf')]))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-form-of" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="boolean(($li/i|$li/span)[@data-mw and myfn:is-template(@data-mw,
+                ('variante ateji de', 'variante de', 'variante hanja de',
+                'variante hiragana de', 'variante kanji de', 'variante katakana de',
+                'variante kyujitai de', 'variante ortho de', 'variante romaji de'))] or
+                $li/text()[starts-with(normalize-space(), 'Variante ')] or
+                $li/i[starts-with(normalize-space(), 'Variante ')])"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:form-of-targets" as="xs:string*">
+    <xsl:param name="li" as="element(li)*"/>
+    <xsl:sequence
+        select="distinct-values((if ($li/bdi) then $li/bdi else $li/i/a) !
+                normalize-space(.))"/>
   </xsl:function>
 </xsl:stylesheet>

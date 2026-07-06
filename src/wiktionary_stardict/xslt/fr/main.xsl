@@ -33,7 +33,8 @@
     <xsl:variable name="language" select="normalize-space(h2)"/>
     <xsl:apply-templates
         select=".//section[p and ol and
-                not(starts-with(normalize-space(h3|h4|h5|h6), 'Forme '))]"
+                not(some $prefix in ('Forme ', 'Variante ') satisfies
+                starts-with(normalize-space(h3|h4|h5|h6), $prefix))]"
         mode="pos">
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>
