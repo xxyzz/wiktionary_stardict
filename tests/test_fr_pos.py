@@ -119,3 +119,17 @@ class FrPOSTestCase(XMLTestCase):
 </html>""",
             [{"ids": ["Anglais", "Verbe", "en", "en-verb-1", "en-verb"]}],
         )
+
+    def test_rfdef(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>galet</title></head>
+<body>
+<section><h2>Catalan</h2>
+<section><h3>Nom commun</h3>
+<p><b>galet</b></p>
+<ol><li><i data-mw='{"parts":[{"template":{"target":{"wt":"ébauche-déf"}}}]}'>Définition manquante ou à compléter.</i><span> </span><span class="plainlinks stubedit">(Ajouter)</span></li></ol>
+</section></section></body></html>""",
+            [],
+        )

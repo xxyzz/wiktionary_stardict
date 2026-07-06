@@ -14,64 +14,66 @@
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
+    <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
+      <xsl:variable name="headword-forms" as="xs:string*"
+                    select="p/(b|bdi)/myfn:get-element-forms(.)"/>
+      <xsl:variable
+          name="table-forms"
+          select="table[contains-token(@class, 'flextable')]//td/bdi/
+                  myfn:get-element-forms(.)"
+          as="xs:string*"/>
+      <xsl:variable
+          name="title-form"
+          select="if (not(starts-with($title, 'Titres non pris en charge/')))
+                  then $title else ''"/>
+      <xsl:variable
+          name="unique-forms"
+          select="distinct-values(($headword-forms, $title-form, $table-forms)[. != ''])"
+          as="xs:string*"/>
+      <xsl:variable
+          name="conj-links"
+          select="p/a[starts-with(@title, 'Conjugaison:') and not(
+                  some $v in ('Premier groupe', 'Deuxième groupe', 'Troisième groupe')
+                  satisfies ends-with(@title, $v))]/@title"
+          as="xs:string*"/>
 
-    <xsl:variable name="headword-forms" as="xs:string*"
-                  select="p/(b|bdi)/myfn:get-element-forms(.)"/>
-    <xsl:variable
-        name="table-forms"
-        select="table[contains-token(@class, 'flextable')]//td/bdi/
-                myfn:get-element-forms(.)"
-        as="xs:string*"/>
-    <xsl:variable
-        name="title-form"
-        select="if (not(starts-with($title, 'Titres non pris en charge/')))
-                then $title else ''"/>
-    <xsl:variable
-        name="unique-forms"
-        select="distinct-values(($headword-forms, $title-form, $table-forms)[. != ''])"
-        as="xs:string*"/>
-    <xsl:variable
-        name="conj-links"
-        select="p/a[starts-with(@title, 'Conjugaison:') and
-                not(some $v in ('Premier groupe', 'Deuxième groupe', 'Troisième groupe')
-                satisfies ends-with(@title, $v))]/@title"
-        as="xs:string*"/>
+      <xsl:variable name="definition">
+        <section class="mw-parser-output" lang="fr" dir="ltr">
+          <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
+          <xsl:apply-templates select="p | ol" mode="pos-li"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h4|h5|h6) = 'Notes']" mode="notes"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h4|h5|h6) =
+                      ('Synonymes', 'Quasi-synonymes', 'Antonymes', 'Variantes',
+                      'Variantes dialectales', 'Variantes orthographiques')]"
+              mode="linkage"/>
+          <xsl:apply-templates
+              select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
+                      [last()]"
+              mode="etymology">
+            <xsl:with-param name="pos-ids" select="(h3|h4|h5|h6)/span/@id"/>
+          </xsl:apply-templates>
+        </section>
+      </xsl:variable>
 
-    <xsl:variable name="definition">
-      <section class="mw-parser-output" lang="fr" dir="ltr">
-        <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
-        <xsl:apply-templates select="p | ol" mode="pos-li"/>
-        <xsl:apply-templates
-            select="section[normalize-space(h4|h5|h6) = 'Notes']" mode="notes"/>
-        <xsl:apply-templates
-            select="section[normalize-space(h4|h5|h6) =
-                    ('Synonymes', 'Quasi-synonymes', 'Antonymes')]"
-            mode="linkage"/>
-        <xsl:apply-templates
-            select="preceding-sibling::section[normalize-space(h3[1]) = 'Étymologie']
-                    [last()]"
-            mode="etymology">
-          <xsl:with-param name="pos-ids" select="(h3|h4|h5|h6)/span/@id"/>
-        </xsl:apply-templates>
-      </section>
-    </xsl:variable>
+      <xsl:variable name="images" as="xs:string*">
+        <xsl:sequence select="$definition//img/@src"/>
+      </xsl:variable>
 
-    <xsl:variable name="images" as="xs:string*">
-      <xsl:sequence select="$definition//img/@src"/>
-    </xsl:variable>
+      <xsl:variable name="final-definition">
+        <xsl:apply-templates select="$definition" mode="convert-img"/>
+      </xsl:variable>
 
-    <xsl:variable name="final-definition">
-      <xsl:apply-templates select="$definition" mode="convert-img"/>
-    </xsl:variable>
-
-    <xsl:sequence
-        select="map{'lang': $language,
-                'forms': array{$unique-forms},
-                'def': serialize(
-                  $final-definition, map{'method': 'html', 'indent': false()}),
-                'images': array{$images},
-                'zim_pages': array{$conj-links},
-                'ids': array{myfn:fr-pos-section-ids(.)}}"/>
+      <xsl:sequence
+          select="map{'lang': $language,
+                  'forms': array{$unique-forms},
+                  'def': serialize(
+                    $final-definition, map{'method': 'html', 'indent': false()}),
+                  'images': array{$images},
+                  'zim_pages': array{$conj-links},
+                  'ids': array{myfn:fr-pos-section-ids(.)}}"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
@@ -83,7 +85,7 @@
   </xsl:template>
 
   <xsl:template match="li" mode="pos-li">
-    <xsl:if test="node()">
+    <xsl:if test="myfn:is-gloss-li(.)">
       <li><xsl:apply-templates mode="pos-li"/></li>
     </xsl:if>
   </xsl:template>
@@ -133,5 +135,13 @@
         name="span-ids" select="$heading/span/@id[not(starts-with(., 'mw'))]"/>
     <xsl:sequence
         select="$heading/@id[not(starts-with(., 'mw'))], $span-ids"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="boolean($li/node() and
+                not(contains-token($li/@class, 'mw-empty-elt')) and
+                not($li/i[@data-mw and myfn:is-template(@data-mw, 'ébauche-déf')]))"/>
   </xsl:function>
 </xsl:stylesheet>
