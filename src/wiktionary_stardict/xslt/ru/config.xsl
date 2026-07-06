@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet
-    version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    version="3.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
+    xmlns:myfn="https://github.com/xxyzz">
   <xsl:variable
       name="allowed-languages"
       select="('Русский',
@@ -31,7 +35,64 @@
               'Болгарский',
               'Китайский (Гуаньхуа)',
               'Иврит',
-              'Латышский')"/>
+              'Латышский',
+              'Пали',
+              'Татарский',
+              'Санскрит',
+              'Таджикский',
+              'Верхнелужицкий',
+              'Армянский',
+              'Азербайджанский',
+              'Каталанский',
+              'Датский',
+              'Суахили',
+              'Норвежский',
+              'Готский',
+              'Персидский',
+              'Караимский',
+              'Словацкий',
+              'Эстонский',
+              'Хинди',
+              'Хорватский',
+              'Церковнославянский',
+              'Старославянский',
+              'Грузинский',
+              'Древнеанглийский',
+              'Македонский',
+              'Старофранцузский',
+              'Кхмерский',
+              'Исландский',
+              'Башкирский',
+              'Галисийский',
+              'Словенский',
+              'Узбекский',
+              'Корейский',
+              'Якутский',
+              'Осетинский',
+              'Индонезийский',
+              'Идиш',
+              'Баскский',
+              'Албанский',
+              'Ирландский',
+              'Бирманский',
+              'Африкаанс',
+              'Русский (дореформенная орфография)',
+              'Киргизский',
+              'Курдский',
+              'Чеченский',
+              'Талышский',
+              'Крымскотатарский',
+              'Монгольский',
+              'Туркменский',
+              'Китайский иероглиф')"/>
 
   <xsl:variable name="linkage-titles" select="('Синонимы', 'Синоним', 'Антонимы')"/>
+
+  <xsl:variable name="lang-map" select="map {'Китайский иероглиф': 'Китайский'}"/>
+  <xsl:function name="myfn:convert-lang" as="xs:string">
+    <xsl:param name="lang" as="xs:string"/>
+    <xsl:sequence select="if (map:contains($lang-map, $lang))
+                          then $lang-map($lang) else if (contains($lang, '(')) then
+                          normalize-space(substring-before($lang, '(')) else $lang"/>
+  </xsl:function>
 </xsl:stylesheet>

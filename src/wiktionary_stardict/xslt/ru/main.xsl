@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
@@ -29,11 +30,7 @@
     <xsl:apply-templates
         select=".//section[normalize-space((h3|h4|h5|h6)[1]) = 'Семантические свойства']"
         mode="gloss">
-      <xsl:with-param
-          name="language"
-          select="if (contains($language, '('))
-                  then normalize-space(substring-before($language, '('))
-                  else $language"/>
+      <xsl:with-param name="language" select="myfn:convert-lang($language)"/>
     </xsl:apply-templates>
   </xsl:template>
 </xsl:stylesheet>

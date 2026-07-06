@@ -107,5 +107,14 @@
               'Afrikaans',
               'Old Armenian',
               'Haitian Creole',
-              'Romansh')"/>
+              'Romansh',
+              'Tajik',
+              'Yakut',
+              'Basque',
+              'Kyrgyz',
+              'Chechen',
+              'Talysh',
+              'Crimean Tatar',
+              'Tatar',
+              'Turkmen')"/>
 </xsl:stylesheet>
