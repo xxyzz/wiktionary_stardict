@@ -15,5 +15,15 @@
               'Katalanisch',
               'Portugiesisch',
               'Schwedisch',
-              'Spanisch')"/>
+              'Spanisch',
+              'Weißrussisch',
+              'Russisch',
+              'Mazedonisch',
+              'Slowakisch',
+              'Finnisch',
+              'Okzitanisch',
+              'Lettisch',
+              'Altgriechisch',
+              'Urdu',
+              'Ungarisch')"/>
 </xsl:stylesheet>
