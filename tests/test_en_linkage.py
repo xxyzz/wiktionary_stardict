@@ -55,9 +55,9 @@ class EnLinkageTestCase(XMLTestCase):
 <ol><li>gloss</li></ol>
 <section><h4>Synonyms</h4>
 <ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">location</span><span class="ib-brac qualifier-brac">)</span><span class="ib-colon sense-qualifier-colon">:</span></li></ul>
-<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li></ul>
+<div class="list-switcher-wrapper"><div class="list-switcher"><div class="term-list columns-bg ul-column-count"><ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li></ul></div></div></div>
 <ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">post</span><span class="ib-brac qualifier-brac">)</span><span class="ib-colon sense-qualifier-colon">:</span></li></ul>
-<ul><li><span class="Hani" lang="zh">位子</span> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="tr Latn">wèizi</span><span class="mention-gloss-paren annotation-paren">)</span></li></ul></section></section></section>""",
+<div class="list-switcher-wrapper"><div class="term-list columns-bg"><ul><li><span class="Hani" lang="zh">位子</span> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="tr Latn">wèizi</span><span class="mention-gloss-paren annotation-paren">)</span></li></ul></div></div></section></section></section>""",
                 }
             ],
         )
@@ -98,6 +98,41 @@ class EnLinkageTestCase(XMLTestCase):
 <ol><li>gloss</li></ol>
 <section><h4>Synonyms</h4>
 <ul><li>syn</li></ul></section></section></section>""",
+                },
+            ],
+        )
+
+    def test_col(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>homosexual</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">homosexual</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<div class="NavFrame">
+<div class="NavHead" style="text-align: left;">non-derogatory synonyms</div>
+<div class="NavContent columns-bg ul-column-count" data-column-count="3" style="text-align: left;">
+<dl><dt>of either sex</dt><dd></dd></dl>
+<ul><li><span class="Latn" lang="en">gay</span> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">but see usage notes at <i>gay</i> (n)</span><span class="ib-brac qualifier-brac">)</span></li></ul></div></div>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">homosexual</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<div class="NavFrame">
+<div class="NavHead" style="text-align: left;">non-derogatory synonyms</div>
+<div class="NavContent columns-bg ul-column-count" style="text-align: left;">
+<dl><dt>of either sex</dt><dd></dd></dl>
+<ul><li><span class="Latn" lang="en">gay</span> <span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">but see usage notes at <i>gay</i> (n)</span><span class="ib-brac qualifier-brac">)</span></li></ul></div></div></section></section></section>""",
                 },
             ],
         )

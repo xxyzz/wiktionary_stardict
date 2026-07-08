@@ -58,6 +58,10 @@ p + ol {
 li {
   margin-bottom: 0.1em;
 }
+dt {
+  font-weight:bold;
+  margin-bottom:0.1em
+}
 dl {
   margin-top: 0.2em;
   margin-bottom: 0.5em;

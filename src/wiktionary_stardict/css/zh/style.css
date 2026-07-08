@@ -850,6 +850,10 @@ p + ol {
 li {
   margin-bottom: 0.1em;
 }
+dt {
+  font-weight:bold;
+  margin-bottom:0.1em
+}
 dl {
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -864,8 +868,29 @@ dd {
 b, strong {
   font-weight: bold;
 }
-section {
-  font-family:sans-serif;
+div.NavFrame,
+details.NavFrame {
+  border:1px solid #9e9e9e;
+  text-align:center;
+  border-collapse:collapse;
+  font-size:95%;
+  overflow:auto;
+  width:auto
+}
+div.NavFrame div.NavHead,
+details.NavFrame summary.NavHead {
+  margin: 2px;
+  min-height:1.6em;
+  font-weight:bold;
+  font-size:100%;
+  text-align:left;
+  padding:1px 5px 1px 10px;
+  background-color:#eaecf0
+}
+div.NavFrame div.NavContent,
+details.NavFrame div.NavContent {
+  font-size:100%;
+  border-top:1px solid #9e9e9e;
 }
 .wikitable {
   background-color:#f8f9fa;
@@ -890,7 +915,38 @@ section {
 .wikitable > caption {
   font-weight:bold
 }
+.list-switcher-wrapper,
+:not(.list-switcher-wrapper)>.list-switcher {
+  contain:layout;
+  margin-top:0.3em;
+}
+.list-switcher-wrapper+.list-switcher-wrapper {
+  margin-top:0.6em
+}
+.list-switcher>div>ul,
+.list-switcher-wrapper>div>ul {
+  margin-top:0
+}
+.list-switcher ul ul {
+  margin-top:0.1em
+}
+.list-switcher-header {
+  background:#e9e8f9;
+  font-weight:bold;
+  font-size:95%;
+  padding:0.2em 0.4em 0.1em 0.6em
+}
+list-switcher-header+.list-switcher .term-list,
+.list-switcher-header+.term-list {
+  padding-top:0.1em;
+}
+.columns-bg, .derivedterms {
+  background:#f8f8ff;
+}
 
+section {
+  font-family:sans-serif;
+}
 @font-face {
   font-family: sans-serif;
   src: url("fonts/SourceHanSansTW-Regular.otf");

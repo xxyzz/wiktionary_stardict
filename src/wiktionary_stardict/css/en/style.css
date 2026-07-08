@@ -502,7 +502,7 @@ i .mention {
   font-family:Helvetica,Geneva,'Arial Unicode MS','Lucida Sans Unicode','Code2000',sans-serif
 }
 .Cyrs {
-  font-family:Monomakh,'Monomakh Unicode','Monomakh Unicode TT',Menaion,'Menaion Unicode','Menaion Unicode TT',Ponomar,'Ponomar Unicode','Ponomar Unicode TT',Fedorovsk,'Fedorovsk Unicode','Fedorovsk Unicode TT',Pochaevsk,'Pochaevsk Unicode','Pochaevsk Unicode TT',Triodion,'Triodion Unicode','Triodion Unicode TT','Acathist','Shafarik',Vilnius,BukyVede,'Kliment Std','RomanCyrillic Std','Monomachus','Old Standard','Old Standard TT',Dilyana,'Hirmos Ponomar','Hirmos Ponomar TT','Menaion Medieval',Lazov,'Code2000','DejaVu Sans','Lucida Grande','Arial Unicode MS','Lucida Sans Unicode',sans-serif;
+  font-family:sans-serif;
   font-size:125%
 }
 .Deva {
@@ -532,7 +532,7 @@ i .mention {
   font-size:120%
 }
 .Geor {
-  font-family:'DejaVu Sans','Arial Unicode MS',Sylfaen,sans-serif
+  font-family:'Noto Sans Georgian',Sylfaen,sans-serif
 }
 .Glag {
   font-family:Shafarik,Menaion,'Menaion Unicode','Menaion Unicode TT','Segoe UI Historic',BukyVede,Dilyana,'Noto Sans Glagolitic',sans-serif;
@@ -574,9 +574,6 @@ strong.Goth {
 .Hant {
   font-size:120%;
   line-height:1
-}
-.Hani:lang(vi) {
-  font-family:'Nom Na Tong','HAN NOM A','HAN NOM B',Sun-ExtA,Sun-ExtB,Ming-Lt-HKSCS-UNI-H,Ming-Lt-HKSCS-ExtB,HanaMinA,HanaMinB,HanaMin,'PingFang TC',MingLiU,MingLiU-ExtB,'MingLiU_HKSCS','MingLiU_HKSCS-ExtB',SimSun,SimSun-ExtB,'Arial Unicode MS','TITUS Cyberbit Basic',sans-serif
 }
 .Hano {
   font-family:'Noto Sans Hanunoo',Quivira,'MPH 2B Damase',sans-serif;
@@ -953,6 +950,10 @@ p + ol {
 li {
   margin-bottom: 0.1em;
 }
+dt {
+  font-weight:bold;
+  margin-bottom:0.1em
+}
 dl {
   margin-top: 0.2em;
   margin-bottom: 0.5em;
@@ -993,6 +994,30 @@ abbr {
 b, strong {
   font-weight: bold;
 }
+div.NavFrame,
+details.NavFrame {
+  border:1px solid #9e9e9e;
+  text-align:center;
+  border-collapse:collapse;
+  font-size:95%;
+  overflow:auto;
+  width:auto
+}
+div.NavFrame div.NavHead,
+details.NavFrame summary.NavHead {
+  margin: 2px;
+  min-height:1.6em;
+  font-weight:bold;
+  font-size:100%;
+  text-align:left;
+  padding:1px 5px 1px 10px;
+  background-color:#eaecf0
+}
+div.NavFrame div.NavContent,
+details.NavFrame div.NavContent {
+  font-size:100%;
+  border-top:1px solid #9e9e9e;
+}
 .zhpron-monospace {
   font-family:monospace
 }
@@ -1018,6 +1043,34 @@ b, strong {
 }
 .wikitable > caption {
   font-weight:bold
+}
+.list-switcher-wrapper,
+:not(.list-switcher-wrapper)>.list-switcher {
+  contain:layout;
+  margin-top:0.3em;
+}
+.list-switcher-wrapper+.list-switcher-wrapper {
+  margin-top:0.6em
+}
+.list-switcher>div>ul,
+.list-switcher-wrapper>div>ul {
+  margin-top:0
+}
+.list-switcher ul ul {
+  margin-top:0.1em
+}
+.list-switcher-header {
+  background:#e9e8f9;
+  font-weight:bold;
+  font-size:95%;
+  padding:0.2em 0.4em 0.1em 0.6em
+}
+list-switcher-header+.list-switcher .term-list,
+.list-switcher-header+.term-list {
+  padding-top:0.1em;
+}
+.columns-bg {
+  background:#f8f8ff;
 }
 
 @font-face {
@@ -1213,4 +1266,13 @@ b, strong {
   font-family: "Noto Sans Tamil";
   font-weight: bold;
   src: url("fonts/NotoSansTamil-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Georgian";
+  src: url("fonts/NotoSansGeorgian-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Georgian";
+  font-weight: bold;
+  src: url("fonts/NotoSansGeorgian-Bold.otf");
 }

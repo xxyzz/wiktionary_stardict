@@ -30,6 +30,7 @@
 
   <!-- Remove hidden elements -->
   <xsl:template match="*[contains(@style, 'display: none;')]" mode="clean-content"/>
+  <xsl:template match="*[contains(@style, 'float: right;')]" mode="clean-content"/>
 
   <xsl:template match="sup[contains(@class, 'mw-ref')]" mode="clean-content"/>
   <xsl:template match="figure[@typeof = 'mw:File/Thumb']" mode="clean-content"/>
@@ -41,4 +42,6 @@
 
   <xsl:template
       match="li[contains-token(@class, 'mw-empty-elt')]" mode="clean-content"/>
+
+  <xsl:template match="*[contains-token(@class, 'error')]" mode="clean-content"/>
 </xsl:stylesheet>
