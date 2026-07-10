@@ -122,7 +122,7 @@
   <xsl:function name="myfn:is-form-of" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
-        select="boolean($li[link[@rel = 'mw:PageProp/Category' and
+        select="boolean($li[link[contains-token(@rel, 'mw:PageProp/Category') and
                 (some $cat in ('_forms', '_participles', 'Plurals')
                  satisfies ends-with(@href, $cat))]])"/>
   </xsl:function>

@@ -9,7 +9,7 @@
   <xsl:template match="section" mode="etymology">
     <xsl:variable name="content">
       <xsl:apply-templates
-          select="p[node() and not(link[@rel = 'mw:PageProp/Category' and
+          select="p[node() and not(link[contains-token(@rel, 'mw:PageProp/Category') and
                   ends-with(@href, 'Категория:Нужна_этимология')])]"
           mode="clean-content"/>
     </xsl:variable>

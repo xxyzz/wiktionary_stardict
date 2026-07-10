@@ -9,7 +9,8 @@
     <xsl:param name="pos-ids" as="xs:string*"/>
     <xsl:variable
         name="dl-elements"
-        select="dl[not(.//link[@rel = 'mw:PageProp/Category' and starts-with(@href,
+        select="dl[not(.//link[contains-token(@rel, 'mw:PageProp/Category') and
+                starts-with(@href,
                 './Catégorie:Wiktionnaire:Étymologies_manquantes_en')])]"/>
     <xsl:if test="$dl-elements">
       <xsl:variable

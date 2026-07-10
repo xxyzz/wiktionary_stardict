@@ -20,7 +20,8 @@
     <xsl:if test="not(starts-with($pos, 'Forma '))">
       <xsl:variable
           name="headword-forms"
-          select="for $p in p[child::*[1][self::b[@typeof='mw:Transclusion']]]
+          select="for $p in p[child::*[1]
+                  [self::b[contains-token(@typeof, 'mw:Transclusion')]]]
                   return myfn:headword-forms($p)"
           as="xs:string*"/>
       <xsl:variable
@@ -45,7 +46,8 @@
               select="ancestor::section/table[@data-mw]
                       [myfn:is-template(@data-mw, 'pron-graf')][last()]" mode="pron"/>
           <xsl:apply-templates
-              select="p[child::*[1][self::b[@typeof='mw:Transclusion']]] | dl"
+              select="p[child::*[1]
+                      [self::b[contains-token(@typeof, 'mw:Transclusion')]]] | dl"
               mode="pos"/>
           <xsl:apply-templates
               select="(parent::section | preceding-sibling::section)

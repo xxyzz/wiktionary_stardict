@@ -114,7 +114,7 @@
   <xsl:function name="myfn:is-form-of" as="xs:boolean">
     <xsl:param name="node" as="element()"/>
     <xsl:sequence
-        select="boolean($node/link[@rel = 'mw:PageProp/Category' and
+        select="boolean($node/link[contains-token(@rel, 'mw:PageProp/Category') and
                 contains(@href, '_taivutusmuodot#')])"/>
   </xsl:function>
 

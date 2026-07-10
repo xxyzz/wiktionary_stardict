@@ -21,7 +21,7 @@
 
  <!-- missing etymology -->
  <xsl:template
-     match="p[.//link[@rel = 'mw:PageProp/Category' and
+     match="p[.//link[contains-token(@rel, 'mw:PageProp/Category') and
             ends-with(@href, ':Palabras_de_etimología_sin_precisar')]]"
      mode="etymology-child"/>
 

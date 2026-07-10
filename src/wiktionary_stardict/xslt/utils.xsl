@@ -128,7 +128,8 @@
   <!-- https://www.mediawiki.org/wiki/Language_Converter -->
   <!-- https://www.mediawiki.org/wiki/Specs/HTML#Language_conversion_blocks -->
   <xsl:template
-      match="(span|meta|div)[@typeof='mw:LanguageVariant']" mode="lang-converter">
+      match="(span|meta|div)[contains-token(@typeof, 'mw:LanguageVariant')]"
+      mode="lang-converter">
     <xsl:variable name="json-data" select="parse-json(@data-mw-variant)"/>
     <xsl:if test="map:contains($json-data, 'disabled')">
       <xsl:apply-templates

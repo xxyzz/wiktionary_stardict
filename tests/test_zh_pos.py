@@ -35,3 +35,31 @@ class ZhPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_LanguageVariant_typeof(self):
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>詞典</title></head>
+<body>
+<section><h2>漢語</h2>
+<section><h3>名詞</h3>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">詞典</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>使用說明</h4>
+<p>在漢語中，<span typeof="mw:Transclusion mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;!---->&lt;span class=\"Hant\" lang=\"zh\" id=\"mwdw\">&lt;span typeof=\"mw:LanguageVariant\" id=\"mweA\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"詞典\"}}&apos;>&lt;/span>&lt;/span>&lt;!---->"}}'><!----><span class="Hant" lang="zh" id="mwBUA" data-x-id="mwdw"><span typeof="mw:LanguageVariant" id="mwBUE" data-mw-variant='{"disabled":{"t":"詞典"}}' data-x-id="mweA">詞典</span></span><!----></span></p>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="zh">
+<h4>名詞</h4>
+<p><span class="headword-line"><strong class="Hani headword" lang="zh">詞典</strong>
+</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>使用說明</h4>
+<p>在漢語中，<span class="Hant" lang="zh">詞典</span></p>
+</section>"""
+                }
+            ],
+        )

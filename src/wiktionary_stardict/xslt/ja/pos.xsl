@@ -178,7 +178,7 @@
   <xsl:function name="myfn:section-is-form-of" as="xs:boolean">
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence
-        select="boolean($section//link[@rel = 'mw:PageProp/Category' and
+        select="boolean($section//link[contains-token(@rel, 'mw:PageProp/Category') and
                 (contains(@href, '和語の漢字表記') or ends-with(@href, '定形'))])"/>
   </xsl:function>
 

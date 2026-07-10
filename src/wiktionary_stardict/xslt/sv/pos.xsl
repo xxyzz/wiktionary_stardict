@@ -71,7 +71,7 @@
   <xsl:template match="dl" mode="pos-li">
     <xsl:variable
         name="examples"
-        select="dd[node() and not(em or span[@typeof = 'mw:Transclusion mw:File'])]"/>
+        select="dd[node() and not(em or span[contains-token(@typeof, 'mw:File')])]"/>
     <xsl:variable
         name="linkages"
         select="dd[some $cls in ('template-synonymer', 'template-antonymer',
@@ -98,7 +98,7 @@
   <xsl:function name="myfn:is-form-of" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
-        select="boolean($li/link[@rel = 'mw:PageProp/Category' and
+        select="boolean($li/link[contains-token(@rel, 'mw:PageProp/Category') and
                 contains(@href, 'former#')])"/>
   </xsl:function>
 

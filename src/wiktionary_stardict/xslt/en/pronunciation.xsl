@@ -99,7 +99,7 @@
     </ul>
   </xsl:template>
   <xsl:mode name="zh-pron-li" on-no-match="shallow-copy"/>
-  <xsl:template match="dd[span[@typeof='mw:File']]" mode="zh-pron-li"/>
+  <xsl:template match="dd[span[contains-token(@typeof, 'mw:File')]]" mode="zh-pron-li"/>
 
   <xsl:template match="ul" mode="ja-pron">
     <xsl:variable name="li">
