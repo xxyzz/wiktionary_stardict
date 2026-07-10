@@ -48,14 +48,15 @@
           <xsl:variable name="files" select="$assets($lang)"/>
           <xsl:variable name="lang_code" select="$json-data?gloss_codes($lang)"/>
 
-          <div id="{$lang}" lang="{$lang_code}"
+          <div id="{$lang}"
                class="{if ($lang = 'English') then 'files active' else 'files'}">
             <img class="screenshot" loading="lazy" src="{$lang_code}.png"/>
             <ul>
               <xsl:for-each select="$files?*">
                 <xsl:sort select="?name"/>
                 <li>
-                  <a href="{?url}">{?name}</a>
+                  <a lang="{$lang_code}" href="{?url}">{?name}</a>
+                  <span> {?entries} entries, {?size}</span>
                 </li>
               </xsl:for-each>
             </ul>

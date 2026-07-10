@@ -29,6 +29,7 @@ def convert_release_data(tag: str):
         )
         zst_path = Path("build") / asset["name"]
         zst_name = asset["name"].removesuffix(".tar.zst")
+        zst_size = zst_path.stat().st_size
         dict_folder = Path("build") / zst_name
         dict_folder.mkdir(exist_ok=True)
         with tarfile.open(name=zst_path, mode="r") as tar_f:
@@ -46,7 +47,14 @@ def convert_release_data(tag: str):
             all_ko_data.append(ko_data)
             gloss_code = zst_name.rsplit("-", 1)[-1]
             gloss_name = book_name.rsplit("-", 1)[-1]
-            assets[gloss_name].append({"name": book_name, "url": asset["url"]})
+            assets[gloss_name].append(
+                {
+                    "name": book_name,
+                    "url": asset["url"],
+                    "entries": ko_data["entries"],
+                    "size": convert_size(zst_size),
+                }
+            )
             gloss_codes[gloss_name] = gloss_code
         shutil.rmtree(dict_folder)
     date = release_data["publishedAt"]
@@ -54,6 +62,13 @@ def convert_release_data(tag: str):
     return json.dumps(
         {"date": date[: date.index("T")], "assets": assets, "gloss_codes": gloss_codes}
     )
+
+
+def convert_size(size: int) -> str:
+    kb = size / 1000
+    if kb < 1000:
+        return f"{int(kb)} KB"
+    return f"{int(kb / 1000)} MB"
 
 
 def download_screenshots():
