@@ -11,7 +11,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 license = { text = "GNU General Public License v3 or later (GPLv3+)" }
 dependencies = [
-    "saxonche==12.9.0",
+    "saxonche==12.10.0",
     "requests",
     "python-idzip",
     "libzim",
