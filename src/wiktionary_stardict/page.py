@@ -37,7 +37,8 @@ def convert_release_data(tag: str):
         with tarfile.open(name=zst_path, mode="r") as tar_f:
             tar_f.extractall(path=dict_folder)
         zst_path.unlink()
-        with open(dict_folder / f"{dict_folder.name}.ifo") as f:
+        ifo_path = list(dict_folder.glob("*.ifo"))[0]
+        with ifo_path.open() as f:
             ko_data = {"codes": zst_name}
             book_name = ""
             for line in f:
