@@ -2,7 +2,7 @@ from pathlib import Path
 from sqlite3 import Connection
 
 
-def download_image(res_path: Path, url: str, edition: str, added_files: set[str], zim):
+def download_image(res_path: Path, url: str, edition: str, zim):
     import re
     import urllib.parse
 
@@ -20,24 +20,24 @@ def download_image(res_path: Path, url: str, edition: str, added_files: set[str]
         url = "https:" + url
     elif url.startswith("/"):
         url = f"https://{edition}.wiktionary.org/{url.lstrip('/')}"
-    if filename not in added_files:
+    if not res_path.is_dir():
+        res_path.mkdir()
+    file_path = res_path / filename
+    if not file_path.is_file():
         if zim is not None:
             data = get_zim_asset(zim, filename)
             if data is not None:
-                save_image(res_path, filename, data)
-                added_files.add(filename)
+                with file_path.open("wb") as f:
+                    f.write(data)
                 return
-        r = requests.get(url, headers={"user-agent": get_user_agent()})
-        if r.ok:
-            save_image(res_path, filename, r.content)
-            added_files.add(filename)
-
-
-def save_image(res_path: Path, filename: str, data: bytes):
-    if not res_path.is_dir():
-        res_path.mkdir()
-    with open(res_path / filename, "wb") as f:
-        f.write(data)
+        cache_path = Path(f"build/{edition}_images/{filename}")
+        if cache_path.is_file():
+            cache_path.copy(file_path)
+        else:
+            r = requests.get(url, headers={"user-agent": get_user_agent()})
+            if r.ok:
+                with file_path.open("wb") as f:
+                    f.write(r.content)
 
 
 def get_user_agent() -> str:
@@ -47,10 +47,7 @@ def get_user_agent() -> str:
 
 
 def create_stardict(
-    edition: str,
-    snapshot_date: str,
-    zim_path: Path | None,
-    lemma_lang: str,
+    edition: str, snapshot_date: str, zim_path: Path | None, lemma_lang: str
 ):
     import shutil
     import sqlite3
@@ -63,7 +60,6 @@ def create_stardict(
     from .main import logger
     from .zim import open_zim
 
-    added_files = set()
     zim = None
     if zim_path is not None:
         zim = open_zim(zim_path)
@@ -72,12 +68,12 @@ def create_stardict(
     out_path = Path("build") / folder_name
     if out_path.exists():
         shutil.rmtree(out_path)
-    out_path.mkdir(exist_ok=True)
+    out_path.mkdir()
     db_path = Path(f"build/{lemma_lang}.db")
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
         wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
-            out_path, conn, edition, added_files, zim
+            out_path, conn, edition, zim
         )
         logger.info(f"{folder_name} dict and idx files created")
         synwordcount = create_syn_file(out_path, conn)
@@ -99,6 +95,12 @@ def create_stardict(
         tar_path.unlink()
     with tarfile.open(name=tar_path, mode="x:zst") as tar:
         tar.add(out_path, arcname=".")
+    res_path = out_path / "res"
+    res_dst_path = Path(f"build/{lemma_lang}_res_images")
+    if res_dst_path.is_dir():
+        shutil.rmtree(res_dst_path)
+    if res_path.is_dir():
+        shutil.move(res_path, res_dst_path)
     shutil.rmtree(out_path)
     db_path.unlink()
 
@@ -116,7 +118,7 @@ def convert_number(number: int, use_64_bits: bool = False) -> bytes:
 
 
 def create_dict_idx_file(
-    folder: Path, conn: Connection, edition: str, added_files: set[str], zim
+    folder: Path, conn: Connection, edition: str, zim
 ) -> tuple[int, int, bool]:
     from idzip import IdzipFile
 
@@ -142,7 +144,7 @@ def create_dict_idx_file(
             offset += def_len
             wordcount += 1
             for image in images:
-                download_image(res_path, image, edition, added_files, zim)
+                download_image(res_path, image, edition, zim)
 
     return wordcount, idx_path.stat().st_size, use_64_bits_offset
 
@@ -184,3 +186,40 @@ description=Snapshot {snapshot_date}, Wiktionary license CC BY-SA 4.0
 date={date.today().isoformat()}
 sametypesequence=h
 """)
+
+
+def download_last_release_images(edition: str):
+    import shutil
+    import subprocess
+    import tarfile
+
+    zst_name = f"{edition}_images.tar.zst"
+    subprocess.run(["gh", "release", "download", "-D", "build", "-p", zst_name])
+    zst_path = Path("build") / zst_name
+    if zst_path.is_file():
+        archive_folder = Path(f"build/{edition}_images")
+        if archive_folder.is_dir():
+            shutil.rmtree(archive_folder)
+        with tarfile.open(name=zst_path, mode="r") as tar:
+            tar.extractall("build")
+        zst_path.unlink()
+
+
+def archive_images(edition: str):
+    import shutil
+    import tarfile
+
+    archive_folder = Path(f"build/{edition}_images")
+    if archive_folder.is_dir():
+        shutil.rmtree(archive_folder)
+    archive_folder.mkdir()
+    has_file = False
+    for images_dir in Path("build").glob("*_res_images"):
+        for image in images_dir.iterdir():
+            image.move(archive_folder / image.name)
+            has_file = True
+        shutil.rmtree(images_dir)
+    if has_file:
+        tar_path = archive_folder.with_suffix(".tar.zst")
+        with tarfile.open(name=tar_path, mode="x:zst") as tar:
+            tar.add(archive_folder, arcname=".")

@@ -21,7 +21,9 @@ def convert_release_data(tag: str):
     gloss_codes = {}
     all_ko_data = []
     for asset in release_data["assets"]:
-        if not asset["name"].endswith(".tar.zst"):
+        if not asset["name"].endswith(".tar.zst") or asset["name"].endswith(
+            "_images.tar.zst"
+        ):
             continue
         subprocess.run(
             ["gh", "release", "download", tag, "-D", "build", "-p", asset["name"]],

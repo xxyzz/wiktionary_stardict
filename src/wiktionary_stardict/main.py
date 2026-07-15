@@ -140,7 +140,7 @@ def build(args):
         get_chunk_zst_path,
         get_snapshot_chunks,
     )
-    from .stardict import create_stardict
+    from .stardict import archive_images, create_stardict, download_last_release_images
     from .zim import download_zim
 
     xsl_path = get_xsl_path(args.edition, "main.xsl")
@@ -173,14 +173,15 @@ def build(args):
                     for data in results:
                         if data["lang"] not in conn_dict:
                             conn_dict[data["lang"]] = init_db(data["lang"])
-                        insert_data(
-                            conn_dict[data["lang"]],
-                            data["def"],
-                            data["forms"],
-                            data.get("form_of_only", False),
-                            data.get("form_of_targets", []),
-                            data.get("images", []),
-                        )
+                        if len(data["forms"]) > 0:
+                            insert_data(
+                                conn_dict[data["lang"]],
+                                data["def"],
+                                data["forms"],
+                                data.get("form_of_only", False),
+                                data.get("form_of_targets", []),
+                                data.get("images", []),
+                            )
         ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 
@@ -189,6 +190,7 @@ def build(args):
     for conn in conn_dict.values():
         create_indexes(conn)
         conn.close()
+    download_last_release_images(args.edition)
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
@@ -200,6 +202,7 @@ def build(args):
         )
     if zim_path is not None:
         zim_path.unlink()
+    archive_images(args.edition)
 
 
 def main():
