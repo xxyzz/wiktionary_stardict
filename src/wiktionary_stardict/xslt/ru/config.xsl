@@ -88,7 +88,11 @@
 
   <xsl:variable name="linkage-titles" select="('Синонимы', 'Синоним', 'Антонимы')"/>
 
-  <xsl:variable name="lang-map" select="map {'Китайский иероглиф': 'Китайский'}"/>
+  <xsl:variable
+      name="lang-map"
+      select="map {
+              'Китайский иероглиф': 'Китайский',
+              'Старославянский': 'Церковнославянский'}"/>
   <xsl:function name="myfn:convert-lang" as="xs:string">
     <xsl:param name="lang" as="xs:string"/>
     <xsl:sequence select="if (map:contains($lang-map, $lang))

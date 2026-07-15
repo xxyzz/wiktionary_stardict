@@ -68,7 +68,7 @@ def create_stardict(
     out_path = Path("build") / folder_name
     if out_path.exists():
         shutil.rmtree(out_path)
-    out_path.mkdir()
+    out_path.mkdir(parents=True)
     db_path = Path(f"build/{lemma_lang}.db")
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
