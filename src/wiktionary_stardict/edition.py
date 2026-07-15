@@ -10,7 +10,7 @@ EDITIONS = {
     "de": {"lang": "Deutsch", "zim_xsl": "flexion.xsl", "wiki_name": "Wiktionary"},
     "zh": {"lang": "漢語", "wiki_name": "維基詞典"},
     "ja": {"lang": "日本語", "wiki_name": "ウィクショナリー"},
-    "fi": {"lang": "Suomi", "wiki_name": "Wikisanakirja"},
+    "fi": {"lang": "Suomi", "wiki_name": "Wikisanakirja", "zim_xsl": "liite.xsl"},
     "sv": {"lang": "Svenska", "wiki_name": "Wiktionary"},
     "simple": {"lang": "Simple English", "wiki_name": "Wiktionary"},
 }

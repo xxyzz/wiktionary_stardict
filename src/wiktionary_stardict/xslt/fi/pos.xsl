@@ -33,6 +33,10 @@
           select="distinct-values(($headword-b, $title, $headword-forms,
                   $headword-table-forms, $inflection-forms)[. != ''])"
           as="xs:string*"/>
+      <xsl:variable
+          name="liite-links"
+          select="$headword-p/a[starts-with(@title, 'Liite:Verbitaivutus/')]/@title"
+          as="xs:string*"/>
 
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="fi">
@@ -72,7 +76,8 @@
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
                   'ids': array{
-                    myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)}}"/>
+                    myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)},
+                  'zim_pages': array{$liite-links}}"/>
     </xsl:if>
   </xsl:template>
 
