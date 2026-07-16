@@ -1,7 +1,7 @@
-import unittest
+from unittest import TestCase
 
 
-class XMLTestCase(unittest.TestCase):
+class XMLTestCase(TestCase):
     maxDiff = None
     edition = "en"
     xsl_file = "main.xsl"
