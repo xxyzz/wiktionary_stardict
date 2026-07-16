@@ -29,9 +29,10 @@ def download_chunk(chunk: str, path: Path):
         ],
         check=True,
     )
+    decompress_chunk(path)
 
 
-def decompress_chunk(zst_path: Path) -> Path:
+def decompress_chunk(zst_path: Path):
     import shutil
     from compression import zstd
 
@@ -39,7 +40,6 @@ def decompress_chunk(zst_path: Path) -> Path:
     with zstd.open(zst_path, "rb") as f_in, ndjson_path.open("wb") as f_out:
         shutil.copyfileobj(f_in, f_out)
     zst_path.unlink()
-    return ndjson_path
 
 
 def get_chunk_zst_path(chunk_identifier: str) -> Path:

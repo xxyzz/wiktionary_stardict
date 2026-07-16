@@ -78,15 +78,16 @@ def create_stardict(
         logger.info(f"{folder_name} dict and idx files created")
         synwordcount = create_syn_file(out_path, conn)
         logger.info(f"{folder_name} syn file created")
-    create_ifo_file(
-        out_path,
-        f"{EDITIONS[edition]['wiki_name']} {lemma_lang}-{EDITIONS[edition]['lang']}",
-        wordcount,
-        synwordcount,
-        idxfilesize,
-        snapshot_date,
-        64 if use_64_bits_offset else 32,
-    )
+        create_ifo_file(
+            out_path,
+            EDITIONS[edition]["wiki_name"]
+            + f" {lemma_lang}-{EDITIONS[edition]['lang']}",
+            wordcount,
+            synwordcount,
+            idxfilesize,
+            snapshot_date,
+            64 if use_64_bits_offset else 32,
+        )
     css_path = get_css_path(edition)
     if css_path.exists():
         css_path.copy(out_path / f"{folder_name}.css")
@@ -123,11 +124,14 @@ def create_dict_idx_file(
     from idzip import IdzipFile
 
     from .db import check_def_len, iter_entries
+    from .main import logger
 
     dict_path = folder / (folder.name + ".dict.dz")
     idx_path = folder / (folder.name + ".idx")
     res_path = folder / "res"
     use_64_bits_offset = check_def_len(conn)
+    if use_64_bits_offset:
+        logger.warning(f"{folder.name} uses 64 bits offset")
     with IdzipFile(str(dict_path), "wb") as dict_f, idx_path.open("wb") as idx_f:
         offset = 0
         wordcount = 0
@@ -201,7 +205,7 @@ def download_last_release_images(edition: str):
         if archive_folder.is_dir():
             shutil.rmtree(archive_folder)
         with tarfile.open(name=zst_path, mode="r") as tar:
-            tar.extractall("build")
+            tar.extractall(archive_folder)
         zst_path.unlink()
 
 
@@ -223,3 +227,4 @@ def archive_images(edition: str):
         tar_path = archive_folder.with_suffix(".tar.zst")
         with tarfile.open(name=tar_path, mode="x:zst") as tar:
             tar.add(archive_folder, arcname=".")
+        shutil.rmtree(archive_folder)

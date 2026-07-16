@@ -134,12 +134,7 @@ def build(args):
     from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
     from .redirect import download_redirect_db
-    from .snapshot import (
-        decompress_chunk,
-        download_chunk,
-        get_chunk_zst_path,
-        get_snapshot_chunks,
-    )
+    from .snapshot import download_chunk, get_chunk_zst_path, get_snapshot_chunks
     from .stardict import archive_images, create_stardict, download_last_release_images
     from .zim import download_zim
 
@@ -158,9 +153,9 @@ def build(args):
     for chunk_idx in range(chunk_num):
         chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
-        if not chunk_zst_path.exists():
+        ndjson_path = chunk_zst_path.with_suffix(".ndjson")
+        if not ndjson_path.exists():
             download_chunk(chunk_identifier, chunk_zst_path)
-        ndjson_path = decompress_chunk(chunk_zst_path)
         logger.info(f"start chunk {chunk_identifier}")
         with ndjson_path.open() as f:
             with ProcessPoolExecutor(

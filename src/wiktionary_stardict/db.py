@@ -58,7 +58,7 @@ def create_indexes(conn: Connection):
 
 def check_def_len(conn: Connection) -> bool:
     for (use_64_bits,) in conn.execute("""
-    SELECT sum(octet_length(e.definition)) > 0xFFFF_FFFF
+    SELECT sum(octet_length(e.definition)) > 0xFFFFFFFF
     FROM entry e
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
