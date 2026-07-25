@@ -42,7 +42,7 @@ jobs:
       GH_TELEMETRY: false
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
 
       - name: Get date
         id: get-date
@@ -76,7 +76,7 @@ jobs:
       GH_TELEMETRY: false
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
       - run: gh release edit ${{ needs.build.outputs.tag }} --draft=false --latest
       - run: |
           python -m pip install .[koreader]
