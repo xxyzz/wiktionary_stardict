@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet
+    version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <!-- https://nl.wiktionary.org/wiki/WikiWoordenboek:Statistieken_van_het_Nederlandse_WikiWoordenboek -->
+  <xsl:variable
+      name="allowed-languages"
+      select="('Nederlands',
+              'Spaans',
+              'Frans',
+              'Noors',
+              'Nynorsk',
+              'Engels',
+              'Tsjechisch',
+              'Turks',
+              'Duits',
+              'Deens',
+              'Zweeds',
+              'IJslands',
+              'Italiaans',
+              'Russisch',
+              'Pennsylvania-Duits',
+              'Afrikaans',
+              'Indonesisch',
+              'Latijn',
+              'Nedersaksisch',
+              'Slowaaks',
+              'Pools',
+              'Limburgs',
+              'Catalaans',
+              'Vietnamees',
+              'Portugees',
+              'Japans',
+              'Lets',
+              'Esperanto',
+              'Hongaars',
+              'Grieks',
+              'Bulgaars',
+              'Welsh',
+              'Fins')"/>
+</xsl:stylesheet>
