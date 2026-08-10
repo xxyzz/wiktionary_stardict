@@ -15,9 +15,13 @@
         name="forms"
         select="if (.//section[@data-mw and myfn:is-template(@data-mw,
                 ('-deadjc-decl', '-deadjc-decl-stellend'))]) then
-                myfn:deadjc-decl-forms(.//table[contains-token(@class, 'infoboxlinks')])
+                  myfn:deadjc-decl-forms(.//table
+                  [contains-token(@class, 'infoboxlinks')])
+                else if (.//table[@data-mw and
+                  myfn:is-template-prefix(@data-mw, '-frverb-')]) then
+                  myfn:frverb-forms(.//table[contains-token(@class, 'infoboxlinks')])
                 else myfn:common-table-forms(.//table
-                [contains-token(@class, 'infoboxlinks')])"
+                  [contains-token(@class, 'infoboxlinks')])"
         as="xs:string*"/>
     <xsl:sequence select="array{distinct-values($forms[not(. = ('', '-', '—'))])}"/>
   </xsl:template>
@@ -44,5 +48,12 @@
                 if (matches($form, '\(.+\)')) then
                 (replace($form, '\(.+\)', ''), replace($form, '[()]', ''))
                 else $form"/>
+  </xsl:function>
+
+  <!-- Sjabloon:-frverb- -->
+  <xsl:function name="myfn:frverb-forms" as="xs:string*">
+    <xsl:param name="tables" as="element(table)*"/>
+    <xsl:sequence
+        select="$tables//td[not(small)]/myfn:get-element-forms(.)"/>
   </xsl:function>
 </xsl:stylesheet>

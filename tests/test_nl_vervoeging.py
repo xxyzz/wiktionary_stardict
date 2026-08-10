@@ -46,3 +46,18 @@ class NlVervoegingTestCase(XMLTestCase):
         self.assertEqual(
             data, ["angstfreister", "angstfreiester", "angstfreiste", "angstfreieste"]
         )
+
+    def test_frverb(self):
+        data = self.transform(
+            """<!DOCTYPE html>
+<html>
+<head><title>rappliquer/vervoeging</title></head>
+<body>
+<section><h2>Frans</h2>
+<table class="infoboxlinks"
+       data-mw='{"parts":[{"template":{"target":{"wt":"-frverb-1-"}}}]}'>
+<tbody><tr>
+<td><small>je/j'</small></td><td><a>rapplique</a></td>
+</tr></tbody></table></section></body></html>"""
+        )
+        self.assertEqual(data, ["rapplique"])

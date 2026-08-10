@@ -109,3 +109,41 @@ class NlFormsTestCase(XMLTestCase):
 </section></section></section></body></html>""",
             [{"forms": ["albánský", "albánštější", "nejalbánštější"]}],
         )
+
+    def test_parenthesis_in_td(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>dood</title></head>
+<body>
+<section><h2><i>Nederlands</i></h2>
+<section><h4><i>Woordherkomst en -opbouwx</i></h4>
+<table class="infobox" data-mw='{"parts":[{"template":{"target":{"wt":"-nlnoun-"}}}]}'>
+<tbody><tr>
+<td class="infoboxrijhoofding">naamwoord</td>
+<td>dood</td>
+<td>(<a>doden</a>) <a><span title="zie Opmerkingen">*</span></a></td></tr>
+</tbody></table></section>
+<section><h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>dood</b></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["dood", "doden"]}],
+        )
+
+    def test_ignore_number_tables(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>drie</title></head>
+<body>
+<section><h2><i>Nederlands</i></h2>
+<table class="infobox">
+<tbody><tr><th><a>Telwoord</a> (nl)</th></tr>
+<tr><td><a>0</a></td></tr></tbody></table>
+<section><h4><i>Hoofdtelwoord</i></h4>
+<p><b>drie</b></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["drie"]}],
+        )

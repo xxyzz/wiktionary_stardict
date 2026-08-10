@@ -49,6 +49,16 @@
                 ends-with(normalize-space($wt), $suffix))"/>
   </xsl:function>
 
+  <xsl:function name="myfn:is-template-prefix" as="xs:boolean">
+    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="prefixes" as="xs:string*"/>
+    <xsl:variable name="json" select="parse-json($data-mw)"/>
+    <xsl:sequence
+        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+                satisfies (some $prefix in $prefixes satisfies
+                starts-with(normalize-space($wt), $prefix))"/>
+  </xsl:function>
+
   <xsl:function name="myfn:get-element-forms" as="xs:string*">
     <xsl:param name="input" as="element()*"/>
     <xsl:for-each select="$input">

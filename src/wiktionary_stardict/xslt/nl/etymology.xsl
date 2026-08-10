@@ -8,7 +8,8 @@
   <xsl:template match="section" mode="etymology">
     <xsl:param name="pos-index"/>
     <xsl:variable name="matched-li" select="ul/li[text()[contains(., $pos-index)]]"/>
-    <xsl:variable name="use-li" select="if ($matched-li) then $matched-li else ul/li"/>
+    <xsl:variable name="use-li"
+                  select="if ($matched-li) then $matched-li else ul/li[not(table)]"/>
     <xsl:if test="$use-li">
       <section>
         <xsl:apply-templates select="h4" mode="section-heading"/>

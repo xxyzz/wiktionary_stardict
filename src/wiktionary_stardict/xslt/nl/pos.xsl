@@ -11,6 +11,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -26,7 +27,8 @@
       <xsl:variable
           name="forms-table"
           select="(./table|preceding-sibling::section//table|preceding-sibling::table)
-                  [contains-token(@class, 'infobox')][last()]"
+                  [contains-token(@class, 'infobox') and
+                  not(.//th/a[text() = ('Rangtelwoord', 'Telwoord')])][last()]"
           as="element(table)?"/>
       <xsl:variable
           name="table-td"
@@ -36,7 +38,9 @@
         <xsl:apply-templates select="$table-td" mode="filter-td-ipa"/>
       </xsl:variable>
       <xsl:variable
-          name="table-forms" select="myfn:get-element-forms($filtered-table-td)"
+          name="table-forms"
+          select="myfn:get-element-forms(for $td in $filtered-table-td return
+                  if ($td/a) then $td/a else $td)"
           as="xs:string*"/>
       <!-- Sjabloon:-conjug- Sjabloon:-decl- -->
       <xsl:variable
@@ -48,7 +52,7 @@
       <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-b, $title, $table-forms,
-                  $inflection-section-forms)[not(. = ('', '-', '—'))])"
+                  $inflection-section-forms)[not(. = ('', '-', '—', '*'))])"
           as="xs:string*"/>
       <xsl:variable
           name="vervoeging-links"
@@ -71,6 +75,10 @@
           <xsl:apply-templates
               select="section[normalize-space(h5) = 'Opmerkingen']"
               mode="usage-notes"/>
+          <xsl:apply-templates
+              select="section[normalize-space(h5) = ('Synoniemen', 'Antoniemen',
+                      'Schrijfwijzen', 'Spreekwoorden', 'Uitdrukkingen en gezegden')]"
+              mode="linkage"/>
           <xsl:apply-templates
               select="preceding-sibling::section
                       [normalize-space(h4) = 'Woordherkomst en -opbouw']"
