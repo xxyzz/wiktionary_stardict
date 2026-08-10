@@ -10,6 +10,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -20,7 +21,7 @@
           as="xs:string*"/>
       <xsl:variable
           name="pos-index"
-          select="normalize-space(p/b[matches(., '^\[[A-Z]\]$')][1])"
+          select="normalize-space(p/(b|text())[matches(., '\[[A-Z]\]')][1])"
           as="xs:string"/>
       <xsl:variable
           name="forms-table"
@@ -68,8 +69,14 @@
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h5|h6) = 'Opmerkingen']"
+              select="section[normalize-space(h5) = 'Opmerkingen']"
               mode="usage-notes"/>
+          <xsl:apply-templates
+              select="preceding-sibling::section
+                      [normalize-space(h4) = 'Woordherkomst en -opbouw']"
+              mode="etymology">
+            <xsl:with-param name="pos-index" select="$pos-index"/>
+          </xsl:apply-templates>
         </section>
       </xsl:variable>
 
