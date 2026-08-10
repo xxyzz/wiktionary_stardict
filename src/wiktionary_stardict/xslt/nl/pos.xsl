@@ -86,7 +86,7 @@
               mode="linkage"/>
           <xsl:apply-templates
               select="preceding-sibling::section
-                      [normalize-space(h4) = 'Woordherkomst en -opbouw']"
+                      [normalize-space(h5) = 'Woordherkomst en -opbouw']"
               mode="etymology">
             <xsl:with-param name="pos-index" select="$pos-index"/>
           </xsl:apply-templates>
@@ -103,8 +103,9 @@
 
       <xsl:variable name="form-of-only" as="xs:boolean">
         <xsl:sequence
-            select="boolean(every $li in ol/li[myfn:is-gloss-li(.)]
-                    satisfies myfn:li-is-form-of($li))"/>
+            select="boolean(myfn:section-is-form-of(.) or (
+                    every $li in ol/li[myfn:is-gloss-li(.)]
+                    satisfies myfn:li-is-form-of($li)))"/>
       </xsl:variable>
 
       <xsl:sequence
@@ -167,8 +168,20 @@
                 not(contains-token($li/@class, 'mw-empty-elt')))"/>
   </xsl:function>
 
+  <xsl:function name="myfn:section-is-form-of" as="xs:boolean">
+    <xsl:param name="section" as="element(section)"/>
+    <!-- Categorie:Werkwoordsvormsjablonen -->
+    <xsl:sequence
+        select="boolean($section/table[@data-mw and myfn:is-template-prefix(@data-mw,
+                ('1ps', '2ps', 'aanv-w', 'onv-d', 'ott-', 'ovt-', 'tps', 'volt-d'))] or
+                $section/p[@data-mw and myfn:is-template-suffix(@data-mw,
+                ('-lv-hv', '-twt', '-twt-hv', '-twt-bv', '-vt', '-vt-onr', '-vt-onr-bv',
+                '-vt-onr-hv', '-inf'))])"/>
+  </xsl:function>
+
   <xsl:function name="myfn:li-is-form-of" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
+    <!-- Categorie:Bijvoeglijknaamwoordsjablonen -->
     <xsl:sequence
         select="boolean($li//link[contains-token(@rel, 'mw:PageProp/Category') and
                 (some $prefix in ('Zelfstandignaamwoordsvorm', 'Werkwoordsvorm',

@@ -11,7 +11,7 @@ class NlEtymologyTestCase(XMLTestCase):
 <head><title>hond</title></head>
 <body>
 <section><h2><i>Nederlands</i></h2>
-<section><h4><i>Woordherkomst en -opbouw</i></h4>
+<section><h5><i>Woordherkomst en -opbouw</i></h5>
 <ul><li>[A] etymology a</li><li>[B] etymology b</li></ul>
 </section>
 <section><h4><i>Zelfstandig naamwoord</i></h4>

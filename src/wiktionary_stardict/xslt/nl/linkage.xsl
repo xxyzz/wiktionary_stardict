@@ -11,7 +11,8 @@
       <section>
         <xsl:apply-templates select="h5" mode="section-heading"/>
         <ul>
-          <xsl:apply-templates select=".//ul/li[position() le 6]" mode="clean-content"/>
+          <xsl:apply-templates
+              select="(.//ul/li)[position() le 6]" mode="clean-content"/>
         </ul>
       </section>
     </xsl:if>

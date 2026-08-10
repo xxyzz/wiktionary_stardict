@@ -128,3 +128,28 @@ class NlPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_1ps_ij(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>ijsbeer</title></head>
+<body>
+<section><h2><i>Nederlands</i></h2>
+<section><h4><i>Werkwoord</i></h4>
+<table class="infobox" data-mw='{"parts":[{"template":{"target":{"wt":"1ps-ij"}}}]}'>
+<tbody><tr><th>vervoeging van</th></tr>
+<tr>
+<td><a title="ijsberen/vervoeging">ijsberen</a></td></tr>
+</tbody></table>
+<p><b>ijsbeer</b></p>
+<ol><li>eerste persoon enkelvoud tegenwoordige tijd van <a>ijsberen</a><br/>
+<dl><dd><ul><li><i>Ik <b>ijsbeer</b>.</i><span> </span></li></ul></dd></dl></li>
+<li>gebiedende wijs van <a>ijsberen</a><br/>
+<dl><dd><ul><li><i><b>IJsbeer!</b></i><span> </span></li></ul></dd></dl></li>
+<li><i>(bij inversie)</i> tweede persoon enkelvoud tegenwoordige tijd van <a>ijsberen</a><br/>
+<dl><dd><ul><li><i><b>IJsbeer je?</b></i><span> </span>
+<link rel="mw:PageProp/Category" href="./Categorie:Werkwoordsvorm_in_het_Nederlands"/><link rel="mw:PageProp/Category" href="./Categorie:1ps"/></li></ul></dd></dl></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["ijsberen"]}],
+        )

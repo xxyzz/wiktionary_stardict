@@ -12,7 +12,7 @@
                   select="if ($matched-li) then $matched-li else ul/li[not(table)]"/>
     <xsl:if test="$use-li">
       <section>
-        <xsl:apply-templates select="h4" mode="section-heading"/>
+        <xsl:apply-templates select="h5" mode="section-heading"/>
         <ul>
           <xsl:apply-templates select="$use-li" mode="clean-content"/>
         </ul>
