@@ -50,8 +50,13 @@
                   myfn:get-element-forms(.)"
           as="xs:string*"/>
       <xsl:variable
+          name="spelling-forms"
+          select="myfn:get-spelling-forms(
+                  section[normalize-space(h5) = 'Schrijfwijzen'])"
+          as="xs:string*"/>
+      <xsl:variable
           name="unique-forms"
-          select="distinct-values(($headword-b, $title, $table-forms,
+          select="distinct-values(($headword-b, $title, $table-forms, $spelling-forms,
                   $inflection-section-forms)[not(. = ('', '-', '—', '*'))])"
           as="xs:string*"/>
       <xsl:variable
@@ -193,4 +198,10 @@
 
   <xsl:mode name="filter-td-ipa" on-no-match="shallow-copy"/>
   <xsl:template match="span[contains-token(@class, 'IPAtekst')]" mode="filter-td-ipa"/>
+
+  <xsl:function name="myfn:get-spelling-forms" as="xs:string*">
+    <xsl:param name="section" as="element(section)?"/>
+    <xsl:sequence
+        select="$section/ul/li/a[@rel = 'mw:WikiLink'] ! normalize-space(.)"/>
+  </xsl:function>
 </xsl:stylesheet>

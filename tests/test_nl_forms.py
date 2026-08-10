@@ -147,3 +147,57 @@ class NlFormsTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"forms": ["drie"]}],
         )
+
+    def test_spelling_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>color</title></head>
+<body>
+<section><h2><i>Engels</i></h2>
+<section><h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>color</b></p>
+<ol><li>gloss</li></ol>
+<section><h5><i>Schrijfwijzen</i></h5>
+<ul><li>(<i>Brits Engels</i>) <a rel="mw:WikiLink">colour</a></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "forms": ["color", "colour"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
+<h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>color</b></p>
+<ol><li>gloss</li></ol>
+<section><h4><i>Schrijfwijzen</i></h4>
+<ul><li>(<i>Brits Engels</i>) colour</li></ul>
+</section></section>""",
+                }
+            ],
+        )
+
+    def test_not_spelling_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Jura</title></head>
+<body>
+<section><h2><i>Nederlands</i></h2>
+<section><h4><i>Eigennaam</i></h4>
+<p><b>Jura</b></p>
+<ol><li>gloss</li></ol>
+<section><h5><i>Schrijfwijzen</i></h5>
+<ul><li><span>In specialistische</span><a rel="mw:ExtLink nofollow">zie hier</a><span>.</span></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "forms": ["Jura"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
+<h4><i>Eigennaam</i></h4>
+<p><b>Jura</b></p>
+<ol><li>gloss</li></ol>
+<section><h4><i>Schrijfwijzen</i></h4>
+<ul><li><span>In specialistische</span>zie hier<span>.</span></li></ul>
+</section></section>""",
+                }
+            ],
+        )
