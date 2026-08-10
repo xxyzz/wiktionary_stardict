@@ -24,7 +24,12 @@ class NlFormsTestCase(XMLTestCase):
 <p><b>angstfrei</b></p>
 <ol><li>gloss</li></ol>
 </section></section></body></html>""",
-            [{"forms": ["angstfrei", "am angstfreiesten", "am angstfreisten"]}],
+            [
+                {
+                    "forms": ["angstfrei", "am angstfreiesten", "am angstfreisten"],
+                    "zim_pages": ["angstfrei/verbuiging"],
+                }
+            ],
         )
 
     def test_headword_stress_form(self):

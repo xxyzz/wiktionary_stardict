@@ -1,7 +1,7 @@
 from utils import XMLTestCase
 
 
-class FiConjTestCase(XMLTestCase):
+class FiLiiteTestCase(XMLTestCase):
     edition = "fi"
     xsl_file = "liite.xsl"
 

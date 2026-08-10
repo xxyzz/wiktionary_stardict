@@ -13,5 +13,9 @@ EDITIONS = {
     "fi": {"lang": "Suomi", "wiki_name": "Wikisanakirja", "zim_xsl": "liite.xsl"},
     "sv": {"lang": "Svenska", "wiki_name": "Wiktionary"},
     "simple": {"lang": "Simple English", "wiki_name": "Wiktionary"},
-    "nl": {"lang": "Nederlands", "wiki_name": "WikiWoordenboek"},
+    "nl": {
+        "lang": "Nederlands",
+        "wiki_name": "WikiWoordenboek",
+        "zim_xsl": "vervoeging.xsl",
+    },
 }

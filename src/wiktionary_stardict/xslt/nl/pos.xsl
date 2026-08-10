@@ -18,10 +18,13 @@
           select="p/b[not(matches(., '^\[[A-Z]\]$'))] ! normalize-space(.)"
           as="xs:string*"/>
       <xsl:variable
-          name="table-td"
+          name="forms-table"
           select="(./table|preceding-sibling::section//table|preceding-sibling::table)
-                  [contains-token(@class, 'infobox')][last()]//
-                  td[not(contains-token(@class, 'infoboxrijhoofding'))]"
+                  [contains-token(@class, 'infobox')][last()]"
+          as="element(table)?"/>
+      <xsl:variable
+          name="table-td"
+          select="$forms-table//td[not(contains-token(@class, 'infoboxrijhoofding'))]"
           as="element(td)*"/>
       <xsl:variable name="filtered-table-td" as="element(td)*">
         <xsl:apply-templates select="$table-td" mode="filter-td-ipa"/>
@@ -40,6 +43,13 @@
           name="unique-forms"
           select="distinct-values(($headword-b, $title, $table-forms,
                   $inflection-section-forms)[not(. = ('', '-', '—'))])"
+          as="xs:string*"/>
+      <xsl:variable
+          name="vervoeging-links"
+          select="distinct-values($forms-table//
+                  td[contains-token(@class, 'infoboxrijhoofding')]/
+                  a[some $suffix in ('/vervoeging', '/verbuiging')
+                  satisfies ends-with(@title, $suffix)]/@title)"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
@@ -74,7 +84,8 @@
                   'images': array{$images},
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
-                  'form_of_only': $form-of-only}"/>
+                  'form_of_only': $form-of-only,
+                  'zim_pages': array{$vervoeging-links}}"/>
     </xsl:if>
   </xsl:template>
 
