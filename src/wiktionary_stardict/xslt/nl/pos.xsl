@@ -9,6 +9,7 @@
 
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -17,6 +18,10 @@
           name="headword-b"
           select="p/b[not(matches(., '^\[[A-Z]\]$'))] ! normalize-space(.)"
           as="xs:string*"/>
+      <xsl:variable
+          name="pos-index"
+          select="normalize-space(p/b[matches(., '^\[[A-Z]\]$')][1])"
+          as="xs:string"/>
       <xsl:variable
           name="forms-table"
           select="(./table|preceding-sibling::section//table|preceding-sibling::table)
@@ -55,6 +60,12 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="nl">
           <xsl:apply-templates select="h4" mode="section-heading"/>
+          <xsl:apply-templates
+              select="preceding-sibling::section
+                      [normalize-space(h5) = 'Uitspraak'][last()]"
+              mode="pron">
+            <xsl:with-param name="pos-index" select="$pos-index"/>
+          </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space(h5|h6) = 'Opmerkingen']"
