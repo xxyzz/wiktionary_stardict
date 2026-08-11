@@ -35,7 +35,7 @@
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select="section[normalize-space(h4 | h5 | h6) =
+            select="section[normalize-space((h4|h5|h6)[1]) =
                     ('变格', '變格', '变位', '变形', '变位形式', '變位', '詞形變化', '词形变化',
                     '輔音變化', '辅音变化', '語尾變化', '活用', '活用型', '活用形', '賓格',
                     '屈折', '屈折形式', '曲折形式', '軟化變形', '詞首音變')]"
@@ -56,20 +56,20 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="zh">
           <xsl:apply-templates
-              select="h3 | h4 | h5 | h6" mode="section-heading"/>
+              select="(h3 | h4 | h5 | h6)[1]" mode="section-heading"/>
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
                       [some $section-title in
                       ('發音', '发音', '读音', '讀音', '注音', '讀法') satisfies
-                      starts-with(normalize-space(h3|h4|h5|h6), $section-title)]
+                      starts-with(normalize-space((h3|h4|h5|h6)[1]), $section-title)]
                       [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol | table" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) =
+              select="section[normalize-space((h4|h5|h6)[1]) =
                       ('使用說明', '用法說明', '用法说明', '使用注意', '使用註解', '使用説明',
                       '使用備注', '使用说明', '用法')]"
               mode="usage-notes"/>
@@ -83,7 +83,7 @@
                       parent::section/preceding-sibling::section)
                       [some $section-title in ('詞源', '词源', '典故', '語源', '语源',
                       '字源', '詞語', '組成', '出處', '出处') satisfies
-                      starts-with(normalize-space(h3|h4|h5|h6), $section-title)]
+                      starts-with(normalize-space((h3|h4|h5|h6)[1]), $section-title)]
                       [last()]"
               mode="etymology"/>
         </section>

@@ -25,7 +25,7 @@
         <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
               select="html/body/section[
-                      myfn:combine-lang(normalize-space(h2)) = $allowed-languages]"
+                      myfn:combine-lang(normalize-space(h2[1])) = $allowed-languages]"
               mode="language"/>
         </xsl:variable>
         <xsl:sequence select="array{$results}"/>

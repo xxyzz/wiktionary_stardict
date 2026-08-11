@@ -34,8 +34,8 @@
     <xsl:variable
         name="sections"
         select="$pos-section/(section | following-sibling::section)
-                [normalize-space(h3|h4|h5|h6) = $titles]"/>
-    <xsl:for-each-group select="$sections" group-by="normalize-space(h3|h4|h5|h6)">
+                [normalize-space((h3|h4|h5|h6)[1]) = $titles]"/>
+    <xsl:for-each-group select="$sections" group-by="normalize-space((h3|h4|h5|h6)[1])">
       <xsl:sequence select="current-group()[1]"/>
     </xsl:for-each-group>
   </xsl:function>

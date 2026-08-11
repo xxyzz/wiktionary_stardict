@@ -42,7 +42,7 @@
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(.)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select=". | section[normalize-space(h4 | h5 | h6) = ('活用', 'サ変動詞')]"
+            select=". | section[normalize-space((h4|h5|h6)[1]) = ('活用', 'サ変動詞')]"
             mode="conj">
           <xsl:with-param name="language" select="$language"/>
         </xsl:apply-templates>
@@ -56,19 +56,19 @@
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="ja">
           <xsl:apply-templates
-              select="h3 | h4 | h5 | h6" mode="section-heading"/>
+              select="(h3 | h4 | h5 | h6)[1]" mode="section-heading"/>
           <xsl:apply-templates
               select="(ancestor::section | section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
                       [some $prefix in ('発音', '音価')
-                      satisfies starts-with(normalize-space(h3|h4|h5|h6), $prefix)]
+                      satisfies starts-with(normalize-space((h3|h4|h5|h6)[1]), $prefix)]
                       [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ul | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) =
+              select="section[normalize-space((h4|h5|h6)[1]) =
                       ('用法', '注意点', '留意点', '注意', '備考', '表記', '補足', '補足')]"
               mode="usage-notes"/>
           <xsl:apply-templates select="myfn:get-alt-form-section(.)[1]" mode="linkage"/>
@@ -81,7 +81,7 @@
                       following-sibling::section |
                       parent::section/preceding-sibling::section)
                       [some $prefix in ('語源', '由来', '字源', '出典', '語誌') satisfies
-                      starts-with(normalize-space(h3|h4|h5|h6), $prefix)][last()]"
+                      starts-with(normalize-space((h3|h4|h5|h6)[1]), $prefix)][last()]"
               mode="etymology"/>
         </section>
       </xsl:variable>
