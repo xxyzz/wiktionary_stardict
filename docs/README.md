@@ -5,7 +5,7 @@
 * [XPath and XQuery Functions and Operators 3.1](https://www.w3.org/TR/xpath-functions)
 * [MediaWiki DOM Spec](https://www.mediawiki.org/wiki/Specs/HTML)
 * [Wikimedia Enterprise API](https://enterprise.wikimedia.com/docs)
-* [RESTBase REST API](https://en.wiktionary.org/wiki/Special:RestSandbox/wmf-restbase)
+* [Wikimedia REST API](https://en.wiktionary.org/w/index.php?api=wmf-rest%2Fv1&title=Special%3ARestSandbox)
 * [Parsoid API](https://www.mediawiki.org/wiki/Parsoid/API)
 * Parsoid HTML https://en.wiktionary.org/w/rest.php/v1/page/tee/html
 * [Saxon 13 documentation](https://www.saxonica.com/documentation13/documentation.xml)

@@ -153,3 +153,35 @@ class NlPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"form_of_only": True, "form_of_targets": ["ijsberen"]}],
         )
+
+    def test_two_pos_indexes(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>bogan</title></head>
+<body>
+<section><h2><i>Nederlands</i></h2>
+<section><h5><i>Woordherkomst en -opbouw</i></h5>
+<ul><li>[A] etymology a</li><li>[B] etymology b</li></ul>
+</section>
+<section><h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>[A] <span>bogan</span></b></p>
+<ol><li>gloss a</li></ol>
+<p><b>[B] <span>bogan</span></b></p>
+<ol><li>gloss b</li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "forms": ["bogan"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
+<h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>[A] <span>bogan</span></b></p>
+<ol><li>gloss a</li></ol>
+<p><b>[B] <span>bogan</span></b></p>
+<ol><li>gloss b</li></ol>
+<section><h4><i>Woordherkomst en -opbouw</i></h4>
+<ul><li>[A] etymology a</li><li>[B] etymology b</li></ul>
+</section></section>""",
+                }
+            ],
+        )

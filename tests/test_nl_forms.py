@@ -201,3 +201,49 @@ class NlFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_two_spelling_forms_sections(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Schmok</title></head>
+<body>
+<section><h2><i>Pennsylvania-Duits</i></h2>
+<section><h5><i>Woordafbreking</i></h5>
+<ul><li><span>Schmok</span></li></ul>
+<table class="infobox"><tbody>
+<tr>
+<td class="infoboxrijhoofding"><i>nominatief</i></td>
+<td>en Schmok</td><td>der Schmok</td><td>- - -</td><td>- - -</td></tr>
+</tbody></table></section>
+<section><h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>Schmok</b></p>
+<ol><li>gloss</li></ol>
+<section><h5><i>Schrijfwijzen</i></h5>
+<ul><li><a rel="mw:WikiLink">Schmook</a></li></ul>
+</section>
+<section><h5><i>Schrijfwijzen</i></h5>
+<ul><li><a rel="mw:WikiLink">Gschmok</a></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "forms": [
+                        "Schmok",
+                        "en Schmok",
+                        "der Schmok",
+                        "Schmook",
+                        "Gschmok",
+                    ],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
+<h4><i>Zelfstandig naamwoord</i></h4>
+<p><b>Schmok</b></p>
+<ol><li>gloss</li></ol>
+<section><h4><i>Schrijfwijzen</i></h4>
+<ul><li>Schmook</li></ul>
+</section>
+<section><h4><i>Schrijfwijzen</i></h4>
+<ul><li>Gschmok</li></ul>
+</section></section>""",
+                }
+            ],
+        )

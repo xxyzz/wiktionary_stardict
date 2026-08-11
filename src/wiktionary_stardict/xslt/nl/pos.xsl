@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
@@ -18,12 +19,14 @@
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable
           name="headword-b"
-          select="p/b[not(matches(., '^\[[A-Z]\]$'))] ! normalize-space(.)"
+          select="p/b[not(matches(., '\[[A-Z]\]'))] ! normalize-space(.)"
           as="xs:string*"/>
       <xsl:variable
           name="pos-index"
-          select="normalize-space(p/(b|text())[matches(., '\[[A-Z]\]')][1])"
-          as="xs:string"/>
+          select="let $nodes := p/(b|text())[matches(., '\[[A-Z]\]')] return
+                  if (count($nodes) = 1) then
+                  analyze-string($nodes, '\[[A-Z]\]')/fn:match[1] else ()"
+          as="xs:string?"/>
       <xsl:variable
           name="forms-table"
           select="(./table|preceding-sibling::section//table|preceding-sibling::table)
@@ -57,7 +60,7 @@
       <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-b, $title, $table-forms, $spelling-forms,
-                  $inflection-section-forms)[not(. = ('', '-', '—', '*'))])"
+                  $inflection-section-forms)[not(. = ('', '-', '—', '*', '- - -'))])"
           as="xs:string*"/>
       <xsl:variable
           name="vervoeging-links"
@@ -213,7 +216,7 @@
   <xsl:template match="span[contains-token(@class, 'IPAtekst')]" mode="filter-td-ipa"/>
 
   <xsl:function name="myfn:get-spelling-forms" as="xs:string*">
-    <xsl:param name="section" as="element(section)?"/>
+    <xsl:param name="section" as="element(section)*"/>
     <xsl:sequence
         select="$section/ul/li/a[@rel = 'mw:WikiLink'] ! normalize-space(.)"/>
   </xsl:function>
