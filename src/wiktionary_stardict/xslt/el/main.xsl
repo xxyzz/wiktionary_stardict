@@ -46,4 +46,8 @@
     <xsl:param name="h2" as="element(h2)"/>
     <xsl:sequence select="normalize-space(substring-before($h2, '('))"/>
   </xsl:function>
+
+  <!-- sound file -->
+  <xsl:template match="span[contains-token(@typeof, 'mw:Extension/phonos')]"
+                mode="clean-content"/>
 </xsl:stylesheet>

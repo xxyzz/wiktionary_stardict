@@ -10,6 +10,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="inflection.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -35,6 +36,10 @@
       <section class="mw-parser-output" dir="ltr" lang="el">
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="section-heading"/>
+        <xsl:apply-templates
+              select="preceding-sibling::section
+                      [h3[span[contains-token(@class, 'pronunciation')]]][1]"
+              mode="pron"/>
         <xsl:apply-templates select="p | ol | ul" mode="pos-li"/>
       </section>
     </xsl:variable>

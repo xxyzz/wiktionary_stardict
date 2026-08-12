@@ -75,7 +75,7 @@
           <xsl:apply-templates select="h4" mode="section-heading"/>
           <xsl:apply-templates
               select="preceding-sibling::section
-                      [normalize-space(h5) = 'Uitspraak'][last()]"
+                      [normalize-space(h5) = 'Uitspraak'][1]"
               mode="pron">
             <xsl:with-param name="pos-index" select="$pos-index"/>
           </xsl:apply-templates>
