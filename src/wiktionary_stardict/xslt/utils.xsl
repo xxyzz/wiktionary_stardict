@@ -30,13 +30,18 @@
     </xsl:for-each>
   </xsl:function>
 
+  <xsl:function name="myfn:convert-template-name" as="xs:string">
+    <xsl:param name="name" as="xs:string"/>
+    <xsl:sequence select="replace(normalize-space($name), '_', ' ')"/>
+  </xsl:function>
+
   <xsl:function name="myfn:is-template" as="xs:boolean">
     <xsl:param name="data-mw" as="xs:string"/>
     <xsl:param name="templates" as="xs:string*"/>
     <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
         select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
-                satisfies normalize-space($wt) = $templates"/>
+                satisfies myfn:convert-template-name($wt) = $templates"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-template-suffix" as="xs:boolean">
@@ -46,7 +51,7 @@
     <xsl:sequence
         select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies (some $suffix in $suffixes satisfies
-                ends-with(normalize-space($wt), $suffix))"/>
+                ends-with(myfn:convert-template-name($wt), $suffix))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-template-prefix" as="xs:boolean">
@@ -56,7 +61,18 @@
     <xsl:sequence
         select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies (some $prefix in $prefixes satisfies
-                starts-with(normalize-space($wt), $prefix))"/>
+                starts-with(myfn:convert-template-name($wt), $prefix))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-template-arg" as="xs:string?">
+    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="t-name" as="xs:string+"/>
+    <xsl:param name="arg-name" as="xs:string"/>
+    <xsl:variable name="json" select="parse-json($data-mw)"/>
+    <xsl:sequence
+        select="$json?parts?*[. instance of map(*)]?template
+                [myfn:convert-template-name(?target?wt) = $t-name][1]
+                ?params?($arg-name)?wt"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-element-forms" as="xs:string*">
@@ -160,5 +176,14 @@
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence select="($section | $section/ancestor::section)/(h1|h2|h3|h4)/@id[
                           not(starts-with(., 'mw'))]"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:process-form-parenthesis" as="xs:string*">
+    <xsl:param name="forms" as="xs:string*"/>
+    <xsl:sequence
+        select="for $form in $forms return
+                if (matches($form, '\(.+\)')) then
+                (replace($form, '\(.+\)', ''), replace($form, '[()]', ''))
+                else $form"/>
   </xsl:function>
 </xsl:stylesheet>

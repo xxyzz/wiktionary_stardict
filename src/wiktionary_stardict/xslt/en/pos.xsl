@@ -176,7 +176,7 @@
     <xsl:sequence
         select="distinct-values($li/span[contains-token(@class, 'form-of-definition')]/
                 span[contains-token(@class, 'form-of-definition-link')]/i[@lang] !
-                normalize-space(.))"/>
+                normalize-space(.))[. != '']"/>
   </xsl:function>
 
   <xsl:function name="myfn:li-alt-forms" as="xs:string*">

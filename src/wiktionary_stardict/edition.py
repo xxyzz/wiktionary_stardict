@@ -18,4 +18,5 @@ EDITIONS = {
         "wiki_name": "WikiWoordenboek",
         "zim_xsl": "vervoeging.xsl",
     },
+    "el": {"lang": "Ελληνικά", "wiki_name": "Βικιλεξικό"},
 }

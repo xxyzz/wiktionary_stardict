@@ -41,15 +41,6 @@
                 $tables//td[position() mod 2 = 0]/myfn:get-element-forms(.))"/>
   </xsl:function>
 
-  <xsl:function name="myfn:process-form-parenthesis" as="xs:string*">
-    <xsl:param name="forms" as="xs:string*"/>
-    <xsl:sequence
-        select="for $form in $forms return
-                if (matches($form, '\(.+\)')) then
-                (replace($form, '\(.+\)', ''), replace($form, '[()]', ''))
-                else $form"/>
-  </xsl:function>
-
   <!-- Sjabloon:-frverb- -->
   <xsl:function name="myfn:frverb-forms" as="xs:string*">
     <xsl:param name="tables" as="element(table)*"/>
