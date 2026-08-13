@@ -12,6 +12,7 @@
   <xsl:include href="inflection.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -42,6 +43,13 @@
                     [(h3|h4)[span[contains-token(@class, 'pronunciation')]]][last()]"
             mode="pron"/>
         <xsl:apply-templates select="p | ol | ul" mode="pos-li"/>
+        <xsl:apply-templates
+            select="section[normalize-space((h4|h5|h6)[1]) = 'Σημειώσεις']"
+            mode="notes"/>
+        <xsl:apply-templates
+            select="section[normalize-space((h4|h5|h6)[1]) =
+                    ('Άλλες μορφές', 'Συνώνυμα', 'Αντώνυμα', 'Εκφράσεις')]"
+            mode="linkage"/>
         <xsl:apply-templates
             select="(preceding-sibling::section | ancestor::section)
                     [h3[span[@data-mw and myfn:is-template(@data-mw, 'ετυμολογία')]]]
@@ -146,20 +154,31 @@
   </xsl:function>
 
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
-    <xsl:param name="li" as="element(li)*"/>
+    <xsl:param name="li-nodes" as="element(li)*"/>
     <xsl:sequence
         select="distinct-values(
+                for $li in $li-nodes return
                 let $σνρ-a := $li/a[@data-mw and myfn:is-template(@data-mw, 'σνρ')],
                     $βλ-span := $li/span[@data-mw and
                       myfn:is-template(@data-mw, ('βλ', 'cf', 'go'))]
                 return if ($σνρ-a) then
-                  normalize-space(myfn:get-template-arg($σνρ-a/@data-mw, 'σνρ', '1'))
+                  normalize-space(myfn:get-template-arg($σνρ-a[1]/@data-mw, 'σνρ', '1'))
                 else if ($βλ-span) then
                   normalize-space(myfn:get-template-arg(
-                    $βλ-span/@data-mw, ('βλ', 'cf', 'go'), '1'))
-                else normalize-space($li//b))[. != '']"/>
+                    $βλ-span[1]/@data-mw, ('βλ', 'cf', 'go'), '1'))
+                else $li//b ! normalize-space())[. != '']"/>
   </xsl:function>
 
   <xsl:template
       match="p/small[sup[a[@rel='mw:WikiLink/Interwiki']]]" mode="clean-content"/>
+
+  <xsl:template match="section" mode="notes">
+    <xsl:variable name="content" select="p | ul | ol"/>
+    <xsl:if test="$content">
+      <section>
+        <xsl:apply-templates select="h4|h5|h6" mode="section-heading"/>
+        <xsl:apply-templates select="$content" mode="clean-content"/>
+      </section>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>

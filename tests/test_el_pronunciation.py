@@ -54,13 +54,13 @@ class ElPronTestCase(XMLTestCase):
 <section><h2><span>Νέα ελληνικά (el)</span></h2>
 <section><h3><span class="pronunciation">Προφορά</span> 1</h3>
 <dl><dd><a title="ΔΦΑ"><span>ΔΦΑ</span></a><span> </span>: /<a><span>ˈfun.dʝa</span></a>/</dd></dl>
-<section><h3><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h3>
+<section><h4><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h4>
 <p><b>φούντια</b></p>
 <ul><li>gloss 1</li></ul>
 </section></section>
 <section><h3><span class="pronunciation">Προφορά</span></h3>
 <dl><dd><a title="ΔΦΑ"><span>ΔΦΑ</span></a><span> </span>: /<a><span>ˈfun.di.a</span></a>/</dd></dl>
-<section><h3><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h3>
+<section><h4><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h4>
 <p><b>φούντια</b></p>
 <ul><li>gloss 2</li></ul>
 </section></section></section></body></html>""",
