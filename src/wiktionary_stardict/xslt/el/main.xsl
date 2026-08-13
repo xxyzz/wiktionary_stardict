@@ -35,7 +35,7 @@
 
   <xsl:template match="section" mode="language">
     <xsl:apply-templates
-        select=".//section[h3[span[contains-token(@class, 'partofspeech')]] and
+        select=".//section[(h3|h4)[span[contains-token(@class, 'partofspeech')]] and
                 (ol or ul)]"
         mode="pos">
       <xsl:with-param name="language" select="myfn:get-language(h2)"/>
@@ -43,7 +43,7 @@
   </xsl:template>
 
   <xsl:function name="myfn:get-language" as="xs:string">
-    <xsl:param name="h2" as="element(h2)"/>
+    <xsl:param name="h2" as="element(h2)?"/>
     <xsl:sequence select="normalize-space(substring-before($h2, '('))"/>
   </xsl:function>
 

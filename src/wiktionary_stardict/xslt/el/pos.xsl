@@ -11,6 +11,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="inflection.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -37,10 +38,15 @@
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates
-              select="preceding-sibling::section
-                      [h3[span[contains-token(@class, 'pronunciation')]]][1]"
-              mode="pron"/>
+            select="(preceding-sibling::section | ancestor::section)
+                    [(h3|h4)[span[contains-token(@class, 'pronunciation')]]][last()]"
+            mode="pron"/>
         <xsl:apply-templates select="p | ol | ul" mode="pos-li"/>
+        <xsl:apply-templates
+            select="(preceding-sibling::section | ancestor::section)
+                    [h3[span[@data-mw and myfn:is-template(@data-mw, 'ετυμολογία')]]]
+                    [last()]"
+            mode="etymology"/>
       </section>
     </xsl:variable>
 

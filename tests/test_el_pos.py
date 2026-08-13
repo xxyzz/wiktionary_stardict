@@ -10,6 +10,7 @@ class ElPOSTestCase(XMLTestCase):
 <html>
 <head><title>διασκεδαστικός</title></head>
 <body>
+<section></section>
 <section><h2 id="Νέα_ελληνικά_(el)"><span>Νέα ελληνικά</span><span about="#mwt1"> (</span><a><span>el</span></a><span>)</span></h2>
 <section><h3 id="Επίθετο"><span class="partofspeech"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/d/d5/OOjs_UI-like_arrow_empty-ltr_progressive.svg/40px-OOjs_UI-like_arrow_empty-ltr_progressive.svg.png?utm_source=el.wiktionary.org&amp;utm_campaign=parser&amp;utm_content=thumbnail" decoding="async" data-file-width="27"/></span> Επίθετο</h3>
 <p><b><span>διασκεδαστικός</span>, -ή, -ό</b></p>

@@ -44,3 +44,42 @@ class ElPronTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_parent_pron_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>φούντια</title></head>
+<body>
+<section><h2><span>Νέα ελληνικά (el)</span></h2>
+<section><h3><span class="pronunciation">Προφορά</span> 1</h3>
+<dl><dd><a title="ΔΦΑ"><span>ΔΦΑ</span></a><span> </span>: /<a><span>ˈfun.dʝa</span></a>/</dd></dl>
+<section><h3><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h3>
+<p><b>φούντια</b></p>
+<ul><li>gloss 1</li></ul>
+</section></section>
+<section><h3><span class="pronunciation">Προφορά</span></h3>
+<dl><dd><a title="ΔΦΑ"><span>ΔΦΑ</span></a><span> </span>: /<a><span>ˈfun.di.a</span></a>/</dd></dl>
+<section><h3><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h3>
+<p><b>φούντια</b></p>
+<ul><li>gloss 2</li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="el">
+<h4><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h4>
+<dl><dd><span>ΔΦΑ</span><span> </span>: /<span>ˈfun.dʝa</span>/ </dd></dl>
+<p><b>φούντια</b></p>
+<ul><li>gloss 1</li></ul>
+</section>"""
+                },
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="el">
+<h4><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h4>
+<dl><dd><span>ΔΦΑ</span><span> </span>: /<span>ˈfun.di.a</span>/</dd></dl>
+<p><b>φούντια</b></p>
+<ul><li>gloss 2</li></ul>
+</section>"""
+                },
+            ],
+        )
