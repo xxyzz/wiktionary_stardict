@@ -1,5 +1,6 @@
 from pathlib import Path
 from sqlite3 import Connection
+from typing import TypedDict
 
 
 def download_image(res_path: Path, url: str, edition: str, zim):
@@ -46,9 +47,17 @@ def get_user_agent() -> str:
     return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
+class StarDictInfo(TypedDict):
+    bookname: str
+    wordcount: int
+    synwordcount: int
+    filename: str
+    filesize: int
+
+
 def create_stardict(
     edition: str, snapshot_date: str, zim_path: Path | None, lemma_lang: str
-):
+) -> StarDictInfo:
     import shutil
     import sqlite3
     import tarfile
@@ -70,6 +79,9 @@ def create_stardict(
         shutil.rmtree(out_path)
     out_path.mkdir(parents=True)
     db_path = Path(f"build/{lemma_lang}.db")
+    bookname = (
+        EDITIONS[edition]["wiki_name"] + f" {lemma_lang}-{EDITIONS[edition]['lang']}"
+    )
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
         wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
@@ -80,8 +92,7 @@ def create_stardict(
         logger.info(f"{folder_name} syn file created {synwordcount=}")
         create_ifo_file(
             out_path,
-            EDITIONS[edition]["wiki_name"]
-            + f" {lemma_lang}-{EDITIONS[edition]['lang']}",
+            bookname,
             wordcount,
             synwordcount,
             idxfilesize,
@@ -104,6 +115,13 @@ def create_stardict(
         shutil.move(res_path, res_dst_path)
     shutil.rmtree(out_path)
     db_path.unlink()
+    return {
+        "bookname": bookname,
+        "wordcount": wordcount,
+        "synwordcount": synwordcount,
+        "filename": tar_path.name,
+        "filesize": tar_path.stat().st_size,
+    }
 
 
 def get_css_path(edition: str) -> Path:

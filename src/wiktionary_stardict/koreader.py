@@ -5,7 +5,7 @@ def koreader_file(all_data: list[dict[str, str]]):
     with open("build/koreader", "w") as out_f:
         data_list = []
         for data in all_data:
-            lang_in, lang_out = data["codes"].rsplit("-", 1)
+            lang_in, lang_out = data["filename"].removesuffix(".tar.zst").rsplit("-", 1)
             lang_in_code = (
                 pycountry.languages.get(alpha_2=lang_in).alpha_3
                 if len(lang_in) == 2
@@ -19,11 +19,11 @@ def koreader_file(all_data: list[dict[str, str]]):
             data_list.append(
                 {
                     "license": "GPLv3+ and CC BY-SA 4.0",
-                    "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/latest/download/{data['codes']}.tar.zst",
+                    "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/latest/download/{data['filename']}",
                     "lang_in": lang_in_code,
                     "lang_out": lang_out_code,
-                    "name": data["name"],
-                    "entries": data["entries"],
+                    "name": data["bookname"],
+                    "entries": data["wordcount"],
                 }
             )
         for data in sorted(data_list, key=lambda data: data["name"]):

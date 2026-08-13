@@ -65,7 +65,7 @@ jobs:
       - run: dict build ${{ matrix.edition }}
 
       - if: github.event_name != 'workflow_run'
-        run: gh release upload ${{ steps.get-tag.outputs.tag }} build/*.tar.zst
+        run: gh release upload ${{ steps.get-tag.outputs.tag }} build/*.json build/*.tar.zst
 
   release:
     needs: build

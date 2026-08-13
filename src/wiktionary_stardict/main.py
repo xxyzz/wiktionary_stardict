@@ -127,6 +127,7 @@ def iter_chunk_lines(page_names: set[str], f):
 
 
 def build(args):
+    import json
     from concurrent.futures import ProcessPoolExecutor
     from functools import partial
     from os import process_cpu_count
@@ -186,15 +187,17 @@ def build(args):
         create_indexes(conn)
         conn.close()
     download_last_release_images(args.edition)
+    dict_info = []
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
-        list(
-            executor.map(
-                partial(create_stardict, args.edition, snapshot_date, zim_path),
-                conn_dict.keys(),
-            )
-        )
+        for result in executor.map(
+            partial(create_stardict, args.edition, snapshot_date, zim_path),
+            conn_dict.keys(),
+        ):
+            dict_info.append(result)
+    with open(f"build/{args.edition}.json", "w") as f:
+        json.dump(dict_info, f, ensure_ascii=False, indent=2)
     if zim_path is not None:
         zim_path.unlink()
     archive_images(args.edition)
