@@ -19,7 +19,7 @@ class ElPOSTestCase(XMLTestCase):
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="el">
-<h4><span class="partofspeech"><img src="40px-OOjs_UI-like_arrow_empty-ltr_progressive.png" decoding="async"/></span></span> Επίθετο</span></h4>
+<h4><span class="partofspeech"></span></span> Επίθετο</span></h4>
 <p><b><span>διασκεδαστικός</span>, -ή, -ό</b></p>
 <ul><li>gloss</li></ul>
 </section>""",

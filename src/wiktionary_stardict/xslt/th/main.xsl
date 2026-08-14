@@ -14,14 +14,14 @@
   <xsl:variable
       name="title" select="html/head/title/text()" as="xs:string"/>
 
-  <!-- https://en.wiktionary.org/wiki/Wiktionary:Entry_layout
-       https://en.wiktionary.org/wiki/Wiktionary:Style_guide -->
+  <!-- https://th.wiktionary.org/wiki/วิธีใช้:คู่มือในการเขียน -->
   <xsl:template match="/">
     <xsl:choose>
-      <xsl:when test="not(ends-with($title, '/translations'))">
+      <!-- skip translation pages -->
+      <xsl:when test="not(ends-with($title, '/คำแปลภาษาอื่น'))">
         <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
-              select="html/body/section[normalize-space(h2[1]) = $allowed-languages]"
+              select="html/body/section[normalize-space(h2) = $allowed-languages]"
               mode="language"/>
         </xsl:variable>
         <xsl:sequence select="array{$results}"/>
@@ -32,27 +32,14 @@
     </xsl:choose>
   </xsl:template>
 
-  <!-- Language section -->
   <xsl:template match="section" mode="language">
     <xsl:apply-templates
         select=".//section[p/span[contains-token(@class, 'headword-line')] and ol]"
         mode="pos">
-      <xsl:with-param name="language" select="normalize-space(h2[1])"/>
+      <xsl:with-param name="language" select="normalize-space(h2)"/>
     </xsl:apply-templates>
   </xsl:template>
 
   <!-- IPA key link -->
-  <xsl:template match="sup[normalize-space() = '(key)']" mode="clean-content"/>
-
-  <!-- Remove Template:maintenance line, also used in Template:ja-see -->
-  <xsl:template
-      match="(span|small)[contains-token(@class, 'maintenance-line')]"
-      mode="clean-content"/>
-  <!-- Remove Template:wikipedia Template:multiple images -->
-  <xsl:template
-      match="(div|table)[some $class in ('floatright', 'tmulti')
-             satisfies contains-token(@class, $class)]" mode="clean-content"/>
-  <!-- Remove hidden node from Template:wikipedia inline -->
-  <xsl:template
-      match="*[contains-token(@class, 'interProject')]" mode="clean-content"/>
+  <xsl:template match="sup[normalize-space() = '(คำอธิบาย)']" mode="clean-content"/>
 </xsl:stylesheet>

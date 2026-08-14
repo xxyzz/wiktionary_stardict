@@ -72,7 +72,9 @@ def create_stardict(
     zim = None
     if zim_path is not None:
         zim = open_zim(zim_path)
-    lemma_code = name_to_code(lemma_lang, edition)
+    lemma_code = name_to_code(
+        lemma_lang.removeprefix("ภาษา") if edition == "th" else lemma_lang, edition
+    )
     folder_name = f"{lemma_code}-{edition}"
     out_path = Path("build") / folder_name
     if out_path.exists():

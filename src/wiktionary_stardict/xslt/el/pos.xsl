@@ -83,8 +83,13 @@
                 'ids': array{myfn:get-pos-section-ids(.)}}"/>
   </xsl:template>
 
+  <xsl:mode name="section-heading" on-no-match="shallow-copy"/>
+  <xsl:template match="img" mode="section-heading"/>
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
-    <h4><xsl:apply-templates mode="clean-content"/></h4>
+    <xsl:variable name="content">
+      <xsl:apply-templates mode="section-heading"/>
+    </xsl:variable>
+    <h4><xsl:apply-templates select="$content" mode="clean-content"/></h4>
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">

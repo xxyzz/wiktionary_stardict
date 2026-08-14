@@ -19,4 +19,5 @@ EDITIONS = {
         "zim_xsl": "vervoeging.xsl",
     },
     "el": {"lang": "Ελληνικά", "wiki_name": "Βικιλεξικό"},
+    "th": {"lang": "ภาษาไทย", "wiki_name": "วิกิพจนานุกรม"},
 }

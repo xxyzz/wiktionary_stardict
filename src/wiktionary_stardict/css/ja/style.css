@@ -138,3 +138,12 @@ section {
   font-family: "Noto Naskh Arabic";
   src: url("fonts/NotoNaskhArabic-Regular.otf");
 }
+@font-face {
+  font-family: Sarabun;
+  src: url("fonts/Sarabun-Regular.ttf");
+}
+@font-face {
+  font-family: Sarabun;
+  font-weight: bold;
+  src: url("fonts/Sarabun-Bold.ttf");
+}
