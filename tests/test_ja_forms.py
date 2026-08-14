@@ -255,3 +255,17 @@ class JaFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["殺伐", "殺伐と", "殺伐とする", "殺伐だろ", "殺伐だろう"]}],
         )
+
+    def test_th_noun_classifier(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>หนังสือ</title></head>
+<body>
+<section><h2>タイ語</h2>
+<section><h3>名詞</h3>
+<p><strong class="Thai headword" lang="th" data-mw='{"parts":[{"template":{"target":{"wt":"th-noun"}}}]}'>หนังสือ</strong><span> (</span><span lang="th-Latn" class="headword-tr manual-tr tr Latn" dir="ltr">nǎng-sʉ̌ʉ</span><span>) (</span><i>類別詞</i><span> </span><b class="Thai" lang="th"><a>เล่ม</a></b><span> </span><i><small><small>又は</small></small></i><span> </span><b class="Thai" lang="th"><a>ฉบับ</a></b><span>)</span></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["หนังสือ"]}],
+        )

@@ -25,8 +25,10 @@
         select="myfn:ruby-text(
                 $headword-p//strong[contains-token(@class, 'headword')])"
         as="xs:string*"/>
-    <xsl:variable name="headword-forms" as="xs:string*"
-                  select="myfn:get-element-forms($headword-p//b)"/>
+    <xsl:variable
+        name="headword-forms" as="xs:string*"
+        select="myfn:get-element-forms($headword-p
+                [not(span[@data-mw and myfn:is-template(@data-mw, 'th-noun')])]//b)"/>
     <xsl:variable name="alt-forms" as="xs:string*"
                   select="myfn:get-alt-forms(., $language)"/>
     <xsl:variable name="conj-forms" as="xs:string*">
@@ -121,8 +123,8 @@
     <xsl:variable
         name="examples"
         select="dd[div[contains-token(@class, 'h-usage-example')] or
-                span[some $c in ('e-example', 'affixusex', 'h-usage-example')
-                satisfies contains-token(@class, $c)] or
+                span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
+                'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or
                 span[@data-mw and myfn:is-template(@data-mw, ('zh-co', 'zh-x'))] or
                 math]"/>

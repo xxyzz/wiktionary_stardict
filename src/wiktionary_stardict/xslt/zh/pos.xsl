@@ -27,10 +27,9 @@
                   replace(., '⫽', '')"
           as="xs:string*"/>
       <xsl:variable
-          name="headword-forms"
-          select="myfn:get-element-forms(
-                  $headword-span//b[contains-token(@class, 'form-of') or @lang])"
-          as="xs:string*"/>
+          name="headword-forms" as="xs:string*"
+          select="myfn:get-element-forms($headword-span
+                  [not(@data-mw and myfn:is-template(@data-mw, 'th-noun'))]//b)"/>
       <xsl:variable
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">

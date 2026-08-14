@@ -458,3 +458,17 @@ class EnFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_th_noun_classifier(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>หนังสือ</title></head>
+<body>
+<section><h2>Thai</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line" data-mw='{"parts":[{"template":{"target":{"wt":"th-noun"}}}]}'><strong class="Thai headword" lang="th">หนังสือ</strong> <a class="mw-redirect">•</a> (<span lang="th-Latn" class="headword-tr tr Latn" dir="ltr">nǎng-sʉ̌ʉ</span>) (<i>classifier</i> <b class="Thai" lang="th"><a>เล่ม</a></b> <i>or</i> <b class="Thai" lang="th"><a>ฉบับ</a></b>)</span></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["หนังสือ"]}],
+        )

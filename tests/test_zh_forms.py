@@ -108,3 +108,17 @@ class ZhFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["加速", "加速せよ", "加速しろ", "かそくせよ", "かそくしろ"]}],
         )
+
+    def test_th_noun_classifier(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>คน</title></head>
+<body>
+<section><h2>泰語</h2>
+<section><h3>名詞</h3>
+<p><span class="headword-line" data-mw='{"parts":[{"template":{"target":{"wt":"th-noun"}}}]}'><strong class="Thai headword" lang="th"><span>คน</span></strong> (<span lang="th-Latn" class="tr Latn" dir="ltr">kon</span>) (分類詞 <span><b class="Thai" lang="th"><a>คน</a></b> <small>或</small> <b class="Thai" lang="th"><a>หัว</a></b> <small>或</small> <b class="Thai" lang="th"><a>ราย</a></b> <small>或</small> <b class="Thai" lang="th"><a>นาย</a></b> <small>或</small> <b class="Thai" lang="th"><a>ท่าน</a></b></span>)</span></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["คน"]}],
+        )
