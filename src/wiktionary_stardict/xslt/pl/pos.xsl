@@ -11,6 +11,7 @@
   <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="inflection.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="p" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -33,6 +34,11 @@
     <xsl:variable name="definition">
       <section class="mw-parser-output" dir="ltr" lang="pl">
         <xsl:apply-templates select="." mode="clean-content"/>
+        <xsl:apply-templates
+            select="preceding-sibling::dl[dt[span[@data-field = 'wymowa']]][1]"
+            mode="pron">
+          <xsl:with-param name="pos-index" select="$pos-index"/>
+        </xsl:apply-templates>
         <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
         <xsl:apply-templates
             select="following-sibling::dl[dt[span[@data-field = 'przyklady']]][1]"
