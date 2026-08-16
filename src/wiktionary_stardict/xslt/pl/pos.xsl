@@ -102,6 +102,6 @@
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
     <xsl:param name="dd-nodes" as="element(dd)*"/>
     <xsl:sequence
-        select="for $dd in $dd-nodes return normalize-space(($dd/a)[1])"/>
+        select="for $dd in $dd-nodes return normalize-space(($dd/a)[last()])"/>
   </xsl:function>
 </xsl:stylesheet>
