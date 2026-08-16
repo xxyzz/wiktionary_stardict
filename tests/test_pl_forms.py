@@ -71,3 +71,25 @@ class PlFormsTestCase(XMLTestCase):
 </section></body></html>""",
             [{"forms": ["电车", "電車"]}],
         )
+
+    def test_plain_text_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>book</title></head>
+<body>
+<section><h2>book (<span class="lang-code primary-lang-code"><a>język angielski</a></span>)</h2>
+<dl><dt><span data-field="znaczenia">znaczenia<span>:</span></span></dt><dd></dd></dl>
+<p><i>rzeczownik policzalny</i></p>
+<dl><dd>(1.1) książka</dd></dl>
+<p><i>czasownik przechodni</i></p>
+<dl><dd>(2.1) zamówić, rezerwować</dd></dl>
+<dl><dt><span data-field="odmiana">odmiana<span>:</span></span></dt><dd></dd>
+<dd>(1) <span><span><span class="short-content">lp</span></span></span> book; <span class="short-container short-variant1"><a><span><span class="short-content">lm</span></span></a></span> books</dd>
+<dd>(2) book, booked, booked, books, booking</dd></dl>
+</section></body></html>""",
+            [
+                {"forms": ["book", "books"]},
+                {"forms": ["book", "booked", "books", "booking"]},
+            ],
+        )

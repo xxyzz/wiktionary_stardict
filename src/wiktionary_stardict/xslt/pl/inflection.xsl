@@ -13,12 +13,15 @@
     <xsl:variable name="matched-dd" select="myfn:match-dd($dl/dd, $pos-index)"/>
     <xsl:variable
         name="form-texts"
-        select="for $td in $matched-dd//td[not(contains-token(@class, 'forma'))]
+        select="if ($matched-dd//table) then
+                (for $td in $matched-dd//td[not(contains-token(@class, 'forma'))]
                 return if ($td/span[contains-token(@class, 'potential-form')]) then
                 $td/span[contains-token(@class, 'potential-form')]/text()
-                else $td/text()"/>
+                else $td/text())
+                else $matched-dd/text()/[if (contains(., ')')) then
+                  substring-after(., ')') else .]"/>
     <xsl:sequence
-        select="(for $form in $form-texts return tokenize($form, ',|/')) !
+        select="(for $form in $form-texts return tokenize($form, ',|/|;')) !
                 normalize-space()"/>
   </xsl:function>
 
