@@ -16,10 +16,11 @@ def koreader_file(all_data: list[dict[str, str]]):
                 if lang_out == "simple"
                 else pycountry.languages.get(alpha_2=lang_out).alpha_3
             )
+            filename = data["filename"].replace(" ", ".")
             data_list.append(
                 {
                     "license": "GPLv3+ and CC BY-SA 4.0",
-                    "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/latest/download/{data['filename']}",
+                    "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/latest/download/{filename}",
                     "lang_in": lang_in_code,
                     "lang_out": lang_out_code,
                     "name": data["bookname"],

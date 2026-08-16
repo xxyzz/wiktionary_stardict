@@ -36,6 +36,7 @@ jobs:
           - 'nl'
           - 'el'
           - 'th'
+          - 'pl'
     outputs:
       tag: ${{ steps.get-tag.outputs.tag }}
     permissions:

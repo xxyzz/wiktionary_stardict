@@ -11,8 +11,7 @@
   <xsl:include href="config.xsl"/>
   <xsl:include href="pos.xsl"/>
 
-  <xsl:variable
-      name="title" select="html/head/title/text()" as="xs:string"/>
+  <xsl:variable name="title" select="html/head/title/text()" as="xs:string"/>
 
   <!-- https://en.wiktionary.org/wiki/Wiktionary:Entry_layout
        https://en.wiktionary.org/wiki/Wiktionary:Style_guide -->

@@ -20,4 +20,5 @@ EDITIONS = {
     },
     "el": {"lang": "Ελληνικά", "wiki_name": "Βικιλεξικό"},
     "th": {"lang": "ภาษาไทย", "wiki_name": "วิกิพจนานุกรม"},
+    "pl": {"lang": "język polski", "wiki_name": "Wikisłownik"},
 }
