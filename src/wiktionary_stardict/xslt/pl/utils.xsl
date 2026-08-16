@@ -12,8 +12,12 @@
     <xsl:param name="dd-nodes" as="element(dd)*"/>
     <xsl:param name="pos-index" as="xs:integer"/>
     <xsl:sequence
-        select="$dd-nodes[myfn:match-pos-index((text()
-                /analyze-string(., '\(([\d\s,.-]+)\)')//fn:group)[1], $pos-index)]"/>
+        select="for $dd in $dd-nodes
+                return let $dd-index := $dd/(text()/
+                  analyze-string(., '\(([\d\s,.-]+)\)')//fn:group)[1]
+                return if ($dd[node()] and
+                  (($dd-index and myfn:match-pos-index($dd-index, $pos-index))
+                  or not($dd-index))) then $dd else ()"/>
   </xsl:function>
 
   <xsl:function name="myfn:match-pos-index" as="xs:boolean">

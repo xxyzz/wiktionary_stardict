@@ -9,10 +9,9 @@
     <xsl:param name="pos-index" as="xs:integer"/>
     <xsl:variable
         name="ipa-dd"
-        select="let $matched-dd := myfn:match-dd(dd, $pos-index)
-                return if ($matched-dd) then
-                  $matched-dd//dd[a[@title = 'Aneks:IPA']]
-                else dd[a[@title = 'Aneks:IPA']]"/>
+        select="(let $matched-dd := myfn:match-dd(dd, $pos-index)
+                return if ($matched-dd/dl) then $matched-dd//dd else $matched-dd)
+                [a[@title = ('Aneks:IPA', 'Aneks:pinyin')]]"/>
     <xsl:if test="$ipa-dd">
       <dl>
         <xsl:apply-templates select="$ipa-dd" mode="clean-content"/>

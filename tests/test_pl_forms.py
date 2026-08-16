@@ -55,3 +55,19 @@ class PlFormsTestCase(XMLTestCase):
 </section></body></html>""",
             [{"forms": ["styczeń", "styćyń"]}],
         )
+
+    def test_zh_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>电车</title></head>
+<body>
+<section><h2>电车 (<span class="lang-code primary-lang-code lang-code-zh"><a>język chiński standardowy</a></span>)</h2>
+<dl><dt><span class="field field-title fld-zapis field-keep" data-field="zapis" data-section-links="keep">zapis<span>:</span></span></dt>
+<dd><span class="short-container"><span><span class="short-content">uproszcz.</span></span></span><span lang="zh"> 电车</span>, <a><span><span class="short-content">trad.</span></span></a><span lang="zh"> 電車</span></dd></dl>
+<dl><dt><span data-field="znaczenia">znaczenia<span>:</span></span></dt><dd></dd></dl>
+<p><i>rzeczownik</i></p>
+<dl><dd>(1.1) tramwaj</dd></dl>
+</section></body></html>""",
+            [{"forms": ["电车", "電車"]}],
+        )

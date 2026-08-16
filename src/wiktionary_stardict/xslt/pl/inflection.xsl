@@ -26,4 +26,9 @@
     <xsl:param name="dl" as="element(dl)?"/>
     <xsl:sequence select="$dl/dd/a/normalize-space()"/>
   </xsl:function>
+
+  <xsl:function name="myfn:get-zh-forms" as="xs:string*">
+    <xsl:param name="dl" as="element(dl)?"/>
+    <xsl:sequence select="$dl/dd/span[@lang='zh']/normalize-space()"/>
+  </xsl:function>
 </xsl:stylesheet>

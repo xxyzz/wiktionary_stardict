@@ -12,6 +12,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="inflection.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="p" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -27,7 +28,9 @@
                   $pos-index),
                 myfn:get-alt-forms(
                   preceding-sibling::dl[dt[span[@data-field =
-                  ('ortografie', 'warianty')]]][1])
+                  ('ortografie', 'warianty')]]][1]),
+                myfn:get-zh-forms(
+                  preceding-sibling::dl[dt[span[@data-field = 'zapis']]][1])
                 ))[. != '']"
         as="xs:string*"/>
 
@@ -45,6 +48,12 @@
             mode="example">
           <xsl:with-param name="pos-index" select="$pos-index"/>
         </xsl:apply-templates>
+        <xsl:apply-templates
+            select="following-sibling::dl[dt[span[@data-field = ('skladnia',
+                    'synonimy', 'antonimy', 'etymologia', 'uwagi')]]]"
+            mode="linkage">
+          <xsl:with-param name="pos-index" select="$pos-index"/>
+        </xsl:apply-templates>
       </section>
     </xsl:variable>
 
@@ -56,13 +65,20 @@
       <xsl:apply-templates select="$definition" mode="convert-img"/>
     </xsl:variable>
 
+    <xsl:variable
+        name="form-of-only" as="xs:boolean"
+        select="boolean(contains(normalize-space(i[1]), ', forma '))"/>
+
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
                 'def': serialize(
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
-                'ids': array{$ids}}"/>
+                'ids': array{$ids},
+                'form_of_only': $form-of-only,
+                'form_of_targets': array{if ($form-of-only) then
+                  myfn:form-of-targets(following-sibling::dl[1]/dd) else ()}}"/>
   </xsl:template>
 
   <xsl:template match="dl" mode="example">
@@ -82,4 +98,10 @@
       </dl>
     </xsl:if>
   </xsl:template>
+
+  <xsl:function name="myfn:form-of-targets" as="xs:string*">
+    <xsl:param name="dd-nodes" as="element(dd)*"/>
+    <xsl:sequence
+        select="for $dd in $dd-nodes return normalize-space(($dd/a)[1])"/>
+  </xsl:function>
 </xsl:stylesheet>

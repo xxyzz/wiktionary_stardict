@@ -337,3 +337,17 @@ class PlPOSTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_form_of(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>gorzej</title></head>
+<body>
+<section><h2>gorzej (<span class="lang-code primary-lang-code"><a>język polski</a></span>)</h2>
+<dl><dt><span data-field="znaczenia">znaczenia<span>:</span></span></dt><dd></dd></dl>
+<p><i>przysłówek, forma fleksyjna</i></p>
+<dl><dd>(1.1) <i>stopień wyższy przysłówka</i> <a>źle</a></dd></dl>
+</section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["źle"]}],
+        )
