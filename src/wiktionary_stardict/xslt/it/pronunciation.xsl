@@ -7,7 +7,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="pron">
-    <xsl:variable name="contents" select="(.//li|p)[a[@title = 'Aiuto:IPA')]]"/>
+    <xsl:variable name="contents" select="(.//li|p)[a[@title = 'Aiuto:IPA']]"/>
     <xsl:if test="$contents">
       <ul>
         <xsl:for-each select="$contents">

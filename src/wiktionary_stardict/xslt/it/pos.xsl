@@ -9,6 +9,7 @@
 
   <xsl:include href="../image.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
+  <xsl:include href="etymology.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -37,11 +38,14 @@
                 [@data-mw and myfn:is-template(@data-mw, 'ja-kanjitab')])]//td)"
         as="xs:string*"/>
     <xsl:variable
-        name="alt-forms"
-        select="myfn:get-element-forms((following-sibling::section |
+        name="alt-forms-section"
+        select="(following-sibling::section |
                 parent::section[h3]/following-sibling::section)
                 [normalize-space(h3[1]) = ('Varianti', 'Variazione', 'Forme flesse',
-                'Variazioni', 'Variante')]//li/a)"
+                'Variazioni', 'Variante')]"/>
+    <xsl:variable
+        name="alt-forms"
+        select="myfn:get-element-forms($alt-forms-section//li/a)"
         as="xs:string*"/>
     <xsl:variable
         name="unique-forms"
@@ -62,6 +66,13 @@
                     [normalize-space(h3[1]) = 'Pronuncia']"
             mode="pron"/>
         <xsl:apply-templates select="p | div[.//big] | ol" mode="pos-li"/>
+        <xsl:apply-templates select="$alt-forms-section" mode="etymology"/>
+        <xsl:apply-templates
+            select="(following-sibling::section |
+                    parent::section[h3]/following-sibling::section)
+                    [normalize-space(h3[1]) = ('Etimologia / Derivazione',
+                    'Uso / Precisazioni')]"
+            mode="etymology"/>
       </section>
     </xsl:variable>
 

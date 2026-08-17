@@ -64,8 +64,21 @@ class ItFormsTestCase(XMLTestCase):
 <p><b data-mw='{"parts":[{"template":{"target":{"wt":"Pn"}}}]}'>comprare</b></p>
 <ol><li>gloss</li></ol>
 </section></section>
-<section><h3><span typeof="mw:File"><a><img/></a></span><span><a><img/></a></span> <a>Varianti</a></h3>
+<section><h3><span typeof="mw:File"><a><img/></a></span><span typeof="mw:File"><a><img/></a></span> <a>Varianti</a></h3>
 <ul><li><a>comperare</a></li></ul>
 </section></section></body></html>""",
-            [{"forms": ["comprare", "comperare"]}],
+            [
+                {
+                    "forms": ["comprare", "comperare"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="it">
+<h4>Sostantivo</h4>
+<h4>Transitivo</h4>
+<p><b>comprare</b></p>
+<ol><li>gloss</li></ol>
+<section>
+<h4> Varianti</h4>
+<ul><li>comperare</li></ul>
+</section></section>""",
+                }
+            ],
         )
