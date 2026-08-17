@@ -29,7 +29,7 @@
   <xsl:template match="section" mode="language">
     <xsl:variable
         name="t-names"
-        select="parse-json(h2/(span|link)[@data-mw]/@data-mw)?parts?*
+        select="parse-json((h2/(span|link)[@data-mw]/@data-mw)[1])?parts?*
                 [. instance of map(*)]?template?target?wt !
                 myfn:convert-template-name(.)"/>
     <xsl:variable

@@ -195,7 +195,7 @@ def build(args):
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
         for result in executor.map(
-            partial(create_stardict, args.edition, snapshot_date, zim_path),
+            partial(create_stardict, args.edition, snapshot_date, zim_path, lang_codes),
             conn_dict.keys(),
         ):
             dict_info.append(result)

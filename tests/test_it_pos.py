@@ -10,7 +10,7 @@ class ItPOSTestCase(XMLTestCase):
 <html>
 <head><title>run</title></head>
 <body>
-<section><h2 id="Inglese"><link rel="mw:PageProp/Category" data-mw='{"parts":[{"template":{"target":{"wt":"-en-"}}}]}'/><span typeof="mw:File"><a><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/40px-Flag_of_the_United_Kingdom_%283-5%29.svg.png"/></a></span><span> </span><a>Inglese</a></h2>
+<section><h2 id="Inglese"><link rel="mw:PageProp/Category" data-mw='{"parts":[{"template":{"target":{"wt":"-en-"}}}]}'/><span data-mw='{}' typeof="mw:File"><a><img src="//upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/40px-Flag_of_the_United_Kingdom_%283-5%29.svg.png"/></a></span><span> </span><a>Inglese</a></h2>
 <section><h3 id="Verbo"><span typeof="mw:File"><a><img src="//upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Open_book_01.svg/40px-Open_book_01.svg.png"/></a></span><i><a>Verbo</a></i></h3>
 <section><h4 id="Transitivo"><a>Transitivo</a></h4>
 <p><b>to</b> <b data-mw='{"parts":[{"template":{"target":{"wt":"Pn"}}}]}'>run</b><small></small> <small><i>(<a title="Appendice:Coniugazioni/Inglese/run" id="mwDw">vai alla coniugazione</a>)</i></small> <span>(</span><i><small>3ª persona sing. presente</small></i><span> </span><b><a>runs</a></b><span>, </span><i><small>participio presente</small></i><span> </span><b><a>running</a></b><span>, </span><i><small>passato semplice</small></i><span> </span><b><a >ran</a></b><span>, </span><i><small>participio passato</small></i><span> </span><b><a>run</a></b><span about="#mwt5">) </span></p>

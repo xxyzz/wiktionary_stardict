@@ -66,7 +66,7 @@
                     parent::section[h3]/following-sibling::section)
                     [normalize-space(h3[1]) = 'Pronuncia']"
             mode="pron"/>
-        <xsl:apply-templates select="p | div[.//big] | ol" mode="pos-li"/>
+        <xsl:apply-templates select="p[b] | div[.//big] | ol" mode="pos-li"/>
         <xsl:apply-templates select="$alt-forms-section" mode="etymology"/>
         <xsl:apply-templates
             select="(following-sibling::section |
