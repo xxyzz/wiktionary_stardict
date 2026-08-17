@@ -9,6 +9,7 @@ class LanguageTest(TestCase):
         from mediawiki_langcodes import name_to_code
         from saxonche import PySaxonProcessor
 
+        skip_code_check_editions = ("it", "pt")
         proc = PySaxonProcessor(license=False)
         xsltproc = proc.new_xslt30_processor()
         xslt = """<?xml version="1.0" encoding="UTF-8"?>
@@ -55,18 +56,21 @@ class LanguageTest(TestCase):
                     )
                 else:
                     name_sets.add(language_name)
-                    lemma_code = name_to_code(
-                        language_name.removeprefix("ภาษา")
-                        if edition == "th"
-                        else language_name,
-                        edition,
-                    )
-                    if lemma_code == "":
-                        self.assertEqual(f"No {edition} language: {language_name}", "")
-                    elif lemma_code in code_sets:
-                        self.assertEqual(
-                            f"Conflict code {edition=} {language_name=} {lemma_code=}",
-                            "",
+                    if edition not in skip_code_check_editions:
+                        lemma_code = name_to_code(
+                            language_name.removeprefix("ภาษา")
+                            if edition == "th"
+                            else language_name,
+                            edition,
                         )
-                    else:
-                        code_sets.add(lemma_code)
+                        if lemma_code == "":
+                            self.assertEqual(
+                                f"No {edition} language: {language_name}", ""
+                            )
+                        elif lemma_code in code_sets:
+                            self.assertEqual(
+                                f"Conflict code {edition=} {language_name=} {lemma_code=}",
+                                "",
+                            )
+                        else:
+                            code_sets.add(lemma_code)

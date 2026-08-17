@@ -143,6 +143,7 @@ def build(args):
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
     snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
     conn_dict = {}
+    lang_codes = {}
     zim_path = None
     zim_xsl_path = None
     redirect_db_path = download_redirect_db(args.edition)
@@ -167,6 +168,8 @@ def build(args):
                     transform, iter_chunk_lines(page_names, f), chunksize=100
                 ):
                     for data in results:
+                        if "lemma_code" in data:
+                            lang_codes[data["lang"]] = data["lemma_code"]
                         if data["lang"] not in conn_dict:
                             conn_dict[data["lang"]] = init_db(data["lang"])
                         if len(data["forms"]) > 0:

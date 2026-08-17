@@ -65,7 +65,7 @@
   </xsl:function>
 
   <xsl:function name="myfn:get-template-arg" as="xs:string?">
-    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="data-mw" as="xs:string?"/>
     <xsl:param name="t-name" as="xs:string+"/>
     <xsl:param name="arg-name" as="xs:string"/>
     <xsl:variable name="json" select="parse-json($data-mw)"/>
