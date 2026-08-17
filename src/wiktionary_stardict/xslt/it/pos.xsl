@@ -10,6 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="../en/linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -67,6 +68,12 @@
             mode="pron"/>
         <xsl:apply-templates select="p | div[.//big] | ol" mode="pos-li"/>
         <xsl:apply-templates select="$alt-forms-section" mode="etymology"/>
+        <xsl:apply-templates
+            select="(following-sibling::section |
+                    parent::section[h3]/following-sibling::section)
+                    [normalize-space(h3[1]) = ('Sinonimi', 'Contrari',
+                    'Proverbi e modi di dire')]"
+            mode="linkage"/>
         <xsl:apply-templates
             select="(following-sibling::section |
                     parent::section[h3]/following-sibling::section)

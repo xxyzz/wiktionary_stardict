@@ -10,7 +10,7 @@
     <xsl:variable name="contents">
       <xsl:apply-templates mode="linkage-content"/>
     </xsl:variable>
-      <xsl:if test="$contents">
+    <xsl:if test="$contents">
       <section>
         <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates select="$contents" mode="clean-content"/>
