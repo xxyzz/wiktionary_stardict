@@ -63,7 +63,7 @@ class ItFormsTestCase(XMLTestCase):
 <section><h4>Transitivo</h4>
 <p><b data-mw='{"parts":[{"template":{"target":{"wt":"Pn"}}}]}'>comprare</b></p>
 <ol><li>gloss</li></ol>
-</section>
+</section></section>
 <section><h3><span typeof="mw:File"><a><img/></a></span><span><a><img/></a></span> <a>Varianti</a></h3>
 <ul><li><a>comperare</a></li></ul>
 </section></section></body></html>""",

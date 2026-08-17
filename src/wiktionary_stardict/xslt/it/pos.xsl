@@ -8,6 +8,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:include href="../image.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -37,7 +38,8 @@
         as="xs:string*"/>
     <xsl:variable
         name="alt-forms"
-        select="myfn:get-element-forms((following-sibling::section | parent::h3/section)
+        select="myfn:get-element-forms((following-sibling::section |
+                parent::section[h3]/following-sibling::section)
                 [normalize-space(h3[1]) = ('Varianti', 'Variazione', 'Forme flesse',
                 'Variazioni', 'Variante')]//li/a)"
         as="xs:string*"/>
@@ -54,6 +56,11 @@
             select="preceding-sibling::h3" mode="section-heading"/>
         <xsl:apply-templates
             select="h3 | h4 | h5 | h6" mode="section-heading"/>
+        <xsl:apply-templates
+            select="(following-sibling::section |
+                    parent::section[h3]/following-sibling::section)
+                    [normalize-space(h3[1]) = 'Pronuncia']"
+            mode="pron"/>
         <xsl:apply-templates select="p | div[.//big] | ol" mode="pos-li"/>
       </section>
     </xsl:variable>
