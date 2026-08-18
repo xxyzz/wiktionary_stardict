@@ -10,6 +10,8 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="etymology.xsl"/>
+  <xsl:include href="../en/linkage.xsl"/>
+  <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
@@ -35,7 +37,7 @@
         select="('Sigla', 'Abreviatura', 'Símbolo',
                 'Ordinal Equivalente', 'Forma alternativa', 'Variante', 'Variantes',
                 'Variação', 'Grafias alternativas', 'Grafia alternativa',
-                'Forma(s) alternativa(s)')"
+                'Forma(s) alternativa(s)', 'Formas alternativas')"
         as="xs:string*"/>
     <xsl:variable
         name="alt-forms"
@@ -55,9 +57,20 @@
         <xsl:apply-templates select="p[b] | ol" mode="pos-li"/>
         <xsl:apply-templates
             select="(section|following-sibling::section)
+                    [normalize-space((h2|h3)[1]) = 'Pronúncia'][1]"
+            mode="pron"/>
+        <xsl:apply-templates
+            select="(section|following-sibling::section)
                     [normalize-space((h2|h3)[1]) = ($alt-form-titles, 'Nota', 'Uso',
                     'Notas', 'Graus')][1]"
             mode="etymology"/>
+        <xsl:apply-templates
+            select="(section|following-sibling::section)
+                    [normalize-space((h2|h3)[1]) = ('Sinônimos', 'Sinônimo',
+                    'Sinónimos/Sinônimos', 'Sinónimos', 'Sinónimo',
+                    'Sinônimos e variantes', 'Antônimos', 'Antônimo', 'Antónimo',
+                    'Antónimos', 'Antónimos/Antônimos', 'Expressões', 'Expressão')][1]"
+            mode="linkage"/>
         <xsl:apply-templates
             select="(section|following-sibling::section)
                     [normalize-space((h2|h3)[1]) = 'Etimologia'][1]"
