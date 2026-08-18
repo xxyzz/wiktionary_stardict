@@ -20,10 +20,11 @@ def convert_release_data(tag: str):
             gloss_code = json_path.stem
             gloss_name = EDITIONS[gloss_code]["lang"]
             for dict_info in data:
+                filename = dict_info["filename"].replace(" ", ".")
                 assets[gloss_name].append(
                     {
                         "name": dict_info["bookname"],
-                        "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/download/{tag}/{dict_info['filename']}",
+                        "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/download/{tag}/{filename}",
                         "entries": dict_info["wordcount"],
                         "size": convert_size(dict_info["filesize"]),
                     }

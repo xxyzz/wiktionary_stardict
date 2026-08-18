@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
@@ -30,13 +31,14 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="normalize-space(h2)"/>
     <xsl:apply-templates
         select=".//section[p and ol and
-                not(some $prefix in ('Forme ', 'Variante ') satisfies
-                starts-with(normalize-space(h3|h4|h5|h6), $prefix))]"
+                not(starts-with(normalize-space(h3|h4|h5|h6), 'Forme '))]"
         mode="pos">
-      <xsl:with-param name="language" select="$language"/>
+      <xsl:with-param name="language" select="normalize-space(h2)"/>
+      <xsl:with-param
+          name="lemma-code"
+          select="h2/span[@data-mw and myfn:is-template(@data-mw, 'langue')]/@id"/>
     </xsl:apply-templates>
   </xsl:template>
 

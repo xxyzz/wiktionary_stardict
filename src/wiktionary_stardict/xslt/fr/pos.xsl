@@ -13,7 +13,8 @@
   <xsl:include href="linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
-    <xsl:param name="language"/>
+    <xsl:param name="language" as="xs:string"/>
+    <xsl:param name="lemma-code" as="xs:string?"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable name="headword-forms" as="xs:string*"
                     select="p/(b|bdi)/myfn:get-element-forms(.)"/>
@@ -80,7 +81,8 @@
                   'ids': array{myfn:fr-pos-section-ids(.)},
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
-                  'form_of_only': $form-of-only}"/>
+                  'form_of_only': $form-of-only,
+                  'lemma_code': $lemma-code}"/>
     </xsl:if>
   </xsl:template>
 
@@ -170,7 +172,8 @@
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
-        select="distinct-values((if ($li/bdi) then $li/bdi else $li/i/a) !
-                normalize-space(.))"/>
+        select="distinct-values((if ($li/bdi) then $li/bdi else if ($li/i/a) then
+                $li/i/a else $li/a) !
+                myfn:get-element-forms(.))[. != '']"/>
   </xsl:function>
 </xsl:stylesheet>

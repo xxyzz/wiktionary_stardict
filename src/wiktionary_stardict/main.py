@@ -168,7 +168,7 @@ def build(args):
                     transform, iter_chunk_lines(page_names, f), chunksize=100
                 ):
                     for data in results:
-                        if "lemma_code" in data:
+                        if data.get("lemma_code") is not None:
                             lang_codes[data["lang"]] = data["lemma_code"]
                         if data["lang"] not in conn_dict:
                             conn_dict[data["lang"]] = init_db(data["lang"])

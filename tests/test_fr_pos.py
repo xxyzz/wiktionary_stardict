@@ -39,6 +39,7 @@ class FrPOSTestCase(XMLTestCase):
 </ol>
 </section>""",
                     "zim_pages": ["Conjugaison:français/courir"],
+                    "lemma_code": "fr",
                 },
             ],
         )
@@ -240,4 +241,18 @@ class FrPOSTestCase(XMLTestCase):
 </section></section>"""
                 }
             ],
+        )
+
+    def test_variante_pos(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>à coeur perdu</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3>Variante par contrainte typographique</h3>
+<p><b>à coeur perdu</b></p>
+<ol><li><i>Variante par contrainte typographique d’</i> <a title="à cœur perdu">à cœur perdu</a>.</li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["à cœur perdu"]}],
         )
