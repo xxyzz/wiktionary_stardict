@@ -10,7 +10,7 @@
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence
         select="$section/preceding-sibling::section
-                [normalize-space(h3) = 'Other spellings']"/>
+                [normalize-space(h3[1]) = 'Other spellings']"/>
  </xsl:function>
 
  <xsl:template match="section" mode="alt-form">

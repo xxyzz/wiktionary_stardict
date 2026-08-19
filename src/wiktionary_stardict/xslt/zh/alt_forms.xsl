@@ -10,7 +10,7 @@
     <xsl:sequence
         select="($section/preceding-sibling::section |
                 $section/parent::section/preceding-sibling::section |
-                $section/section)[normalize-space(h3|h4|h5|h6) =
+                $section/section)[normalize-space((h3|h4|h5|h6)[1]) =
                 ('其他寫法', '其他形式', '其他拼写方式', '其他拼写方法', '其他拼寫', '其他拼法',
                 '替代寫法', '替代形式', '其它拼寫', '其它拼写', '其它寫法', '其它写法')]"/>
   </xsl:function>

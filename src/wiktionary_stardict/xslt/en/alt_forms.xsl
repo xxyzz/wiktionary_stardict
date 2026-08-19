@@ -10,7 +10,8 @@
     <xsl:sequence
         select="($section/preceding-sibling::section |
                 $section/parent::section/preceding-sibling::section |
-                $section/section)[normalize-space(h3|h4|h5|h6) = 'Alternative forms']"/>
+                $section/section)
+                [normalize-space((h3|h4|h5|h6)[1]) = 'Alternative forms']"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-alt-forms" as="xs:string*">

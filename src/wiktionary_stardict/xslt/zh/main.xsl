@@ -38,7 +38,7 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="myfn:combine-lang(normalize-space(h2))"/>
+    <xsl:variable name="language" select="myfn:combine-lang(normalize-space(h2[1]))"/>
     <xsl:variable name="new-section">
       <xsl:apply-templates select="." mode="lang-converter"/>
     </xsl:variable>

@@ -48,14 +48,14 @@
       <!-- Sjabloon:-conjug- Sjabloon:-decl- -->
       <xsl:variable
           name="inflection-section-forms"
-          select="section[normalize-space(h5) = ('Vervoeging', 'Verbuiging')]/table//
+          select="section[normalize-space(h5[1]) = ('Vervoeging', 'Verbuiging')]/table//
                   td[not(contains-token(@class, 'infoboxrijhoofding'))]/
                   myfn:get-element-forms(.)"
           as="xs:string*"/>
       <xsl:variable
           name="spelling-forms"
           select="myfn:get-spelling-forms(
-                  section[normalize-space(h5) = 'Schrijfwijzen'])"
+                  section[normalize-space(h5[1]) = 'Schrijfwijzen'])"
           as="xs:string*"/>
       <xsl:variable
           name="unique-forms"
@@ -75,21 +75,21 @@
           <xsl:apply-templates select="h4" mode="section-heading"/>
           <xsl:apply-templates
               select="preceding-sibling::section
-                      [normalize-space(h5) = 'Uitspraak'][1]"
+                      [normalize-space(h5[1]) = 'Uitspraak'][1]"
               mode="pron">
             <xsl:with-param name="pos-index" select="$pos-index"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h5) = 'Opmerkingen']"
+              select="section[normalize-space(h5[1]) = 'Opmerkingen']"
               mode="usage-notes"/>
           <xsl:apply-templates
-              select="section[normalize-space(h5) = ('Synoniemen', 'Antoniemen',
+              select="section[normalize-space(h5[1]) = ('Synoniemen', 'Antoniemen',
                       'Schrijfwijzen', 'Spreekwoorden', 'Uitdrukkingen en gezegden')]"
               mode="linkage"/>
           <xsl:apply-templates
               select="preceding-sibling::section
-                      [normalize-space(h5) = 'Woordherkomst en -opbouw']"
+                      [normalize-space(h5[1]) = 'Woordherkomst en -opbouw']"
               mode="etymology">
             <xsl:with-param name="pos-index" select="$pos-index"/>
           </xsl:apply-templates>

@@ -27,7 +27,7 @@
       <xsl:variable
           name="conj-section"
           select="(section | following-sibling::section)
-                  [normalize-space(h3|h4|h5|h6) = 'Conjugación'][1]"/>
+                  [normalize-space((h3|h4|h5|h6)[1]) = 'Conjugación'][1]"/>
       <xsl:variable
           name="conj-forms"
           select="if (starts-with($pos, 'Verbo') and $conj-section)

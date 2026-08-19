@@ -20,14 +20,14 @@
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates
           select="html/body/section[
-                  myfn:convert-lang(normalize-space(h1)) = $allowed-languages]"
+                  myfn:convert-lang(normalize-space(h1[1])) = $allowed-languages]"
           mode="language"/>
     </xsl:variable>
     <xsl:sequence select="array{$results}"/>
   </xsl:template>
 
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="myfn:convert-lang(normalize-space(h1))"/>
+    <xsl:variable name="language" select="myfn:convert-lang(normalize-space(h1[1]))"/>
     <xsl:apply-templates
         select=".//section[normalize-space((h3|h4|h5|h6)[1]) = 'Семантические свойства']"
         mode="gloss">

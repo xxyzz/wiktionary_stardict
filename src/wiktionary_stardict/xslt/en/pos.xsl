@@ -35,7 +35,7 @@
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
-            select="section[normalize-space(h4 | h5 | h6) =
+            select="section[normalize-space((h4 | h5 | h6)[1]) =
                     ('Conjugation', 'Declension', 'Inflection', 'Mutation')]"
             mode="conj">
           <xsl:with-param name="language" select="$language"/>
@@ -60,14 +60,14 @@
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
-                      [starts-with(normalize-space(h3|h4|h5|h6), 'Pronunciation')]
+                      [starts-with(normalize-space((h3|h4|h5|h6)[1]), 'Pronunciation')]
                       [last()]"
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
           <xsl:apply-templates select="p | ol | table" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) = 'Usage notes']"
+              select="section[normalize-space((h4|h5|h6)[1]) = 'Usage notes']"
               mode="usage-notes"/>
           <xsl:apply-templates select="myfn:get-alt-form-section(.)[1]" mode="linkage"/>
           <xsl:apply-templates
@@ -77,7 +77,8 @@
           <xsl:apply-templates
               select="(ancestor::section | preceding-sibling::section |
                       parent::section/preceding-sibling::section)
-                      [starts-with(normalize-space(h3|h4|h5|h6), 'Etymology')][last()]"
+                      [starts-with(normalize-space((h3|h4|h5|h6)[1]), 'Etymology')]
+                      [last()]"
               mode="etymology"/>
         </section>
       </xsl:variable>

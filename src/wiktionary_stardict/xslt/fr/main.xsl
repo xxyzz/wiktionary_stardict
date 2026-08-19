@@ -23,7 +23,7 @@
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates
-          select="html/body/section[normalize-space(h2) = $allowed-languages]"
+          select="html/body/section[normalize-space(h2[1]) = $allowed-languages]"
           mode="language"/>
     </xsl:variable>
     <xsl:sequence select="array{$results}"/>
@@ -33,9 +33,9 @@
   <xsl:template match="section" mode="language">
     <xsl:apply-templates
         select=".//section[p and ol and
-                not(starts-with(normalize-space(h3|h4|h5|h6), 'Forme '))]"
+                not(starts-with(normalize-space((h3|h4|h5|h6)[1]), 'Forme '))]"
         mode="pos">
-      <xsl:with-param name="language" select="normalize-space(h2)"/>
+      <xsl:with-param name="language" select="normalize-space(h2[1])"/>
     </xsl:apply-templates>
   </xsl:template>
 

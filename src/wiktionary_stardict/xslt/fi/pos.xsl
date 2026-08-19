@@ -27,7 +27,7 @@
       <xsl:variable
           name="inflection-forms" as="xs:string*"
           select="myfn:get-inflection-section-forms(
-                  section[normalize-space(h4 | h5 | h6) = 'Taivutus'])"/>
+                  section[normalize-space((h4 | h5 | h6)[1]) = 'Taivutus'])"/>
       <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-b, $title, $headword-forms,
@@ -42,10 +42,11 @@
         <section class="mw-parser-output" dir="ltr" lang="fi">
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) = 'Ääntäminen']" mode="pron"/>
+              select="section[normalize-space((h4|h5|h6)[1]) = 'Ääntäminen']"
+              mode="pron"/>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select=".//section[normalize-space(h4|h5|h6) =
+              select=".//section[normalize-space((h4|h5|h6)[1]) =
                       ('Huomautukset', 'Etymologia', 'Idiomit', 'Synonyymit')]"
               mode="usage-notes"/>
         </section>

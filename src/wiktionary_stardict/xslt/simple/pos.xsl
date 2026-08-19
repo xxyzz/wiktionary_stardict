@@ -37,14 +37,16 @@
         <section class="mw-parser-output" dir="ltr" lang="en">
           <xsl:apply-templates select="h2" mode="section-heading"/>
           <xsl:apply-templates
-              select="preceding-sibling::section[normalize-space(h3) = 'Pronunciation']"
+              select="preceding-sibling::section
+                      [normalize-space(h3[1]) = 'Pronunciation']"
               mode="pron"/>
           <xsl:apply-templates select="ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h3) = 'Usage notes']" mode="usage-notes"/>
+              select="section[normalize-space(h3[1]) = 'Usage notes']"
+              mode="usage-notes"/>
           <xsl:apply-templates select="myfn:get-alt-form-section(.)" mode="alt-form"/>
           <xsl:apply-templates
-              select="section[normalize-space(h3) = ('Synonyms', 'Antonyms')]"
+              select="section[normalize-space(h3[1]) = ('Synonyms', 'Antonyms')]"
               mode="linkage"/>
         </section>
       </xsl:variable>

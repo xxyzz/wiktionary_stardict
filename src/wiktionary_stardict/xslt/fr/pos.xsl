@@ -42,9 +42,9 @@
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="section-heading"/>
           <xsl:apply-templates select="p | ol" mode="pos-li"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) = 'Notes']" mode="notes"/>
+              select="section[normalize-space((h4|h5|h6)[1]) = 'Notes']" mode="notes"/>
           <xsl:apply-templates
-              select="section[normalize-space(h4|h5|h6) =
+              select="section[normalize-space((h4|h5|h6)[1]) =
                       ('Synonymes', 'Quasi-synonymes', 'Antonymes', 'Variantes',
                       'Variantes dialectales', 'Variantes orthographiques')]"
               mode="linkage"/>

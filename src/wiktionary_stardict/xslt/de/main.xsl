@@ -22,14 +22,14 @@
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates
-          select="html/body/section[normalize-space(h2/a[1]) = $allowed-languages]"
+          select="html/body/section[normalize-space((h2/a)[1]) = $allowed-languages]"
           mode="language"/>
     </xsl:variable>
     <xsl:sequence select="array{$results}"/>
   </xsl:template>
 
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="normalize-space(h2/a[1])"/>
+    <xsl:variable name="language" select="normalize-space((h2/a)[1])"/>
     <xsl:apply-templates
         select=".//section[h3 and p[@data-mw and
                 myfn:is-template(@data-mw, 'Bedeutungen') and

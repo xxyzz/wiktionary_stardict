@@ -10,7 +10,7 @@
     <xsl:sequence
         select="($section/preceding-sibling::section |
                 $section/parent::section/preceding-sibling::section |
-                $section/section)[normalize-space(h3|h4|h5|h6) = ('異表記・別形',
+                $section/section)[normalize-space((h3|h4|h5|h6)[1]) = ('異表記・別形',
                 '別表記', '代替表記', '異形', '表記揺れ')]"/>
   </xsl:function>
 

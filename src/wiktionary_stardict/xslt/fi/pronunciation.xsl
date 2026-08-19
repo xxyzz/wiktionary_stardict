@@ -9,7 +9,7 @@
   <xsl:template match="section" mode="pron">
     <xsl:apply-templates select="ul" mode="pron-ul"/>
     <xsl:apply-templates
-        select="section[normalize-space(h5|h6) = 'Tavutus']" mode="pron"/>
+        select="section[normalize-space((h5|h6)[1]) = 'Tavutus']" mode="pron"/>
   </xsl:template>
 
   <xsl:template match="ul" mode="pron-ul">

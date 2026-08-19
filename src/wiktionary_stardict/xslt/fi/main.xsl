@@ -18,7 +18,7 @@
   <xsl:template match="/">
     <xsl:variable name="results" as="map(*)*">
       <xsl:apply-templates
-          select="html/body/section[normalize-space(h2) = $allowed-languages]"
+          select="html/body/section[normalize-space(h2[1]) = $allowed-languages]"
           mode="language"/>
     </xsl:variable>
     <xsl:sequence select="array{$results}"/>
@@ -26,7 +26,7 @@
 
   <!-- Language section -->
   <xsl:template match="section" mode="language">
-    <xsl:variable name="language" select="normalize-space(h2)"/>
+    <xsl:variable name="language" select="normalize-space(h2[1])"/>
     <xsl:apply-templates select=".//section[ol and p/b]" mode="pos">
       <xsl:with-param name="language" select="$language"/>
     </xsl:apply-templates>

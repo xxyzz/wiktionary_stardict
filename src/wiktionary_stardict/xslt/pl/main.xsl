@@ -29,7 +29,7 @@
     <xsl:apply-templates select="p[i]" mode="pos">
       <xsl:with-param
           name="language"
-          select="normalize-space(h2/span[contains-token(@class, 'lang-code')])"/>
+          select="normalize-space((h2/span[contains-token(@class, 'lang-code')])[1])"/>
       <xsl:with-param
           name="ids"
           select="h2/@id, h2/span[contains-token(@class, 'lang-code')]/@id"/>
