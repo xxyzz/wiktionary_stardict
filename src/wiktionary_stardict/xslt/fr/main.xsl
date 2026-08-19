@@ -36,9 +36,6 @@
                 not(starts-with(normalize-space(h3|h4|h5|h6), 'Forme '))]"
         mode="pos">
       <xsl:with-param name="language" select="normalize-space(h2)"/>
-      <xsl:with-param
-          name="lemma-code"
-          select="h2/span[@data-mw and myfn:is-template(@data-mw, 'langue')]/@id"/>
     </xsl:apply-templates>
   </xsl:template>
 

@@ -38,6 +38,6 @@
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
         select="exists($li[a[@title = ('AFI', 'SAMPA', 'X-SAMPA')] or
-                contains(text(), 'AFI:')])"/>
+                text()[contains(., 'AFI:')]])"/>
   </xsl:function>
 </xsl:stylesheet>

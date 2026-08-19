@@ -14,7 +14,6 @@
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
-    <xsl:param name="lemma-code" as="xs:string?"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable name="headword-forms" as="xs:string*"
                     select="p/(b|bdi)/myfn:get-element-forms(.)"/>
@@ -81,8 +80,7 @@
                   'ids': array{myfn:fr-pos-section-ids(.)},
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
-                  'form_of_only': $form-of-only,
-                  'lemma_code': $lemma-code}"/>
+                  'form_of_only': $form-of-only}"/>
     </xsl:if>
   </xsl:template>
 

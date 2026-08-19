@@ -39,7 +39,6 @@ class FrPOSTestCase(XMLTestCase):
 </ol>
 </section>""",
                     "zim_pages": ["Conjugaison:français/courir"],
-                    "lemma_code": "fr",
                 },
             ],
         )

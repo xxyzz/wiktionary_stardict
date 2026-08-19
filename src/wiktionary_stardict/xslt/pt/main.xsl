@@ -23,7 +23,8 @@
           test="not(contains($title, '/traduções') or contains($title, '/tradução'))">
         <xsl:variable name="results" as="map(*)*">
           <xsl:apply-templates
-              select="html/body/section[normalize-space(h1[1]) = $allowed-languages]"
+              select="html/body/section
+                      [h1 and myfn:get-lang-name(h1[1]) = $allowed-languages]"
               mode="language"/>
         </xsl:variable>
         <xsl:sequence select="array{$results}"/>
@@ -35,18 +36,19 @@
   </xsl:template>
 
   <xsl:template match="section" mode="language">
-    <xsl:variable
-        name="t-names"
-        select="parse-json((h1/style[@data-mw]/@data-mw)[1])?parts?*
-                [. instance of map(*)]?template?target?wt !
-                myfn:convert-template-name(.)"/>
-    <xsl:variable
-        name="lemma-code"
-        select="replace($t-names[starts-with(., '-') and ends-with(., '-')][1],
-                '^-|-$', '')"/>
     <xsl:apply-templates select=".//section[p/b and ol]" mode="pos">
-      <xsl:with-param name="language" select="normalize-space(h1[1])"/>
-      <xsl:with-param name="lemma-code" select="$lemma-code"/>
+      <xsl:with-param name="language" select="myfn:get-lang-name(h1[1])"/>
     </xsl:apply-templates>
   </xsl:template>
+
+  <xsl:function name="myfn:get-lang-name" as="xs:string">
+    <xsl:param name="h1" as="element(h1)?"/>
+    <xsl:variable name="new-h1">
+      <xsl:apply-templates select="$h1" mode="lang-name"/>
+    </xsl:variable>
+    <xsl:sequence select="tokenize(normalize-space($new-h1), '/')[1]"/>
+  </xsl:function>
+
+  <xsl:mode name="lang-name" on-no-match="shallow-copy"/>
+  <xsl:template match="style" mode="lang-name"/>
 </xsl:stylesheet>

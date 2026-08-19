@@ -15,7 +15,6 @@
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
-    <xsl:param name="lemma-code" as="xs:string"/>
 
     <xsl:variable
         name="headword-b-forms" select="p/b ! normalize-space(replace(., '.', ''))"
@@ -37,7 +36,7 @@
         select="('Sigla', 'Abreviatura', 'Símbolo',
                 'Ordinal Equivalente', 'Forma alternativa', 'Variante', 'Variantes',
                 'Variação', 'Grafias alternativas', 'Grafia alternativa',
-                'Forma(s) alternativa(s)', 'Formas alternativas')"
+                'Forma(s) alternativa(s)', 'Formas alternativas', 'Graus')"
         as="xs:string*"/>
     <xsl:variable
         name="alt-forms"
@@ -53,7 +52,7 @@
     <xsl:variable name="definition">
       <section class="mw-parser-output" dir="ltr" lang="pt">
         <xsl:apply-templates
-            select="h2 | h3 | h4 | h5 | h6" mode="section-heading"/>
+            select="h2[1]" mode="section-heading"/>
         <xsl:apply-templates select="p[b] | ol" mode="pos-li"/>
         <xsl:apply-templates
             select="(section|following-sibling::section)
@@ -62,7 +61,7 @@
         <xsl:apply-templates
             select="(section|following-sibling::section)
                     [normalize-space((h2|h3)[1]) = ($alt-form-titles, 'Nota', 'Uso',
-                    'Notas', 'Graus')][1]"
+                    'Notas', 'Graus', 'Fraseologia')][1]"
             mode="etymology"/>
         <xsl:apply-templates
             select="(section|following-sibling::section)
@@ -86,13 +85,20 @@
       <xsl:apply-templates select="$definition" mode="convert-img"/>
     </xsl:variable>
 
+    <xsl:variable
+        name="form-of-only" as="xs:boolean"
+        select="boolean(let $pos := normalize-space(h2[1])
+                return starts-with($pos, 'Forma ') or $pos = 'Transliteração')"/>
+
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
                 'def': serialize(
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
-                'lemma_code': $lemma-code}"/>
+                'form_of_targets': array{if ($form-of-only) then
+                  myfn:form-of-targets(ol/li) else ()},
+                'form_of_only': $form-of-only}"/>
   </xsl:template>
 
   <xsl:template match="h2 | h3 | h4 | h5 | h6" mode="section-heading">
@@ -129,6 +135,13 @@
     <xsl:sequence
         select="boolean($li/node() and
                 not(contains-token($li/@class, 'mw-empty-elt')))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:form-of-targets" as="xs:string*">
+    <xsl:param name="li" as="element(li)*"/>
+    <xsl:sequence
+        select="distinct-values((if ($li/b) then $li/b else $li/a[last()]) !
+                normalize-space(.))[. != '']"/>
   </xsl:function>
 
   <!-- Predefinição:proparoxítona aparente -->

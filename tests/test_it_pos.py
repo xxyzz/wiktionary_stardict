@@ -30,7 +30,6 @@ class ItPOSTestCase(XMLTestCase):
                     "forms": ["run", "runs", "running", "ran"],
                     "ids": ["Inglese", "Verbo", "Transitivo"],
                     "lang": "Inglese",
-                    "lemma_code": "en",
                 },
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="it">
@@ -42,7 +41,6 @@ class ItPOSTestCase(XMLTestCase):
                     "forms": ["run"],
                     "ids": ["Inglese", "Verbo", "Intransitivo"],
                     "lang": "Inglese",
-                    "lemma_code": "en",
                 },
             ],
         )

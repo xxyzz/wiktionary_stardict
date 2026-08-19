@@ -21,7 +21,7 @@ class PtFormsTestCase(XMLTestCase):
             [{"forms": ["parvo", "parva", "párvoa"]}],
         )
 
-    def test_flex_pt_subst_completa(self):
+    def test_conj_pt(self):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
@@ -93,4 +93,22 @@ class PtFormsTestCase(XMLTestCase):
                     "forms": ["Costa de Ivor", "Коста де Ивор"],
                 }
             ],
+        )
+
+    def test_degree_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>grande</title></head>
+<body>
+<section><h1>Português</h1>
+<section><h2>Adjetivo</h2>
+<p><b>grande</b></p>
+<ol><li>gloss</li></ol>
+<section><h3>Graus</h3>
+<ul><li><b>comparativo de superioridade</b>: <a>maior</a> do que</li>
+<li><b>superlativo absoluto sintético</b>: <a>grandíssimo</a></li>
+<li><b>superlativo relativo de superioridade</b>: maior</li></ul>
+</section></section></section></body></html>""",
+            [{"forms": ["grande", "maior", "grandíssimo"]}],
         )

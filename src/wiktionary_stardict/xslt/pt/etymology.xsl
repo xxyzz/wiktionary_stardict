@@ -16,4 +16,7 @@
       </section>
     </xsl:if>
   </xsl:template>
+
+  <xsl:template
+      match="small[sup[a[@rel = 'mw:WikiLink/Interwiki']]]" mode="clean-content"/>
 </xsl:stylesheet>

@@ -14,7 +14,6 @@
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
-    <xsl:param name="lemma-code" as="xs:string"/>
 
     <xsl:variable
         name="headword-first-b" select="(p/b[@data-mw])[1]"/>
@@ -104,7 +103,6 @@
                   $final-definition, map{'method': 'html', 'indent': false()}),
                 'images': array{$images},
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'lemma_code': $lemma-code,
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only}"/>

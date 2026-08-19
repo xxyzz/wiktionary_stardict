@@ -44,6 +44,6 @@
               'Interlíngua',
               'Eslovaco',
               'Búlgaro',
-              'Holandês/Neerlandês',
-              'Checo/Tcheco')"/>
+              'Holandês',
+              'Checo')"/>
 </xsl:stylesheet>
