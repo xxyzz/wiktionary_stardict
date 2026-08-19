@@ -55,12 +55,7 @@ class LanguageTest(TestCase):
                     )
                 else:
                     name_sets.add(language_name)
-                    lemma_code = name_to_code(
-                        language_name.removeprefix("ภาษา")
-                        if edition == "th"
-                        else language_name,
-                        edition,
-                    )
+                    lemma_code = name_to_code(language_name)
                     if lemma_code == "":
                         self.assertEqual(f"No {edition} language: {language_name}", "")
                     elif lemma_code in code_sets:

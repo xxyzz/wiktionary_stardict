@@ -69,7 +69,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </span></p>
 <ol><li>gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Etymology 1</h4>
 <ul><li>From <span class="etyl">Middle English</span><span> </span><small>[Term?]</small>, from <span class="etyl">Old English</span><span> </span><i class="Latn mention" lang="ang">te</i>, from <span class="etyl">Latin</span><span> </span><i class="Latn mention" lang="la">tē</i><span> </span><span class="mention-gloss-paren annotation-paren">(</span><span class="ann-pos">the name of the letter T</span><span class="mention-gloss-paren annotation-paren">)</span>.</li></ul>
 </section>
 </section>""",
@@ -83,7 +83,7 @@ class EnEtymologyTestCase(XMLTestCase):
 </span></p>
 <ol><li>gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Etymology 2</h4>
 <p>First attested in the 17th century as <i class="Latn mention" lang="en">teaz</i>, back-formation from obsolete <span class="etyl">Scots</span><span> </span><i class="Latn mention" lang="sco">teaz</i>, later reanalyzed as a plural. </p>
 </section>
 </section>""",
@@ -187,7 +187,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">compound</strong>
 </span></p>
 <ol><li>noun gloss</li></ol>
-<section><h4>Etymology</h4>
+<section><h4>Etymology 1</h4>
 <p>etymology 1</p>
 </section></section>"""
                 },
@@ -198,7 +198,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">compound</strong>
 </span></p>
 <ol><li>adj gloss</li></ol>
-<section><h4>Etymology</h4>
+<section><h4>Etymology 2</h4>
 <p>etymology 2</p>
 </section></section>"""
                 },
@@ -209,7 +209,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">compound</strong>
 </span></p>
 <ol><li>noun gloss</li></ol>
-<section><h4>Etymology</h4>
+<section><h4>Etymology 2</h4>
 <p>etymology 2</p>
 </section></section>"""
                 },
@@ -220,7 +220,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">compound</strong>
 </span></p>
 <ol><li>verb gloss</li></ol>
-<section><h4>Etymology</h4>
+<section><h4>Etymology 2</h4>
 <p>etymology 2</p>
 </section></section>"""
                 },

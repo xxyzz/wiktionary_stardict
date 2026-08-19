@@ -23,4 +23,5 @@ EDITIONS = {
     "pl": {"lang": "język polski", "wiki_name": "Wikisłownik"},
     "it": {"lang": "Italiano", "wiki_name": "Wikizionario"},
     "pt": {"lang": "Português", "wiki_name": "Wikcionário"},
+    "vi": {"lang": "Tiếng Việt", "wiki_name": "Wiktionary"},
 }

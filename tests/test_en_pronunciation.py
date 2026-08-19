@@ -567,7 +567,7 @@ class EnPronunciationTestCase(XMLTestCase):
 </span></p>
 <ol><li>adj gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Etymology 1</h4>
 <p>Etymology 1</p>
 </section>
 </section>""",
@@ -581,7 +581,7 @@ class EnPronunciationTestCase(XMLTestCase):
 </span></p>
 <ol><li>noun gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Etymology 2</h4>
 <p>Etymology 2</p>
 </section></section>""",
                 },
@@ -594,7 +594,7 @@ class EnPronunciationTestCase(XMLTestCase):
 </span></p>
 <ol><li>verb gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Etymology 3</h4>
 <p>Etymology 3</p>
 </section></section>""",
                 },

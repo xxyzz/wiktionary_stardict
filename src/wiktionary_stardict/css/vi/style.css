@@ -1,0 +1,490 @@
+h4 {
+  margin: 0.25em 0;
+  padding-bottom: 0;
+  font-weight: bold;
+}
+p {
+  margin: 0.5em 0;
+}
+ul {
+  list-style-type: disc !important;
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+ol {
+  margin: 0.3em 0 0 1.6em;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+  padding: 0;
+}
+p + ol {
+  margin-top: -0.5em;
+}
+li {
+  margin-bottom: 0.1em;
+}
+dt {
+  font-weight:bold;
+  margin-bottom:0.1em
+}
+dl {
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+}
+dd {
+  margin-bottom: 0.1em;
+  margin-left: 1.6em;
+  margin-right: 0;
+  margin-inline-start: 1.6em;
+  margin-inline-end: 0;
+}
+.ib-content, .use-with-mention, .form-of-definition, .gender, .number, .noun-class {
+  font-style: italic;
+}
+.nowrap {
+  white-space:nowrap
+}
+.wikitable {
+  background-color:#f8f9fa;
+  color:#202122;
+  margin:1em 0;
+  border:1px solid #a2a9b1;
+  border-collapse:collapse
+}
+.wikitable > tr > th,
+.wikitable > tr > td,
+.wikitable > * > tr > th,
+.wikitable > * > tr > td {
+  border:1px solid #a2a9b1;
+  padding:0.2em 0.4em
+}
+.wikitable > tr > th,
+.wikitable > * > tr > th {
+  background-color:#eaecf0;
+  color:#202122;
+  text-align:center
+}
+.wikitable > caption {
+  font-weight:bold
+}
+.list-switcher-wrapper,
+:not(.list-switcher-wrapper)>.list-switcher {
+  contain:layout;
+  margin-top:0.3em;
+}
+.list-switcher-wrapper+.list-switcher-wrapper {
+  margin-top:0.6em
+}
+.list-switcher>div>ul,
+.list-switcher-wrapper>div>ul {
+  margin-top:0
+}
+.list-switcher ul ul {
+  margin-top:0.1em
+}
+.list-switcher-header {
+  background:#e9e8f9;
+  font-weight:bold;
+  font-size:95%;
+  padding:0.2em 0.4em 0.1em 0.6em
+}
+list-switcher-header+.list-switcher .term-list,
+.list-switcher-header+.term-list {
+  padding-top:0.1em;
+}
+.columns-bg {
+  background:#f8f8ff;
+}
+.Aghb,
+.Aghb *,
+.Ahom,
+.Ahom *,
+.Armi,
+.Armi *,
+.Armn,
+.Armn *,
+.Avst,
+.Avst *,
+.Bali,
+.Bali *,
+.Bamu,
+.Bamu *,
+.Batk,
+.Batk *,
+.Beng,
+.Beng *,
+.as-Beng,
+.as-Beng *,
+.Bopo,
+.Bopo *,
+.Brah,
+.Brah *,
+.Brai,
+.Brai *,
+.Bugi,
+.Bugi *,
+.Buhd,
+.Buhd *,
+.Cakm,
+.Cakm *,
+.Cans,
+.Cans *,
+.Cari,
+.Cari *,
+.Cham,
+.Cham *,
+.Cher,
+.Cher *,
+.Copt,
+.Copt *,
+.Cprt,
+.Cprt *,
+i.Cyrl.mention,
+i.Cyrs.mention,
+i.Deva,
+.Dsrt,
+.Dsrt *,
+.Egyp,
+.Egyp *,
+.Ethi,
+.Ethi *,
+.Geok,
+.Geok *,
+.Geor,
+.Geor *,
+.Glag,
+.Glag *,
+.Goth,
+.Goth *,
+i.Grek.mention,
+i.polytonic.mention,
+i.Polyt.mention,
+.Gujr,
+.Gujr *,
+.Guru,
+.Guru *,
+.Hang,
+.Hang *,
+.Hani,
+.Hani *,
+.Hano,
+.Hano *,
+.Hans,
+.Hans *,
+.Hant,
+.Hant *,
+.Hira,
+.Hira *,
+.Hluw,
+.Hluw *,
+.IPA,
+.IPA *,
+.Ipach,
+.Ipach *,
+.IPAchar,
+.IPAchar *,
+.Ital,
+.Ital *,
+.Java,
+.Java *,
+.Jpan,
+.Jpan *,
+.Kali,
+.Kali *,
+.Kana,
+.Kana *,
+.Khar,
+.Khar *,
+.Khmr,
+.Khmr *,
+.Knda,
+.Knda *,
+.Kore,
+.Kore *,
+.Kthi,
+.Kthi *,
+.Lana,
+.Lana *,
+.Laoo,
+.Laoo *,
+.Lepc,
+.Lepc *,
+.Linb,
+.Linb *,
+.Limb,
+.Limb *,
+.Lisu,
+.Lisu *,
+.Lyci,
+.Lyci *,
+.Lydi,
+.Lydi *,
+.Mand,
+.Mand *,
+.Mani,
+.Mani *,
+.Merc,
+.Merc *,
+.Mero,
+.Mero *,
+.Mlym,
+.Mlym *,
+.Mong,
+.Mong *,
+.mnc-Mong,
+.mnc-Mong *,
+.sjo-Mong,
+.sjo-Mong *,
+.xwo-Mong,
+.xwo-Mong *,
+.Mtei,
+.Mtei *,
+.Music,
+.Music *,
+.musical,
+.musical *,
+.Narb,
+.Narb *,
+.Nkoo,
+.Nkoo *,
+.Orkh,
+.Orkh *,
+.Olck,
+.Olck *,
+.Orya,
+.Orya *,
+.Osma,
+.Osma *,
+.Phag,
+.Phag *,
+.Phli,
+.Phli *,
+.Phlv,
+.Phlv *,
+.Phnx,
+.Phnx *,
+.Plrd,
+.Plrd *,
+.Prti,
+.Prti *,
+.Rjng,
+.Rjng *,
+.Runr,
+.Runr *,
+.Samr,
+.Samr *,
+.Sarb,
+.Sarb *,
+.Saur,
+.Saur *,
+.Sgnw,
+.Sgnw *,
+.Shaw,
+.Shaw *,
+.Shrd,
+.Shrd *,
+.Sinh,
+.Sinh *,
+.Sora,
+.Sora *,
+.Sund,
+.Sund *,
+.Sylo,
+.Sylo *,
+.Syrc,
+.Syrc *,
+.Tagb,
+.Tagb *,
+.Tale,
+.Tale *,
+.Talu,
+.Talu *,
+.Taml,
+.Taml *,
+.Tavt,
+.Tavt *,
+.Telu,
+.Telu *,
+.Tfng,
+.Tfng *,
+.Tglg,
+.Tglg *,
+.Thaa,
+.Thaa *,
+.Thai,
+.Thai *,
+.Tibt,
+.Tibt *,
+.Ugar,
+.Ugar *,
+.Vaii,
+.Vaii *,
+.Xpeo,
+.Xpeo *,
+.Yiii,
+.Yiii *,
+.Zmth,
+.Zmth *,
+.Zsym,
+.Zsym * {
+  font-style:normal
+}
+.Arab,
+.Arab *,
+.fa-Arab,
+.fa-Arab *,
+.glk-Arab,
+.glk-Arab *,
+.kk-Arab,
+.kk-Arab *,
+.ks-Arab,
+.ks-Arab *,
+.ku-Arab,
+.ku-Arab *,
+.mzn-Arab,
+.mzn-Arab *,
+.ota-Arab,
+.ota-Arab *,
+.pa-Arab,
+.pa-Arab *,
+.ps-Arab,
+.ps-Arab *,
+.sd-Arab,
+.sd-Arab *,
+.tt-Arab,
+.tt-Arab *,
+.ug-Arab,
+.ug-Arab *,
+.ur-Arab,
+.ur-Arab *,
+.ms-Arab,
+.ms-Arab *,
+.Hebr,
+.Hebr *,
+.Mymr,
+.Mymr *,
+.Ogam,
+.Ogam *,
+.Ougr,
+.Ougr *,
+.Tang,
+.Tang *,
+.Xsux,
+.Xsux * {
+  font-style:normal;
+  font-weight:normal
+}
+.Arab.e-example b,
+.Arab.e-quotation b,
+.Arab.e-normalization b,
+.Hebr.e-example b,
+.Hebr.e-quotation b,
+.Hebr.e-normalization b,
+.Ogam.e-example b,
+.Ogam.e-quotation b,
+.Ogam.e-normalization b,
+.Ugar.e-example b,
+.Ugar.e-quotation b,
+.Ugar.e-normalization b,
+.Xpeo.e-example b,
+.Xpeo.e-quotation b,
+.Xpeo.e-normalization b,
+.Xsux.e-example b,
+.Xsux.e-quotation b,
+.Xsux.e-normalization b {
+  color: #612042;
+  font-size:inherit
+}
+.Latn:lang(ja),
+.Latn:lang(ko),
+.Latn:lang(zh) {
+  font-family:inherit
+}
+.Bopo {
+  font-family:'Source Han Sans TW',sans-serif
+}
+.Hans {
+  font-family:'Source Han Sans CN',sans-serif
+}
+.Hani,
+.Hant {
+  font-family:'Source Han Sans TW',sans-serif
+}
+.Hani,
+.Hans,
+.Hant {
+  font-size:120%;
+  line-height:1
+}
+.Hira,
+.Jpan,
+.Kana {
+  font-family:'Source Han Sans JP',sans-serif;
+  font-size:120%;
+  line-height:1
+}
+.Jpan ruby rt {
+  font-family:'Source Han Sans JP',sans-serif;
+  font-size:60%;
+}
+.enPR {
+  font-family:Gentium,sans-serif
+}
+.IPA,
+.Ipach,
+.IPAchar {
+  font-family:Gentium,sans-serif;
+  font-size:110%;
+  font-variant-ligatures:no-common-ligatures
+}
+.ib-comma {
+  font-style:normal
+}
+.ib-content i,
+.ib-content em {
+  font-style:normal
+}
+.mention-tr {
+  font-style: italic;
+}
+.use-with-mention i, .form-of-definition-link {
+  font-style: normal;
+}
+.use-with-mention .mention, .form-of-definition-link .mention {
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Gentium;
+  src: url("fonts/Gentium-Regular.ttf");
+}
+@font-face {
+  font-family: "Source Han Sans TW";
+  src: url("fonts/SourceHanSansTW-Regular.otf");
+}
+@font-face {
+  font-family: "Source Han Sans TW";
+  font-weight: bold;
+  src: url("fonts/SourceHanSansTW-Bold.otf");
+}
+@font-face {
+  font-family: "Source Han Sans CN";
+  src: url("fonts/SourceHanSansCN-Regular.otf");
+}
+@font-face {
+  font-family: "Source Han Sans CN";
+  font-weight: bold;
+  src: url("fonts/SourceHanSansCN-Bold.otf");
+}
+@font-face {
+  font-family: "Source Han Sans JP";
+  src: url("fonts/SourceHanSansJP-Regular.otf");
+}
+@font-face {
+  font-family: "Source Han Sans JP";
+  font-weight: bold;
+  src: url("fonts/SourceHanSansJP-Bold.otf");
+}

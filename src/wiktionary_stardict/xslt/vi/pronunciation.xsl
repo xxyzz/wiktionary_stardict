@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet
+    version="3.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:myfn="https://github.com/xxyzz"
+    exclude-result-prefixes="#all">
+
+  <xsl:template match="section" mode="pron">
+    <xsl:param name="language"/>
+    <xsl:choose>
+      <xsl:when test="$language = 'Tiếng Việt'">
+        <xsl:apply-templates
+            select="span[@data-mw and myfn:is-template(@data-mw,
+                    ('vi-pron', 'vie-pron'))]/following-sibling::table[1]"
+            mode="vi-pron"/>
+      </xsl:when>
+      <xsl:when test="$language = 'Tiếng Nhật'">
+        <xsl:apply-templates
+            select="p | span[@data-mw and myfn:is-template(@data-mw,
+                    ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
+            mode="ja-pron"/>
+      </xsl:when>
+      <xsl:when test="$language = 'Tiếng Trung Quốc'">
+        <xsl:apply-templates
+            select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
+            mode="zh-pron"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="ul" mode="pron-ul"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="ul" mode="pron-ul">
+    <xsl:variable name="lists">
+      <xsl:apply-templates select="li" mode="pron-ul"/>
+    </xsl:variable>
+    <xsl:if test="$lists/*">
+      <ul><xsl:copy-of select="$lists"/></ul>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- 'Tách âm:' from Template:es-pr, Template:fi-p, Template:za-pron -->
+  <xsl:template match="li" mode="pron-ul">
+    <xsl:if
+        test="not(table[contains-token(@class, 'audiotable')]) and
+              (.//a[@title = 'Wiktionary:IPA'] or
+              .//text()[some $str in ('Tách âm:', 'Tách từ')
+              satisfies contains(., $str)])">
+      <li>
+        <xsl:apply-templates mode="pron-ul"/>
+      </li>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dl" mode="pron-ul">
+    <xsl:variable name="lists">
+      <xsl:apply-templates select="dd" mode="pron-ul"/>
+    </xsl:variable>
+    <xsl:if test="$lists/*">
+      <dl><xsl:copy-of select="$lists"/></dl>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dd" mode="pron-ul">
+    <xsl:if test="not(table[contains-token(@class, 'audiotable')])">
+      <dd><xsl:apply-templates mode="pron-ul"/></dd>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="*" mode="pron-ul">
+    <xsl:apply-templates select="." mode="clean-content"/>
+  </xsl:template>
+
+  <xsl:template match="ul" mode="zh-pron">
+    <xsl:variable name="li">
+      <xsl:apply-templates select="li[1]" mode="zh-pron-li"/>
+    </xsl:variable>
+    <ul>
+      <xsl:apply-templates select="$li" mode="clean-content"/>
+    </ul>
+  </xsl:template>
+  <xsl:mode name="zh-pron-li" on-no-match="shallow-copy"/>
+  <xsl:template match="dd[span[contains-token(@typeof, 'mw:File')]]" mode="zh-pron-li"/>
+
+  <xsl:template match="ul" mode="ja-pron">
+    <xsl:variable name="li">
+      <xsl:apply-templates select="li" mode="ja-pron-li"/>
+    </xsl:variable>
+    <ul>
+      <xsl:apply-templates select="$li" mode="clean-content"/>
+    </ul>
+  </xsl:template>
+  <xsl:mode name="ja-pron-li" on-no-match="shallow-copy"/>
+  <xsl:template
+      match="li[table[contains-token(@class, 'audiotable')]]" mode="ja-pron-li"/>
+  <xsl:mode name="ja-pron" on-no-match="shallow-copy"/>
+
+  <xsl:template match="table" mode="vi-pron">
+    <xsl:variable name="content">
+      <xsl:apply-templates select="." mode="vi-pron-table"/>
+    </xsl:variable>
+    <xsl:apply-templates select="$content" mode="clean-content"/>
+  </xsl:template>
+  <xsl:mode name="vi-pron-table" on-no-match="shallow-copy"/>
+  <xsl:template match="caption" mode="vi-pron-table"/>
+
+  <!-- IPA sup -->
+  <xsl:template match="sup[normalize-space() = '(ghi chú)']" mode="clean-content"/>
+</xsl:stylesheet>

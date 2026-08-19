@@ -79,9 +79,7 @@ def create_stardict(
     if lemma_lang in lang_codes:
         lemma_code = lang_codes[lemma_lang]
     else:
-        lemma_code = name_to_code(
-            lemma_lang.removeprefix("ภาษา") if edition == "th" else lemma_lang, edition
-        )
+        lemma_code = name_to_code(lemma_lang, edition)
     folder_name = f"{lemma_code}-{edition}"
     out_path = Path("build") / folder_name
     if out_path.exists():
