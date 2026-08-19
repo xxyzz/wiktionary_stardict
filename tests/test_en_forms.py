@@ -472,3 +472,22 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"forms": ["หนังสือ"]}],
         )
+
+    def test_middle_dot(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>adteich</title></head>
+<body>
+<section><h2>Old Irish</h2>
+<section><h3>Alternative forms</h3>
+<ul><li><span class="Latn" lang="sga"><a title="ateich">a·teich</a></span></li></ul>
+</section>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="sga">ad·teich</strong> (<i>verbal noun</i> <b class="Latn" lang="sga"><a title="attach">attach</a></b>)</span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Inflection</h4><table><tbody><tr>
+<td><span class="Latn" lang="sga"><a title="ateoch">a·teoch</a></span></td>
+</tr></tbody></table></section></section></section></body></html>""",
+            [{"forms": ["adteich", "ateich", "attach", "ateoch"]}],
+        )

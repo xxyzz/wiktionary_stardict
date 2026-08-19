@@ -24,7 +24,7 @@
           <xsl:sequence select="$kanji-form, $kana-form"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:sequence select="normalize-space(.)"/>
+          <xsl:sequence select="replace(normalize-space(.), '·', '')"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>

@@ -60,7 +60,8 @@
           select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
       <xsl:variable
           name="td-forms"
-          select="$table//td[preceding-sibling::th[1][text() != '異序詞']]//
+          select="$table//td[preceding-sibling::th[1]
+                  [not(text()[contains(., '異序詞')])]]//
                   span[starts-with(@lang, 'zh')]/normalize-space(.)[. != '／']"/>
       <xsl:sequence select="$th-forms, $td-forms"/>
     </xsl:if>
