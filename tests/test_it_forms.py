@@ -59,9 +59,9 @@ class ItFormsTestCase(XMLTestCase):
 <head><title>comprare</title></head>
 <body>
 <section><h2><a>Italiano</a></h2>
-<section><h3>Sostantivo</h3>
+<section><h3>Verbo</h3>
 <section><h4>Transitivo</h4>
-<p><b data-mw='{"parts":[{"template":{"target":{"wt":"Pn"}}}]}'>comprare</b></p>
+<p><b data-mw='{"parts":[{"template":{"target":{"wt":"Pn"}}}]}'>comprare</b><small><span> </span>(<a title="Appendice:Coniugazioni/Italiano/comprare">vai alla coniugazione</a>)</small> 1ª coniugazione, regolare</p>
 <ol><li>gloss</li></ol>
 </section></section>
 <section><h3><span typeof="mw:File"><a><img/></a></span><span typeof="mw:File"><a><img/></a></span> <a>Varianti</a></h3>
@@ -71,14 +71,15 @@ class ItFormsTestCase(XMLTestCase):
                 {
                     "forms": ["comprare", "comperare"],
                     "def": """<section class="mw-parser-output" dir="ltr" lang="it">
-<h4>Sostantivo</h4>
+<h4>Verbo</h4>
 <h4>Transitivo</h4>
-<p><b>comprare</b></p>
+<p><b>comprare</b> 1ª coniugazione, regolare</p>
 <ol><li>gloss</li></ol>
 <section>
 <h4> Varianti</h4>
 <ul><li>comperare</li></ul>
 </section></section>""",
+                    "zim_pages": ["Appendice:Coniugazioni/Italiano/comprare"],
                 }
             ],
         )

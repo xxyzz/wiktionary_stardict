@@ -21,7 +21,11 @@ EDITIONS = {
     "el": {"lang": "Ελληνικά", "wiki_name": "Βικιλεξικό"},
     "th": {"lang": "ภาษาไทย", "wiki_name": "วิกิพจนานุกรม"},
     "pl": {"lang": "język polski", "wiki_name": "Wikisłownik"},
-    "it": {"lang": "Italiano", "wiki_name": "Wikizionario"},
+    "it": {
+        "lang": "Italiano",
+        "wiki_name": "Wikizionario",
+        "zim_xsl": "coniugazioni.xsl",
+    },
     "pt": {"lang": "Português", "wiki_name": "Wikcionário"},
     "vi": {"lang": "Tiếng Việt", "wiki_name": "Wiktionary"},
 }

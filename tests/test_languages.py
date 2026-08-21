@@ -6,6 +6,7 @@ class LanguageTest(TestCase):
         import json
         from pathlib import Path
 
+        import pycountry
         from mediawiki_langcodes import name_to_code
         from saxonche import PySaxonProcessor
 
@@ -64,4 +65,10 @@ class LanguageTest(TestCase):
                             "",
                         )
                     else:
+                        if len(lemma_code) == 2:
+                            lang = pycountry.languages.get(alpha_2=lemma_code)
+                            if lang is None:
+                                self.assertEqual(
+                                    f"Invalid {lemma_code=} for {language_name=}", ""
+                                )
                         code_sets.add(lemma_code)

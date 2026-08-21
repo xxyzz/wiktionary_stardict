@@ -53,6 +53,10 @@
                 $headword-big-forms, $table-forms, $alt-forms))
                 [. != '']"
         as="xs:string*"/>
+    <xsl:variable
+        name="conj-links"
+        select="p[b]//a[starts-with(@title, 'Appendice:Coniugazioni/')]/@title"
+        as="xs:string*"/>
 
     <xsl:variable name="definition">
       <section class="mw-parser-output" dir="ltr" lang="it">
@@ -105,7 +109,8 @@
                 'ids': array{myfn:get-pos-section-ids(.)},
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
-                'form_of_only': $form-of-only}"/>
+                'form_of_only': $form-of-only,
+                'zim_pages': array{$conj-links}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
@@ -121,6 +126,9 @@
   <!-- rm Wikipedia link in headword line -->
   <xsl:template
       match="small[preceding-sibling::b[@data-mw and myfn:is-template(@data-mw, 'Pn')]]"
+      mode="clean-content"/>
+  <xsl:template
+      match="small[a[starts-with(@title, 'Appendice:Coniugazioni/')]]"
       mode="clean-content"/>
 
   <xsl:template match="ol" mode="pos-li">
