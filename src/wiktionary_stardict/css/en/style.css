@@ -370,6 +370,9 @@ i .mention {
 .pjt-Latn {
   font-family:Arial,'Microsoft Sans Serif',Tahoma,'Code2000',sans-serif
 }
+.Adlm {
+  font-family:'Noto Sans Adlam',sans-serif
+}
 .Aghb {
   font-family:OptimaModoki,sans-serif
 }
@@ -420,7 +423,7 @@ i .mention {
   font-family:'Noto Nastaliq Urdu',sans-serif
 }
 .Armi {
-  font-family:'Segoe UI Historic','Aramaic Imperial Yeb','Noto Sans Imperial Aramaic',sans-serif;
+  font-family:'Noto Sans Imperial Aramaic',sans-serif;
   direction:rtl;
   unicode-bidi:isolate
 }
@@ -454,7 +457,7 @@ i .mention {
   font-family:'Source Han Sans TW',sans-serif
 }
 .Brah {
-  font-family:'Segoe UI Historic','Noto Sans Brahmi'
+  font-family:'Noto Sans Brahmi',sans-serif;
 }
 .Brai {
   font-size:150%
@@ -470,7 +473,7 @@ i .mention {
   font-family:RibengUni,sans-serif
 }
 .Cans {
-  font-family:'Euphemia UCAS',Euphemia,'Aboriginal Sans',OskiBlackfoot,'Code2000','Everson Mono Unicode',sans-serif;
+  font-family:'Noto Sans Canadian Aboriginal',sans-serif;
   font-size:110%
 }
 .Cari,
@@ -485,11 +488,11 @@ i .mention {
   font-size:1.1em
 }
 .Cher {
-  font-family:Digohweli,'Aboriginal Sans','Code2000',Marin,'Rotinonhsonni Sans','Everson Mono Unicode',sans-serif;
+  font-family:'Noto Sans Cherokee',sans-serif;
   font-size:110%
 }
 .Copt {
-  font-family:Quivira,Antinoou,'New Athena Unicode',Analecta,FreeSerifAvvaShenouda,'Arial Coptic','Sophia Nubian','Code2000',sans-serif;
+  font-family:'Noto Sans Coptic',sans-serif;
   font-size:1.3em
 }
 .Cprt {
@@ -528,7 +531,7 @@ i .mention {
   font-family:'Noto Sans Elbasan',sans-serif
 }
 .Ethi {
-  font-family:'Abyssinica SIL',Nyala,'Code2000','Ethiopia Jiret','GF Zemen Unicode','TITUS Cyberbit Basic','Visual Geez Unicode','Visual Geez Unicode Agazian','Visual Geez Unicode Title',sans-serif;
+  font-family:'Noto Sans Ethiopic',sans-serif;
   font-size:120%
 }
 .Geor {
@@ -539,7 +542,7 @@ i .mention {
   font-size:150%
 }
 .Goth {
-  font-family:'Segoe UI Historic','Code2001',Skeirs,'MPH 2B Damase',sans-serif
+  font-family:'Noto Sans Gothic',sans-serif;
 }
 b.Goth,
 strong.Goth {
@@ -594,7 +597,7 @@ strong.Goth {
   font-size:200%
 }
 .Java {
-  font-family:'Tuladha Jejeg','Javanese Text',adjisaka,'Noto Sans Javanese',sans-serif
+  font-family:'Noto Sans Javanese',sans-serif
 }
 .Hira,
 .Jpan,
@@ -699,7 +702,7 @@ strong.Goth {
   font-family:'Eeyek Unicode','Noto Sans Meetei Mayek',sans-serif
 }
 .Mymr {
-  font-family:'Noto Sans Myanmar';
+  font-family:'Noto Sans Myanmar',sans-serif;
   font-size:130%
 }
 big.Mymr,
@@ -777,7 +780,7 @@ b .Ogam {
   font-family:'Noto Sans Rejang','Code2000',sans-serif
 }
 .Runr {
-  font-family:'Segoe UI Historic',Junicode,'Free Mono','Caslon Roman','Segoe UI Symbol','Code2000','Everson Mono','TITUS Cyberbit Basic',sans-serif;
+  font-family:'Noto Sans Runic',sans-serif;
   font-size:130%
 }
 .Samr {
@@ -803,7 +806,7 @@ b .Ogam {
   font-family:'Noto Sans Siddham',sans-serif
 }
 .Sinh {
-  font-family:'Sinhala Sangam MN',KaputaUnicode,KandyUnicode,Dinamina,DinaminaUniWeb,Potha,Madhura,sans-serif;
+  font-family:'Noto Sans Sinhala',sans-serif;
   font-size:125%
 }
 .Sund {
@@ -840,7 +843,7 @@ b .Ogam {
   font-size:125%
 }
 .Tang {
-  font-family:'BabelStone Tangut Wenhai','Tangut N4694','Tangut Yinchuan','New Tangut','New Tangut Std','Tangut TWU','Babelstone Tangut Wenhai',sans-serif;
+  font-family:'Noto Serif Tangut',sans-serif;
   font-size:1.2em;
   text-orientation:upright;
   -webkit-text-orientation:upright
@@ -857,13 +860,16 @@ b .Ogam {
   font-size:120%
 }
 .Tglg {
-  font-family:'Noto Sans Tagalog','Tagalog Stylized','Baybayin Lopez','Tagalog Doctrina 1593',Quivira,'Code2000',sans-serif
+  font-family:'Noto Sans Tagalog',sans-serif
 }
 .Tglg:lang(bcl) {
-  font-family:'Bikol Mintz','Noto Sans Tagalog','Tagalog Stylized','Baybayin Lopez','Tagalog Doctrina 1593',Quivira,'Code2000',sans-serif
+  font-family:'Noto Sans Tagalog',sans-serif
 }
 .Tglg:lang(ceb) {
-  font-family:'Bisaya Hervas','Noto Sans Tagalog','Tagalog Stylized','Baybayin Lopez','Tagalog Doctrina 1593',Quivira,'Code2000',sans-serif
+  font-family:'Noto Sans Tagalog',sans-serif
+}
+.Thaa {
+  font-family:'Noto Sans Thaana',sans-serif
 }
 .Thai {
   font-family:Sarabun,sans-serif;
@@ -884,17 +890,17 @@ b .Ogam {
   font-family:"Noto Serif Vithkuqi","Noto Sans Vithkuqi",sans-serif
 }
 .Xpeo {
-  font-family:'Segoe UI Historic',Aegean,Xerxes,'Code2001',sans-serif
+  font-family:'Noto Sans Old Persian',sans-serif;
 }
 .Xsux {
-  font-family:Akkadian,FreeIdgSerif,CuneiformComposite,'Segoe UI Historic',sans-serif;
+  font-family:'Noto Sans Cuneiform',sans-serif;
   font-size:125%
 }
 .Xsux:lang(hit) {
-  font-family:UllikummiA,Akkadian,FreeIdgSerif,CuneiformComposite,'Segoe UI Historic',sans-serif
+  font-family:'Noto Sans Cuneiform',sans-serif
 }
 .Xsux:lang(sux) {
-  font-family:CuneiformComposite,Akkadian,'Segoe UI Historic',sans-serif
+  font-family:'Noto Sans Cuneiform',sans-serif
 }
 .Zsym {
   font-family:Symbola,sans-serif;
@@ -1259,6 +1265,10 @@ list-switcher-header+.list-switcher .term-list,
   src: url("fonts/NotoSansSyriacEastern-Regular.otf");
 }
 @font-face {
+  font-family: "Noto Sans Syriac";
+  src: url("fonts/NotoSansSyriac-Regular.otf");
+}
+@font-face {
   font-family: "Noto Sans Tamil";
   src: url("fonts/NotoSansTamil-Regular.otf");
 }
@@ -1275,4 +1285,103 @@ list-switcher-header+.list-switcher .term-list,
   font-family: "Noto Sans Georgian";
   font-weight: bold;
   src: url("fonts/NotoSansGeorgian-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Ethiopic";
+  src: url("fonts/NotoSansEthiopic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Ethiopic";
+  font-weight: bold;
+  src: url("fonts/NotoSansEthiopic-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Gothic";
+  src: url("fonts/NotoSansGothic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Runic";
+  src: url("fonts/NotoSansRunic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Coptic";
+  src: url("fonts/NotoSansCoptic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Serif Tangut";
+  src: url("fonts/NotoSerifTangut-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Brahmi";
+  src: url("fonts/NotoSansBrahmi-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Cherokee";
+  src: url("fonts/NotoSansCherokee-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Cherokee";
+  font-weight: bold;
+  src: url("fonts/NotoSansCherokee-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Cuneiform";
+  src: url("fonts/NotoSansCuneiform-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Old Persian";
+  src: url("fonts/NotoSansOldPersian-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Adlam";
+  src: url("fonts/NotoSansAdlam-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Adlam";
+  font-weight: bold;
+  src: url("fonts/NotoSansAdlam-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Thaana";
+  src: url("fonts/NotoSansThaana-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Thaana";
+  font-weight: bold;
+  src: url("fonts/NotoSansThaana-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Canadian Aboriginal";
+  src: url("fonts/NotoSansCanadianAboriginal-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Canadian Aboriginal";
+  font-weight: bold;
+  src: url("fonts/NotoSansCanadianAboriginal-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Tagalog";
+  src: url("fonts/NotoSansTagalog-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Imperial Aramaic";
+  src: url("fonts/NotoSansImperialAramaic-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Sinhala";
+  src: url("fonts/NotoSansSinhala-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Sinhala";
+  font-weight: bold;
+  src: url("fonts/NotoSansSinhala-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Javanese";
+  src: url("fonts/NotoSansJavanese-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Javanese";
+  font-weight: bold;
+  src: url("fonts/NotoSansJavanese-Bold.otf");
 }

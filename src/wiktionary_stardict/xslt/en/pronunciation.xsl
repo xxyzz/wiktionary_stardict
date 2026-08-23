@@ -15,7 +15,7 @@
                     ('ja-pron', 'ja-accent-dialectal'))]/following-sibling::ul[1]"
             mode="ja-pron"/>
       </xsl:when>
-      <xsl:when test="$language = 'Chinese'">
+      <xsl:when test="$language = ('Chinese', 'Tangut')">
         <xsl:apply-templates
             select="(div[contains-token(@class, 'zhpron')]//ul)[1]"
             mode="zh-pron"/>
