@@ -50,25 +50,24 @@ class LanguageTest(TestCase):
             code_sets = set()
             edition = config.parent.name
             for language_name in languages:
-                if language_name in name_sets:
-                    self.assertEqual(
-                        f"Duplicated {edition} language: {language_name}", ""
+                self.assertNotIn(
+                    language_name,
+                    name_sets,
+                    f"Duplicated {edition} language: {language_name}",
+                )
+                name_sets.add(language_name)
+                lemma_code = name_to_code(language_name, edition)
+                self.assertNotEqual(
+                    lemma_code, "", f"No {edition} language: {language_name}"
+                )
+                self.assertNotIn(
+                    lemma_code,
+                    code_sets,
+                    f"Conflict code {edition=} {language_name=} {lemma_code=}",
+                )
+                if len(lemma_code) == 2:
+                    self.assertIsNotNone(
+                        pycountry.languages.get(alpha_2=lemma_code),
+                        f"Invalid {lemma_code=} for {language_name=}",
                     )
-                else:
-                    name_sets.add(language_name)
-                    lemma_code = name_to_code(language_name)
-                    if lemma_code == "":
-                        self.assertEqual(f"No {edition} language: {language_name}", "")
-                    elif lemma_code in code_sets:
-                        self.assertEqual(
-                            f"Conflict code {edition=} {language_name=} {lemma_code=}",
-                            "",
-                        )
-                    else:
-                        if len(lemma_code) == 2:
-                            lang = pycountry.languages.get(alpha_2=lemma_code)
-                            if lang is None:
-                                self.assertEqual(
-                                    f"Invalid {lemma_code=} for {language_name=}", ""
-                                )
-                        code_sets.add(lemma_code)
+                code_sets.add(lemma_code)

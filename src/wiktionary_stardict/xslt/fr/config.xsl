@@ -99,5 +99,15 @@
               'Népalais',
               'Hindi',
               'Tchouvache',
-              'Lepcha')"/>
+              'Lepcha',
+              'Griko',
+              'Gaélique écossais',
+              'Cornique',
+              'Tatar de Crimée',
+              'Flamand occidental',
+              'Palenquero',
+              'Serbo-croate',
+              'Turkmène',
+              'Vieux haut allemand',
+              'Asturien')"/>
 </xsl:stylesheet>

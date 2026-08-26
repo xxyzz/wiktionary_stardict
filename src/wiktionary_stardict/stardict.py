@@ -94,9 +94,11 @@ def create_stardict(
         wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
             out_path, conn, edition, zim
         )
-        logger.info(f"{folder_name} dict and idx files created {wordcount=}")
+        logger.info(
+            f"{lemma_lang} {folder_name} dict and idx files created {wordcount=}"
+        )
         synwordcount = create_syn_file(out_path, conn)
-        logger.info(f"{folder_name} syn file created {synwordcount=}")
+        logger.info(f"{lemma_lang} {folder_name} syn file created {synwordcount=}")
         create_ifo_file(
             out_path,
             bookname,

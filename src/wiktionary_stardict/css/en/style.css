@@ -852,7 +852,7 @@ b .Ogam {
   font-family:'Tai Heritage Pro','Noto Sans Tai Viet',sans-serif
 }
 .Telu {
-  font-family:'Telugu Sangam MN',sans-serif;
+  font-family:'Noto Sans Telugu',sans-serif;
   font-size:125%
 }
 .Tfng {
@@ -1384,4 +1384,13 @@ list-switcher-header+.list-switcher .term-list,
   font-family: "Noto Sans Javanese";
   font-weight: bold;
   src: url("fonts/NotoSansJavanese-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Telugu";
+  src: url("fonts/NotoSansTelugu-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Telugu";
+  font-weight: bold;
+  src: url("fonts/NotoSansTelugu-Bold.otf");
 }

@@ -327,7 +327,7 @@ big.lang-arc {
   font-family:Code2000,'MPH 2B Damase',sans-serif
 }
 .Mlym {
-  font-family:Kartika,Code2000,Lucida Grande,Arial Unicode MS,Lucida Sans Unicode,TITUS Cyberbit Basic,Doulos SIL,Chrysanthi Unicode,Bitstream Cyberbit,Bitstream CyberBase,Bitstream Vera,Gentium,GentiumAlt,Visual Geez Unicode,sans-serif;
+  font-family:'Noto Sans Malayalam',sans-serif;
   font-size:125%
 }
 .Mong,
@@ -355,7 +355,7 @@ big.lang-arc {
   font-family:Eeyek Unicode,sans-serif
 }
 .Mymr {
-  font-family:'Noto Sans Myanmar';
+  font-family:'Noto Sans Myanmar',sans-serif;
   font-size:130%
 }
 .Mymr,
@@ -446,7 +446,7 @@ b .Mymr {
   font-style:normal
 }
 .Taml {
-  font-family:'Tamil Sangam MN',InaiMathi,Vijaya,Akshar,JanaTamil,'Code2000',ETTamilNew,'Lohit Tamil','Arial Unicode MS','Free Serif',Latha,sans-serif;
+  font-family:'Noto Sans Tamil',sans-serif;
   font-size:125%
 }
 .Taml,
@@ -468,7 +468,7 @@ b .Mymr {
   font-family:'Tai Heritage Pro',sans-serif
 }
 .Telu {
-  font-family:'Telugu Sangam MN',sans-serif;
+  font-family:'Noto Sans Telugu',sans-serif;
   font-size:125%
 }
 .Telu,
@@ -1060,4 +1060,40 @@ section {
   font-family: "Noto Sans Bengali";
   font-weight: bold;
   src: url("fonts/NotoSansBengali-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Tamil";
+  src: url("fonts/NotoSansTamil-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-weight: bold;
+  src: url("fonts/NotoSansTamil-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Telugu";
+  src: url("fonts/NotoSansTelugu-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Telugu";
+  font-weight: bold;
+  src: url("fonts/NotoSansTelugu-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Malayalam";
+  src: url("fonts/NotoSansMalayalam-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Malayalam";
+  font-weight: bold;
+  src: url("fonts/NotoSansMalayalam-Bold.otf");
+}
+@font-face {
+  font-family: "Noto Sans Khmer";
+  src: url("fonts/NotoSansKhmer-Regular.otf");
+}
+@font-face {
+  font-family: "Noto Sans Khmer";
+  font-weight: bold;
+  src: url("fonts/NotoSansKhmer-Bold.otf");
 }

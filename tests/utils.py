@@ -35,10 +35,9 @@ class XMLTestCase(TestCase):
     def assertTransformEqual(self, input_html, expected_list, prettify=True):
         output = self.transform(input_html)
         if len(expected_list) == 0:
-            self.assertTrue(len(output) == 0)
-        elif len(output) == 0:
-            self.assertTrue(False)
+            self.assertTrue(len(output) == 0, "Shouldn't have output data")
         else:
+            self.assertTrue(len(output) > 0, "No output data")
             for result_data, expected_data in zip(output, expected_list):
                 for key in expected_data.keys():
                     if key == "def" and prettify:
