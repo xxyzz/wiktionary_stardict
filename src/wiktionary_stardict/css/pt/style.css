@@ -44,6 +44,13 @@ u {
   color: navy;
   font-style: italic;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 .ipa {
   font-family: Gentium,sans-serif;
 }

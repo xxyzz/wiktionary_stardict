@@ -22,7 +22,7 @@ class NlPOSTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
 <h4><i>Zelfstandig naamwoord</i></h4>
 <p>het<span> </span><b>grootje</b><span> </span><span>o</span></p>
-<ol><li>verkleinwoord enkelvoud van het zelfstandig naamwoord groot</li>
+<ol><li>verkleinwoord enkelvoud van het zelfstandig naamwoord <a href="bword://groot" title="groot">groot</a></li>
 <li>gloss</li></ol>
 </section>""",
                     "form_of_only": False,
@@ -45,7 +45,7 @@ class NlPOSTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="nl">
 <h4><i>Zelfstandig naamwoord</i></h4>
 <p>het<span> </span><b>grootje</b><span> </span><span>o</span></p>
-<ol><li>verkleinwoord enkelvoud van het zelfstandig naamwoord groot</li></ol>
+<ol><li>verkleinwoord enkelvoud van het zelfstandig naamwoord <a href="bword://groot" title="groot">groot</a></li></ol>
 </section>""",
                     "form_of_only": True,
                     "form_of_targets": ["groot"],

@@ -14,7 +14,7 @@
 
     <xsl:if test="$content/node()">
       <section>
-        <h4>詞源</h4>
+        <xsl:apply-templates select="(h3 | h4)[1]" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>
@@ -27,7 +27,7 @@
 
     <xsl:if
         test="normalize-space(string-join($clean-p//text()[not(parent::style)], ''))">
-      <p><xsl:copy-of select="$clean-p"/></p>
+      <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
 

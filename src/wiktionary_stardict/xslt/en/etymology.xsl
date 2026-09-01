@@ -27,7 +27,7 @@
 
     <xsl:if
         test="normalize-space(string-join($clean-p//text()[not(parent::style)], ''))">
-      <p><xsl:copy-of select="$clean-p"/></p>
+      <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
 

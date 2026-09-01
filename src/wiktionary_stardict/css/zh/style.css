@@ -943,6 +943,13 @@ list-switcher-header+.list-switcher .term-list,
 .columns-bg, .derivedterms {
   background:#f8f8ff;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 section {
   font-family:sans-serif;

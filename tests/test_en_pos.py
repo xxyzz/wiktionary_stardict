@@ -27,11 +27,11 @@ class EnPOSTestCase(XMLTestCase):
       <p>
         <span class="headword-line">
           <strong class="Latn headword" lang="en">tee</strong> (<i>plural</i>
-          <b class="Latn form-of lang-en p-form-of" lang="en">tees</b>)</span>
+          <b class="Latn form-of lang-en p-form-of" lang="en"><a href="bword://tees" title="tees">tees</a></b>)</span>
       </p>
       <ol>
         <li>
-          <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en">T</i>/<i class="Latn mention" lang="en">t</i>.</span>
+          <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en"><a href="bword://T" title="T">T</a></i>/<i class="Latn mention" lang="en"><a href="bword://t" title="t">t</a></i>.</span>
         </li>
         <li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">clothing<span class="ib-comma label-comma">,</span><span> </span>informal</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Ellipsis of <span class="form-of-definition-link"><i class="Latn mention" lang="en">tee-shirt</i></span></span>.</li>
       </ol>
@@ -178,7 +178,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol>
-   <li>The Maclaurin series expansion <span class="mwe-math-element mwe-math-element-inline" ><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math></math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+   <li>The <a rel="mw:WikiLink" href="./Maclaurin_series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" ><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math></math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
 </ol>
 </section>
 </section>
@@ -194,7 +194,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol>
-   <li>The Maclaurin series expansion <span class="mwe-math-element mwe-math-element-inline" ><img src="d253b87bf18d329bd2d1c12ee1ebba5071003ca8.svg" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" ><img src="d253b87bf18d329bd2d1c12ee1ebba5071003ca8.svg" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
 </ol>
 </section>""",
                     "images": [

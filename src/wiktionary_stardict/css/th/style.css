@@ -1035,6 +1035,13 @@ b,strong {
   font-style:italic;
   color:#49555f
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 section {
   font-family:Sarabun,sans-serif;

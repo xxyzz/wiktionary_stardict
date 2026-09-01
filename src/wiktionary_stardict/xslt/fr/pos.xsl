@@ -73,8 +73,8 @@
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
-                  'def': serialize(
-                    $final-definition, map{'method': 'html', 'indent': false()}),
+                  'def': serialize($final-definition, map{'method': 'html',
+                    'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
                   'zim_pages': array{$conj-links},
                   'ids': array{myfn:fr-pos-section-ids(.)},

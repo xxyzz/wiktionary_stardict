@@ -103,8 +103,8 @@
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
-                'def': serialize(
-                  $final-definition, map{'method': 'html', 'indent': false()}),
+                'def': serialize($final-definition, map{'method': 'html',
+                  'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'ids': array{myfn:get-pos-section-ids(.)},
                 'form_of_targets': array{if ($form-of-only) then

@@ -45,6 +45,13 @@ dd {
   text-decoration: none;
   font-size: 110%;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  Border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 @font-face {
   font-family: Gentium;

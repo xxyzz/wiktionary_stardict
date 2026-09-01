@@ -32,7 +32,7 @@
       </xsl:variable>
 
       <section>
-        <h4>Etymology</h4>
+        <xsl:apply-templates select="h3[1]" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
       </section>
     </xsl:if>

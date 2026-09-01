@@ -40,6 +40,13 @@ dd {
   font-size: 0.8em;
   color: #c473e7;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 .Jpan {
   font-family:'Source Han Sans JP',sans-serif;

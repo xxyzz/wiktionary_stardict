@@ -101,7 +101,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <section><h2>Chinese</h2>
 <section><h3>Etymology</h3>
 <p>From <i>Duan Ge Xing</i> by <span class="Hani" lang="zh">曹操</span> (Cao Cao):</p>
-<dl><dd><div class="vsSwitcher" data-toggle-category="usage examples"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲南飛。繞樹三匝，何枝可依？</span><span class="vsHide"> <span style="color:var(--wikt-palette-forestgreen, #235923); font-size:80%;"><span>[</span>Classical Chinese, <i>trad.</i><span>]</span></span></span><span class="vsToggleElement" style="color:var(--wikt-palette-forestgreen, #235923);padding-left:10px"></span><hr/><span class="vsHide"><span lang="zh-Hans" class="Hans"><b>月明星稀</b></span></span><dd><span class="vsHide"><small><i>From:</i></small></span></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
+<dl><dd><div class="vsSwitcher" data-toggle-category="usage examples"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，<a class="new" rel="mw:WikiLink">烏鵲</a><a rel="mw:WikiLink" href="./南#Chinese" title="南">南</a>飛。繞樹三匝，何枝可依？</span><span class="vsHide"> <span style="color:var(--wikt-palette-forestgreen, #235923); font-size:80%;"><span>[</span>Classical Chinese, <i>trad.</i><span>]</span></span></span><span class="vsToggleElement" style="color:var(--wikt-palette-forestgreen, #235923);padding-left:10px"></span><hr/><span class="vsHide"><span lang="zh-Hans" class="Hans"><b>月明星稀</b></span></span><dd><span class="vsHide"><small><i>From:</i></small></span></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
 </section>
 <section><h3>Idiom</h3>
 <p><span class="headword-line"><strong class="Hani headword" lang="zh">月明星稀</strong></span></p>
@@ -121,7 +121,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <section>
 <h4>Etymology</h4>
 <p>From <i>Duan Ge Xing</i> by <span class="Hani" lang="zh">曹操</span> (Cao Cao):</p>
-<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲南飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:#235923;padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
+<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲<a href="bword://南" title="南">南</a>飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:#235923;padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
 </section>
 </section>"""
                 }

@@ -456,6 +456,13 @@ i.Polyt.mention,
   font-style: normal;
   font-weight: bold;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 @font-face {
   font-family: Gentium;

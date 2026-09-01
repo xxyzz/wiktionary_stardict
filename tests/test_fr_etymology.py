@@ -33,7 +33,7 @@ class FrEtymologyTestCase(XMLTestCase):
 <p><b>dame</b> <span class="API" title="Prononciation API">\\dam\\</span> <span class="ligne-de-forme"><i>féminin</i></span></p>
 <ol><li>Femme qui appartient à la noblesse.</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Étymologie</h4>
 <dl><dd><i>(Nom commun 1)</i> Du <span>latin </span><i><bdi lang="la" class="lang-la">domina</bdi></i><span> («</span><span> </span>aîtresse<span> de </span>maison<span> </span><span>»)</span>.</dd></dl>
 </section>
 </section>""",
@@ -44,7 +44,7 @@ class FrEtymologyTestCase(XMLTestCase):
 <p><b>dame</b> <span class="API" title="Prononciation API">\\dam\\</span> <span class="ligne-de-forme"><i>féminin</i></span></p>
 <ol><li>Digue, ou pièce de maçonnerie, installée sur un cours d’eau pour permettre la construction d’un ouvrage.</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Étymologie</h4>
 <dl><dd><i>(Nom commun 2)</i> Du <span>moyen néerlandais </span><i><bdi lang="dum" class="lang-dum">dam</bdi></i><span> («</span><span> </span>digue<span> </span><span>»)</span>.</dd></dl>
 </section>
 </section>""",
@@ -110,7 +110,7 @@ class FrEtymologyTestCase(XMLTestCase):
 <p><b>marron</b></p>
 <ol><li>gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Étymologie</h4>
 <dl><dd><i>(Adjectif 3)</i> <i>(Adverbe)</i> Probable extension de <i>marron</dd></dl>
 </section>
 </section>""",
@@ -121,7 +121,7 @@ class FrEtymologyTestCase(XMLTestCase):
 <p><b>marron</b></p>
 <ol><li>gloss</li></ol>
 <section>
-<h4>Etymology</h4>
+<h4>Étymologie</h4>
 <dl><dd><i>(Adjectif 2)</i> Emprunt à une langue caraïbe</i></dd></dl>
 </section>
 </section>""",

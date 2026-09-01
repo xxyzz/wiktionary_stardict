@@ -61,8 +61,8 @@
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
-                'def': serialize(
-                  $final-definition, map{'method': 'html', 'indent': false()}),
+                'def': serialize($final-definition, map{'method': 'html',
+                  'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
                 'ids': array{myfn:get-ancestor-section-ids(.)}}"/>

@@ -67,8 +67,8 @@
       <xsl:sequence
           select="map{'lang': 'English',
                   'forms': array{$unique-forms},
-                  'def': serialize(
-                    $final-definition, map{'method': 'html', 'indent': false()}),
+                  'def': serialize($final-definition, map{'method': 'html',
+                    'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li) else ()},

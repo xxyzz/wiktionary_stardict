@@ -23,7 +23,29 @@
   <!-- Remove category links -->
   <xsl:template match="link | audio | comment() | script | meta" mode="clean-content"/>
 
-  <!-- Remove a elements but keep their text content -->
+  <!-- Create bword link -->
+  <xsl:template
+      match="a[contains-token(@rel, 'mw:WikiLink') and
+             not(some $class in ('new', 'mw-selflink-fragment')
+             satisfies contains-token(@class, $class)) and
+             starts-with(@href, './') and not(contains(@href, ':'))]"
+      mode="clean-content">
+    <xsl:variable
+        name="new-href"
+        select="(substring-after(@href, './') || '#') => substring-before('#') =>
+                replace('_', ' ')"/>
+    <xsl:copy>
+      <xsl:apply-templates select="@* except @href" mode="clean-content"/>
+      <xsl:attribute name="href" select="'bword://' || $new-href"/>
+      <xsl:apply-templates select="node()" mode="clean-content"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="a[contains-token(@class, 'mw-selflink')]" mode="clean-content">
+    <strong><xsl:apply-templates mode="clean-content"/></strong>
+  </xsl:template>
+
+  <!-- Remove other a elements but keep their text content -->
   <xsl:template match="a" mode="clean-content">
     <xsl:apply-templates mode="clean-content"/>
   </xsl:template>

@@ -33,6 +33,13 @@ dd {
   margin-inline-start: 1.6em;
   margin-inline-end: 0;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 @font-face {
   font-family: Gentium;

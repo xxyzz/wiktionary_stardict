@@ -18,6 +18,13 @@ dd {
 .ipa, ipa2 {
   font-family:Gentium,sans-serif
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 @font-face {
   font-family: "Gentium";

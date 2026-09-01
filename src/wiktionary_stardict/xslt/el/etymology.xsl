@@ -9,7 +9,7 @@
     <xsl:variable name="dd" select="dl/dd[node()]"/>
     <xsl:if test="$dd">
       <section>
-        <xsl:apply-templates select="h3" mode="section-heading"/>
+        <xsl:apply-templates select="h3[1]" mode="section-heading"/>
         <dl>
           <xsl:apply-templates select="$dd" mode="clean-content"/>
         </dl>

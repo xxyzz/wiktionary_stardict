@@ -31,6 +31,13 @@ li {
 .example-select {
   background-color: #dff2eb;
 }
+.mw-parser-output a {
+  word-wrap: break-word;
+  color: inherit;
+  border-radius: 2px;
+  text-decoration: none;
+  background: none;
+}
 
 .IPA {
   font-family:Gentium,sans-serif;
