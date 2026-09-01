@@ -11,7 +11,8 @@ class EsPronunciationTestCase(XMLTestCase):
 <head><title>acontecer</title></head>
 <body>
 <section><h2>Español</h2>
-<table class="pron-graf toccolours" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'></span>
+<table class="pron-graf toccolours">
 <tbody><tr><td>acontecer</td></tr>
 <tr>
 <td><a><b>seseante</b></a> (<a title="Alfabeto Fonético Internacional">AFI</a>)</td>
@@ -51,7 +52,8 @@ class EsPronunciationTestCase(XMLTestCase):
 <head><title>livre</title></head>
 <body>
 <section><h2>Francés</h2>
-<table class="pron-graf toccolours" style="float: right;" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'></span>
+<table class="pron-graf toccolours" style="float: right;">
 <tbody><tr><td colspan="2"><span>livre</span></td></tr>
 <tr>
 <td><a title="Wikcionario:Referencia/FR/Pronunciación"><b>pronunciación</b></a> (<a title="Alfabeto Fonético Internacional">AFI</a>)</td>
@@ -63,7 +65,8 @@ class EsPronunciationTestCase(XMLTestCase):
 </section>
 
 <section><h2>Portugués</h2>
-<table class="pron-graf toccolours" style="float: right;" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'></span>
+<table class="pron-graf toccolours" style="float: right;">
 <tbody><tr><td colspan="2"><span>livre</span></td></tr>
 <tr>
 <td><a><b>Portugal</b></a> (<a title="Alfabeto Fonético Internacional">AFI</a>)</td>
@@ -104,7 +107,8 @@ class EsPronunciationTestCase(XMLTestCase):
 <head><title>Shintoismus</title></head>
 <body>
 <section><h2>Alemán</h2>
-<table class="pron-graf toccolours" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'></span>
+<table class="pron-graf toccolours">
 <tbody><tr><td>Shintoismus</td></tr>
 <tr>
 <td><b>pronunciación</b> (<a title="Alfabeto Fonético Internacional">AFI</a>)</td>

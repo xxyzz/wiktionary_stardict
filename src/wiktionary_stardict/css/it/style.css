@@ -29,6 +29,9 @@ li {
   text-decoration: none;
   background: none;
 }
+.mw-parser-output h4 a {
+  color: inherit;
+}
 
 @font-face {
   font-family: Gentium;

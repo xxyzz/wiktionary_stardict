@@ -43,8 +43,10 @@
         <section class="mw-parser-output" dir="ltr" lang="es">
           <xsl:apply-templates select="h3 | h4 | h5 | h6" mode="pos"/>
           <xsl:apply-templates
-              select="ancestor::section/table[@data-mw]
-                      [myfn:is-template(@data-mw, 'pron-graf')][1]" mode="pron"/>
+              select="ancestor::section/span[@data-mw and
+                      myfn:is-template(@data-mw, 'pron-graf')]/
+                      following-sibling::table[1]"
+              mode="pron"/>
           <xsl:apply-templates
               select="p[child::*[1]
                       [self::b[contains-token(@typeof, 'mw:Transclusion')]]] | dl"
