@@ -17,8 +17,8 @@ class RuLinkageTestCase(XMLTestCase):
 </section>
 <section><h4>Синонимы</h4>
 <ol><li>том</li>
-<li>книжка</li>
 <li>—</li>
+<li>книжка</li>
 <li>—</li></ol>
 </section>
 <section><h4>Антонимы</h4>
@@ -33,10 +33,8 @@ class RuLinkageTestCase(XMLTestCase):
 <h4>Значение</h4>
 <ol><li>gloss</li></ol>
 <section><h4>Синонимы</h4>
-<ol><li>том</li>
-<li>книжка</li>
-<li>—</li>
-<li>—</li></ol>
+<ol><li value="1">том</li>
+<li value="3">книжка</li></ol>
 </section></section>""",
                 },
             ],
@@ -65,7 +63,7 @@ class RuLinkageTestCase(XMLTestCase):
 <h4>Значение</h4>
 <ol><li>gloss</li></ol>
 <section><h4>Синонимы</h4>
-<ol class="mw-references references"><li> <span class="mw-reference-text reference-text">алый, червонный, червлёный</span></li></ol>
+<ol class="mw-references references"><li value="1"> <span class="mw-reference-text reference-text">алый, червонный, червлёный</span></li></ol>
 </section></section>""",
                 },
             ],

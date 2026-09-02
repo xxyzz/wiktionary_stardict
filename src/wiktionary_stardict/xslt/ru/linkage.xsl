@@ -8,8 +8,10 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="linkage">
-    <xsl:variable name="content" select="myfn:filter-linkage-li(ol)"/>
-    <xsl:if test="$content">
+    <xsl:variable name="content">
+      <xsl:apply-templates select="ol" mode="filter-linkage-ol"/>
+    </xsl:variable>
+    <xsl:if test="$content/*">
       <section>
         <xsl:apply-templates select="h4" mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
@@ -24,8 +26,10 @@
                   [contains-token(@class, 'mw-references-wrap')][1]/ol"
           mode="gloss-linkage-ol"/>
     </xsl:variable>
-    <xsl:variable name="content" select="myfn:filter-linkage-li($list)"/>
-    <xsl:if test="$content">
+    <xsl:variable name="content">
+      <xsl:apply-templates select="$list" mode="filter-linkage-ol"/>
+    </xsl:variable>
+    <xsl:if test="$content/*">
       <section>
         <xsl:apply-templates select="." mode="section-heading"/>
         <xsl:apply-templates select="$content" mode="clean-content"/>
@@ -37,10 +41,25 @@
       match="span[contains-token(@class, 'mw-cite-backlink')]" mode="gloss-linkage-ol"/>
   <xsl:mode name="gloss-linkage-ol" on-no-match="shallow-copy"/>
 
-  <xsl:function name="myfn:filter-linkage-li" as="element(ol)*">
-    <xsl:param name="ol" as="element(ol)*"/>
-    <xsl:sequence
-        select="$ol[li and not(every $li in li satisfies normalize-space($li) =
-                ('—', '?'))]"/>
-  </xsl:function>
+  <xsl:template match="ol" mode="filter-linkage-ol">
+    <xsl:variable name="lists">
+      <xsl:apply-templates select="li" mode="filter-linkage-li"/>
+    </xsl:variable>
+    <xsl:if test="$lists/*">
+      <xsl:copy>
+        <xsl:copy-of select="@*"/>
+        <xsl:copy-of select="$lists"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="li" mode="filter-linkage-li">
+    <xsl:if test="not(normalize-space(.) = ('—', '?', '-', ''))">
+      <xsl:copy>
+        <xsl:copy-of select="@*"/>
+        <xsl:attribute name="value">{position()}</xsl:attribute>
+        <xsl:copy-of select="node()"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>

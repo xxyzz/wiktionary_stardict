@@ -252,6 +252,7 @@ def archive_images(edition: str):
         shutil.rmtree(images_dir)
     if has_file:
         tar_path = archive_folder.with_suffix(".tar.zst")
+        tar_path.unlink(True)
         with tarfile.open(name=tar_path, mode="x:zst") as tar:
             tar.add(archive_folder, arcname=".")
         shutil.rmtree(archive_folder)
