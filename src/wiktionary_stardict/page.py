@@ -23,7 +23,10 @@ def convert_release_data(tag: str):
                 filename = dict_info["filename"].replace(" ", ".")
                 assets[gloss_name].append(
                     {
-                        "name": dict_info["bookname"],
+                        "name": dict_info["bookname"]
+                        .removeprefix(EDITIONS[gloss_code]["wiki_name"])
+                        .removesuffix(f"-{gloss_name}")
+                        .strip(),
                         "url": f"https://github.com/xxyzz/wiktionary_stardict/releases/download/{tag}/{filename}",
                         "entries": dict_info["wordcount"],
                         "size": convert_size(dict_info["filesize"]),
@@ -46,7 +49,18 @@ def download_screenshots():
     import subprocess
 
     subprocess.run(
-        ["gh", "release", "download", "20260329", "-D", "_site", "-p", "*.png"],
+        [
+            "gh",
+            "release",
+            "download",
+            "20260329",
+            "-D",
+            "_site",
+            "-p",
+            "*.png",
+            "-p",
+            "*.avif",
+        ],
         check=True,
     )
 
@@ -70,7 +84,8 @@ def create_github_page(args):
     )
     out_path = Path("_site/index.html")
     out_path.parent.mkdir(exist_ok=True)
-    Path("docs/fonts.html").copy_into(out_path.parent)
+    for copy_file in ("docs/fonts.html", "docs/style.css"):
+        Path(copy_file).copy_into(out_path.parent)
     download_screenshots()
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")

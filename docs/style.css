@@ -1,0 +1,95 @@
+.btn {
+  border-radius: 4px;
+  color: #1a171b;
+  display: inline-block;
+  font-family: "Helvetica Neue",Helvetica,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  padding: 5px 7px 3px;
+  position: relative;
+  text-decoration: none;
+}
+.btn > span {
+  margin-left: 19px;
+}
+.btn > svg {
+  position: absolute;
+  left: 7px;
+  top: 7px;
+}
+.liberapay {background-color: #f6c915;}
+.paypal {background-color: #60cdff;}
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "list screenshot";
+}
+.list {grid-area: list;}
+.screenshot {
+  grid-area: screenshot;
+  justify-self: center;
+  text-align: center;
+}
+.screenshot img {
+  width: 100%;
+}
+ul {
+  list-style-type: disc;
+  margin-top: 0.3em;
+  margin-bottom: 0;
+  margin-left: 1.6em;
+  margin-right: 0;
+  padding: 0;
+}
+li {
+  break-inside: avoid;
+  margin-bottom: 0.1em;
+}
+a:where(:not([role='button'])) {
+  color:#36c;
+  text-decoration:none
+}
+a:where(:not([role='button'])):visited {
+  color:#6a60b0
+}
+a:where(:not([role='button'])):visited:hover {
+  color:#534fa3
+}
+a:where(:not([role='button'])):visited:active {
+  color:#353262
+}
+a:where(:not([role='button'])):hover {
+  color:#3056a9;
+  text-decoration:underline
+}
+a:where(:not([role='button'])):active {
+  color:#233566;
+  text-decoration:underline
+}
+a:where(:not([role='button'])):focus-visible {
+  outline:solid 2px #36c
+}
+select {
+  cursor: pointer;
+}
+p {
+  margin: 0.5em 0 1em 0;
+}
+h1, h2 {
+  margin: 0 0 0.25em 0;
+}
+
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "screenshot"
+      "list";
+  }
+  .screenshot img {
+    width: 90%;
+  }
+}
+.files {display: none;}
+.active {display: grid;}

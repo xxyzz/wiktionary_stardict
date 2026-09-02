@@ -1,6 +1,9 @@
 # Wiktionary StarDict
 
-<img style="width:40%;" src="https://github.com/xxyzz/wiktionary_stardict/releases/download/20260329/en.png"/>
+<picture>
+  <source srcset="https://github.com/xxyzz/wiktionary_stardict/releases/download/20260329/en.avif" type="image/avif"/>
+  <img style="width:40%;" loading="lazy" src="https://github.com/xxyzz/wiktionary_stardict/releases/download/20260329/en.png" alt="KOReader screenshot"/>
+</picture>
 
 Data source: https://enterprise.wikimedia.com and https://kiwix.org
 
