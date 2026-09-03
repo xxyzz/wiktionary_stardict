@@ -22,6 +22,7 @@
         <meta name="description" content="Wiktionary StarDict dictionaries for KOReader and other e-readers."/>
         <meta property="og:title" content="Wiktionary StarDict"/>
         <meta property="og:type" content="website"/>
+        <meta name="color-scheme" content="light dark"/>
         <link href="./style.css" rel="stylesheet"/>
       </head>
       <body>

@@ -47,24 +47,24 @@ li {
   margin-bottom: 0.1em;
 }
 a:where(:not([role='button'])) {
-  color:#36c;
+  color: light-dark(#36c, #88a3e8);
   text-decoration:none
 }
 a:where(:not([role='button'])):visited {
-  color:#6a60b0
+  color: light-dark(#6a60b0, #a799cd)
 }
 a:where(:not([role='button'])):visited:hover {
-  color:#534fa3
+  color: light-dark(#534fa3, #c5b9dd)
 }
 a:where(:not([role='button'])):visited:active {
-  color:#353262
+  color: light-dark(#353262, #d9d0e9)
 }
 a:where(:not([role='button'])):hover {
-  color:#3056a9;
+  color: light-dark(#3056a9, #a6bbf5);
   text-decoration:underline
 }
 a:where(:not([role='button'])):active {
-  color:#233566;
+  color: light-dark(#233566, #b6d4fb);
   text-decoration:underline
 }
 a:where(:not([role='button'])):focus-visible {
@@ -93,3 +93,11 @@ h1, h2 {
 }
 .files {display: none;}
 .active {display: grid;}
+
+:root {
+  color-scheme: light dark;
+}
+body {
+  background-color: light-dark(#ffffff, #101418);
+  color: light-dark(#202122, #eaecf0)
+}

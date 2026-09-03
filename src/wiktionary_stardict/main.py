@@ -210,7 +210,7 @@ def main():
     import argparse
 
     from .edition import EDITIONS
-    from .page import create_github_page
+    from .github_pages.main import create_github_pages
 
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(required=True)
@@ -219,6 +219,6 @@ def main():
     build_parser.set_defaults(func=build)
     page_parser = subparsers.add_parser("page")
     page_parser.add_argument("tag")
-    page_parser.set_defaults(func=create_github_page)
+    page_parser.set_defaults(func=create_github_pages)
     args = parser.parse_args()
     args.func(args)

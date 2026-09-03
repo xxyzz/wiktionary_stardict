@@ -4,7 +4,7 @@ def convert_release_data(tag: str):
     from collections import defaultdict
     from pathlib import Path
 
-    from .edition import EDITIONS
+    from ..edition import EDITIONS
     from .koreader import koreader_file
 
     subprocess.run(
@@ -65,13 +65,13 @@ def download_screenshots():
     )
 
 
-def create_github_page(args):
+def create_github_pages(args):
     from importlib.resources import files
     from pathlib import Path
 
     from saxonche import PySaxonProcessor
 
-    from .main import config_proc
+    from ..main import config_proc
 
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
@@ -80,12 +80,14 @@ def create_github_page(args):
         "data", proc.make_string_value(convert_release_data(args.tag))
     )
     executable = xsltproc.compile_stylesheet(
-        stylesheet_file=str(files("wiktionary_stardict") / "xslt" / "github_page.xsl")
+        stylesheet_file=str(files("wiktionary_stardict") / "github_pages" / "index.xsl")
     )
     out_path = Path("_site/index.html")
     out_path.parent.mkdir(exist_ok=True)
-    for copy_file in ("docs/fonts.html", "docs/style.css"):
-        Path(copy_file).copy_into(out_path.parent)
+    for copy_file in ("fonts.html", "style.css"):
+        (files("wiktionary_stardict") / "github_pages" / copy_file).copy_into(
+            out_path.parent
+        )
     download_screenshots()
     with out_path.open("w") as f:
         doc = proc.parse_xml(xml_text="<root/>")
