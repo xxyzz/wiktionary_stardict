@@ -30,6 +30,7 @@
   grid-area: screenshot;
   justify-self: center;
   text-align: center;
+  filter: var(--img-filter);
 }
 .screenshot img {
   width: 100%;
@@ -93,11 +94,18 @@ h1, h2 {
 }
 .files {display: none;}
 .active {display: grid;}
+.active-option {display: inherit;}
 
 :root {
   color-scheme: light dark;
+  --img-filter: none;
 }
 body {
   background-color: light-dark(#ffffff, #101418);
   color: light-dark(#202122, #eaecf0)
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --img-filter: invert(1);
+  }
 }
