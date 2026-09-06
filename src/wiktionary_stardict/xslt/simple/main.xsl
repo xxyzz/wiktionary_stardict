@@ -15,10 +15,17 @@
 
   <!-- https://simple.wiktionary.org/wiki/Wiktionary:Entry_layout_explained -->
   <xsl:template match="/">
-    <xsl:variable name="results" as="map(*)*">
-      <xsl:apply-templates select="html/body/section[h2]" mode="pos"/>
-    </xsl:variable>
-    <xsl:sequence select="array{$results}"/>
+    <xsl:choose>
+      <xsl:when test="not(starts-with($title, 'Appendix:') or $title = 'Main Page')">
+        <xsl:variable name="results" as="map(*)*">
+          <xsl:apply-templates select="html/body/section[h2]" mode="pos"/>
+        </xsl:variable>
+        <xsl:sequence select="array{$results}"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="array{()}"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- IPA key link -->
