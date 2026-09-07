@@ -56,11 +56,7 @@ class StarDictInfo(TypedDict):
 
 
 def create_stardict(
-    edition: str,
-    snapshot_date: str,
-    zim_path: Path | None,
-    lang_codes: dict[str, str],
-    lemma_lang: str,
+    edition: str, snapshot_date: str, zim_path: Path | None, lemma_lang: str
 ) -> StarDictInfo:
     import shutil
     import sqlite3
@@ -76,10 +72,7 @@ def create_stardict(
     zim = None
     if zim_path is not None:
         zim = open_zim(zim_path)
-    if lemma_lang in lang_codes:
-        lemma_code = lang_codes[lemma_lang]
-    else:
-        lemma_code = name_to_code(lemma_lang, edition)
+    lemma_code = name_to_code(lemma_lang, edition)
     folder_name = f"{lemma_code}-{edition}"
     out_path = Path("build") / folder_name
     if out_path.exists():
