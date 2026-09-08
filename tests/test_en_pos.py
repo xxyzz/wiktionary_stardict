@@ -178,7 +178,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol>
-   <li>The <a rel="mw:WikiLink" href="./Maclaurin_series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" ><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math></math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+   <li>The <a rel="mw:WikiLink" href="./Maclaurin_series">Maclaurin series</a> expansion <math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" typeof="mw:Extension/math" about="#mwt5" id="mwFQ" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math></li>
 </ol>
 </section>
 </section>
@@ -194,12 +194,47 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol>
-   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" ><img src="d253b87bf18d329bd2d1c12ee1ebba5071003ca8.svg" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math></li>
 </ol>
 </section>""",
-                    "images": [
-                        "https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8"
-                    ],
+                    "math": ["math_tex"],
+                }
+            ],
+        )
+        # old html
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>binomial series</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">binomial series</strong>
+  </span>
+</p>
+<ol>
+   <li>The <a rel="mw:WikiLink" href="./Maclaurin_series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alt="math_tex"></math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/d253b87bf18d329bd2d1c12ee1ebba5071003ca8" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -1.005ex; width:11.63ex; height:3.176ex;"/></span></li>
+</ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">binomial series</strong>
+  </span>
+</p>
+<ol>
+   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></span></li>
+</ol>
+</section>""",
+                    "math": ["math_tex"],
                 }
             ],
         )
@@ -401,8 +436,46 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li>gloss<dl><dd>
-<span class="mwe-math-element mwe-math-element-inline">
-<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062"/>
+<math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" typeof="mw:Extension/math" about="#mwt8" id="mwFg" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math>
+</dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": ["the binomial theorem", "binomial theorem"],
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math>
+</dd></dl></li></ol>
+</section>""",
+                    "math": ["math_tex"],
+                },
+            ],
+        )
+        # old html
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>binomial theorem</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<span class="mwe-math-element" typeof="mw:Extension/math" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math></math></span>
+<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062" class="mwe-math-fallback-image-inline mw-invert skin-invert" alt="math_tex"/>
 </span>
 </dd></dl></li></ol>
 </section>
@@ -420,14 +493,10 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li>gloss<dl><dd>
-<span class="mwe-math-element mwe-math-element-inline">
-<img src="79b6d531a4481eeb1be6fd20769cfcc0da365062.svg"/>
-</span>
+<span class="mwe-math-element" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></span>
 </dd></dl></li></ol>
 </section>""",
-                    "images": [
-                        "https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062"
-                    ],
+                    "math": ["math_tex"],
                 },
             ],
         )

@@ -47,7 +47,7 @@ def init_worker(
 
     from .zim import open_zim
 
-    global proc, executable, zim, zim_xsl_exec, redirect_db_conn
+    global proc, executable, zim, zim_xsl_exec, redirect_db_conn, math_xsl_exec
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
@@ -58,6 +58,9 @@ def init_worker(
     else:
         zim = None
         zim_xsl_exec = None
+    math_xsl_exec = xsltproc.compile_stylesheet(
+        stylesheet_file=get_xsl_path("", "math_svg.xsl")
+    )
     redirect_db_conn = sqlite3.connect(redirect_db_path)
     atexit.register(exit_worker)
 
@@ -71,6 +74,7 @@ def transform(chunk_data) -> list[list[str]]:
 
     from saxonche import PySaxonApiError
 
+    from .mathjax import get_math_svg
     from .redirect import add_redirects
     from .zim import get_zim_page
 
@@ -89,6 +93,23 @@ def transform(chunk_data) -> list[list[str]]:
         data["forms"] = list(
             dict.fromkeys(f.strip() for f in data["forms"] if f.strip() != "")
         )
+        math_svg_dict = {}
+        for math_tex in data.get("math", []):
+            math_svg_dict[math_tex] = get_math_svg(math_tex)
+        if len(math_svg_dict) > 0:
+            try:
+                math_doc = proc.parse_xml(xml_text=data["def"])
+                math_xsl_exec.set_parameter(
+                    "data",
+                    proc.make_string_value(
+                        json.dumps(math_svg_dict, ensure_ascii=False)
+                    ),
+                )
+                data["def"] = math_xsl_exec.transform_to_string(xdm_node=math_doc)
+            except PySaxonApiError as err:
+                logger.error(f"Convert math error in page: {page_name} {err}")
+                continue
+
     if zim is not None:
         for data in json_result:
             extra_forms = []
@@ -134,6 +155,7 @@ def build(args):
 
     from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
+    from .mathjax import shutdown_deno, start_deno
     from .redirect import download_redirect_db
     from .snapshot import download_chunk, get_chunk_zst_path, get_snapshot_chunks
     from .stardict import archive_images, create_stardict, download_last_release_images
@@ -151,6 +173,7 @@ def build(args):
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
 
     page_names = set()
+    start_deno()
     for chunk_idx in range(chunk_num):
         chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
@@ -182,6 +205,7 @@ def build(args):
             ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 
+    shutdown_deno()
     page_names.clear()
     for conn in conn_dict.values():
         create_indexes(conn)

@@ -78,7 +78,8 @@
                 'ids': array{$ids},
                 'form_of_only': $form-of-only,
                 'form_of_targets': array{if ($form-of-only) then
-                  myfn:form-of-targets(following-sibling::dl[1]/dd) else ()}}"/>
+                  myfn:form-of-targets(following-sibling::dl[1]/dd) else ()},
+                'math': array{myfn:get-math-tex(.)}}"/>
   </xsl:template>
 
   <xsl:template match="dl" mode="example">

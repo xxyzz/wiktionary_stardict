@@ -120,7 +120,8 @@
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
-                  'zim_pages': array{$vervoeging-links}}"/>
+                  'zim_pages': array{$vervoeging-links},
+                  'math': array{myfn:get-math-tex(.)}}"/>
     </xsl:if>
   </xsl:template>
 

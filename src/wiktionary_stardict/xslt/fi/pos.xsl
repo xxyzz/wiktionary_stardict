@@ -78,7 +78,8 @@
                   'form_of_only': $form-of-only,
                   'ids': array{
                     myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)},
-                  'zim_pages': array{$liite-links}}"/>
+                  'zim_pages': array{$liite-links},
+                  'math': array{myfn:get-math-tex(.)}}"/>
     </xsl:if>
   </xsl:template>
 

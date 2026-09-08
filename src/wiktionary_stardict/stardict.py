@@ -14,8 +14,6 @@ def download_image(res_path: Path, url: str, edition: str, zim):
     filename = url.rsplit("/", maxsplit=1)[-1]
     if "?" in filename:
         filename = filename[: filename.index("?")]
-    if "math/render/svg/" in url:
-        filename += ".svg"
     filename = urllib.parse.unquote(re.sub(r"\..*\.", ".", filename))
     if url.startswith("//"):
         url = "https:" + url

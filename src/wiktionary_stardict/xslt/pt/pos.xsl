@@ -98,7 +98,8 @@
                 'images': array{$images},
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
-                'form_of_only': $form-of-only}"/>
+                'form_of_only': $form-of-only,
+                'math': array{myfn:get-math-tex(.)}}"/>
   </xsl:template>
 
   <xsl:template match="h2 | h3 | h4 | h5 | h6" mode="section-heading">

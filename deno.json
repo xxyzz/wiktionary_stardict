@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "mathjax": "npm:mathjax@^4.1.3"
+  }
+}

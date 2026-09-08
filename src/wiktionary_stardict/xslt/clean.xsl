@@ -10,8 +10,11 @@
   <xsl:mode name="clean-content" on-no-match="shallow-copy"/>
 
   <xsl:template
+      match="@data-mw[not(parse-json(.)?name = 'math')]" mode="clean-content"/>
+
+  <xsl:template
       match="@typeof | @about | @id | @rel | @srcset | @resource |
-             @*[starts-with(name(), 'data-')]"
+             @*[starts-with(name(), 'data-') and not(name() = 'data-mw')]"
       mode="clean-content"/>
 
   <!-- KOReader doesn't support `var()` CSS function -->
@@ -67,4 +70,8 @@
       match="li[contains-token(@class, 'mw-empty-elt')]" mode="clean-content"/>
 
   <xsl:template match="*[contains-token(@class, 'error')]" mode="clean-content"/>
+
+  <!-- Remove <math> fallback image -->
+  <xsl:template match="img[contains(@src, 'rest_v1/media/math/render/svg/')]"
+                mode="clean-content"/>
 </xsl:stylesheet>

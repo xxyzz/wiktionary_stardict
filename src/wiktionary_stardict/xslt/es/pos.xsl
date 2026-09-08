@@ -70,7 +70,8 @@
                   'forms': array{$unique-forms},
                   'def': serialize($final-definition, map{'method': 'html',
                     'indent': false(), 'escape-uri-attributes': false()}),
-                  'images': array{$images}}"/>
+                  'images': array{$images},
+                  'math': array{myfn:get-math-tex(.)}}"/>
     </xsl:if>
   </xsl:template>
 

@@ -66,6 +66,7 @@ jobs:
       - if: matrix.edition == 'en' && github.event_name != 'workflow_run'
         run: gh release create ${{ steps.get-tag.outputs.tag }} -d -F .github/release_note.md
 
+      - run: npm install -g deno
       - run: python -m pip install .
       - run: dict build ${{ matrix.edition }}
 

@@ -65,7 +65,8 @@
                   'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
-                'ids': array{myfn:get-ancestor-section-ids(.)}}"/>
+                'ids': array{myfn:get-ancestor-section-ids(.)},
+                'math': array{myfn:get-math-tex(.)}}"/>
   </xsl:template>
 
   <xsl:template match="h3" mode="pos">

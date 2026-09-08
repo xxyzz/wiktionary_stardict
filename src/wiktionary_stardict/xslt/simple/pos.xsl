@@ -73,7 +73,8 @@
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
-                  'ids': array{string(h2/@id)}}"/>
+                  'ids': array{string(h2/@id)},
+                  'math': array{myfn:get-math-tex(.)}}"/>
     </xsl:if>
   </xsl:template>
 

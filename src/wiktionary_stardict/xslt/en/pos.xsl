@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
     xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
@@ -100,12 +101,14 @@
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
                   'def': serialize($final-definition, map{'method': 'html',
-                    'indent': false(), 'escape-uri-attributes': false()}),
+                    'indent': false(), 'escape-uri-attributes': false(),
+                    'html-version': 5}),
                   'images': array{$images},
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
-                  'ids': array{myfn:get-pos-section-ids(.)}}"/>
+                  'ids': array{myfn:get-pos-section-ids(.)},
+                  'math': array{myfn:get-math-tex(.)}}"/>
     </xsl:if>
   </xsl:template>
 
@@ -130,7 +133,8 @@
   <xsl:template match="dl" mode="pos-li">
     <xsl:variable
         name="examples"
-        select="dd[div[contains-token(@class, 'h-usage-example')] or
+        select="dd[mathml:math or math or
+                div[contains-token(@class, 'h-usage-example')] or
                 span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
                 'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or
