@@ -141,7 +141,7 @@ def build(args):
 
     xsl_path = get_xsl_path(args.edition, "main.xsl")
     snapshot_identifier = f"{args.edition}wiktionary_namespace_0"
-    snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier)
+    snapshot_date, chunk_num = get_snapshot_chunks(snapshot_identifier, args.page)
     conn_dict = {}
     zim_path = None
     zim_xsl_path = None
@@ -156,7 +156,7 @@ def build(args):
         chunk_zst_path = get_chunk_zst_path(chunk_identifier)
         ndjson_path = chunk_zst_path.with_suffix(".ndjson")
         if not ndjson_path.exists():
-            download_chunk(chunk_identifier, chunk_zst_path)
+            download_chunk(args.edition, chunk_identifier, chunk_zst_path, args.page)
         logger.info(f"start chunk {chunk_identifier}")
         with ndjson_path.open() as f:
             with ProcessPoolExecutor(
@@ -178,15 +178,17 @@ def build(args):
                                 data.get("form_of_targets", []),
                                 data.get("images", []),
                             )
-        ndjson_path.unlink()
+        if len(args.page) == 0:
+            ndjson_path.unlink()
         logger.info(f"chunk {chunk_identifier} done")
 
     page_names.clear()
-    redirect_db_path.unlink()
     for conn in conn_dict.values():
         create_indexes(conn)
         conn.close()
-    download_last_release_images(args.edition)
+    if len(args.page) == 0:
+        redirect_db_path.unlink()
+        download_last_release_images(args.edition)
     dict_info = []
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
@@ -197,8 +199,8 @@ def build(args):
         ):
             dict_info.append(result)
     with open(f"build/{args.edition}.json", "w") as f:
-        json.dump(dict_info, f, ensure_ascii=False, indent=2)
-    if zim_path is not None:
+        json.dump(dict_info, f, ensure_ascii=False, separators=(",", ":"))
+    if len(args.page) == 0 and zim_path is not None:
         zim_path.unlink()
     archive_images(args.edition)
 
@@ -213,6 +215,7 @@ def main():
     subparsers = parser.add_subparsers(required=True)
     build_parser = subparsers.add_parser("build")
     build_parser.add_argument("edition", choices=EDITIONS.keys())
+    build_parser.add_argument("--page", action="append", default=[])
     build_parser.set_defaults(func=build)
     page_parser = subparsers.add_parser("page")
     page_parser.add_argument("tag")

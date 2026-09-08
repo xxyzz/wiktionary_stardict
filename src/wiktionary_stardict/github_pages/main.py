@@ -49,7 +49,9 @@ def convert_release_data(tag: str):
             "assets": assets,
             "gloss_codes": gloss_codes,
             "lemma_codes": lemma_codes,
-        }
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
     )
 
 
