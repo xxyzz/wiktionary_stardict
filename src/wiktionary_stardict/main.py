@@ -69,14 +69,40 @@ def exit_worker():
     redirect_db_conn.close()
 
 
-def transform(chunk_data) -> list[list[str]]:
+def transform_worker(chunk_data) -> list[list[str]]:
+    import json
+
+    from saxonche import PySaxonApiError
+
+    from .redirect import add_redirects
+    from .zim import get_zim_page
+
+    json_result = transform(chunk_data, proc, executable, math_xsl_exec)
+    if zim is not None:
+        for data in json_result:
+            extra_forms = []
+            for zim_page in data["zim_pages"]:
+                page_text = get_zim_page(zim, zim_page)
+                if page_text != "":
+                    try:
+                        zim_doc = proc.parse_xml(xml_text=page_text)
+                        zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
+                        extra_forms.extend(json.loads(zim_result))
+                    except PySaxonApiError as err:
+                        logger.error(f"Error in page: {zim_page} {err}")
+            extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
+            data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
+
+    add_redirects(redirect_db_conn, chunk_data["name"], json_result)
+    return json_result
+
+
+def transform(chunk_data, proc, executable, math_xsl_exec) -> list[list[str]]:
     import json
 
     from saxonche import PySaxonApiError
 
     from .mathjax import get_math_svg
-    from .redirect import add_redirects
-    from .zim import get_zim_page
 
     page_name = chunk_data["name"]
     try:
@@ -108,24 +134,7 @@ def transform(chunk_data) -> list[list[str]]:
                 data["def"] = math_xsl_exec.transform_to_string(xdm_node=math_doc)
             except PySaxonApiError as err:
                 logger.error(f"Convert math error in page: {page_name} {err}")
-                continue
 
-    if zim is not None:
-        for data in json_result:
-            extra_forms = []
-            for zim_page in data["zim_pages"]:
-                page_text = get_zim_page(zim, zim_page)
-                if page_text != "":
-                    try:
-                        zim_doc = proc.parse_xml(xml_text=page_text)
-                        zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
-                        extra_forms.extend(json.loads(zim_result))
-                    except PySaxonApiError as err:
-                        logger.error(f"Error in page: {zim_page} {err}")
-            extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
-            data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
-
-    add_redirects(redirect_db_conn, page_name, json_result)
     return json_result
 
 
@@ -187,7 +196,7 @@ def build(args):
                 initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
             ) as executor:
                 for results in executor.map(
-                    transform, iter_chunk_lines(page_names, f), chunksize=100
+                    transform_worker, iter_chunk_lines(page_names, f), chunksize=100
                 ):
                     for data in results:
                         if data["lang"] not in conn_dict:

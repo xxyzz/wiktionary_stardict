@@ -6,7 +6,7 @@ class ItConjTestCase(XMLTestCase):
     xsl_file = "coniugazioni.xsl"
 
     def test_it_conj(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>Appendice:Coniugazioni/Italiano/correre</title></head>

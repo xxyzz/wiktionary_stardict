@@ -69,17 +69,20 @@
         name="form-of-only" as="xs:boolean"
         select="boolean(contains(normalize-space(i[1]), ', forma '))"/>
 
+    <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
+
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
-                'def': serialize($final-definition, map{'method': 'html',
+                'def': if (exists($math)) then serialize($final-definition) else
+                  serialize($final-definition, map{'method': 'html',
                   'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'ids': array{$ids},
                 'form_of_only': $form-of-only,
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(following-sibling::dl[1]/dd) else ()},
-                'math': array{myfn:get-math-tex(.)}}"/>
+                'math': array{$math}}"/>
   </xsl:template>
 
   <xsl:template match="dl" mode="example">

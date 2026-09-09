@@ -6,7 +6,7 @@ class NlVervoegingTestCase(XMLTestCase):
     xsl_file = "vervoeging.xsl"
 
     def test_nlverb(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>rennen/vervoeging</title></head>
@@ -26,7 +26,7 @@ class NlVervoegingTestCase(XMLTestCase):
         )
 
     def test_deadjc_decl(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>angstfrei/verbuiging</title></head>
@@ -48,7 +48,7 @@ class NlVervoegingTestCase(XMLTestCase):
         )
 
     def test_frverb(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>rappliquer/vervoeging</title></head>

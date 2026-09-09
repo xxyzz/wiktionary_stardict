@@ -1,8 +1,10 @@
 def get_math_svg(tex: str) -> str:
     import requests
 
-    r = requests.post("http://127.0.0.1:8080/tex2svg", data=tex.replace(r"\\", "\\"))
-    return r.text
+    r = requests.post("http://127.0.0.1:8080/tex2svg", data=tex)
+    if r.ok:
+        return r.text
+    return ""
 
 
 def start_deno():

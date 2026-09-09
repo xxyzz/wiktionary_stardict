@@ -100,10 +100,13 @@
                 preceding-sibling::h3[1] else h3[1])
                 return (ends-with($pos, ', forma flessa') or $pos = 'Voce verbale'))"/>
 
+    <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
+
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
-                'def': serialize($final-definition, map{'method': 'html',
+                'def': if (exists($math)) then serialize($final-definition) else
+                  serialize($final-definition, map{'method': 'html',
                   'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'ids': array{myfn:get-pos-section-ids(.)},
@@ -111,7 +114,7 @@
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
                 'zim_pages': array{$conj-links},
-                'math': array{myfn:get-math-tex(.)}}"/>
+                'math': array{$math}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">

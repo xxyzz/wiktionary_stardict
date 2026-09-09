@@ -6,16 +6,20 @@ class XMLTestCase(TestCase):
     edition = "en"
     xsl_file = "main.xsl"
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         from saxonche import PySaxonProcessor
 
         from wiktionary_stardict.main import config_proc, get_xsl_path
 
-        self.proc = PySaxonProcessor(license=False)
-        config_proc(self.proc)
-        xsltproc = self.proc.new_xslt30_processor()
-        self.executable = xsltproc.compile_stylesheet(
-            stylesheet_file=get_xsl_path(self.edition, self.xsl_file)
+        cls.proc = PySaxonProcessor(license=False)
+        config_proc(cls.proc)
+        xsltproc = cls.proc.new_xslt30_processor()
+        cls.executable = xsltproc.compile_stylesheet(
+            stylesheet_file=get_xsl_path(cls.edition, cls.xsl_file)
+        )
+        cls.math_xsl_exec = xsltproc.compile_stylesheet(
+            stylesheet_file=get_xsl_path("", "math_svg.xsl")
         )
 
     def assertXMLEqual(self, output, expected):
@@ -26,14 +30,34 @@ class XMLTestCase(TestCase):
             BeautifulSoup(expected, "html.parser").prettify(),
         )
 
-    def transform(self, input_html):
+    def transform_zim(self, input_html: str):
         import json
 
-        document = self.proc.parse_xml(xml_text=input_html)
-        return json.loads(self.executable.transform_to_string(xdm_node=document))
+        zim_doc = self.proc.parse_xml(xml_text=input_html)
+        zim_result = self.executable.transform_to_string(xdm_node=zim_doc)
+        return json.loads(zim_result)
+
+    def transform_input(self, input_html: str):
+        from wiktionary_stardict.main import transform
+
+        return transform(
+            {"name": "test", "html": input_html},
+            self.proc,
+            self.executable,
+            self.math_xsl_exec,
+        )
+
+    def assertTransformHasMath(self, input_html):
+        from bs4 import BeautifulSoup
+
+        output = self.transform_input(input_html)
+        self.assertTrue(len(output) > 0, "No output data")
+        for data in output:
+            soup = BeautifulSoup(data["def"], "html.parser")
+            self.assertIsNotNone(soup.find("mjx-container"))
 
     def assertTransformEqual(self, input_html, expected_list, prettify=True):
-        output = self.transform(input_html)
+        output = self.transform_input(input_html)
         if len(expected_list) == 0:
             self.assertTrue(len(output) == 0, "Shouldn't have output data")
         else:

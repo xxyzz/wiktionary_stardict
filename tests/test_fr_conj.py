@@ -6,7 +6,7 @@ class FrConjTestCase(XMLTestCase):
     xsl_file = "conjugaison.xsl"
 
     def test_fr_conj(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>Conjugaison:français/courir</title></head>

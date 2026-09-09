@@ -165,7 +165,7 @@ class EnPOSTestCase(XMLTestCase):
         )
 
     def test_math_svg(self):
-        self.assertTransformEqual(
+        self.assertTransformHasMath(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial series</title></head>
@@ -184,25 +184,9 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>Noun</h4>
-<p>
-  <span class="headword-line">
-    <strong class="Latn headword" lang="en">binomial series</strong>
-  </span>
-</p>
-<ol>
-   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math></li>
-</ol>
-</section>""",
-                    "math": ["math_tex"],
-                }
-            ],
         )
         # old html
-        self.assertTransformEqual(
+        self.assertTransformHasMath(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial series</title></head>
@@ -221,22 +205,6 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>Noun</h4>
-<p>
-  <span class="headword-line">
-    <strong class="Latn headword" lang="en">binomial series</strong>
-  </span>
-</p>
-<ol>
-   <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <span class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></span></li>
-</ol>
-</section>""",
-                    "math": ["math_tex"],
-                }
-            ],
         )
 
     def test_egyptian_png(self):
@@ -423,7 +391,7 @@ class EnPOSTestCase(XMLTestCase):
         )
 
     def test_math_example(self):
-        self.assertTransformEqual(
+        self.assertTransformHasMath(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial theorem</title></head>
@@ -442,26 +410,9 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {
-                    "forms": ["the binomial theorem", "binomial theorem"],
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>Proper noun</h4>
-<p>
-  <span class="headword-line">
-    <strong class="Latn headword" lang="en">the binomial theorem</strong>
-  </span>
-</p>
-<ol><li>gloss<dl><dd>
-<math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math>
-</dd></dl></li></ol>
-</section>""",
-                    "math": ["math_tex"],
-                },
-            ],
         )
         # old html
-        self.assertTransformEqual(
+        self.assertTransformHasMath(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial theorem</title></head>
@@ -482,23 +433,6 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {
-                    "forms": ["the binomial theorem", "binomial theorem"],
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>Proper noun</h4>
-<p>
-  <span class="headword-line">
-    <strong class="Latn headword" lang="en">the binomial theorem</strong>
-  </span>
-</p>
-<ol><li>gloss<dl><dd>
-<span class="mwe-math-element" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></span>
-</dd></dl></li></ol>
-</section>""",
-                    "math": ["math_tex"],
-                },
-            ],
         )
 
     def test_li_synonyms(self):

@@ -177,3 +177,19 @@ class EsPOSTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_lt_in_math(self):
+        self.assertTransformHasMath(
+            """<!DOCTYPE html>
+<html>
+<head><title>hipoelipse</title></head>
+<body>
+<section><h2>Español</h2>
+<section><h3>Sustantivo femenino</h3>
+<p><b typeof="mw:Transclusion">hipoelips<span>e</span></b></p>
+<dl><dt>1 <span>Álgebra, geometría</span></dt><dd>Cualquiera de las curvas descritas por la ecuación <math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"math_tex"}}'></math>, con <math xmlns="http://www.w3.org/1998/Math/MathML" class="mwe-math-element mwe-math-element-inline" data-mw='{"name":"math","attrs":{},"body":{"extsrc":"0 &lt; n &lt; 2"}}'></math>.</dd></dl>
+</section>
+</section>
+</body>
+</html>""",
+        )

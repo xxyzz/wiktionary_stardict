@@ -6,7 +6,7 @@ class FiLiiteTestCase(XMLTestCase):
     xsl_file = "liite.xsl"
 
     def test_fi_liite(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>Liite:Verbitaivutus/suomi/kirjata</title></head>

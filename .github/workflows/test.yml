@@ -19,5 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
+      - run: npm install -g deno
       - run: python -m pip install .[dev]
-      - run: python -m unittest discover -b -s tests
+      - run: python run_tests.py

@@ -65,14 +65,17 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
+      <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
+
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
-                  'def': serialize($final-definition, map{'method': 'html',
+                  'def': if (exists($math)) then serialize($final-definition) else
+                    serialize($final-definition, map{'method': 'html',
                     'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
                   'ids': array{myfn:get-ancestor-section-ids(.)},
-                  'math': array{myfn:get-math-tex(.)}}"/>
+                  'math': array{$math}}"/>
     </xsl:if>
   </xsl:template>
 

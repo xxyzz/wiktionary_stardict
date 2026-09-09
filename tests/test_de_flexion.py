@@ -6,7 +6,7 @@ class DeFlexionTestCase(XMLTestCase):
     xsl_file = "flexion.xsl"
 
     def test_de_adj_flexion(self):
-        data = self.transform(
+        data = self.transform_zim(
             """<!DOCTYPE html>
 <html>
 <head><title>Flexion:arm</title></head>
