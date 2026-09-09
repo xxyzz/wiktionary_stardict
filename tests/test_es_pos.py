@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from utils import XMLTestCase
 
 
@@ -178,8 +180,12 @@ class EsPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_lt_in_math(self):
-        self.assertTransformHasMath(
+    @patch(
+        "wiktionary_stardict.mathjax.get_math_svg",
+        return_value="<mjx-container><svg></svg></mjx-container>",
+    )
+    def test_lt_in_math(self, mock_fun):
+        self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>hipoelipse</title></head>
@@ -192,4 +198,13 @@ class EsPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="es">
+<h4>Sustantivo femenino</h4>
+<p><b>hipoelips<span>e</span></b></p>
+<dl><dt>1 <span>Álgebra, geometría</span></dt><dd>Cualquiera de las curvas descritas por la ecuación <mjx-container><svg></svg></mjx-container>, con <mjx-container><svg></svg></mjx-container>.</dd></dl>
+</section>""",
+                },
+            ],
         )

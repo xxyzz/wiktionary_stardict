@@ -11,7 +11,7 @@ await MathJax.init({
 async function tex2svg(input: string): Promise<string> {
   const node = await MathJax.tex2svgPromise(
     input,
-    { display: true },
+    { display: true, em: 20, ex: 10 },
   );
   return MathJax.startup.adaptor.serializeXML(node);
 }

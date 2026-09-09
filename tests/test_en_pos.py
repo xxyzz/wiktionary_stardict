@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from utils import XMLTestCase
 
 
@@ -164,8 +166,12 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_math_svg(self):
-        self.assertTransformHasMath(
+    @patch(
+        "wiktionary_stardict.mathjax.get_math_svg",
+        return_value="<mjx-container><svg></svg></mjx-container>",
+    )
+    def test_math_svg(self, mock_fun):
+        self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial series</title></head>
@@ -184,9 +190,24 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+      <h4>Noun</h4>
+      <p>
+        <span class="headword-line">
+          <strong class="Latn headword" lang="en">binomial series</strong>
+        </span>
+      </p>
+      <ol>
+        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+      </ol>
+    </section>""",
+                },
+            ],
         )
         # old html
-        self.assertTransformHasMath(
+        self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial series</title></head>
@@ -205,6 +226,21 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+      <h4>Noun</h4>
+      <p>
+        <span class="headword-line">
+          <strong class="Latn headword" lang="en">binomial series</strong>
+        </span>
+      </p>
+      <ol>
+        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+      </ol>
+    </section>""",
+                },
+            ],
         )
 
     def test_egyptian_png(self):
@@ -390,8 +426,12 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_math_example(self):
-        self.assertTransformHasMath(
+    @patch(
+        "wiktionary_stardict.mathjax.get_math_svg",
+        return_value="<mjx-container><svg></svg></mjx-container>",
+    )
+    def test_math_example(self, mock_fun):
+        self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial theorem</title></head>
@@ -410,9 +450,24 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<mjx-container><svg></svg></mjx-container>
+</dd></dl></li></ol>
+    </section>""",
+                },
+            ],
         )
         # old html
-        self.assertTransformHasMath(
+        self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
 <head><title>binomial theorem</title></head>
@@ -433,6 +488,21 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
+<p>
+  <span class="headword-line">
+    <strong class="Latn headword" lang="en">the binomial theorem</strong>
+  </span>
+</p>
+<ol><li>gloss<dl><dd>
+<mjx-container><svg></svg></mjx-container>
+</dd></dl></li></ol>
+    </section>""",
+                },
+            ],
         )
 
     def test_li_synonyms(self):

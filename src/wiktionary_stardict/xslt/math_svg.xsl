@@ -23,25 +23,7 @@
   <xsl:template
       match="*[contains-token(@class, 'mwe-math-element') and @data-mw]"
       mode="convert-math">
-    <xsl:variable
-        name="parsed-node"
+    <xsl:copy-of
         select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
-    <xsl:apply-templates select="$parsed-node" mode="modify-svg"/>
-  </xsl:template>
-
-  <!-- the default "ex" unit probably not supported very well and the image is -->
-  <!-- too small, switch to "em" -->
-  <xsl:mode name="modify-svg" on-no-match="shallow-copy"/>
-  <xsl:template match="svg:svg/@style" mode="modify-svg">
-    <xsl:variable
-        name="size"
-        select="substring-before(., 'ex') => substring-after('vertical-align:') =>
-                number()"/>
-    <xsl:attribute name="style">vertical-align:{$size * 1.5}em</xsl:attribute>
-  </xsl:template>
-  <xsl:template
-      match="svg:svg/@*[local-name() = ('width', 'height')]" mode="modify-svg">
-    <xsl:variable name="size" select="number(substring-before(., 'ex'))"/>
-    <xsl:attribute name="{name()}" select="string($size * 1.5) || 'em'"/>
   </xsl:template>
 </xsl:stylesheet>

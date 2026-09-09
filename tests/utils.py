@@ -47,15 +47,6 @@ class XMLTestCase(TestCase):
             self.math_xsl_exec,
         )
 
-    def assertTransformHasMath(self, input_html):
-        from bs4 import BeautifulSoup
-
-        output = self.transform_input(input_html)
-        self.assertTrue(len(output) > 0, "No output data")
-        for data in output:
-            soup = BeautifulSoup(data["def"], "html.parser")
-            self.assertIsNotNone(soup.find("mjx-container"))
-
     def assertTransformEqual(self, input_html, expected_list, prettify=True):
         output = self.transform_input(input_html)
         if len(expected_list) == 0:
