@@ -259,5 +259,12 @@
               'Romagnol',
               'Sardinian',
               'Northern Mansi',
-              'Karelian')"/>
+              'Karelian',
+              'Istriot',
+              'Mon',
+              'Zazaki',
+              'Erzya',
+              'Mauritian Creole',
+              'Maranao',
+              'Chickasaw')"/>
 </xsl:stylesheet>

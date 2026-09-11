@@ -23,14 +23,17 @@
               'Azerí',
               'Esperanto',
               'Neerlandés',
+              'Toki pona',
               'Irlandés',
               'Náhuatl de la Huasteca central',
               'Náhuatl clásico',
               'Yagán',
               'Kawésqar',
               'Asturiano',
+              'Ruso',
               'Quechua cuzqueño',
               'Finés',
               'Occitano',
-              'Guaraní')"/>
+              'Guaraní',
+              'Náhuatl de la Huasteca occidental')"/>
 </xsl:stylesheet>
