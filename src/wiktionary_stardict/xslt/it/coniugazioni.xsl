@@ -16,7 +16,7 @@
         <xsl:for-each-group select="node()" group-adjacent="boolean(self::br)">
           <xsl:if test="not(current-grouping-key())">
             <xsl:variable name="new-e">
-              <xsl:copy-of select="current-group()"/>
+              <xsl:sequence select="current-group()"/>
             </xsl:variable>
             <xsl:sequence select="myfn:get-element-forms($new-e/a[last()])"/>
           </xsl:if>

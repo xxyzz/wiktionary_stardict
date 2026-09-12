@@ -23,7 +23,7 @@
   <xsl:template
       match="*[contains-token(@class, 'mwe-math-element') and @data-mw]"
       mode="convert-math">
-    <xsl:copy-of
+    <xsl:sequence
         select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
   </xsl:template>
 </xsl:stylesheet>

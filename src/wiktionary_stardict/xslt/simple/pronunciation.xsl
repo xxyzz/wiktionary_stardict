@@ -15,7 +15,7 @@
           select="li[a[@title = 'w:en:IPA chart for English']]" mode="clean-content"/>
     </xsl:variable>
     <xsl:if test="$lists/*">
-      <ul><xsl:copy-of select="$lists"/></ul>
+      <ul><xsl:sequence select="$lists"/></ul>
     </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

@@ -48,7 +48,7 @@
       <xsl:apply-templates select="li" mode="pron-ul"/>
     </xsl:variable>
     <xsl:if test="$lists/*">
-      <ul><xsl:copy-of select="$lists"/></ul>
+      <ul><xsl:sequence select="$lists"/></ul>
     </xsl:if>
   </xsl:template>
 
@@ -71,7 +71,7 @@
       <xsl:apply-templates select="dd" mode="pron-ul"/>
     </xsl:variable>
     <xsl:if test="$lists/*">
-      <dl><xsl:copy-of select="$lists"/></dl>
+      <dl><xsl:sequence select="$lists"/></dl>
     </xsl:if>
   </xsl:template>
 

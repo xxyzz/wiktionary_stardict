@@ -36,7 +36,7 @@
         <xsl:sequence select="$alt-forms, $above-sections ! myfn:ja-kanjitab(.)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:copy-of select="$alt-forms"/>
+        <xsl:sequence select="$alt-forms"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>

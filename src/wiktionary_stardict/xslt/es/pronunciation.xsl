@@ -11,7 +11,7 @@
       <xsl:apply-templates select=".//tr" mode="pron"/>
     </xsl:variable>
     <xsl:if test="$lists">
-      <ul><xsl:copy-of select="$lists"/></ul>
+      <ul><xsl:sequence select="$lists"/></ul>
     </xsl:if>
   </xsl:template>
 

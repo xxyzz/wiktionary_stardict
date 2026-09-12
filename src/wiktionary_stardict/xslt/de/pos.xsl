@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
@@ -45,7 +46,7 @@
         <xsl:apply-templates
             select="p[@data-mw and myfn:is-template(@data-mw, ('Bedeutungen',
                     'Herkunft', 'Synonyme', 'Sinnverwandte Redewendungen',
-                    'Gegenwörter'))]"
+                    'Gegenwörter', 'Beispiele'))]"
             mode="p-section"/>
       </section>
     </xsl:variable>
@@ -84,8 +85,15 @@
 
   <xsl:template match="p" mode="p-section">
     <section>
-      <h4>{normalize-space(.)}</h4>
-      <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
+      <xsl:choose>
+        <xsl:when test="@data-mw and myfn:is-template(@data-mw, 'Beispiele')">
+          <xsl:apply-templates select="." mode="examples"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <h4>{normalize-space(.)}</h4>
+          <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </section>
   </xsl:template>
 
@@ -93,4 +101,44 @@
     <xsl:param name="dl" as="element(dl)*"/>
     <xsl:sequence select="$dl/dd/a[not(ends-with(string(), ':'))]/@title"/>
   </xsl:function>
+
+  <xsl:template match="p" mode="examples">
+    <xsl:variable name="content">
+      <xsl:choose>
+        <xsl:when test="following-sibling::*[1][self::ul]">
+          <xsl:variable name="next-p" select="following-sibling::p[1]"/>
+          <xsl:apply-templates
+              select="following-sibling::*[self::ul or self::dl]
+                      [empty($next-p) or . &lt;&lt; $next-p]"
+              mode="examples-content"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates
+              select="following-sibling::dl[1]" mode="examples-content"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="exists($content)">
+      <h4>{normalize-space(.)}</h4>
+      <xsl:apply-templates select="$content" mode="clean-content"/>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:mode name="examples-content" on-no-match="shallow-copy"/>
+  <xsl:template match="dl" mode="examples-content">
+    <xsl:variable
+        name="dd-nodes" select="dd[not(span[contains-token(@class, 'mw-empty-elt')])]"/>
+    <xsl:if test="exists($dd-nodes)">
+      <dl>
+        <!-- [1], [1-2], [1, 2], [1.1], [1a] -->
+        <xsl:for-each-group
+            select="$dd-nodes"
+            group-by="(text()/analyze-string(., '\[([\d\sa-z,.\-–?]+)\]')//fn:group)[1]">
+          <xsl:sequence
+              select="current-group()[string-length() =
+                      min(current-group()/string-length())][1]"/>
+        </xsl:for-each-group>
+      </dl>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>
