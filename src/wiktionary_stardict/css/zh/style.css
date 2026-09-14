@@ -949,6 +949,14 @@ list-switcher-header+.list-switcher .term-list,
   border-radius: 2px;
   text-decoration: none;
 }
+/* Template:quote-gloss */
+.quote-note {
+  color: #999;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
 
 section {
   font-family:sans-serif;

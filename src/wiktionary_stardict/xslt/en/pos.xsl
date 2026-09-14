@@ -197,7 +197,9 @@
   </xsl:function>
 
   <xsl:template match="section" mode="usage-notes">
-    <xsl:variable name="content" select="p | ul | dl | table"/>
+    <xsl:variable
+        name="content"
+        select="p | ul | dl | table | div[contains-token(@class, 'quotebox')]"/>
     <xsl:if test="$content">
       <section>
         <h4>Usage notes</h4>

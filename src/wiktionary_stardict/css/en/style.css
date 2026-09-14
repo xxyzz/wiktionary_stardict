@@ -1084,6 +1084,63 @@ list-switcher-header+.list-switcher .term-list,
   border-radius: 2px;
   text-decoration: none;
 }
+.mw-parser-output .defdate {
+  font-size: smaller;
+}
+/* Template:quote-gloss */
+.quote-note {
+  color: #999;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
+/* Template:blockquote */
+.mw-parser-output .quotebox {
+  background: #f6f6f6;
+  border:1px solid #afafaf;
+  box-sizing:border-box;
+  padding:10px;
+  max-width:100%
+}
+.mw-parser-output .quotebox .quotebox-quote {
+  display:block
+}
+.mw-parser-output .quotebox.floatleft {
+  margin:0.5em 1.4em 0.8em 0
+}
+.mw-parser-output .quotebox.floatright {
+  margin:0.5em 0 0.8em 1.4em
+}
+.mw-parser-output .quotebox.centered {
+  overflow:hidden;
+  position:relative;
+  margin:0.5em auto 0.8em auto
+}
+.mw-parser-output .quotebox>blockquote {
+  margin:0;
+  padding:0;
+  border-left:0;
+  font-family:inherit;
+  font-size:inherit
+}
+.mw-parser-output .quotebox.floatleft span,
+.mw-parser-output .quotebox.floatright span {
+  font-style:inherit
+}
+.mw-parser-output .quotebox cite {
+  display:block;
+  font-style:normal
+}
+.mw-parser-output blockquote > :last-child {
+  margin-bottom: 0;
+}
+.mw-parser-output blockquote > :first-child {
+  margin-top: 0;
+}
+sup, sub {
+  line-height:1em;
+}
 
 @font-face {
   font-family: Gentium;

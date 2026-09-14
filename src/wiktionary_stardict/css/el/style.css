@@ -49,6 +49,10 @@ dd {
   border-radius: 2px;
   text-decoration: none;
 }
+img {
+  border: 0;
+  vertical-align: middle;
+}
 
 @font-face {
   font-family: "Source Han Sans JP";

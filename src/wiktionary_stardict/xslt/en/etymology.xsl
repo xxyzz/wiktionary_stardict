@@ -8,7 +8,8 @@
   <xsl:template match="section" mode="etymology">
     <xsl:variable name="content">
       <xsl:apply-templates
-          select="p | ul | dl | div[dl[contains-token(@class, 'zhusex')]]"
+          select="p | ul | dl | div[contains-token(@class, 'quotebox') or
+                  dl[contains-token(@class, 'zhusex')]]"
           mode="etymology-child"/>
     </xsl:variable>
 

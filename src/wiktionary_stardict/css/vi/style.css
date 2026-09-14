@@ -462,6 +462,17 @@ i.Polyt.mention,
   border-radius: 2px;
   text-decoration: none;
 }
+.defdate {
+  font-size: smaller;
+}
+/* Template:quote-gloss */
+.quote-note {
+  color: #999;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
 
 @font-face {
   font-family: Gentium;
