@@ -64,14 +64,20 @@ jobs:
           }}" >> "$GITHUB_OUTPUT"
 
       - if: matrix.edition == 'en' && github.event_name != 'workflow_run'
-        run: gh release create ${{ steps.get-tag.outputs.tag }} -d -F .github/release_note.md
+        run: |
+          gh release create ${{ steps.get-tag.outputs.tag }} \
+            --title ${{ steps.get-tag.outputs.tag }} \
+            --draft --notes-file .github/release_note.md
 
       - run: npm install -g deno
       - run: python -m pip install .
       - run: dict build ${{ matrix.edition }}
 
       - if: github.event_name != 'workflow_run'
-        run: gh release upload ${{ steps.get-tag.outputs.tag }} build/*.json build/*.tar.zst
+        run: |
+          gh release upload ${{ steps.get-tag.outputs.tag }} \
+            build/*.json \
+            build/*.tar.zst
 
   release:
     needs: build

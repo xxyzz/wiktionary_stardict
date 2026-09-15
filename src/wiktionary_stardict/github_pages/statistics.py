@@ -19,7 +19,9 @@ def download_previous_data(edition: str, new_tag: str) -> dict[str, list[Release
 
     r = requests.get(f"https://xxyzz.github.io/wiktionary_stardict/{edition}.gz")
     if r.ok:
-        return json.loads(gzip.decompress(r.content))
+        all_data = defaultdict(list)
+        all_data.update(json.loads(gzip.decompress(r.content)))
+        return all_data
     else:
         return download_data_from_releases(edition, new_tag)
 
