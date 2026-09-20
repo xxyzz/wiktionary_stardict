@@ -811,9 +811,25 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [
-                {"form_of_only": True, "form_of_targets": ["tear"]},
-            ],
+            [{"form_of_only": False}],
+        )
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>tore</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">tore</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention">simple past of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./tear#English" title="tear">tear</a></i></span></span>.</li>
+<li><span class="form-of-definition use-with-mention">past participle of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./tear#English" title="tear">tear</a></i></span></span>
+<ul><li><div class="citation-whole"></div></li></ul>
+</li><li></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"form_of_only": True, "form_of_targets": ["tear"]}],
         )
 
     def test_rm_inter_project_class(self):
