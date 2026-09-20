@@ -46,6 +46,16 @@ async function load_data(gloss_code) {
 
 let chart;
 
+function calculateChange(list) {
+  return list.map((value, index) => {
+    if (index == 0) {
+      return 0;
+    }
+    const preValue = list[index - 1];
+    return Math.floor(((value - preValue) / preValue) * 100);
+  });
+}
+
 async function load_chart(lemma_code) {
   const gloss_code = document.getElementById("edition").value;
   const edition_data = await load_data(gloss_code);
@@ -54,19 +64,19 @@ async function load_chart(lemma_code) {
     labels: lemma_data.map((d) => d["date"]),
     datasets: [
       {
-        label: "Entry count",
-        data: lemma_data.map((d) => d["wordcount"]),
-        yAxisID: "yWords",
+        label: "Entries",
+        data: calculateChange(lemma_data.map((d) => d["wordcount"])),
+        originData: lemma_data.map((d) => d["wordcount"]),
       },
       {
-        label: "Syn count",
-        data: lemma_data.map((d) => d["synwordcount"]),
-        yAxisID: "yWords",
+        label: "Forms",
+        data: calculateChange(lemma_data.map((d) => d["synwordcount"])),
+        originData: lemma_data.map((d) => d["synwordcount"]),
       },
       {
-        label: "File size",
-        data: lemma_data.map((d) => Math.floor(d["filesize"] / 1000)),
-        yAxisID: "ySize",
+        label: "File size(KB)",
+        data: calculateChange(lemma_data.map((d) => Math.floor(d["filesize"] / 1000))),
+        originData: lemma_data.map((d) => Math.floor(d["filesize"] / 1000)),
       },
     ],
   };
@@ -82,21 +92,28 @@ async function load_chart(lemma_code) {
         data: chartData,
         options: {
           scales: {
-            yWords: {
-              position: "left",
+            y: {
               title: {
                 display: true,
-                text: "Entry count",
+                text: "Percentage change",
               },
-              grace: "10%",
+              ticks: {
+                callback: (value) => `${value}%`,
+              },
             },
-            ySize: {
-              position: "right",
-              title: {
-                display: true,
-                text: "File size(KB)",
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const dataset = context.dataset;
+                  const index = context.dataIndex;
+                  return [
+                    `Change: ${Math.floor(dataset.data[index])}%`,
+                    `${dataset.label}: ${dataset.originData[index]}`,
+                  ];
+                },
               },
-              grace: "10%",
             },
           },
         },
