@@ -77,6 +77,8 @@ def download_screenshots():
             "*.png",
             "-p",
             "*.avif",
+            "-p",
+            "*.ico",
         ],
         check=True,
     )

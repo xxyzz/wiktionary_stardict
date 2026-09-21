@@ -7,7 +7,7 @@
     xmlns:array="http://www.w3.org/2005/xpath-functions/array"
     expand-text="yes"
     exclude-result-prefixes="#all">
-  <xsl:output method="html" html-version="5" indent="yes" encoding="UTF-8"/>
+  <xsl:output method="html" html-version="5" indent="no" encoding="UTF-8"/>
   <xsl:param name="data"/>
 
   <xsl:template match="/">
@@ -21,6 +21,8 @@
         <title>Statistics</title>
         <meta name="color-scheme" content="light dark"/>
         <link href="./style.css" rel="stylesheet"/>
+        <link rel="icon" href="./favicon.ico"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
       </head>
       <body>
         <h1>Statistics</h1>
