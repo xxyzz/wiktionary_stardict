@@ -57,7 +57,8 @@
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
-              (.//a[@title = 'Wiktionary:International Phonetic Alphabet'] or
+              (.//a[@title = ('Wiktionary:International Phonetic Alphabet',
+              'Appendix:English pronunciation')] or
               .//text()[normalize-space() = ('Syllabification:', 'Tone numbers:',
               'Syllabification')])">
       <li>

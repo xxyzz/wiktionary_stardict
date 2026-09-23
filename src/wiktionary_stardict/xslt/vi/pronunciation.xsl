@@ -45,7 +45,8 @@
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
-              (.//a[@title = 'Wiktionary:IPA'] or
+              (.//a[@title = ('Wiktionary:IPA',
+              'Phụ lục:Cách phát âm tiếng Anh (trang không tồn tại)')] or
               .//text()[some $str in ('Tách âm:', 'Tách từ')
               satisfies contains(., $str)])">
       <li>

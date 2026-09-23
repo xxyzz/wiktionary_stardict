@@ -50,7 +50,7 @@
   <xsl:template match="li" mode="pron-ul">
     <xsl:if
         test="not(table[contains-token(@class, 'audiotable')]) and
-              (.//a[@title = 'วิกิพจนานุกรม:สัทอักษรสากล'] or
+              (.//a[@title = ('วิกิพจนานุกรม:สัทอักษรสากล', 'ภาคผนวก:การออกเสียงภาษาอังกฤษ')] or
               .//text()[normalize-space() = ('การแบ่งพยางค์:', 'Syllabification')])">
       <li>
         <xsl:apply-templates mode="pron-ul"/>
