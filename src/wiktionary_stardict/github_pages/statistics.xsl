@@ -26,7 +26,7 @@
       </head>
       <body>
         <h1>Statistics</h1>
-        <p>Creation date: <span id="date">{$json-data?date}</span></p>
+        <p>Creation date: <span id="date"><a href="https://github.com/xxyzz/wiktionary_stardict/releases/tag/{$json-data?date}">{$json-data?date}</a></span></p>
         <p>
           <label for="edition">Choose Wiktionary edition: </label>
           <select autocomplete="off" id="edition">
@@ -43,8 +43,10 @@
         </p>
         <xsl:for-each select="map:keys($assets)">
           <xsl:variable name="gloss-code" select="$json-data?gloss_codes(.)"/>
-          <p id="{$gloss-code}-options"
-             class="{if ($gloss-code = 'en') then 'files active-option' else 'files'}">
+          <p id="{$gloss-code}-options" class="files">
+            <xsl:if test="$gloss-code != 'en'">
+              <xsl:attribute name="hidden"/>
+            </xsl:if>
             <label for="{$gloss-code}-select">Choose language: </label>
             <select
                 autocomplete="off" class="language-options" id="{$gloss-code}-select">
@@ -53,6 +55,9 @@
                 <xsl:variable
                     name="lemma-code" select="$json-data?lemma_codes(?name)"/>
                 <option value="{$lemma-code}">
+                  <xsl:if test="$gloss-code = 'en' and $lemma-code = 'en'">
+                    <xsl:attribute name="selected"/>
+                  </xsl:if>
                   <xsl:value-of select="?name"/>
                 </option>
               </xsl:for-each>
@@ -60,7 +65,7 @@
           </p>
         </xsl:for-each>
         <div style="width: 80%;margin: auto"><canvas id="chart"></canvas></div>
-        <script defer="defer" type="module" src="./statistics.js"/>
+        <script type="module" src="./statistics.js"/>
       </body>
     </html>
   </xsl:template>

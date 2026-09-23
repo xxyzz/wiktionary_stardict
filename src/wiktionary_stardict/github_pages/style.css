@@ -92,9 +92,10 @@ h1, h2 {
     width: 90%;
   }
 }
-.files {display: none;}
-.active {display: grid;}
-.active-option {display: inherit;}
+
+.files[hidden] {
+  display: none;
+}
 
 :root {
   color-scheme: light dark;

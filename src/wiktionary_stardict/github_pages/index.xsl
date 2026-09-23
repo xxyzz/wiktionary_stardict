@@ -53,8 +53,10 @@
           <xsl:variable name="files" select="$assets($lang)"/>
           <xsl:variable name="lang_code" select="$json-data?gloss_codes($lang)"/>
 
-          <div id="{$lang}"
-               class="{if ($lang = 'English') then 'files active grid' else 'files grid'}">
+          <div id="{$lang}" class="files grid">
+            <xsl:if test="$lang != 'English'">
+              <xsl:attribute name="hidden"/>
+            </xsl:if>
             <picture class="screenshot">
               <source srcset="{$lang_code}.avif" type="image/avif"/>
               <img loading="lazy" src="{$lang_code}.png" alt="KOReader screenshot"/>
@@ -77,18 +79,14 @@
         </footer>
 
         <xsl:element name="script" expand-text="no">
-          window.addEventListener("pageshow", () => {
-            document.querySelector("#edition").value = "English";
-          });
-
           document.getElementById("edition").addEventListener(
             "change",
-            function(event) {
+            (event) => {
               document.querySelectorAll(".files").forEach(l => {
                 if (l.id == event.target.value) {
-                  l.classList.add("active");
+                  l.hidden = false;
                 } else {
-                  l.classList.remove("active");
+                  l.hidden = true;
                 }
               });
             }

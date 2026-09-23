@@ -1,22 +1,17 @@
 import Chart from "https://cdn.jsdelivr.net/npm/chart.js/auto/+esm";
 
-globalThis.addEventListener("pageshow", () => {
-  document.querySelector("#edition").value = "en";
-  document.querySelector("#en-select").value = "en";
-});
-
 document.getElementById("edition").addEventListener(
   "change",
   (event) => {
     document.querySelectorAll(".files").forEach((p) => {
       const edition = event.target.value;
       if (p.id == edition + "-options") {
-        p.classList.add("active-option");
+        p.hidden = false;
         const lemma_code = edition == "simple" ? "en" : edition;
         p.querySelector("select").value = lemma_code;
         load_chart(lemma_code);
       } else {
-        p.classList.remove("active-option");
+        p.hidden = true;
       }
     });
   },
