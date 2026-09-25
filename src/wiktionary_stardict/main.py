@@ -183,18 +183,21 @@ def build(args):
 
     page_names = set()
     start_deno()
-    for chunk_idx in range(chunk_num):
-        chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
-        chunk_zst_path = get_chunk_zst_path(chunk_identifier)
-        ndjson_path = chunk_zst_path.with_suffix(".ndjson")
-        if not ndjson_path.exists():
-            download_chunk(args.edition, chunk_identifier, chunk_zst_path, args.page)
-        logger.info(f"start chunk {chunk_identifier}")
-        with ndjson_path.open() as f:
-            with ProcessPoolExecutor(
-                initializer=init_worker,
-                initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
-            ) as executor:
+    with ProcessPoolExecutor(
+        initializer=init_worker,
+        initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
+        max_workers=min(chunk_num, process_cpu_count()),
+    ) as executor:
+        for chunk_idx in range(chunk_num):
+            chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
+            chunk_zst_path = get_chunk_zst_path(chunk_identifier)
+            ndjson_path = chunk_zst_path.with_suffix(".ndjson")
+            if not ndjson_path.exists():
+                download_chunk(
+                    args.edition, chunk_identifier, chunk_zst_path, args.page
+                )
+            logger.info(f"start chunk {chunk_identifier}")
+            with ndjson_path.open() as f:
                 for results in executor.map(
                     transform_worker, iter_chunk_lines(page_names, f), chunksize=100
                 ):
@@ -210,9 +213,9 @@ def build(args):
                                 data.get("form_of_targets", []),
                                 data.get("images", []),
                             )
-        if len(args.page) == 0:
-            ndjson_path.unlink()
-        logger.info(f"chunk {chunk_identifier} done")
+            if len(args.page) == 0:
+                ndjson_path.unlink()
+            logger.info(f"chunk {chunk_identifier} done")
 
     shutdown_deno()
     page_names.clear()

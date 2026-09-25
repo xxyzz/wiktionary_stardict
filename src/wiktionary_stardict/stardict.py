@@ -42,7 +42,7 @@ def download_image(res_path: Path, url: str, edition: str, zim):
 def get_user_agent() -> str:
     from importlib.metadata import version
 
-    return f"wikitionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
+    return f"wiktionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
 class StarDictInfo(TypedDict):
@@ -203,7 +203,7 @@ synwordcount={synwordcount}
 idxfilesize={idxfilesize}
 idxoffsetbits={idxoffsetbits}
 author=xxyzz
-website=https://github.com/xxyzz/wiktionary_stardict
+website=https://xxyzz.github.io/wiktionary_stardict/
 description=Snapshot {snapshot_date}, Wiktionary license CC BY-SA 4.0
 date={date.today().isoformat()}
 sametypesequence=h

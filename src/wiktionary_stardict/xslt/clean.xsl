@@ -24,7 +24,9 @@
   </xsl:template>
 
   <!-- Remove category links -->
-  <xsl:template match="link | audio | comment() | script | meta" mode="clean-content"/>
+  <xsl:template
+      match="link | audio | comment() | script | meta | iframe | object | embed"
+      mode="clean-content"/>
 
   <!-- Create bword link -->
   <xsl:template
