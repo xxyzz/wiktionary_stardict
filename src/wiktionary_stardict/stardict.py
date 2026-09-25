@@ -3,11 +3,9 @@ from sqlite3 import Connection
 from typing import TypedDict
 
 
-def download_image(res_path: Path, url: str, edition: str, zim):
+def download_image(res_path: Path, url: str, edition: str, zim, session):
     import re
     import urllib.parse
-
-    import requests
 
     from .zim import get_zim_asset
 
@@ -33,7 +31,7 @@ def download_image(res_path: Path, url: str, edition: str, zim):
         if cache_path.is_file():
             cache_path.copy(file_path)
         else:
-            r = requests.get(url, headers={"user-agent": get_user_agent()})
+            r = session.get(url, headers={"user-agent": get_user_agent()})
             if r.ok:
                 with file_path.open("wb") as f:
                     f.write(r.content)
@@ -140,6 +138,7 @@ def create_dict_idx_file(
     folder: Path, conn: Connection, edition: str, zim
 ) -> tuple[int, int, bool]:
     from idzip import IdzipFile
+    from requests import Session
 
     from .db import check_def_len, iter_entries
     from .main import logger
@@ -150,7 +149,11 @@ def create_dict_idx_file(
     use_64_bits_offset = check_def_len(conn)
     if use_64_bits_offset:
         logger.warning(f"{folder.name} uses 64 bits offset")
-    with IdzipFile(str(dict_path), "wb") as dict_f, idx_path.open("wb") as idx_f:
+    with (
+        IdzipFile(str(dict_path), "wb") as dict_f,
+        idx_path.open("wb") as idx_f,
+        Session() as session,
+    ):
         offset = 0
         wordcount = 0
         for definition, title, images in iter_entries(conn):
@@ -166,7 +169,7 @@ def create_dict_idx_file(
             offset += def_len
             wordcount += 1
             for image in images:
-                download_image(res_path, image, edition, zim)
+                download_image(res_path, image, edition, zim, session)
 
     return wordcount, idx_path.stat().st_size, use_64_bits_offset
 
