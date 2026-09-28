@@ -26,6 +26,15 @@
         <link href="./style.css" rel="stylesheet"/>
         <link rel="icon" href="./favicon.ico"/>
         <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+        <style>
+          <xsl:text>.files{{display:none}}</xsl:text>
+          <xsl:for-each select="map:keys($assets)">
+            <xsl:variable name="lang_code" select="$json-data?gloss_codes(.)"/>
+            <xsl:text>p:has(#edition option[value="{$lang_code}"]:checked) ~ #{$lang_code}</xsl:text>
+            <xsl:if test="position() != last()">,</xsl:if>
+          </xsl:for-each>
+          <xsl:text>{{display:grid}}</xsl:text>
+        </style>
       </head>
       <body>
         <h1>Wiktionary StarDict</h1>
@@ -38,7 +47,7 @@
           <select autocomplete="off" id="edition">
             <xsl:for-each select="map:keys($assets)">
               <xsl:sort select="."/>
-              <option value="{.}">
+              <option value="{$json-data?gloss_codes(.)}">
                 <xsl:if test=". = 'English'">
                   <xsl:attribute name="selected"/>
                 </xsl:if>
@@ -53,7 +62,7 @@
           <xsl:variable name="files" select="$assets($lang)"/>
           <xsl:variable name="lang_code" select="$json-data?gloss_codes($lang)"/>
 
-          <div id="{$lang}" class="files grid">
+          <div id="{$lang_code}" class="files grid">
             <xsl:if test="$lang != 'English'">
               <xsl:attribute name="hidden"/>
             </xsl:if>
@@ -77,21 +86,6 @@
           <p>Wiktionary data are under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike License</a>, the source code of this project is under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL version 3 or later</a>.</p>
           <p><a href="./statistics.html">Statistics</a></p>
         </footer>
-
-        <xsl:element name="script" expand-text="no">
-          document.getElementById("edition").addEventListener(
-            "change",
-            (event) => {
-              document.querySelectorAll(".files").forEach(l => {
-                if (l.id == event.target.value) {
-                  l.hidden = false;
-                } else {
-                  l.hidden = true;
-                }
-              });
-            }
-          );
-        </xsl:element>
       </body>
     </html>
   </xsl:template>

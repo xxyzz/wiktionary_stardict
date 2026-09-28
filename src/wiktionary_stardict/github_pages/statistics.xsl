@@ -23,6 +23,7 @@
         <link href="./style.css" rel="stylesheet"/>
         <link rel="icon" href="./favicon.ico"/>
         <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+        <style>.files[hidden]{{display:none;}}</style>
       </head>
       <body>
         <h1>Statistics</h1>

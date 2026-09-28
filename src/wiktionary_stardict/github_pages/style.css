@@ -93,10 +93,6 @@ h1, h2 {
   }
 }
 
-.files[hidden] {
-  display: none;
-}
-
 :root {
   color-scheme: light dark;
   --img-filter: none;
