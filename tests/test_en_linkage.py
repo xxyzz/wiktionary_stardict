@@ -136,3 +136,32 @@ class EnLinkageTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_rm_gallery(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Austria-Hungary</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">Austria-Hungary
+</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<ul><li><span class="Latn" lang="en">Austro-Hungary</span></li></ul>
+<ul class="gallery mw-gallery-traditional"><li class="gallerybox"></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Proper noun</h4>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">Austria-Hungary</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<ul><li><span class="Latn" lang="en">Austro-Hungary</span></li></ul>
+</section></section></section>""",
+                },
+            ],
+        )

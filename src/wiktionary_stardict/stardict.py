@@ -3,10 +3,11 @@ from sqlite3 import Connection
 from typing import TypedDict
 
 
-def download_image(res_path: Path, url: str, edition: str, zim, session):
+def download_image(res_path: Path, url: str, edition: str, zim, session, title: str):
     import re
     import urllib.parse
 
+    from .main import logger
     from .zim import get_zim_asset
 
     filename = url.rsplit("/", maxsplit=1)[-1]
@@ -35,6 +36,11 @@ def download_image(res_path: Path, url: str, edition: str, zim, session):
             if r.ok:
                 with file_path.open("wb") as f:
                     f.write(r.content)
+            else:
+                logger.warning(
+                    f'Download image "{url}" in page "{title}" failed: {r.status_code=}'
+                    f" {r.reason=} {r.text=}"
+                )
 
 
 def get_user_agent() -> str:
@@ -169,7 +175,7 @@ def create_dict_idx_file(
             offset += def_len
             wordcount += 1
             for image in images:
-                download_image(res_path, image, edition, zim, session)
+                download_image(res_path, image, edition, zim, session, title)
 
     return wordcount, idx_path.stat().st_size, use_64_bits_offset
 

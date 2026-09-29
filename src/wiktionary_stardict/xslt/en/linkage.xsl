@@ -22,6 +22,7 @@
 
   <xsl:template match="ul" mode="linkage-content">
     <xsl:copy>
+      <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="li[position() le 6]" mode="linkage-content"/>
     </xsl:copy>
   </xsl:template>
