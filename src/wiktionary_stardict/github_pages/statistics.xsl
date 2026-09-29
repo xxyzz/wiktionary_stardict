@@ -21,8 +21,7 @@
         <title>Statistics</title>
         <meta name="color-scheme" content="light dark"/>
         <link href="./style.css" rel="stylesheet"/>
-        <link rel="icon" href="./favicon.ico"/>
-        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
+        <link rel="icon" type="image/svg+xml" href="./favicon.svg"/>
         <style>.files[hidden]{{display:none;}}</style>
       </head>
       <body>
