@@ -856,3 +856,67 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_score_without_example_template(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>major scale</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">major scale
+</strong></span></p>
+<ol><li>gloss
+<dl><dd id="mwEg">In the key of C Major, the notes C, D, E, F, G, A, B, C form a major scale:
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.svg" width="240" height="52" alt="{c' d' e' f' g' a' b' c''}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">major scale
+</strong></p>
+<ol><li>gloss
+<dl><dd>In the key of C Major, the notes C, D, E, F, G, A, B, C form a major scale:
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="a024d7k2.svg" width="240" height="52" alt="{c' d' e' f' g' a' b' c''}"/><div style="margin-top: 3px;"></div></div></dd></dl></dd></dl></li></ol>
+</section>""",
+                    "images": [
+                        "//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.svg"
+                    ],
+                }
+            ],
+        )
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>A major</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">A major
+</strong></span></p>
+<ol><li>gloss
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.svg" width="276" height="53" alt="{\key a \major a' b' cis'' d'' e'' fis'' gis'' a''2}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "def": r"""<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">A major
+</strong></p>
+<ol><li>gloss
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="qgeu1x0v.svg" width="276" height="53" alt="{\key a \major a' b' cis'' d'' e'' fis'' gis'' a''2}"/><div style="margin-top: 3px;"></div></div></dd></dl></li></ol>
+</section>""",
+                    "images": [
+                        "//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.svg"
+                    ],
+                }
+            ],
+        )
