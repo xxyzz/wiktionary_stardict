@@ -31,7 +31,8 @@
       <xsl:variable
           name="headword-forms" as="xs:string*"
           select="myfn:get-element-forms($headword-p
-                  [not(span[@data-mw and myfn:is-template(@data-mw, 'th-noun')])]//b)"/>
+                  [not(span[@data-mw and myfn:is-template(@data-mw,
+                  ('th-noun', 'ja-noun'))])]//b)"/>
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">

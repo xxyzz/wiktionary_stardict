@@ -35,7 +35,7 @@
           name="headword-forms" as="xs:string*"
           select="myfn:get-element-forms($headword-p[not((span|strong)[@data-mw and
                   myfn:is-template(@data-mw, ('jachars', 'zhchars', 'kochar', 'vichar',
-                  'th-noun'))])]//b)"/>
+                  'th-noun', 'ja-noun'))])]//b)"/>
       <xsl:variable
           name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(.)"/>
       <xsl:variable name="conj-forms" as="xs:string*">

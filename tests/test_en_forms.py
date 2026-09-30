@@ -491,3 +491,16 @@ class EnFormsTestCase(XMLTestCase):
 </tr></tbody></table></section></section></section></body></html>""",
             [{"forms": ["adteich", "ateich", "attach", "ateoch"]}],
         )
+
+    def test_rm_ja_noun_counter(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>本</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line" data-mw='{"parts":[{"template":{"target":{"wt":"ja-noun"}}}]}'><strong class="Jpan headword" lang="ja"><ruby>本<rp>(</rp><rt><a>もと</a></rt><rp>)</rp></ruby></strong> <a>•</a> (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja"><a>moto</a></span></span>)<span> </span><i></i> (<i>counter</i> <b class="Jpan" lang="ja"><a>個</a></b>)</span></p>
+<ol><li>gloss</li></ol></section></section></body></html>""",
+            [{"forms": ["本", "もと"]}],
+        )
