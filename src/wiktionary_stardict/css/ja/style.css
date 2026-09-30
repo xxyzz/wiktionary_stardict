@@ -5,7 +5,7 @@
   font-family: 'Source Han Sans JP',sans-serif;
 }
 pre, code, tt, kbd, samp, .mw-code {
-  font-family: monospace;
+  font-family: "Noto Sans Mono", monospace;
 }
 .zh-simp, .Hans {
   font-family:'Source Han Sans CN',sans-serif;
@@ -28,7 +28,7 @@ pre, code, tt, kbd, samp, .mw-code {
   direction:rtl;
 }
 .SAMPA, .Webster {
-  font-family: monospace;
+  font-family: "Noto Sans Mono", monospace;
 }
 
 h4 {
@@ -74,7 +74,7 @@ dd {
   margin-inline-end: 0;
 }
 section {
-  font-family:sans-serif;
+  font-family:"Source Han Sans JP",sans-serif;
 }
 .mw-parser-output a {
   word-wrap: break-word;
@@ -84,20 +84,11 @@ section {
 }
 
 @font-face {
-  font-family: sans-serif;
-  src: url("fonts/SourceHanSansJP-Regular.otf");
-}
-@font-face {
-  font-family: sans-serif;
-  font-weight: bold;
-  src: url("fonts/SourceHanSansJP-Bold.otf");
-}
-@font-face {
   font-family: "Gentium";
   src: url("fonts/Gentium-Regular.ttf");
 }
 @font-face {
-  font-family: "monospace";
+  font-family: "Noto Sans Mono";
   src: url("fonts/NotoSansMono-Regular.ttf");
 }
 @font-face {
