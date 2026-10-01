@@ -988,7 +988,7 @@ dd {
   font-weight: bold;
 }
 pre, code, tt, kbd, samp, .mw-code {
-  font-family: monospace;
+  font-family: "Noto Sans Mono",monospace;
 }
 abbr[title] {
   border-bottom: 0;
@@ -1025,7 +1025,7 @@ details.NavFrame div.NavContent {
   border-top:1px solid #9e9e9e;
 }
 .zhpron-monospace {
-  font-family:monospace
+  font-family:"Noto Sans Mono",monospace
 }
 .wikitable {
   background-color:#f8f9fa;
@@ -1147,7 +1147,7 @@ sup, sub {
   src: url("fonts/Gentium-Regular.ttf");
 }
 @font-face {
-  font-family: monospace;
+  font-family: "Noto Sans Mono";
   src: url("fonts/NotoSansMono-Regular.ttf");
 }
 @font-face {

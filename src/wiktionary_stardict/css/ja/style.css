@@ -74,7 +74,10 @@ dd {
   margin-inline-end: 0;
 }
 section {
-  font-family:"Source Han Sans JP",sans-serif;
+  font-family: 'Source Han Sans JP', 'Noto Sans', sans-serif;
+}
+.Latn, i {
+  font-family: 'Noto Sans', sans-serif;
 }
 .mw-parser-output a {
   word-wrap: break-word;

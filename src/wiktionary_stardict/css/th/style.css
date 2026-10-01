@@ -41,7 +41,7 @@ dd {
   margin-inline-end: 0;
 }
 .zhpron-monospace {
-  font-family:monospace
+  font-family:'Noto Sans Mono',monospace
 }
 
 .mention {
@@ -1062,7 +1062,7 @@ section {
   src: url("fonts/Gentium-Regular.ttf");
 }
 @font-face {
-  font-family: monospace;
+  font-family: "Noto Sans Mono";
   src: url("fonts/NotoSansMono-Regular.ttf");
 }
 @font-face {
