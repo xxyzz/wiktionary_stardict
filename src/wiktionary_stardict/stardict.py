@@ -32,7 +32,7 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
         if cache_path.is_file():
             cache_path.copy(file_path)
         else:
-            r = session.get(url, headers={"user-agent": get_user_agent()})
+            r = session.get(url)
             if r.ok:
                 with file_path.open("wb") as f:
                     f.write(r.content)
@@ -41,12 +41,6 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
                     f'Download image "{url}" in page "{title}" failed: {r.status_code=}'
                     f" {r.reason=} {r.text=}"
                 )
-
-
-def get_user_agent() -> str:
-    from importlib.metadata import version
-
-    return f"wiktionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
 
 
 class StarDictInfo(TypedDict):
@@ -144,10 +138,10 @@ def create_dict_idx_file(
     folder: Path, conn: Connection, edition: str, zim
 ) -> tuple[int, int, bool]:
     from idzip import IdzipFile
-    from requests import Session
 
     from .db import check_def_len, iter_entries
     from .main import logger
+    from .snapshot import init_requests_session
 
     dict_path = folder / (folder.name + ".dict.dz")
     idx_path = folder / (folder.name + ".idx")
@@ -158,7 +152,7 @@ def create_dict_idx_file(
     with (
         IdzipFile(str(dict_path), "wb") as dict_f,
         idx_path.open("wb") as idx_f,
-        Session() as session,
+        init_requests_session() as session,
     ):
         offset = 0
         wordcount = 0

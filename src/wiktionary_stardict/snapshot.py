@@ -18,9 +18,8 @@ def get_snapshot_chunks(identifier: str, test_pages: list[str]) -> tuple[str, in
 def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[str]):
     import json
     import subprocess
-    from importlib.metadata import version
 
-    import requests
+    from .main import logger
 
     zst_path.parent.mkdir(exist_ok=True)
     if len(test_pages) == 0:
@@ -40,12 +39,13 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
         )
         decompress_chunk(zst_path)
     else:
-        with open(zst_path.with_suffix(".ndjson"), "w") as f:
-            user_agent = f"wiktionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
+        with (
+            open(zst_path.with_suffix(".ndjson"), "w") as f,
+            init_requests_session() as session,
+        ):
             for test_page in test_pages:
-                r = requests.get(
+                r = session.get(
                     f"https://{edition}.wiktionary.org/w/rest.php/v1/page/{test_page}/html",
-                    headers={"user-agent": user_agent},
                 )
                 if r.ok:
                     json.dump(
@@ -55,6 +55,11 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
                         separators=(",", ":"),
                     )
                     f.write("\n")
+                else:
+                    logger.warning(
+                        f'Download page "{test_page}" failed: {r.status_code=}'
+                        f" {r.reason=} {r.text=}"
+                    )
 
 
 def decompress_chunk(zst_path: Path):
@@ -69,3 +74,25 @@ def decompress_chunk(zst_path: Path):
 
 def get_chunk_zst_path(chunk_identifier: str) -> Path:
     return Path("build").joinpath(chunk_identifier).with_suffix(".zst")
+
+
+def get_user_agent() -> str:
+    from importlib.metadata import version
+
+    return f"wiktionary_stardict/{version('wiktionary_stardict')} (https://github.com/xxyzz/wiktionary_stardict)"
+
+
+def init_requests_session():
+    from requests import Session
+    from requests.adapters import HTTPAdapter
+    from urllib3.util import Retry
+
+    s = Session()
+    s.mount(
+        "https://",
+        HTTPAdapter(
+            max_retries=Retry(total=5, backoff_factor=0.1, status_forcelist=[429])
+        ),
+    )
+    s.headers.update({"user-agent": get_user_agent()})
+    return s
