@@ -104,7 +104,10 @@
 
   <!-- Find the shortest usage example -->
   <xsl:template match="ul" mode="pos-li">
-    <xsl:variable name="examples" select="li[span[q]]"/>
+    <xsl:variable
+        name="examples"
+        select="li[span[q and contains-token(@class, 'example') and
+                not(span[contains-token(@class, 'sources')])]]"/>
     <xsl:if test="$examples">
       <ul>
         <xsl:apply-templates

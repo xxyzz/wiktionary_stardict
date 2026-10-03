@@ -17,7 +17,8 @@ class FrPOSTestCase(XMLTestCase):
 <ol>
 <li>Couler, s’écouler.
 <ul><li><span class="example"><q><bdi lang="fr" class="lang-fr"><i>Le ruisseau qui <b>court</b> dans la prairie.</i></bdi></q></span></li>
-<li><span class="example"><q><bdi lang="fr" class="lang-fr"><i>Le Rhône <b>court</b> du nord au sud.</i></bdi></q></span></li></ul>
+<li><span class="example"><q><bdi lang="fr" class="lang-fr"><i>Le Rhône <b>court</b> du nord au sud.</i></bdi></q></span></li>
+<li><span class="example"><q><bdi lang="fr" class="lang-fr"><i><b>court</b></i></bdi></q><span class="sources"></span></span></li></ul>
 <ol><li>Se dit figurément du Temps.
 <ul><li><span class="example"><q><bdi lang="fr" class="lang-fr"><i>Le temps court insensiblement.</i></bdi></q></span></li>
 <li><i>Par les temps qui <b>courent</b>,</i> dans le temps présent, dans les circonstances actuelles.</li></ul></li></ol></li>
