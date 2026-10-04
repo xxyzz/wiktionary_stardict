@@ -31,9 +31,12 @@
   justify-self: center;
   text-align: center;
   filter: var(--img-filter);
+  aspect-ratio: 1080/1440;
+  width: 100%;
 }
 .screenshot img {
   width: 100%;
+  height: auto;
 }
 ul {
   list-style-type: disc;
@@ -87,9 +90,6 @@ h1, h2 {
     grid-template-areas:
       "screenshot"
       "list";
-  }
-  .screenshot img {
-    width: 90%;
   }
 }
 

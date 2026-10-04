@@ -67,7 +67,12 @@
             </xsl:if>
             <picture class="screenshot">
               <source srcset="{$lang_code}.avif" type="image/avif"/>
-              <img loading="lazy" src="{$lang_code}.png" alt="KOReader screenshot"/>
+              <img
+                  loading="lazy"
+                  height="1440"
+                  width="1080"
+                  src="{$lang_code}.png"
+                  alt="KOReader screenshot"/>
             </picture>
             <ul class="list">
               <xsl:for-each select="$files?*">
