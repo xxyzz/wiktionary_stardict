@@ -85,6 +85,9 @@
         <xsl:when test="exists(a) and empty(node() except a)">
           <xsl:sequence select="myfn:adjacent-a-forms(.)"/>
         </xsl:when>
+        <xsl:when test="exists(a) and exists(span[normalize-space(.) = '/'])">
+          <xsl:sequence select="myfn:a-forms(a)"/>
+        </xsl:when>
         <xsl:when test="br">
           <xsl:for-each-group select="node()" group-adjacent="boolean(self::br)">
             <xsl:if test="not(current-grouping-key())">

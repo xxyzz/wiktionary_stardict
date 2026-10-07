@@ -504,3 +504,16 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>gloss</li></ol></section></section></body></html>""",
             [{"forms": ["本", "もと"]}],
         )
+
+    def test_ko_noun(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>강요</title></head>
+<body>
+<section><h2>Korean</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line" data-mw='{"parts":[{"template":{"target":{"wt":"ko-noun"}}}]}'><strong class="Kore headword" lang="ko">강요</strong> <a>•</a> (<span lang="ko-Latn" class="headword-tr manual-tr tr Latn" dir="ltr">gang'yo</span>) (<i>hanja</i> <b class="Kore" lang="ko"><a>強要</a><span typeof="mw:Entity">/</span><a>强要</a></b>)</span></p>
+<ol><li>gloss</li></ol></section></section></body></html>""",
+            [{"forms": ["강요", "強要", "强要"]}],
+        )
