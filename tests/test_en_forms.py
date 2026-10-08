@@ -517,3 +517,74 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>gloss</li></ol></section></section></body></html>""",
             [{"forms": ["강요", "強要", "强要"]}],
         )
+
+    def test_zh_forms_tr(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>馬尼拉</title></head>
+<body>
+<section><h2>Chinese</h2>
+<span class="mw-empty-elt" data-mw='{"parts":[{"template":{"target":{"wt":"zh-forms"}}}]}'></span><table class="floatright">
+<tbody><tr>
+<th colspan="2"></th>
+<th colspan="3"><i>phonetic</i></th></tr>
+<tr>
+<th colspan="2"><a>trad.</a> <span>(<span lang="zh-Hant" class="Hant"><a>馬尼拉</a></span>)</span></th>
+<td lang="zh-Hant" class="Hant"><a>馬</a></td>
+<td lang="zh-Hant" class="Hant"><a>尼</a></td>
+<td lang="zh-Hant" class="Hant"><a>拉</a></td></tr>
+<tr>
+<th colspan="2"><a>simp.</a> <span>(<span lang="zh-Hans" class="Hans"><a>马尼拉</a></span>)</span></th>
+<td lang="zh-Hans" class="Hans"><a>马</a></td>
+<td lang="zh-Hans" class="Hans"><a>尼</a></td>
+<td lang="zh-Hans" class="Hans"><a>拉</a></td></tr>
+<tr>
+<th colspan="2">alternative forms</th>
+<td colspan="3"><div class="vsSwitcher" data-toggle-category="Chinese alternative forms"><div class="vsShow"><span style="white-space:nowrap;"><span class="Hant" lang="zh-Hant"><a>馬尼剌</a></span><span class="Hani" lang="zh">／</span><span class="Hans" lang="zh-Hans"><a>马尼剌</a></span></span></div><div class="vsHide"><span style="white-space:nowrap;"><span class="Hant" lang="zh-Hant"><a>馬尼剌</a></span><span class="Hani" lang="zh">／</span><span class="Hans" lang="zh-Hans"><a>马尼剌</a></span></span><br/><span style="white-space:nowrap;"><span class="Hani" lang="zh"><a>岷埠</a></span></span><br/><span style="white-space:nowrap;"><span class="Hans" lang="zh-Hans"><a>岷里拉</a></span> (<i><span class="tr Latn" lang="zh-Latn">Bîn-lí-la/Bīn-ní-la̍p</span></i>)</span></div></div></td></tr>
+</tbody></table>
+<section><h3>Proper noun</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">馬尼拉</strong></span></p>
+<ol><li>gloss</li></ol></section></section></body></html>""",
+            [{"forms": ["馬尼拉", "马尼拉", "馬尼剌", "马尼剌", "岷埠", "岷里拉"]}],
+        )
+
+    def test_ignore_other_tables_after_zh_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>五十</title></head>
+<body>
+<section><h2>Chinese</h2>
+<span class="mw-empty-elt" data-mw='{"parts":[{"template":{"target":{"wt":"zh-forms"}}}]}'></span><table class="floatright">
+<tbody><tr>
+<th colspan="2"></th>
+<th colspan="1">five</th>
+<th colspan="1">ten</th></tr>
+<tr>
+<th colspan="2"><a>simp.</a> and <a>trad.</a><br/><span>(<span lang="zh-Hani" class="Hani"><a>五十</a></span>)</span></th>
+<td lang="zh-Hani" class="Hani"><a>五</a></td>
+<td lang="zh-Hani" class="Hani"><a>十</a></td></tr>
+<tr>
+<th colspan="2">alternative forms</th>
+<td colspan="2"><span style="white-space:nowrap;"><span class="Hani" lang="zh"><a>伍拾</a></span> <span><i>financial</i></span></span></td></tr>
+<tr>
+<th colspan="2">anagram</th>
+<td colspan="2"><span style="white-space:nowrap;"><span class="Hani" lang="zh"><a>十五</a></span></span></td></tr>
+</tbody></table>
+<table class="floatright number-box" data-mw='{"parts":[{"template":{"target":{"wt":"cardinalbox"}}}]}'>
+<caption><b>Chinese cardinal numbers</b></caption>
+<tbody><tr>
+<td class="adjacent-slot"><span class="None" lang="zh"><a title="四十九"> <span typeof="mw:Entity">&lt;</span>  49</a></span></td>
+<th class="current-slot"><span class="None" lang="zh">50</span></th>
+<td class="adjacent-slot"><span class="None" lang="zh"><a title="五十一">51  <span typeof="mw:Entity">></span> </a></span></td></tr>
+<tr>
+<td colspan="3" class="form-slot"><span typeof="mw:Entity"> </span><span typeof="mw:Entity"> </span><span typeof="mw:Entity"> </span> <i><a title="cardinal number">Cardinal</a></i><span> </span>: <span class="Hani" lang="zh"><a class="mw-selflink-fragment">五十</a></span> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="tr Latn">wǔshí</span><span class="mention-gloss-paren annotation-paren">)</span></td></tr>
+<tr>
+<td colspan="3" class="footer-slot"></td></tr>
+</tbody></table>
+<section><h3>Numeral</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">五十</strong></span></p>
+<ol><li>gloss</li></ol></section></section></body></html>""",
+            [{"forms": ["五十", "伍拾"]}],
+        )

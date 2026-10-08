@@ -5,6 +5,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:myfn="https://github.com/xxyzz">
 
+  <xsl:import href="../en/alt_forms.xsl"/>
+
   <xsl:function name="myfn:get-alt-form-section" as="element(section)*">
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence
@@ -26,7 +28,8 @@
     <xsl:choose>
       <xsl:when test="$language = '漢語'">
         <xsl:sequence
-            select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
+            select="$alt-forms,
+                    $section/ancestor::section[h2|h3] ! myfn:zh-forms(., '異序詞')"/>
       </xsl:when>
       <xsl:when test="$language = '日語'">
         <xsl:variable
@@ -46,25 +49,6 @@
     <xsl:sequence
         select="myfn:get-element-forms($section/ul/li/span
                 [@lang and not(ends-with(@lang, '-Latn'))])"/>
-  </xsl:function>
-
-  <xsl:function name="myfn:zh-forms" as="xs:string*">
-    <xsl:param name="section" as="element(section)"/>
-    <xsl:variable
-        name="span_node"
-        select="$section/span[@data-mw and myfn:is-template(@data-mw, 'zh-forms')]"/>
-    <xsl:if test="$span_node">
-      <xsl:variable name="table" select="$span_node/following-sibling::table"/>
-      <xsl:variable
-          name="th-forms"
-          select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
-      <xsl:variable
-          name="td-forms"
-          select="$table//td[preceding-sibling::th[1]
-                  [not(text()[contains(., '異序詞')])]]//
-                  span[starts-with(@lang, 'zh')]/normalize-space(.)[. != '／']"/>
-      <xsl:sequence select="$th-forms, $td-forms"/>
-    </xsl:if>
   </xsl:function>
 
   <xsl:function name="myfn:ja-kanjitab" as="xs:string*">

@@ -25,7 +25,8 @@
     <xsl:choose>
       <xsl:when test="$language = 'Chinese'">
         <xsl:sequence
-            select="$alt-forms, $section/ancestor::section[h2|h3] ! myfn:zh-forms(.)"/>
+            select="$alt-forms,
+                    $section/ancestor::section[h2|h3] ! myfn:zh-forms(., 'anagram')"/>
       </xsl:when>
       <xsl:when test="$language = 'Japanese'">
         <xsl:variable
@@ -51,19 +52,21 @@
 
   <xsl:function name="myfn:zh-forms" as="xs:string*">
     <xsl:param name="section" as="element(section)"/>
+    <xsl:param name="anagram_th_str" as="xs:string"/>
     <xsl:variable
         name="span_node"
         select="$section/span[@data-mw and myfn:is-template(@data-mw, 'zh-forms')]"/>
     <xsl:if test="$span_node">
-      <xsl:variable name="table" select="$span_node/following-sibling::table"/>
+      <xsl:variable name="table" select="$span_node/following-sibling::table[1]"/>
       <xsl:variable
           name="th-forms"
           select="$table//th//span[starts-with(@lang, 'zh-Han')]/a/text()"/>
       <xsl:variable
           name="td-forms"
           select="$table//td[preceding-sibling::th[1]
-                  [not(text()[contains(., 'anagram')])]]//
-                  span[starts-with(@lang, 'zh')]/normalize-space(.)[. != '／']"/>
+                  [not(text()[contains(., $anagram_th_str)])]]//
+                  span[some $cls in ('Hant', 'Hani', 'Hans') satisfies
+                  contains-token(@class, $cls)]/normalize-space(.)[. != '／']"/>
       <xsl:sequence select="$th-forms, $td-forms"/>
     </xsl:if>
   </xsl:function>
