@@ -171,7 +171,9 @@
     <xsl:param name="section" as="element(section)"/>
     <xsl:variable
         name="ancestor-section-ids" select="myfn:get-ancestor-section-ids($section)"/>
-    <xsl:variable name="li-ids" select="$section/ol/li/@id[not(starts-with(., 'mw'))]"/>
+    <xsl:variable
+        name="li-ids"
+        select="$section/ol//li[parent::ol]/@id[not(starts-with(., 'mw'))]"/>
     <xsl:sequence select="$ancestor-section-ids, $li-ids"/>
   </xsl:function>
 

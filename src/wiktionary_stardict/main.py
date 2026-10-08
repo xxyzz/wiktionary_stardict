@@ -69,7 +69,7 @@ def exit_worker():
     redirect_db_conn.close()
 
 
-def transform_worker(chunk_data) -> list[list[str]]:
+def transform_worker(chunk_data) -> list[dict]:
     import json
 
     from saxonche import PySaxonApiError
@@ -97,7 +97,7 @@ def transform_worker(chunk_data) -> list[list[str]]:
     return json_result
 
 
-def transform(chunk_data, proc, executable, math_xsl_exec) -> list[list[str]]:
+def transform(chunk_data, proc, executable, math_xsl_exec) -> list[dict]:
     import json
 
     from saxonche import PySaxonApiError

@@ -920,3 +920,21 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_nested_list_id(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>out</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">out
+</strong></span></p>
+<ol><li>gloss<ol><li id="English:_not_being_attended">nested gloss</li></ol></li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"ids": ["English:_not_being_attended"]}],
+        )
