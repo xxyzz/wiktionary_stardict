@@ -165,3 +165,32 @@ class EnLinkageTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_rm_zh_dial(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>攪絞</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">攪絞</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<span data-mw='{"parts":[{"template":{"target":{"wt":"zh-dial"}}}]}'>	</span><div class="NavFrame">
+	<div class="NavHead">Dialectal synonyms of <span class="Hant" lang="zh"><a>腹瀉</a></span> (“to have diarrhea”) <a><small><span>[</span>map<span>]</span></small></a>
+</div>
+	<div class="NavContent">
+	<table class="wikitable">
+	<tbody><tr></tr></tbody></table></div></div>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Verb</h4>
+<p><span class="headword-line">
+<strong class="Hant headword" lang="zh">攪絞</strong></span></p>
+<ol><li>gloss</li></ol></section></section>""",
+                },
+            ],
+        )
