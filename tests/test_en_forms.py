@@ -634,3 +634,23 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></section></body></html>""",
             [{"forms": ["あせだく", "あせだくなら", "あせだくならば"]}],
         )
+
+    def test_ja_adj_infl(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>らしい</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Suffix</h3>
+<p><span class="headword-line"><strong class="Japn headword" lang="ja">らしい</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Conjugation</h4>
+<div class="inflection-table-wrapper inflection-table-collapsible inflection-table-collapsed no-vc" data-mw='{"parts":[{"template":{"target":{"wt":"ja-adj-infl"}}}]}'>
+<table class="inflection-table">
+<tbody><tr>
+<td><span class="Jpan" lang="ja">らしかったら、らしいなら</span></td>
+</tr></tbody></table></div>
+</section></section></section></body></html>""",
+            [{"forms": ["らしい", "らしかったら", "らしいなら"]}],
+        )
