@@ -8,9 +8,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="p" mode="pronunciation">
-    <section>
-      <xsl:apply-templates select="following-sibling::dl[1]" mode="pron"/>
-    </section>
+    <xsl:apply-templates select="following-sibling::dl[1]" mode="pron"/>
   </xsl:template>
 
   <xsl:template match="dl" mode="pron">
@@ -18,12 +16,15 @@
       <xsl:apply-templates select="dd" mode="pron"/>
     </xsl:variable>
     <xsl:if test="$lists/*">
-      <dl><xsl:apply-templates select="$lists" mode="clean-content"/></dl>
+      <section>
+        <dl><xsl:apply-templates select="$lists" mode="clean-content"/></dl>
+      </section>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="dd" mode="pron">
-    <xsl:if test="a[@title = 'Hilfe:IPA']">
+    <xsl:if test="exists(span[contains-token(@class, 'ipa') and
+                  not(normalize-space(.) = '…')])">
       <dd><xsl:apply-templates mode="pron"/></dd>
     </xsl:if>
   </xsl:template>

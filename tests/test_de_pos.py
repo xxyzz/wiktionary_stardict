@@ -16,7 +16,7 @@ class DePosTestCase(XMLTestCase):
 <dl><dd>Keim, <span style="font-size:95%;" about="#mwt8" typeof="mw:Transclusion">Plural:</span> Kei·me</dd></dl>
 
 <p style="margin-bottom:-0.5em; font-weight:bold; " title="Phonetik" about="#mwt9" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"Aussprache"}}}]}'>Aussprache:</p>
-<dl><dd><a title="Hilfe:IPA">IPA</a><span>:</span> <span>[</span><span>kaɪ̯m</span><span>]</span></dd>
+<dl><dd><a title="Hilfe:IPA">IPA</a><span>:</span> <span>[</span><span class="ipa">kaɪ̯m</span><span>]</span></dd>
 <dd><a title="Hilfe:Reime">Reime:</a> <span><a>-aɪ̯m</a></span></dd></dl>
 
 <p data-mw='{"parts":[{"template":{"target":{"wt":"Bedeutungen"}}}]}'>Bedeutungen:</p>
@@ -33,7 +33,7 @@ class DePosTestCase(XMLTestCase):
 <dl><dd>Keim, <span style="font-size:95%;">Plural:</span> Kei·me</dd></dl>
 </section>
 <section>
-<dl><dd>IPA<span>:</span> <span>[</span><span>kaɪ̯m</span><span>]</span></dd></dl>
+<dl><dd>IPA<span>:</span> <span>[</span><span class="ipa">kaɪ̯m</span><span>]</span></dd></dl>
 </section>
 <section><h4>Bedeutungen:</h4>
 <dl><dd>[2] das erste Entwicklungsstadium eines sich neu bildenden Lebens
