@@ -17,7 +17,8 @@
         <xsl:sequence
             select="distinct-values(for $span in $spans return
                     if ($span/a) then myfn:get-element-forms($span)
-                    else $span/text()/normalize-space())[. != '']"/>
+                    else myfn:process-form-parenthesis($span/text()/normalize-space()))
+                    [. != '']"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence

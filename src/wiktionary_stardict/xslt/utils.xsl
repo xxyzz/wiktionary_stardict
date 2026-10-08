@@ -187,8 +187,8 @@
     <xsl:param name="forms" as="xs:string*"/>
     <xsl:sequence
         select="for $form in $forms return
-                if (matches($form, '\(.+\)')) then
-                (replace($form, '\(.+\)', ''), replace($form, '[()]', ''))
+                if (matches($form, '\(.+?\)|（.+?）')) then
+                (replace($form, '\(.+?\)|（.+?）', ''), replace($form, '[()（）]', ''))
                 else $form"/>
   </xsl:function>
 </xsl:stylesheet>

@@ -614,3 +614,23 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>Relating to excited emotions.<ol><li>Physically or sexually attractive.<dl><dd><span class="nyms alternative-form" data-mw='{"parts":[{"template":{"target":{"wt":"alti"}}}]}'><span style="font-size: smaller">Alternative form:</span> <span class="Latn" lang="en"><a>hawt</a></span></span></dd></dl></li></ol></li></ol></section></section></body></html>""",
             [{"forms": ["hot", "hawt"]}],
         )
+
+    def test_ja_na(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>あせだく</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Japn headword" lang="ja">あせだく</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Inflection</h4>
+<div class="inflection-table-wrapper inflection-table-collapsible inflection-table-collapsed no-vc" data-mw='{"parts":[{"template":{"target":{"wt":"ja-na"}}}]}'>
+<table class="inflection-table">
+<tbody><tr>
+<td><span class="Jpan" lang="ja">あせだくなら（ば）</span></td>
+</tr></tbody></table></div>
+</section></section></section></body></html>""",
+            [{"forms": ["あせだく", "あせだくなら", "あせだくならば"]}],
+        )
