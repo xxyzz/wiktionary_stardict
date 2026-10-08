@@ -111,3 +111,27 @@ class DePosTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_missing_example(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>heptagonus</title></head>
+<body>
+<section><h2>heptagonus (<a>Latein</a>)</h2>
+<section><h3><a>Adjektiv</a></h3>
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Bedeutungen"}}}]}'>Bedeutungen:</p>
+<dl><dd>[1] gloss</dd></dl>
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Beispiele"}}}]}'>Beispiele:</p>
+<dl><dd>[1]<link rel="mw:PageProp/Category" href="./Kategorie:Wiktionary:Beispiele_fehlen_(Latein)"/></dd></dl>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="de">
+<h4>Adjektiv</h4>
+<section><h4>Bedeutungen:</h4>
+<dl><dd>[1] gloss</dd></dl>
+</section></section>""",
+                },
+            ],
+        )

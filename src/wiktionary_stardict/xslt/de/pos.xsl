@@ -82,17 +82,17 @@
   </xsl:template>
 
   <xsl:template match="p" mode="p-section">
-    <section>
-      <xsl:choose>
-        <xsl:when test="@data-mw and myfn:is-template(@data-mw, 'Beispiele')">
-          <xsl:apply-templates select="." mode="examples"/>
-        </xsl:when>
-        <xsl:otherwise>
+    <xsl:choose>
+      <xsl:when test="@data-mw and myfn:is-template(@data-mw, 'Beispiele')">
+        <xsl:apply-templates select="." mode="examples"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <section>
           <h4>{normalize-space(.)}</h4>
           <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </section>
+        </section>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:function name="myfn:get-alt-forms" as="xs:string*">
@@ -116,16 +116,21 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="exists($content)">
-      <h4>{normalize-space(.)}</h4>
-      <xsl:apply-templates select="$content" mode="clean-content"/>
+    <xsl:if test="exists($content/*)">
+      <section>
+        <h4>{normalize-space(.)}</h4>
+        <xsl:apply-templates select="$content" mode="clean-content"/>
+      </section>
     </xsl:if>
   </xsl:template>
 
   <xsl:mode name="examples-content" on-no-match="shallow-copy"/>
   <xsl:template match="dl" mode="examples-content">
     <xsl:variable
-        name="dd-nodes" select="dd[not(span[contains-token(@class, 'mw-empty-elt')])]"/>
+        name="dd-nodes"
+        select="dd[not(span[contains-token(@class, 'mw-empty-elt')] or
+                link[contains-token(@rel, 'mw:PageProp/Category') and
+                contains(@href, 'Kategorie:Wiktionary:Beispiele_fehlen_')])]"/>
     <xsl:if test="exists($dd-nodes)">
       <dl>
         <!-- [1], [1-2], [1, 2], [1.1], [1a] -->
