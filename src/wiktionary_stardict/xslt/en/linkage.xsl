@@ -13,7 +13,8 @@
     <xsl:if test="$contents//ul">
       <section>
         <xsl:apply-templates select="h2 | h3 | h4 | h5 | h6" mode="section-heading"/>
-        <xsl:apply-templates select="$contents" mode="clean-content"/>
+        <xsl:apply-templates
+            select="$contents/*[self::ul or.//ul]" mode="clean-content"/>
       </section>
     </xsl:if>
   </xsl:template>
