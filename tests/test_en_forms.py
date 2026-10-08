@@ -601,3 +601,16 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>gloss<dl><dd><span class="nyms alternative-form" data-mw='{"parts":[{"template":{"target":{"wt":"alti"}}}]}'><span style="font-size: smaller">Alternative form:</span> <span class="Hant" lang="zh"><a>異色瞳</a></span><span class="Zsym mention"><span> </span>/ </span><span class="Hans" lang="zh"><a>异色瞳</a></span> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="tr Latn">yìsètóng</span><span class="mention-gloss-paren annotation-paren">)</span></span></dd></dl></li></ol></section></section></body></html>""",
             [{"forms": ["異瞳", "異色瞳", "异色瞳"]}],
         )
+
+    def test_alti_in_nested_list(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>hot</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">hot</strong></span></p>
+<ol><li>Relating to excited emotions.<ol><li>Physically or sexually attractive.<dl><dd><span class="nyms alternative-form" data-mw='{"parts":[{"template":{"target":{"wt":"alti"}}}]}'><span style="font-size: smaller">Alternative form:</span> <span class="Latn" lang="en"><a>hawt</a></span></span></dd></dl></li></ol></li></ol></section></section></body></html>""",
+            [{"forms": ["hot", "hawt"]}],
+        )

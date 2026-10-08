@@ -50,7 +50,7 @@
       <xsl:variable
           name="unique-forms"
           select="distinct-values(($headword-strong, $title-form, $alt-forms,
-                  $headword-forms, $conj-forms, myfn:li-alt-forms(ol))
+                  $headword-forms, $conj-forms, myfn:li-alt-forms(./ol//li[parent::ol]))
                   [. != ''])"
           as="xs:string*"/>
 
@@ -205,9 +205,9 @@
   </xsl:function>
 
   <xsl:function name="myfn:li-alt-forms" as="xs:string*">
-    <xsl:param name="ol" as="element(ol)*"/>
+    <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
-        select="$ol/li/dl/dd/span[contains-token(@class, 'nyms') and
+        select="$li/dl/dd/span[contains-token(@class, 'nyms') and
                 contains-token(@class, '其他形式')]/
                 span[@lang and not(contains-token(@class, 'tr'))]/normalize-space()"/>
   </xsl:function>
