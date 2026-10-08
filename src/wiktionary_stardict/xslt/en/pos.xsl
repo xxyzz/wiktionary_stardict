@@ -205,7 +205,7 @@
     <xsl:sequence
         select="$ol/li/dl/dd/span[contains-token(@class, 'nyms') and
                 contains-token(@class, 'alternative-form')]/
-                span[@lang]/normalize-space()"/>
+                span[@lang and not(contains-token(@class, 'tr'))]/normalize-space()"/>
   </xsl:function>
 
   <xsl:template match="section" mode="usage-notes">

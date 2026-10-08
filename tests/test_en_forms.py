@@ -588,3 +588,16 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>gloss</li></ol></section></section></body></html>""",
             [{"forms": ["五十", "伍拾"]}],
         )
+
+    def test_rm_alti_tr(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>異瞳</title></head>
+<body>
+<section><h2>Chinese</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">異瞳</strong></span></p>
+<ol><li>gloss<dl><dd><span class="nyms alternative-form" data-mw='{"parts":[{"template":{"target":{"wt":"alti"}}}]}'><span style="font-size: smaller">Alternative form:</span> <span class="Hant" lang="zh"><a>異色瞳</a></span><span class="Zsym mention"><span> </span>/ </span><span class="Hans" lang="zh"><a>异色瞳</a></span> <span class="mention-gloss-paren annotation-paren">(</span><span lang="zh-Latn" class="tr Latn">yìsètóng</span><span class="mention-gloss-paren annotation-paren">)</span></span></dd></dl></li></ol></section></section></body></html>""",
+            [{"forms": ["異瞳", "異色瞳", "异色瞳"]}],
+        )

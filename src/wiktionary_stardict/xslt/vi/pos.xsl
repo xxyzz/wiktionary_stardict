@@ -208,6 +208,6 @@
     <xsl:sequence
         select="$ol/li/dl/dd/span[contains-token(@class, 'nyms') and
                 contains-token(@class, 'Dạng-thay-thế')]/
-                span[@lang]/normalize-space()"/>
+                span[@lang and not(contains-token(@class, 'tr'))]/normalize-space()"/>
   </xsl:function>
 </xsl:stylesheet>
