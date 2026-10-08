@@ -78,9 +78,7 @@
   </xsl:template>
 
   <xsl:template match="p" mode="hyphenation">
-    <section>
-      <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
-    </section>
+    <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
   </xsl:template>
 
   <xsl:template match="p" mode="p-section">

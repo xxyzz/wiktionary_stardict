@@ -15,15 +15,13 @@
     <xsl:variable name="lists">
       <xsl:apply-templates select="dd" mode="pron"/>
     </xsl:variable>
-    <xsl:if test="$lists/*">
-      <section>
-        <dl><xsl:apply-templates select="$lists" mode="clean-content"/></dl>
-      </section>
+    <xsl:if test="exists($lists/*)">
+      <dl><xsl:apply-templates select="$lists" mode="clean-content"/></dl>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="dd" mode="pron">
-    <xsl:if test="exists(span[contains-token(@class, 'ipa') and
+    <xsl:if test="exists(.//span[contains-token(@class, 'ipa') and
                   not(normalize-space(.) = '…')])">
       <dd><xsl:apply-templates mode="pron"/></dd>
     </xsl:if>

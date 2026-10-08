@@ -29,12 +29,8 @@ class DePosTestCase(XMLTestCase):
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="de">
 <h4>Substantiv, <em>m</em></h4>
-<section>
 <dl><dd>Keim, <span style="font-size:95%;">Plural:</span> Kei·me</dd></dl>
-</section>
-<section>
 <dl><dd>IPA<span>:</span> <span>[</span><span class="ipa">kaɪ̯m</span><span>]</span></dd></dl>
-</section>
 <section><h4>Bedeutungen:</h4>
 <dl><dd>[2] das erste Entwicklungsstadium eines sich neu bildenden Lebens
 <dl><dd>[a] <i>Botanik<span>:</span></i> erster Trieb einer Pflanze</dd></dl></dd></dl>
