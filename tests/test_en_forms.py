@@ -654,3 +654,23 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></section></body></html>""",
             [{"forms": ["らしい", "らしかったら", "らしいなら"]}],
         )
+
+    def test_ja_conj_ex_ruby(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>来る</title></head>
+<body>
+<section><h2>Japanese</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Japn headword" lang="ja">来る</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Conjugation</h4>
+<div class="inflection-table-wrapper inflection-table-collapsible inflection-table-collapsed no-vc" data-mw='{"parts":[{"template":{"target":{"wt":"ja-conj-ex"}}}]}'>
+<table class="inflection-table">
+<tbody><tr>
+<td><span class="Jpan" lang="ja"><a><ruby>来<rt>き</rt></ruby>て</a><a>いる</a></span> <span>[kite iru]</span><br/><i>contraction:</i> <span class="Jpan" lang="ja"><ruby>来<rt>き</rt></ruby><a>てる</a></span> <span>[kiteru]</span></td>
+</tr></tbody></table></div>
+</section></section></section></body></html>""",
+            [{"forms": ["来る", "来ている", "きている", "来てる", "きてる"]}],
+        )

@@ -137,11 +137,12 @@
     <xsl:param name="a-ele" as="element(a)*"/>
     <xsl:sequence
         select="for $a in $a-ele return
-                  let $title := normalize-space($a/@title) return
-                    for $text in myfn:ruby-text($a) return
-                      if ($title = $text or
-                         (string-length($text) = 1 and ends-with($title, $text)))
-                      then array{$title} else array{$text, $title}"/>
+                  let $title := normalize-space($a/@title),
+                      $texts := myfn:ruby-text($a)
+                  return if ($title = '' or count($texts) gt 1) then array{$texts}
+                  else if ($title = $texts or (string-length($texts) = 1 and
+                    ends-with($title, $texts)))
+                  then array{$title} else array{$texts, $title}"/>
   </xsl:function>
 
   <xsl:function name="myfn:combine-a-forms" as="xs:string*">
