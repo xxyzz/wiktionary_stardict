@@ -68,7 +68,9 @@
               mode="pron">
             <xsl:with-param name="language" select="$language"/>
           </xsl:apply-templates>
-          <xsl:apply-templates select="p | ol | table" mode="pos-li"/>
+          <xsl:apply-templates
+              select="p | ol | table[not(contains-token(@class, 'floatright'))]"
+              mode="pos-li"/>
           <xsl:apply-templates
               select="section[normalize-space((h4|h5|h6)[1]) =
                       ('使用說明', '用法說明', '用法说明', '使用注意', '使用註解', '使用説明',

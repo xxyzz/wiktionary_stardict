@@ -59,6 +59,31 @@ class ZhPOSTestCase(XMLTestCase):
 <ol><li>gloss</li></ol>
 <section><h4>使用說明</h4>
 <p>在漢語中，<span class="Hant" lang="zh">詞典</span></p>
+</section></section>"""
+                }
+            ],
+        )
+
+    def test_remove_floatright_table(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>కన్య</title></head>
+<body>
+<section><h2>泰卢固语</h2>
+<section><h3>专有名词</h3>
+<p><span class="headword-line"><strong class="Telu headword" lang="te">కన్య</strong>
+</span></p>
+<table class="floatright"><tbody><tr></tr></tbody></table>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="zh">
+<h4>专有名词</h4>
+<p><span class="headword-line"><strong class="Telu headword" lang="te">కన్య</strong>
+</span></p>
+<ol><li>gloss</li></ol>
 </section>"""
                 }
             ],
