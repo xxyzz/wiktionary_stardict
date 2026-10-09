@@ -7,46 +7,53 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="pron">
-    <xsl:variable
-        name="ipa-lists"
-        select="ul/li[myfn:is-ipa-li(.)]"/>
-    <xsl:variable
-        name="child-sections"
-        select="section[ul/li[myfn:is-ipa-li(.)]]"/>
-    <xsl:if test="$ipa-lists or $child-sections">
+    <xsl:param name="use-h5" select="false()" as="xs:boolean"/>
+    <xsl:variable name="contents">
+      <xsl:apply-templates mode="pron-content"/>
+    </xsl:variable>
+    <xsl:if test="$contents//ul">
       <section>
-        <h4>Pronúncia</h4>
-        <xsl:if test="$ipa-lists">
-          <ul>
-            <xsl:apply-templates select="$ipa-lists" mode="clean-content"/>
-          </ul>
-        </xsl:if>
-        <xsl:for-each select="$child-sections">
-          <section>
-            <h5><xsl:apply-templates select="(h3|h4)/node()" mode="clean-content"/></h5>
-            <xsl:variable name="content">
-              <xsl:apply-templates
-                  select="ul/li[myfn:is-ipa-li(.)]" mode="pron-li"/>
-            </xsl:variable>
-            <ul>
-              <xsl:apply-templates select="$content" mode="clean-content"/>
-            </ul>
-          </section>
-        </xsl:for-each>
+        <xsl:apply-templates select="h2 | h3 | h4 | h5 | h6" mode="section-heading">
+          <xsl:with-param name="use-h5" select="$use-h5"/>
+        </xsl:apply-templates>
+        <xsl:apply-templates
+            select="$contents/*[self::ul or .//ul]" mode="clean-content"/>
       </section>
     </xsl:if>
   </xsl:template>
 
-  <xsl:function name="myfn:is-ipa-li" as="xs:boolean">
-    <xsl:param name="li" as="element(li)*"/>
-    <xsl:sequence
-        select="exists($li[a[@title = ('AFI', 'SAMPA', 'X-SAMPA')] or
-                text()[some $text in ('AFI:', 'X-SAMPA:')
-                satisfies contains(., $text)]])"/>
-  </xsl:function>
+  <xsl:mode name="pron-content" on-no-match="shallow-copy"/>
 
-  <xsl:template match="*[contains-token(@typeof, 'mw:File')]" mode="pron-li"/>
-  <xsl:template match="*[contains-token(@rel, 'mw:MediaLink')]" mode="pron-li"/>
-  <xsl:template match="sup" mode="pron-li"/>
-  <xsl:mode name="pron-li" on-no-match="shallow-copy"/>
+  <xsl:template match="ul" mode="pron-content">
+    <xsl:variable name="lists">
+      <xsl:apply-templates select="li" mode="pron-content"/>
+    </xsl:variable>
+    <xsl:if test="$lists/*">
+      <xsl:copy>
+        <xsl:copy-of select="@*"/>
+        <xsl:sequence select="$lists"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="li" mode="pron-content">
+    <xsl:if
+        test="exists(a[@title = ('AFI', 'SAMPA', 'X-SAMPA')] or
+              text()[some $text in ('AFI:', 'X-SAMPA:')
+              satisfies contains(., $text)])">
+      <li>
+        <xsl:apply-templates mode="pron-content"/>
+      </li>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="section" mode="pron-content">
+    <xsl:apply-templates select="." mode="pron">
+      <xsl:with-param name="use-h5" select="true()"/>
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <xsl:template match="*[contains-token(@typeof, 'mw:File')]" mode="pron-content"/>
+  <xsl:template match="*[contains-token(@rel, 'mw:MediaLink')]" mode="pron-content"/>
+  <xsl:template match="sup" mode="pron-content"/>
 </xsl:stylesheet>

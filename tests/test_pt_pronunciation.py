@@ -92,3 +92,38 @@ class PtPronTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_nested_ipa_lists(self):
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>pelúcia</title></head>
+<body>
+<section><h1>Português</h1>
+<section><h2>Substantivo</h2>
+<p><b>pelúcia</b></p>
+<ol><li>gloss</li></ol>
+</section>
+<section><h2>Pronúncia</h2>
+<section><h3>Brasil</h3>
+<ul><li><a title="AFI">AFI</a>: <a title="Ajuda:Guia de pronúncia"><span class="ipa">/pe.ˈlu.sjə/</span></a></li>
+<li><a title="X-SAMPA">X-SAMPA</a>: /pe."lu.sj@/
+<ul><li>AFI: /pe.'lu.sja/ <span>(</span><span class="escopo">Região Sul</span><span>)</span></li>
+<li>X-SAMPA: /pe."lu.sja/ <span>(</span><span class="escopo">Região Sul</span><span>)</span></li></ul></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="pt">
+<h4>Substantivo</h4>
+<p><b>pelúcia</b></p>
+<ol><li>gloss</li></ol>
+<section><h4>Pronúncia</h4>
+<section><h5>Brasil</h5>
+<ul><li>AFI: <span class="ipa">/pe.ˈlu.sjə/</span></li>
+<li>X-SAMPA: /pe."lu.sj@/
+<ul><li>AFI: /pe.'lu.sja/ <span>(</span><span class="escopo">Região Sul</span><span>)</span></li>
+<li>X-SAMPA: /pe."lu.sja/ <span>(</span><span class="escopo">Região Sul</span><span>)</span></li></ul></li></ul>
+</section></section></section>"""
+                }
+            ],
+        )
