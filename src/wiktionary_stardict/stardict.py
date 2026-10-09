@@ -18,6 +18,7 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
         url = "https:" + url
     elif url.startswith("/"):
         url = f"https://{edition}.wiktionary.org/{url.lstrip('/')}"
+    url = set_thumbnail_size(url)
     if not res_path.is_dir():
         res_path.mkdir()
     file_path = res_path / filename
@@ -43,6 +44,28 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
                     f" {r.reason=} {r.text=}"
                 )
                 fail_path.touch()
+
+
+def set_thumbnail_size(url: str) -> str:
+    # https://www.mediawiki.org/wiki/Common_thumbnail_sizes
+    import re
+
+    url_prefix, filename = url.rsplit("/", maxsplit=1)
+    m = re.match(r"(\d+)px-", filename)
+    if "/thumb/" in url and m is not None:
+        orig_size = int(m.group(1))
+        new_size = orig_size
+        found_size = False
+        for allowed_size in (20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840):
+            if orig_size <= allowed_size:
+                new_size = allowed_size
+                found_size = True
+                break
+        if not found_size:
+            new_size = 3840
+        filename = f"{new_size}{filename[m.end(1) :]}"
+
+    return f"{url_prefix}/{filename}"
 
 
 class StarDictInfo(TypedDict):
