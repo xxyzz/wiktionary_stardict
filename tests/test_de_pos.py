@@ -22,6 +22,8 @@ class DePosTestCase(XMLTestCase):
 <p data-mw='{"parts":[{"template":{"target":{"wt":"Bedeutungen"}}}]}'>Bedeutungen:</p>
 <dl><dd>[2] das erste <a>Entwicklungsstadium</a> eines sich neu bildenden Lebens
 <dl><dd>[a] <i>Botanik<span>:</span></i> erster Trieb einer Pflanze</dd></dl></dd></dl>
+
+<p data-mw='{"parts":[{"template":{"target":{"wt":"Synonyme"}}}]}'>Synonyme:</p>
 </section></section>
 </body>
 </html>""",

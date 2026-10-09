@@ -8,7 +8,7 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="p" mode="pronunciation">
-    <xsl:apply-templates select="following-sibling::dl[1]" mode="pron"/>
+    <xsl:apply-templates select="following-sibling::*[1][self::dl]" mode="pron"/>
   </xsl:template>
 
   <xsl:template match="dl" mode="pron">

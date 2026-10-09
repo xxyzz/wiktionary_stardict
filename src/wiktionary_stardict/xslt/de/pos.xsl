@@ -22,7 +22,7 @@
     <xsl:variable
         name="alternative-forms"
         select="p[@data-mw and myfn:is-template(@data-mw, 'Alternative Schreibweisen')]/
-                following-sibling::dl[1] => myfn:get-alt-forms()"
+                following-sibling::*[1][self::dl] => myfn:get-alt-forms()"
         as="xs:string*"/>
     <xsl:variable
         name="unique-forms"
@@ -78,7 +78,8 @@
   </xsl:template>
 
   <xsl:template match="p" mode="hyphenation">
-    <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
+    <xsl:apply-templates
+        select="following-sibling::*[1][self::dl]" mode="clean-content"/>
   </xsl:template>
 
   <xsl:template match="p" mode="p-section">
@@ -87,10 +88,13 @@
         <xsl:apply-templates select="." mode="examples"/>
       </xsl:when>
       <xsl:otherwise>
-        <section>
-          <h4>{normalize-space(.)}</h4>
-          <xsl:apply-templates select="following-sibling::dl[1]" mode="clean-content"/>
-        </section>
+        <xsl:variable name="content" select="following-sibling::*[1][self::dl]"/>
+        <xsl:if test="$content/*">
+          <section>
+            <h4>{normalize-space(.)}</h4>
+            <xsl:apply-templates select="$content" mode="clean-content"/>
+          </section>
+        </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -112,7 +116,7 @@
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates
-              select="following-sibling::dl[1]" mode="examples-content"/>
+              select="following-sibling::*[1][self::dl]" mode="examples-content"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
