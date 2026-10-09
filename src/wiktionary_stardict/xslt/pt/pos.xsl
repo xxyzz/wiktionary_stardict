@@ -29,7 +29,7 @@
     <xsl:variable
         name="conj-forms"
         select="myfn:get-conj-forms((section|following-sibling::section)
-                [normalize-space((h2|h3)[1]) = 'Conjugação'][1])"
+                [normalize-space((h2|h3)[1]) = ('Conjugação', 'Flexão')][1])"
         as="xs:string*"/>
     <xsl:variable
         name="alt-form-titles"

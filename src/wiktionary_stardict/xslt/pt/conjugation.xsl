@@ -12,6 +12,8 @@
     <xsl:sequence
         select="distinct-values(myfn:get-element-forms(
                 for $td in $section//td return if ($td/dl//b) then $td//b else
+                if ($td/span[contains-token(@class, 'lnkprt')]) then
+                $td/span[contains-token(@class, 'lnkprt')] else
                 if ($td/a) then $td/a else $td))[. != '']"/>
   </xsl:function>
 

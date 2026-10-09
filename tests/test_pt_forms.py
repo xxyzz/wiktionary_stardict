@@ -112,3 +112,20 @@ class PtFormsTestCase(XMLTestCase):
 </section></section></section></body></html>""",
             [{"forms": ["grande", "maior", "grandíssimo"]}],
         )
+
+    def test_flex_pt_in_flexão_section(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>gato</title></head>
+<body>
+<section><h1>Português</h1>
+<section><h2>Substantivo</h2>
+<p><b>gato</b></p>
+<ol><li>gloss</li></ol>
+<section><h3>Flexão</h3>
+<table><tbody><tr>
+<td><span class="lnkprt"><a title="gatos">gatos</a></span></td></tr></tbody></table>
+</section></section></section></body></html>""",
+            [{"forms": ["gato", "gatos"]}],
+        )
