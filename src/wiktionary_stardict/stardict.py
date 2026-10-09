@@ -21,7 +21,8 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
     if not res_path.is_dir():
         res_path.mkdir()
     file_path = res_path / filename
-    if not file_path.is_file():
+    fail_path = res_path / (filename + "_fail")
+    if not (file_path.is_file() or fail_path.is_file()):
         if zim is not None:
             data = get_zim_asset(zim, filename)
             if data is not None:
@@ -41,6 +42,7 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
                     f'Download image "{url}" in page "{title}" failed: {r.status_code=}'
                     f" {r.reason=} {r.text=}"
                 )
+                fail_path.touch()
 
 
 class StarDictInfo(TypedDict):
@@ -170,6 +172,11 @@ def create_dict_idx_file(
             wordcount += 1
             for image in images:
                 download_image(res_path, image, edition, zim, session, title)
+
+    if res_path.is_dir():
+        for img_path in res_path.iterdir():
+            if img_path.name.endswith("_fail"):
+                img_path.unlink()
 
     return wordcount, idx_path.stat().st_size, use_64_bits_offset
 
