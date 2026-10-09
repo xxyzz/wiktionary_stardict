@@ -10,7 +10,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="etymology.xsl"/>
-  <xsl:include href="../en/linkage.xsl"/>
+  <xsl:include href="linkage.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
 
   <xsl:template match="section" mode="pos">
@@ -106,7 +106,10 @@
   </xsl:template>
 
   <xsl:template match="h2 | h3 | h4 | h5 | h6" mode="section-heading">
-    <h4><xsl:apply-templates mode="clean-content"/></h4>
+    <xsl:param name="use-h5" select="false()" as="xs:boolean"/>
+    <xsl:element name="{if ($use-h5) then 'h5' else 'h4'}">
+      <xsl:apply-templates mode="clean-content"/>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="ol" mode="pos-li">
