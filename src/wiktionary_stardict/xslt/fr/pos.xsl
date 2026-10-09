@@ -103,7 +103,7 @@
   </xsl:template>
 
   <!-- Find the shortest usage example -->
-  <xsl:template match="ul" mode="pos-li">
+  <xsl:template match="ul[not(contains-token(@class, 'gallery'))]" mode="pos-li">
     <xsl:variable
         name="examples"
         select="li[span[q and contains-token(@class, 'example') and

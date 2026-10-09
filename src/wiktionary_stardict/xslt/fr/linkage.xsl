@@ -19,9 +19,10 @@
   </xsl:template>
 
   <xsl:template match="ul" mode="linkage-list">
-    <ul>
+    <xsl:copy>
+      <xsl:copy-of select="@*"/>
       <xsl:sequence select="li[position() lt 7]"/>
-    </ul>
+    </xsl:copy>
   </xsl:template>
   <xsl:mode name="linkage-list" on-no-match="shallow-copy"/>
 </xsl:stylesheet>

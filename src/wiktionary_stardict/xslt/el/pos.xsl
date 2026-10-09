@@ -12,7 +12,7 @@
   <xsl:include href="inflection.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
-  <xsl:include href="linkage.xsl"/>
+  <xsl:include href="../en/linkage.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -101,7 +101,10 @@
   </xsl:template>
 
   <xsl:template match="ul" mode="pos-li">
-    <ul><xsl:apply-templates mode="pos-li"/></ul>
+    <xsl:copy>
+      <xsl:copy-of select="@*"/>
+      <xsl:apply-templates mode="pos-li"/>
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="li" mode="pos-li">

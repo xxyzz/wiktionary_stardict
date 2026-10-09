@@ -90,7 +90,7 @@
     <dd><xsl:apply-templates mode="pos"/></dd>
   </xsl:template>
 
-  <xsl:template match="ul" mode="pos">
+  <xsl:template match="ul[not(contains-token(@class, 'gallery'))]" mode="pos">
     <xsl:variable
         name="linkages"
         select="li[b/text() = ('Sinónimos:', 'Sinónimo:', 'Antónimos', 'Antónimo:',

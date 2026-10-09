@@ -14,7 +14,7 @@
       <section>
         <xsl:apply-templates select="h2 | h3 | h4 | h5 | h6" mode="section-heading"/>
         <xsl:apply-templates
-            select="$contents/*[self::ul or.//ul]" mode="clean-content"/>
+            select="$contents/*[self::ul or .//ul]" mode="clean-content"/>
       </section>
     </xsl:if>
   </xsl:template>
@@ -28,6 +28,7 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="ul[contains-token(@class, 'gallery')]" mode="linkage-content"/>
   <xsl:template match="section|h2|h3|h4|h5|h6" mode="linkage-content"/>
 
   <xsl:function name="myfn:get-linkage-section" as="element(section)*">

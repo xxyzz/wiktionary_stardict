@@ -151,12 +151,12 @@
       </dl>
     </xsl:if>
   </xsl:template>
-  <xsl:template match="ul" mode="pos-li">
+  <xsl:template match="ul[not(contains-token(@class, 'gallery'))]" mode="pos-li">
     <xsl:variable
         name="examples"
         select="li[node() and not(table[contains-token(@class, 'audiotable')])
-                and not(contains-token(., 'mw-empty-elt'))]"/>
-    <xsl:if test="li">
+                and not(contains-token(@class, 'mw-empty-elt'))]"/>
+    <xsl:if test="$examples">
       <ul>
         <xsl:apply-templates
             select="($examples[string-length() = min($examples/string-length())])[1]"

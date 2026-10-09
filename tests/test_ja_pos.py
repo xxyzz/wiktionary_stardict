@@ -63,3 +63,26 @@ class JaPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_remove_gallery(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>거위</title></head>
+<body>
+<section><h2>朝鮮語</h2>
+<section><h3>名詞: 鳥</h3>
+<p><strong class="Kore headword" lang="ko">거위</strong></p>
+<ol><li>gloss</li></ol>
+<ul class="gallery mw-gallery-traditional"><li class="gallerybox"><div></div></li></ul>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="ja">
+<h4 class="Jpan">名詞: 鳥</h4>
+<p><strong class="Kore headword" lang="ko">거위</strong></p>
+<ol><li>gloss</li></ol>
+</section>""",
+                }
+            ],
+        )

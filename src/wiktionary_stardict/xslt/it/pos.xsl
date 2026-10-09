@@ -145,7 +145,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="ul" mode="pos-li">
+  <xsl:template match="ul[not(contains-token(@class, 'gallery'))]" mode="pos-li">
     <xsl:variable name="examples" select="li[myfn:is-not-empty-li(.)]"/>
     <xsl:if test="$examples">
       <ul>
