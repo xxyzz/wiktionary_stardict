@@ -8,6 +8,7 @@ class XMLTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        from requests import Session
         from saxonche import PySaxonProcessor
 
         from wiktionary_stardict.main import config_proc, get_xsl_path
@@ -21,6 +22,7 @@ class XMLTestCase(TestCase):
         cls.math_xsl_exec = xsltproc.compile_stylesheet(
             stylesheet_file=get_xsl_path("", "math_svg.xsl")
         )
+        cls.session = Session()
 
     def assertXMLEqual(self, output, expected):
         from bs4 import BeautifulSoup
@@ -45,6 +47,7 @@ class XMLTestCase(TestCase):
             self.proc,
             self.executable,
             self.math_xsl_exec,
+            self.session,
         )
 
     def assertTransformEqual(self, input_html, expected_list, prettify=True):

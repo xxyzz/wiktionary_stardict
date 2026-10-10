@@ -1,21 +1,17 @@
-def get_math_svg(tex: str) -> str:
-    import requests
-
-    r = requests.post("http://127.0.0.1:8080/tex2svg", data=tex)
+def get_math_svg(session, tex: str) -> str:
+    r = session.post("http://127.0.0.1:8080/tex2svg", data=tex)
     if r.ok:
         return r.text
     return ""
 
 
-def start_deno():
+def start_node():
     import subprocess
 
-    subprocess.Popen(
-        ["deno", "--allow-net=127.0.0.1", "src/wiktionary_stardict/mathjax.ts"]
-    )
+    subprocess.Popen(["node", "src/wiktionary_stardict/mathjax.js"])
 
 
-def shutdown_deno():
+def shutdown_node():
     import requests
 
     requests.get("http://127.0.0.1:8080/shutdown")

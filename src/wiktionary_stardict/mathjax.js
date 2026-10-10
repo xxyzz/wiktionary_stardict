@@ -1,4 +1,6 @@
+import { createServer } from "node:http";
 import MathJax from "mathjax";
+
 await MathJax.init({
   loader: {
     load: ["input/tex", "output/svg"],
@@ -6,7 +8,7 @@ await MathJax.init({
   svg: {
     fontCache: "none",
     postFilters: [
-      ({data}) => {
+      ({ data }) => {
         // MuPDF default font size for SVG is too small:
         // https://bugs.ghostscript.com/show_bug.cgi?id=709705
         const adaptor = MathJax.startup.adaptor;
@@ -29,17 +31,17 @@ await MathJax.init({
           if (style) {
             const match = style.match(/(-?\d+(?:\.\d+)?)ex/);
             if (match) {
-              const value = fixed(Number(match[1]) * pxPerEm / 1000);
+              const value = fixed(Number(match[1]) * 18);
               adaptor.setAttribute(svg, "style", `vertical-align: ${value}px`);
             }
           }
         }
-      }
-    ]
+      },
+    ],
   },
 });
 
-async function tex2svg(input: string): Promise<string> {
+async function tex2svg(input) {
   const node = await MathJax.tex2svgPromise(
     input,
     { display: true, em: 36, ex: 18 },
@@ -47,19 +49,25 @@ async function tex2svg(input: string): Promise<string> {
   return MathJax.startup.adaptor.serializeXML(node);
 }
 
-const server = Deno.serve(
-  { hostname: "127.0.0.1", port: 8080 },
-  async (req) => {
-    const pathname = new URL(req.url).pathname;
-    if (req.method === "POST" && pathname === "/tex2svg") {
-      const svg = await tex2svg(await req.text());
-      return new Response(svg);
-    } else if (req.method === "GET" && pathname === "/shutdown") {
-      MathJax.done();
-      setTimeout(() => {
-        server.shutdown();
-      }, 0);
-      return new Response("bye");
-    }
-  },
-);
+const server = createServer(async (req, res) => {
+  if (req.method === "POST" && req.url === "/tex2svg") {
+    let body = [];
+    req
+      .on("data", chunk => {
+        body.push(chunk);
+      })
+      .on("end", async () => {
+        body = Buffer.concat(body).toString();
+        const svg = await tex2svg(body);
+        res.on("error", err => {
+          console.error(err);
+        });
+        res.end(svg);
+      });
+  } else if (req.method === "GET" && req.url === "/shutdown") {
+    MathJax.done();
+    res.end("bye", () => {
+      server.close();
+    });
+  }
+}).listen(8080, "127.0.0.1");

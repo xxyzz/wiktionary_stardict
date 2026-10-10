@@ -9,8 +9,8 @@ env
 .venv
 
 # python
-__pycache__
-*.egg-info
+__pycache__/
+*.egg-info/
 
 *.jsonl
 *.xml
@@ -18,5 +18,8 @@ __pycache__
 *.bz2
 /*.html
 
-build
-_site
+build/
+_site/
+
+# js
+node_modules/

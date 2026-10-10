@@ -43,11 +43,12 @@ def init_worker(
     import atexit
     import sqlite3
 
+    from requests import Session
     from saxonche import PySaxonProcessor
 
     from .zim import open_zim
 
-    global proc, executable, zim, zim_xsl_exec, redirect_db_conn, math_xsl_exec
+    global proc, executable, zim, zim_xsl_exec, redirect_db_conn, math_xsl_exec, session
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
@@ -62,11 +63,13 @@ def init_worker(
         stylesheet_file=get_xsl_path("", "math_svg.xsl")
     )
     redirect_db_conn = sqlite3.connect(redirect_db_path)
+    session = Session()
     atexit.register(exit_worker)
 
 
 def exit_worker():
     redirect_db_conn.close()
+    session.close()
 
 
 def transform_worker(chunk_data) -> list[dict]:
@@ -77,7 +80,7 @@ def transform_worker(chunk_data) -> list[dict]:
     from .redirect import add_redirects
     from .zim import get_zim_page
 
-    json_result = transform(chunk_data, proc, executable, math_xsl_exec)
+    json_result = transform(chunk_data, proc, executable, math_xsl_exec, session)
     if zim is not None:
         for data in json_result:
             extra_forms = []
@@ -97,7 +100,7 @@ def transform_worker(chunk_data) -> list[dict]:
     return json_result
 
 
-def transform(chunk_data, proc, executable, math_xsl_exec) -> list[dict]:
+def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict]:
     import json
 
     from saxonche import PySaxonApiError
@@ -121,7 +124,7 @@ def transform(chunk_data, proc, executable, math_xsl_exec) -> list[dict]:
         )
         math_svg_dict = {}
         for math_tex in data.get("math", []):
-            math_svg_dict[math_tex] = get_math_svg(math_tex)
+            math_svg_dict[math_tex] = get_math_svg(session, math_tex)
         if len(math_svg_dict) > 0:
             try:
                 math_doc = proc.parse_xml(xml_text=data["def"])
@@ -164,7 +167,7 @@ def build(args):
 
     from .db import create_indexes, init_db, insert_data
     from .edition import EDITIONS
-    from .mathjax import shutdown_deno, start_deno
+    from .mathjax import shutdown_node, start_node
     from .redirect import download_redirect_db
     from .snapshot import download_chunk, get_chunk_zst_path, get_snapshot_chunks
     from .stardict import archive_images, create_stardict, download_last_release_images
@@ -182,7 +185,7 @@ def build(args):
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
 
     page_names = set()
-    start_deno()
+    start_node()
     with ProcessPoolExecutor(
         initializer=init_worker,
         initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
@@ -217,7 +220,7 @@ def build(args):
                 ndjson_path.unlink()
             logger.info(f"chunk {chunk_identifier} done")
 
-    shutdown_deno()
+    shutdown_node()
     page_names.clear()
     for conn in conn_dict.values():
         create_indexes(conn)
