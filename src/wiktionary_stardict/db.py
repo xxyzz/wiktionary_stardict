@@ -48,7 +48,7 @@ def init_db(lemma_lang: str) -> Connection:
 def create_indexes(conn: Connection):
     conn.executescript("""
     CREATE INDEX entry_index ON entry (title);
-    CREATE INDEX form_index ON form (entry_id);
+    CREATE INDEX form_index ON form (entry_id, form);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
     PRAGMA optimize;
@@ -86,6 +86,8 @@ def iter_entries(conn: Connection):
     ):
         conn.execute("UPDATE entry SET index_num = ? WHERE id = ?", (index, entry_id))
         yield (definition, title, images.split("<sep>") if images is not None else [])
+
+    delete_problematic_forms(conn)
     conn.commit()
 
 
@@ -115,6 +117,30 @@ def iter_forms(conn: Connection):
     ORDER BY form_lower, form
     """):
         yield form, index
+
+
+def delete_problematic_forms(conn: Connection):
+    # some unexpected forms like pronoun link to too many entries,
+    # keep 20 and delete the rest
+    conn.execute("""
+    WITH bad_form AS (
+      SELECT form
+      FROM form
+      GROUP BY form
+      HAVING COUNT(DISTINCT entry_id) > 20
+    ),
+    delete_id AS (
+      SELECT f.id, row_number() OVER (PARTITION BY f.form ORDER BY f.id) AS rn
+      FROM form AS f
+      JOIN bad_form AS b ON f.form = b.form
+    )
+    DELETE FROM form
+    WHERE id IN (
+     SELECT id
+     FROM delete_id
+     WHERE rn > 20
+    )
+    """)
 
 
 def insert_data(

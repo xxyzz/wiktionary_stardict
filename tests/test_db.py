@@ -1,3 +1,4 @@
+from collections import defaultdict
 from pathlib import Path
 from unittest import TestCase
 
@@ -87,3 +88,19 @@ class DBTest(TestCase):
         insert_data(self.conn, "flying colours", ["flying colours"], False, [], [])
         self.assertEqual(self.get_titles(), ["flying colours"])
         self.assertEqual(list(iter_forms(self.conn)), [("flying colors", 0)])
+
+    def test_rm_bad_forms(self):
+        insert_data(
+            self.conn, "-isieren", ["-isieren", "-isierend", "ich"], False, [], []
+        )
+        for num in range(20):
+            insert_data(self.conn, str(num), [str(num), "ich"], False, [], [])
+        self.get_titles()
+        forms = [("-isierend", 0), ("ich", 0)]
+        for num in range(1, 20):
+            forms.append(("ich", num))
+        form_count = defaultdict(int)
+        for form, _ in iter_forms(self.conn):
+            form_count[form] += 1
+        self.assertEqual(form_count["-isierend"], 1)
+        self.assertEqual(form_count["ich"], 20)
