@@ -95,7 +95,8 @@ class ZhFormsTestCase(XMLTestCase):
 </span></p>
 <ol><li>gloss</li></ol>
 <section><h4>活用</h4>
-<div><table class="inflection-table"><tbody><tr>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"ja-suru"}}}]}'>
+<table class="inflection-table"><tbody><tr>
 <th><span class="Jpan" lang="ja"><span typeof="mw:LanguageVariant" data-mw-variant='{"disabled":{"t":"&lt;!-- -->&lt;a>&lt;span typeof=\"mw:LanguageVariant\" data-mw-variant=&apos;{\"disabled\":{\"t\":\"命令形\"}}&apos;>&lt;/span>&lt;/a>"}}'></span></span></th>
 <td><span class="Jpan" lang="ja-Jpan">加速せよ<span>¹</span><br/>加速しろ<span>²</span></span></td>
 <td><span class="Jpan" lang="ja-Jpan">かそくせよ<span>¹</span><br/>かそくしろ<span>²</span></span></td>

@@ -8,15 +8,12 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="conj" as="xs:string*">
-    <xsl:param name="language" as="xs:string"/>
+    <xsl:variable name="forms" as="xs:string*">
+      <xsl:apply-templates mode="conj-template"/>
+    </xsl:variable>
     <xsl:choose>
-      <xsl:when test="$language = 'Japanese'">
-        <xsl:variable name="spans" select=".//tbody//td/span[@lang = 'ja']"/>
-        <xsl:sequence
-            select="distinct-values(for $span in $spans return
-                    if ($span/a) then myfn:get-element-forms($span)
-                    else myfn:process-form-parenthesis($span/text()/tokenize(., '、') !
-                    normalize-space()))[. != '']"/>
+      <xsl:when test="exists($forms)">
+        <xsl:sequence select="$forms"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence
@@ -28,5 +25,27 @@
                     myfn:get-element-forms(.))[. != '']"/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:mode name="conj-template" on-no-match="shallow-skip"/>
+  <xsl:template
+      match="*[@data-mw and myfn:is-template-prefix(@data-mw, 'ja-')]"
+      as="xs:string*" mode="conj-template">
+    <!-- vi edition "ja-go-u" template has "ja-Jpan" value -->
+    <xsl:variable name="spans" select=".//tbody//td/span[@lang = ('ja', 'ja-Jpan')]"/>
+    <xsl:sequence
+        select="distinct-values(for $span in $spans return
+                if ($span/a) then myfn:get-element-forms($span)
+                else myfn:process-form-parenthesis($span/text()/tokenize(., '、') !
+                normalize-space()))[. != '']"/>
+  </xsl:template>
+
+  <xsl:template
+      match="*[@data-mw and myfn:is-template-prefix(@data-mw, 'ko-conj')]"
+      as="xs:string*" mode="conj-template">
+    <xsl:sequence
+        select="distinct-values(
+                myfn:get-element-forms(.//tbody//td//span[@lang = 'ko'])
+                ! tokenize(., ',') ! normalize-space(.))[. != '']"/>
   </xsl:template>
 </xsl:stylesheet>

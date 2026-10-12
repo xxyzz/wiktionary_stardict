@@ -10,7 +10,7 @@
 
   <xsl:include href="../image.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
-  <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="../en/conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="etymology.xsl"/>
   <xsl:include href="../en/linkage.xsl"/>
@@ -40,9 +40,7 @@
                     ('变格', '變格', '变位', '变形', '变位形式', '變位', '詞形變化', '词形变化',
                     '輔音變化', '辅音变化', '語尾變化', '活用', '活用型', '活用形', '賓格',
                     '屈折', '屈折形式', '曲折形式', '軟化變形', '詞首音變')]"
-            mode="conj">
-          <xsl:with-param name="language" select="$language"/>
-        </xsl:apply-templates>
+            mode="conj"/>
       </xsl:variable>
       <xsl:variable
         name="title-form"

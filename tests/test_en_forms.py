@@ -349,18 +349,16 @@ class EnFormsTestCase(XMLTestCase):
 <section><h3>Verb</h3>
 <p><span class="headword-line"><strong class="Jpan headword" lang="ja"><ruby>加<rp>(</rp><rt><a title="かそく">か</a></rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt><a title="かそく">そく</a></rt><rp>)</rp></ruby><a title="する">する</a></strong> <a title="Wiktionary:Japanese transliteration">•</a> (<span class="headword-tr tr" dir="ltr"><span class="Latn" lang="ja"><a>kasoku</a> <a>suru</a></span></span>)<span> </span><i>intransitive<span> </span><abbr title="suru (group 3) conjugation">suru</abbr></i> (<i>stem</i> <b class="Jpan" lang="ja"><ruby>加<rp>(</rp><rt>か</rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt>そく</rt><rp>)</rp></ruby><a title="し">し</a></b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">kasoku <a>shi</a></span><span class="mention-gloss-paren annotation-paren">)</span>, <i>past</i> <b class="Jpan" lang="ja"><ruby>加<rp>(</rp><rt>か</rt><rp>)</rp></ruby><ruby>速<rp>(</rp><rt>そく</rt><rp>)</rp></ruby><a>した</a></b> <span class="mention-gloss-paren annotation-paren">(</span><span class="tr">kasoku <a>shita</a></span><span class="mention-gloss-paren annotation-paren">)</span>)</span></p>
 <ol><li><span>gloss</span></li></ol>
-<section><h4>Conjugation</h4><div><table class="inflection-table"><tbody>
+<section><h4>Conjugation</h4>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"ja-suru"}}}]}'>
+<table class="inflection-table"><tbody>
 <tr>
 <th><a><i>Meireikei</i></a> ("imperative")</th>
 <td><span class="Jpan" lang="ja">加速せよ<span>¹</span><br/>加速しろ<span>²</span></span></td>
 <td><span class="Jpan" lang="ja">かそくせよ<span>¹</span><br/>かそくしろ<span>²</span></span></td>
 <td><span class="Latn" lang="ja-Latn">kasoku seyo<span>¹</span><br/>kasoku shiro<span>²</span></span></td></tr>
 </tbody></table></div>
-</section>
-</section>
-</section>
-</body>
-</html>""",
+</section></section></section></body></html>""",
             [
                 {
                     "forms": [
@@ -673,4 +671,30 @@ class EnFormsTestCase(XMLTestCase):
 </tr></tbody></table></div>
 </section></section></section></body></html>""",
             [{"forms": ["来る", "来ている", "きている", "来てる", "きてる"]}],
+        )
+
+    def test_ko_conj(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>가깝다</title></head>
+<body>
+<section><h2>Korean</h2>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Kore headword" lang="ko">가깝다</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Conjugation</h4>
+<p>North Korean Standard:</p>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"ko-conj-adj\n"}}}]}'>
+<div class="NavContent"><table><tbody><tr>
+<td><span class="Kore" lang="ko">가까우세요</span> (gakkauseyo) <i>or</i> <span class="Kore" lang="ko">가까우셔요</span> (gakkausyeoyo)
+<p><i>past</i>: <span class="Kore" lang="ko">가까우셨어요</span> (gakkausyeosseoyo)</p></td>
+</tr></tbody></table></div></div>
+<p>South Korean Standard:</p>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"ko-conj/adj"}}}]}'>
+<div class="NavContent"><table><tbody><tr>
+<td><span class="Kore" lang="ko">가까우세요, 가까우셔요</span><br/><span class="tr">gakkauseyo, gakkausyeoyo</span></td>
+</tr></tbody></table></div></div>
+</section></section></section></body></html>""",
+            [{"forms": ["가깝다", "가까우세요", "가까우셔요", "가까우셨어요"]}],
         )

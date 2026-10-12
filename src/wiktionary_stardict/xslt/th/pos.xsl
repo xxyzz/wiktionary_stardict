@@ -12,7 +12,7 @@
   <xsl:include href="../image.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
-  <xsl:include href="conjugation.xsl"/>
+  <xsl:include href="../en/conjugation.xsl"/>
   <xsl:include href="etymology.xsl"/>
   <xsl:include href="../en/linkage.xsl"/>
 
@@ -37,9 +37,7 @@
       <xsl:apply-templates
           select="section[normalize-space((h4|h5|h6)[1]) = ('การผันรูป', 'การผัน',
                   'คำกริยาในรูปต่าง ๆ', 'การผันคำกริยา', 'การผันคำ', 'การกลายรูป', 'การผันคำนาม')]"
-          mode="conj">
-        <xsl:with-param name="language" select="$language"/>
-      </xsl:apply-templates>
+          mode="conj"/>
     </xsl:variable>
     <xsl:variable
           name="unique-forms"

@@ -39,9 +39,7 @@
         <xsl:apply-templates
             select="section[normalize-space((h4 | h5 | h6)[1]) =
                     ('Conjugation', 'Declension', 'Inflection', 'Mutation')]"
-            mode="conj">
-          <xsl:with-param name="language" select="$language"/>
-        </xsl:apply-templates>
+            mode="conj"/>
       </xsl:variable>
       <xsl:variable
           name="title-form"
