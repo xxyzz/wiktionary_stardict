@@ -41,9 +41,7 @@
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select=". | section[normalize-space((h4|h5|h6)[1]) = ('活用', 'サ変動詞')]"
-            mode="conj">
-          <xsl:with-param name="language" select="$language"/>
-        </xsl:apply-templates>
+            mode="conj"/>
       </xsl:variable>
       <xsl:variable
           name="unique-forms"

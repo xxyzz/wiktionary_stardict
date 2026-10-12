@@ -8,36 +8,12 @@
     exclude-result-prefixes="#all">
 
   <xsl:template match="section" mode="conj" as="xs:string*">
-    <xsl:param name="language" as="xs:string"/>
+    <xsl:variable name="forms" as="xs:string*">
+      <xsl:apply-templates mode="conj-template"/>
+    </xsl:variable>
     <xsl:choose>
-      <xsl:when test="$language = ('日本語', '古典日本語')">
-        <xsl:variable name="auxiliary-verb-forms" as="xs:string*">
-          <xsl:sequence
-              select="myfn:ja-aux-verb-forms(table[@data-mw and myfn:is-template(
-                      @data-mw, ('日本語助動詞活用', '古典日本語助動詞活用'))])"/>
-        </xsl:variable>
-        <xsl:variable name="classical-forms" as="xs:string*">
-          <xsl:sequence
-              select="myfn:ja-classical-conj-forms(table[@data-mw and myfn:is-template(
-                      @data-mw, ('古典日本語ク活用', '古典日本語シク活用', '古典日本語ナリ活用',
-                      '古典日本語タリ活用'))])"/>
-        </xsl:variable>
-        <xsl:variable name="combine-forms" as="xs:string*">
-          <xsl:sequence
-              select="myfn:ja-combine-forms(div[@data-mw and myfn:is-template(
-                      @data-mw, ('日本語形容動詞活用', '日本語五段活用', '日本語五段活用/表示',
-                      '日本語上一段活用', '日本語上一段活用2', '日本語下一段活用',
-                      '日本語形容詞活用', '日本語形容詞活用/表示', '日本語形容詞活用2',
-                      '日本語タルト活用', '日本語ダ活用', '日本語サ変活用', '日本語一段活用',
-                      '日本語カ変活用', '日本語サ変活用', '日本語ザ変活用', '日本語変格活用',
-                      '古典日本語四段活用', '古典日本語上一段活用', '古典日本語上二段活用',
-                      '古典日本語下一段活用', '古典日本語下二段活用', '古典日本語変格活用',
-                      '可能動詞下一段活用'))])"/>
-        </xsl:variable>
-        <xsl:sequence
-            select="distinct-values(
-                    ($auxiliary-verb-forms, $classical-forms, $combine-forms))
-                    [. != '']"/>
+      <xsl:when test="exists($forms)">
+        <xsl:sequence select="$forms"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence
@@ -51,37 +27,43 @@
     </xsl:choose>
   </xsl:template>
 
-  <!-- テンプレート:日本語助動詞活用 -->
-  <xsl:function name="myfn:ja-aux-verb-forms" as="xs:string*">
-    <xsl:param name="tables" as="element(table)*"/>
-    <xsl:for-each select="$tables">
-      <xsl:sequence select=".//td[position() le 6]/text()/normalize-space()"/>
-    </xsl:for-each>
-  </xsl:function>
+  <xsl:mode name="conj-template" on-no-match="shallow-skip"/>
+  <xsl:template
+      match="*[@data-mw and myfn:is-template(@data-mw,
+             ('日本語助動詞活用', '古典日本語助動詞活用'))]"
+      as="xs:string*" mode="conj-template">
+    <xsl:sequence select=".//td[position() le 6]/text()/normalize-space()"/>
+  </xsl:template>
 
-  <xsl:function name="myfn:ja-classical-conj-forms" as="xs:string*">
-    <xsl:param name="tables" as="element(table)*"/>
-    <xsl:for-each select="$tables">
-      <xsl:variable name="stem" as="xs:string"
-                    select="normalize-space(.//td[@rowspan and position() = 2])"/>
-      <xsl:sequence
-          select="for $td in .//td[not(@rowspan)] return
-                  let $td-text := normalize-space($td) => replace('[\(\)\-○]', '')
-                  return if ($td-text) then $stem || $td-text else ()"/>
-    </xsl:for-each>
-  </xsl:function>
+  <xsl:template
+      match="*[@data-mw and myfn:is-template(@data-mw,
+             ('古典日本語ク活用', '古典日本語シク活用', '古典日本語ナリ活用', '古典日本語タリ活用'))]"
+      as="xs:string*" mode="conj-template">
+    <xsl:variable name="stem" as="xs:string"
+                  select="normalize-space(.//td[@rowspan and position() = 2])"/>
+    <xsl:sequence
+        select="for $td in .//td[not(@rowspan)] return
+                let $td-text := normalize-space($td) => replace('[\(\)\-○]', '')
+                return if ($td-text) then $stem || $td-text else ()"/>
+  </xsl:template>
 
-  <xsl:function name="myfn:ja-combine-forms" as="xs:string*">
-    <xsl:param name="div-nodes" as="element(div)*"/>
-    <xsl:for-each select="$div-nodes">
-      <xsl:variable name="first" as="xs:string*"
-                    select="myfn:first-ja-combine-table(.//table[1])"/>
-      <xsl:variable
-          name="second" as="xs:string*"
-          select=".//table[2]//td[position() mod 2 = 0]/text() ! normalize-space()"/>
-      <xsl:sequence select="$first, $second"/>
-    </xsl:for-each>
-  </xsl:function>
+  <xsl:template
+      match="*[@data-mw and myfn:is-template(@data-mw,
+             ('日本語形容動詞活用', '日本語五段活用', '日本語五段活用/表示', '日本語上一段活用',
+             '日本語上一段活用2', '日本語下一段活用', '日本語形容詞活用', '日本語形容詞活用/表示',
+             '日本語形容詞活用2', '日本語タルト活用', '日本語ダ活用', '日本語サ変活用',
+             '日本語一段活用', '日本語カ変活用', '日本語サ変活用', '日本語ザ変活用', '日本語変格活用',
+             '古典日本語四段活用', '古典日本語上一段活用', '古典日本語上二段活用',
+             '古典日本語下一段活用', '古典日本語下二段活用', '古典日本語変格活用',
+             '可能動詞下一段活用'))]"
+      as="xs:string*" mode="conj-template">
+    <xsl:variable name="first" as="xs:string*"
+                  select="myfn:first-ja-combine-table(.//table[1])"/>
+    <xsl:variable
+        name="second" as="xs:string*"
+        select=".//table[2]//td[position() mod 2 = 0]/text() ! normalize-space()"/>
+    <xsl:sequence select="$first, $second"/>
+  </xsl:template>
 
   <xsl:function name="myfn:first-ja-combine-table" as="xs:string*">
     <xsl:param name="table" as="element(table)*"/>
