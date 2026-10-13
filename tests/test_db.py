@@ -3,6 +3,7 @@ from pathlib import Path
 from unittest import TestCase
 
 from wiktionary_stardict.db import (
+    FORMS_LIMIT,
     create_indexes,
     init_db,
     insert_data,
@@ -93,14 +94,11 @@ class DBTest(TestCase):
         insert_data(
             self.conn, "-isieren", ["-isieren", "-isierend", "ich"], False, [], []
         )
-        for num in range(20):
+        for num in range(FORMS_LIMIT):
             insert_data(self.conn, str(num), [str(num), "ich"], False, [], [])
         self.get_titles()
-        forms = [("-isierend", 0), ("ich", 0)]
-        for num in range(1, 20):
-            forms.append(("ich", num))
         form_count = defaultdict(int)
         for form, _ in iter_forms(self.conn):
             form_count[form] += 1
         self.assertEqual(form_count["-isierend"], 1)
-        self.assertEqual(form_count["ich"], 20)
+        self.assertEqual(form_count["ich"], FORMS_LIMIT)

@@ -119,15 +119,19 @@ def iter_forms(conn: Connection):
         yield form, index
 
 
+FORMS_LIMIT = 100
+
+
 def delete_problematic_forms(conn: Connection):
     # some unexpected forms like pronoun link to too many entries,
-    # keep 20 and delete the rest
-    conn.execute("""
+    # keep 100 and delete the rest
+    conn.execute(
+        """
     WITH bad_form AS (
       SELECT form
       FROM form
       GROUP BY form
-      HAVING COUNT(DISTINCT entry_id) > 20
+      HAVING COUNT(DISTINCT entry_id) > :limit
     ),
     delete_id AS (
       SELECT f.id, row_number() OVER (PARTITION BY f.form ORDER BY f.id) AS rn
@@ -138,9 +142,11 @@ def delete_problematic_forms(conn: Connection):
     WHERE id IN (
      SELECT id
      FROM delete_id
-     WHERE rn > 20
+     WHERE rn > :limit
     )
-    """)
+    """,
+        {"limit": FORMS_LIMIT},
+    )
 
 
 def insert_data(
