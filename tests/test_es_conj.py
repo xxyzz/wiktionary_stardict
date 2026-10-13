@@ -62,3 +62,24 @@ class EsConjTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_weird_es_v_space(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>acetificar</title></head>
+<body>
+<section><h2><a>Español</a></h2>
+<section><h4>Verbo transitivo</h4>
+<dl><dt>1</dt><dd>gloss</dd></dl>
+</section>
+<section><h4>Conjugación</h4>
+<table><tbody><tr>
+<td><span class="movil">que nosotros<span> </span></span><a title="hubiéramos">hubiéramos</a> <a title="acetificado">acetificado</a>, <a title="hubiésemos">hubiésemos</a> <a title="acetificado">acetificado</a></td>
+</tr></tbody></table>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["acetificar", "acetificado"]}],
+        )
