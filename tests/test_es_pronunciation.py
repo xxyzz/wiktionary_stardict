@@ -11,6 +11,7 @@ class EsPronunciationTestCase(XMLTestCase):
 <head><title>acontecer</title></head>
 <body>
 <section><h2>Español</h2>
+<span class="mw-empty-elt" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'></span>
 <table class="pron-graf toccolours" data-mw='{"parts":[{"template":{"target":{"wt":"pron-graf"}}}]}'>
 <tbody><tr><td>acontecer</td></tr>
 <tr>

@@ -19,7 +19,7 @@ class EsConjTestCase(XMLTestCase):
 </section>
 <section><h4>Conjugación</h4>
 <table><tbody><tr>
-<td><a>hubiera</a><a> acontecido</a>, <a>hubiese</a><a> acontecido</a></td>
+<td><span class="movil">que yo<span> </span></span><a>hubiera</a><a> acontecido</a>, <a>hubiese</a><a> acontecido</a></td>
 <td><a>aconteciera</a>, <a>aconteciese</a></td>
 </tr></tbody></table>
 </section>
