@@ -698,3 +698,17 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></section></body></html>""",
             [{"forms": ["가깝다", "가까우세요", "가까우셔요", "가까우셨어요"]}],
         )
+
+    def test_zh_l_alt_forms(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>圖窮匕見</title></head>
+<body><section><h2>Chinese</h2>
+<section><h3>Alternative forms</h3>
+<ul><li><span class="Hant" lang="zh-Hant" data-mw='{"parts":[{"template":{"target":{"wt":"zh-l"}}}]}'><a title="圖窮匕首見">圖窮匕首見</a></span><span class="Hani" lang="zh">／</span><span class="Hans" lang="zh-Hans"><a title="图穷匕首见">图穷匕首见</a></span><span> (</span><i><span class="tr Latn" lang="zh-Latn">túqióngbǐshǒuxiàn</span></i><span>)</span></li></ul>
+</section>
+<section><h3>Idiom</h3>
+<p><span class="headword-line"><strong class="Hant headword" lang="zh">圖窮匕見</strong></span></p>
+<ol><li>gloss</li></ol></section></section></body></html>""",
+            [{"forms": ["圖窮匕見", "圖窮匕首見", "图穷匕首见"]}],
+        )
