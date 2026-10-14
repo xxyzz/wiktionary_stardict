@@ -52,6 +52,15 @@
                   [. != ''])"
           as="xs:string*"/>
 
+      <xsl:variable
+          name="etymology-section"
+          select="(ancestor::section | preceding-sibling::section |
+                  parent::section/preceding-sibling::section)
+                  [some $section-title in ('詞源', '词源', '典故', '語源', '语源',
+                  '字源', '詞語', '組成', '出處', '出处') satisfies
+                  starts-with(normalize-space((h3|h4|h5|h6)[1]), $section-title)]
+                  [last()]"/>
+
       <xsl:variable name="definition">
         <section class="mw-parser-output" dir="ltr" lang="zh">
           <xsl:apply-templates
@@ -79,14 +88,7 @@
               mode="linkage"
               select="myfn:get-linkage-section(.,
                       ('同義詞', '近義詞', '反義詞', '同义词', '近义词', '反义词'))"/>
-          <xsl:apply-templates
-              select="(ancestor::section | preceding-sibling::section |
-                      parent::section/preceding-sibling::section)
-                      [some $section-title in ('詞源', '词源', '典故', '語源', '语源',
-                      '字源', '詞語', '組成', '出處', '出处') satisfies
-                      starts-with(normalize-space((h3|h4|h5|h6)[1]), $section-title)]
-                      [last()]"
-              mode="etymology"/>
+          <xsl:apply-templates select="$etymology-section" mode="etymology"/>
         </section>
       </xsl:variable>
 
@@ -115,7 +117,8 @@
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
-                  'ids': array{myfn:get-ancestor-section-ids(.)},
+                  'ids': array{distinct-values((myfn:get-pos-section-ids(.),
+                    myfn:get-section-ids($etymology-section)))},
                   'math': array{$math}}"/>
     </xsl:if>
   </xsl:template>

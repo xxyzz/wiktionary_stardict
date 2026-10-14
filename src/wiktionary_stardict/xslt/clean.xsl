@@ -35,10 +35,7 @@
              satisfies contains-token(@class, $class)) and
              starts-with(@href, './') and not(contains(@href, ':'))]"
       mode="clean-content">
-    <xsl:variable
-        name="new-href"
-        select="(substring-after(@href, './') || '#') => substring-before('#') =>
-                replace('_', ' ')"/>
+    <xsl:variable name="new-href" select="substring-after(@href, './')"/>
     <xsl:copy>
       <xsl:apply-templates select="@* except @href" mode="clean-content"/>
       <xsl:attribute name="href" select="'bword://' || $new-href"/>

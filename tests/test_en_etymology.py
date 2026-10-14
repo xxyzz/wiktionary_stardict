@@ -121,7 +121,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <section>
 <h4>Etymology</h4>
 <p>From <i>Duan Ge Xing</i> by <span class="Hani" lang="zh">曹操</span> (Cao Cao):</p>
-<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲<a href="bword://南" title="南">南</a>飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:#235923;padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
+<dl><dd><div class="vsSwitcher"><dl class="zhusex"><span lang="zh-Hant" class="Hant"><b>月明星稀</b>，烏鵲<a href="bword://南#Chinese" title="南">南</a>飛。繞樹三匝，何枝可依？</span><span class="vsToggleElement" style="color:#235923;padding-left:10px"></span><hr/><dd></dd><dd><b>The moon is bright and the stars are few</b>, and southward the crows flew. Circling the tree thrice, on which branch can they perch?</dd></dl></div></dd></dl>
 </section>
 </section>"""
                 }
@@ -136,6 +136,7 @@ class EnEtymologyTestCase(XMLTestCase):
 <body>
 <section><h2>English</h2>
 <section><h3>Etymology 1</h3>
+<ul id="English:_enclosure" data-mw='{"parts":[{"template":{"target":{"wt":"etymon"}}}]}'></ul>
 <p>etymology 1</p>
 <section><h4>Pronunciation</h4>
 <ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content"><span class="usage-label-accent">Received Pronunciation</span></span><span class="ib-brac qualifier-brac">)</span><span> </span><a title="Wiktionary:International Phonetic Alphabet">IPA</a><span>:</span><span> </span><span class="IPA nowrap">/ˈkɒmpaʊnd/</span></li></ul>
@@ -189,7 +190,8 @@ class EnEtymologyTestCase(XMLTestCase):
 <ol><li>noun gloss</li></ol>
 <section><h4>Etymology 1</h4>
 <p>etymology 1</p>
-</section></section>"""
+</section></section>""",
+                    "ids": ["English:_enclosure"],
                 },
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">

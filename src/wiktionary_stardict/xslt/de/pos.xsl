@@ -69,7 +69,7 @@
                   'indent': false(), 'escape-uri-attributes': false()}),
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
-                'ids': array{myfn:get-ancestor-section-ids(.)},
+                'ids': array{myfn:get-pos-section-ids(.)},
                 'math': array{$math}}"/>
   </xsl:template>
 

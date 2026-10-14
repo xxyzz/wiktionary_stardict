@@ -96,7 +96,15 @@ def transform_worker(chunk_data) -> list[dict]:
             extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
             data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
 
-    add_redirects(redirect_db_conn, chunk_data["name"], json_result)
+    title = chunk_data["name"]
+    id_title = title.replace(" ", "_")
+    for data in json_result:
+        if id_title != title:
+            data["forms"].append(id_title)
+        for id in data.get("ids", []):
+            data["forms"].append(f"{id_title}#{id}")
+
+    add_redirects(redirect_db_conn, title, json_result)
     return json_result
 
 

@@ -29,11 +29,11 @@ class EnPOSTestCase(XMLTestCase):
       <p>
         <span class="headword-line">
           <strong class="Latn headword" lang="en">tee</strong> (<i>plural</i>
-          <b class="Latn form-of lang-en p-form-of" lang="en"><a href="bword://tees" title="tees">tees</a></b>)</span>
+          <b class="Latn form-of lang-en p-form-of" lang="en"><a href="bword://tees#English" title="tees">tees</a></b>)</span>
       </p>
       <ol>
         <li>
-          <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en"><a href="bword://T" title="T">T</a></i>/<i class="Latn mention" lang="en"><a href="bword://t" title="t">t</a></i>.</span>
+          <span class="use-with-mention">The name of the Latin script letter <i class="Latn mention" lang="en"><a href="bword://T#English" title="T">T</a></i>/<i class="Latn mention" lang="en"><a href="bword://t#English" title="t">t</a></i>.</span>
         </li>
         <li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">clothing<span class="ib-comma label-comma">,</span><span> </span>informal</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Ellipsis of <span class="form-of-definition-link"><i class="Latn mention" lang="en">tee-shirt</i></span></span>.</li>
       </ol>
@@ -200,7 +200,7 @@ class EnPOSTestCase(XMLTestCase):
         </span>
       </p>
       <ol>
-        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+        <li>The <a href="bword://Maclaurin_series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
       </ol>
     </section>""",
                 },
@@ -236,7 +236,7 @@ class EnPOSTestCase(XMLTestCase):
         </span>
       </p>
       <ol>
-        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+        <li>The <a href="bword://Maclaurin_series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
       </ol>
     </section>""",
                 },

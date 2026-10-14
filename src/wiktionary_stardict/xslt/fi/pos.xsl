@@ -79,8 +79,7 @@
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
-                  'ids': array{
-                    myfn:get-ancestor-section-ids(.), myfn:get-child-section-ids(.)},
+                  'ids': array{myfn:get-pos-section-ids(.)},
                   'zim_pages': array{$liite-links},
                   'math': array{$math}}"/>
     </xsl:if>
@@ -139,9 +138,4 @@
       <xsl:apply-templates select="p | ul | dl" mode="clean-content"/>
     </section>
   </xsl:template>
-
-  <xsl:function name="myfn:get-child-section-ids" as="xs:string*">
-    <xsl:param name="section" as="element(section)"/>
-    <xsl:sequence select="$section/section/(h4|h5|h6)/@id[not(starts-with(., 'mw'))]"/>
-  </xsl:function>
 </xsl:stylesheet>

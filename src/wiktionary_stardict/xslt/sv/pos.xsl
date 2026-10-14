@@ -56,7 +56,7 @@
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
-                'ids': array{myfn:get-ancestor-section-ids(.)},
+                'ids': array{myfn:get-pos-section-ids(.)},
                 'math': array{$math}}"/>
   </xsl:template>
 
