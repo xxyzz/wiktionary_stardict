@@ -124,7 +124,8 @@
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
                   'zim_pages': array{$vervoeging-links},
-                  'math': array{$math}}"/>
+                  'math': array{$math},
+                  'ids': array{myfn:get-pos-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 

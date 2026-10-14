@@ -75,7 +75,8 @@
                     serialize($final-definition, map{'method': 'html',
                     'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
-                  'math': array{$math}}"/>
+                  'math': array{$math},
+                  'ids': array{myfn:get-pos-section-ids(.)}}"/>
     </xsl:if>
   </xsl:template>
 

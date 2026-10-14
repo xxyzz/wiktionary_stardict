@@ -36,7 +36,7 @@
   </xsl:template>
 
   <xsl:template match="section" mode="language">
-    <xsl:apply-templates select=".//section[p/b and ol]" mode="pos">
+    <xsl:apply-templates select=".//section[h2 and p/b and ol]" mode="pos">
       <xsl:with-param name="language" select="myfn:get-lang-name(h1[1])"/>
     </xsl:apply-templates>
   </xsl:template>

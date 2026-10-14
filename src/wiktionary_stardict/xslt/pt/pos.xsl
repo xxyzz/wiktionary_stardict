@@ -102,7 +102,9 @@
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
-                'math': array{$math}}"/>
+                'math': array{$math},
+                'ids': array{(h2[1] | preceding-sibling::h1[1])/
+                  @id[not(starts-with(., 'mw'))]/string(.)}}"/>
   </xsl:template>
 
   <xsl:template match="h2 | h3 | h4 | h5 | h6" mode="section-heading">

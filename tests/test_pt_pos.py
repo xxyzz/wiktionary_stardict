@@ -11,8 +11,8 @@ class PtPOSTestCase(XMLTestCase):
 <head><title>palavra</title></head>
 <body>
 <section></section>
-<section><h1><style data-mw='{"parts":[{"template":{"target":{"wt":"-pt-"}}}]}'>.mw-parser-output</style><span class="cabecalhoIdioma"><span><span><span><a>Português</a></span></span></span></span></h1>
-<section><h2><span>Substantivo</span></h2>
+<section><h1 id="Português"><span id="Portugu.C3.AAs" typeof="mw:FallbackId"></span><style data-mw='{"parts":[{"template":{"target":{"wt":"-pt-"}}}]}'>.mw-parser-output</style><span class="cabecalhoIdioma"><span><span><span><a>Português</a></span></span></span></span></h1>
+<section><h2 id="Substantivo"><span id="mwDQ">Substantivo</span></h2>
 <p><b>pa.<u>la</u>.vra</b>, <i>feminino</i>, <span>(</span><span class="escopo"><i>Datação:</i></span><span> século XIII)</span></p>
 <ol><li>gloss<ul><li><i>Com a <b>palavra</b>, o ilustre senador do Maranhão!</i></li>
 <li><i>Só você fala, os outros também querem ter a <b>palavra</b>.</i></li></ul></li></ol>
@@ -26,6 +26,7 @@ class PtPOSTestCase(XMLTestCase):
 </section>""",
                     "forms": ["palavra"],
                     "lang": "Português",
+                    "ids": ["Português", "Substantivo"],
                 },
             ],
         )
