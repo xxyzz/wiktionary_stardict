@@ -8,7 +8,6 @@
     exclude-result-prefixes="#all">
 
   <xsl:include href="../image.xsl"/>
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>

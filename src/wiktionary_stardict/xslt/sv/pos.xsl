@@ -8,7 +8,6 @@
     exclude-result-prefixes="#all">
 
   <xsl:include href="../image.xsl"/>
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="inflection.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
 
@@ -108,6 +107,6 @@
 
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
     <xsl:param name="li" as="element(li)*"/>
-    <xsl:sequence select="distinct-values($li/a ! normalize-space(.))"/>
+    <xsl:sequence select="distinct-values(myfn:get-form-of-texts($li/a))"/>
   </xsl:function>
 </xsl:stylesheet>

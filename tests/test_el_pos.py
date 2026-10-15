@@ -34,7 +34,7 @@ class ElPOSTestCase(XMLTestCase):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
-<head><title>διασκεδαστικός</title></head>
+<head><title>abakon</title></head>
 <body>
 <section><h2><span>Εσπεράντο (eo)</span></h2>
 <section><h3><span class="partofspeech">Κλιτικός τύπος ουσιαστικού</span></h3>
@@ -58,7 +58,7 @@ class ElPOSTestCase(XMLTestCase):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
-<head><title>διασκεδαστικός</title></head>
+<head><title>αναμαλλιασμένος</title></head>
 <body>
 <section><h2><span>Νέα ελληνικά (el)</span></h2>
 <section><h3><span class="partofspeech">Μετοχή</span></h3>

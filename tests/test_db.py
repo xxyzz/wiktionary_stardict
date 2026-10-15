@@ -102,3 +102,22 @@ class DBTest(TestCase):
             form_count[form] += 1
         self.assertEqual(form_count["-isierend"], 1)
         self.assertEqual(form_count["ich"], FORMS_LIMIT)
+
+    def test_form_of_target_fragment(self):
+        insert_data(
+            self.conn, "ír verb", ["ír", "ír#Hungarian:_to_write"], False, [], []
+        )
+        insert_data(self.conn, "ír adj", ["ír"], False, [], [])
+        insert_data(
+            self.conn,
+            "írhat",
+            ["írhat", "írhatok"],
+            True,
+            ["ír#Hungarian:_to_write"],
+            [],
+        )
+        self.assertEqual(self.get_titles(), ["ír", "ír"])
+        self.assertEqual(
+            list(iter_forms(self.conn)),
+            [("ír#Hungarian:_to_write", 0), ("írhat", 0), ("írhatok", 0)],
+        )

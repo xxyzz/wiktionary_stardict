@@ -7,7 +7,6 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="etymology.xsl"/>
   <xsl:include href="linkage.xsl"/>
@@ -177,8 +176,8 @@
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
-        select="distinct-values((if ($li/bdi) then $li/bdi else if ($li/i/a) then
-                $li/i/a else $li/a) !
-                myfn:get-element-forms(.))[. != '']"/>
+        select="distinct-values(myfn:get-form-of-texts(
+                (if ($li/bdi) then $li/bdi else if ($li/i/a) then
+                $li/i/a else $li/a)))[. != '']"/>
   </xsl:function>
 </xsl:stylesheet>

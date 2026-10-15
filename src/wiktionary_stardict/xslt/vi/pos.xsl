@@ -8,13 +8,13 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="alt_forms.xsl"/>
   <xsl:include href="../en/conjugation.xsl"/>
   <xsl:include href="pronunciation.xsl"/>
   <xsl:include href="../en/etymology.xsl"/>
   <xsl:include href="../en/linkage.xsl"/>
+  <xsl:include href="../en/form_of.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -91,7 +91,7 @@
       <xsl:variable
           name="form-of-only" as="xs:boolean"
           select="boolean(every $li in ol/li[myfn:is-gloss-li(.)]
-                  satisfies myfn:is-form-of($li))"/>
+                  satisfies myfn:vi-is-form-of($li))"/>
 
       <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
 
@@ -103,7 +103,7 @@
                     'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
                   'form_of_targets': array{if ($form-of-only) then
-                    myfn:form-of-targets(ol/li) else ()},
+                    myfn:vi-form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
                   'ids': array{distinct-values((myfn:get-pos-section-ids(.),
                     myfn:get-section-ids($etymology-section)))},
@@ -170,36 +170,19 @@
                 not(($li|$li/i)[@data-mw and myfn:is-template(@data-mw, 'rfdef')]))"/>
   </xsl:function>
 
-  <xsl:function name="myfn:has-form-of-span" as="xs:boolean">
-    <xsl:param name="li" as="element(li)"/>
-    <xsl:variable
-        name="form-of-span"
-        select="$li/span[contains-token(@class, 'form-of-definition')]"/>
-    <xsl:variable
-        name="target-span"
-        select="$form-of-span/span[contains-token(@class, 'form-of-definition-link')]"/>
-    <xsl:variable
-        name="gloss-span"
-        select="$target-span/span[contains-token(@class, 'mention-gloss')]"/>
-    <xsl:sequence
-        select="boolean(exists($form-of-span) and exists($target-span) and
-                not(exists($gloss-span)))"/>
-  </xsl:function>
-
-  <xsl:function name="myfn:is-form-of" as="xs:boolean">
+  <xsl:function name="myfn:vi-is-form-of" as="xs:boolean">
     <xsl:param name="li" as="element(li)"/>
     <xsl:sequence
-        select="boolean(myfn:has-form-of-span($li) or
+        select="boolean(myfn:is-form-of($li) or
                 $li/span[@data-mw and myfn:is-template-suffix(@data-mw, ' of')])"/>
   </xsl:function>
 
-  <xsl:function name="myfn:form-of-targets" as="xs:string*">
+  <xsl:function name="myfn:vi-form-of-targets" as="xs:string*">
     <xsl:param name="li" as="element(li)*"/>
     <xsl:sequence
         select="distinct-values(
-                if ($li/span[contains-token(@class, 'form-of-definition')]) then
-                $li/span[contains-token(@class, 'form-of-definition')]/span
-                [contains-token(@class, 'form-of-definition-link')]/i[@lang] else
+                let $targets := myfn:form-of-targets($li) return
+                if (exists($targets)) then $targets else
                 $li/span[contains-token(@class, 'use-with-mention')]/span
                 [contains-token(@class, 'mention')] ! normalize-space(.))[. != '']"/>
   </xsl:function>

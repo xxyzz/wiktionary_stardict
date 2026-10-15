@@ -4,6 +4,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:map="http://www.w3.org/2005/xpath-functions/map"
+    xmlns:myfn="https://github.com/xxyzz"
     expand-text="yes"
     exclude-result-prefixes="#all">
 
@@ -29,12 +30,7 @@
       mode="clean-content"/>
 
   <!-- Create bword link -->
-  <xsl:template
-      match="a[contains-token(@rel, 'mw:WikiLink') and
-             not(some $class in ('new', 'mw-selflink-fragment')
-             satisfies contains-token(@class, $class)) and
-             starts-with(@href, './') and not(contains(@href, ':'))]"
-      mode="clean-content">
+  <xsl:template match="a[myfn:is-bword-link(.)]" mode="clean-content">
     <xsl:variable name="new-href" select="substring-after(@href, './')"/>
     <xsl:copy>
       <xsl:apply-templates select="@* except @href" mode="clean-content"/>

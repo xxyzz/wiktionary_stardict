@@ -36,43 +36,43 @@
   </xsl:function>
 
   <xsl:function name="myfn:is-template" as="xs:boolean">
-    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="inputs" as="xs:string*"/>
     <xsl:param name="templates" as="xs:string*"/>
-    <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
-        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+        select="some $json in $inputs ! parse-json(.) satisfies
+                some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies myfn:convert-template-name($wt) = $templates"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-template-suffix" as="xs:boolean">
-    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="inputs" as="xs:string*"/>
     <xsl:param name="suffixes" as="xs:string*"/>
-    <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
-        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+        select="some $json in $inputs ! parse-json(.) satisfies
+                some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies (some $suffix in $suffixes satisfies
                 ends-with(myfn:convert-template-name($wt), $suffix))"/>
   </xsl:function>
 
   <xsl:function name="myfn:is-template-prefix" as="xs:boolean">
-    <xsl:param name="data-mw" as="xs:string"/>
+    <xsl:param name="inputs" as="xs:string*"/>
     <xsl:param name="prefixes" as="xs:string*"/>
-    <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
-        select="some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
+        select="some $json in $inputs ! parse-json(.) satisfies
+                some $wt in $json?parts?*[. instance of map(*)]?template?target?wt
                 satisfies (some $prefix in $prefixes satisfies
                 starts-with(myfn:convert-template-name($wt), $prefix))"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-template-arg" as="xs:string?">
-    <xsl:param name="data-mw" as="xs:string?"/>
+    <xsl:param name="inputs" as="xs:string*"/>
     <xsl:param name="t-name" as="xs:string+"/>
     <xsl:param name="arg-name" as="xs:string"/>
-    <xsl:variable name="json" select="parse-json($data-mw)"/>
     <xsl:sequence
-        select="$json?parts?*[. instance of map(*)]?template
+        select="(for $json in $inputs ! parse-json(.) return
+                $json?parts?*[. instance of map(*)]?template
                 [myfn:convert-template-name(?target?wt) = $t-name][1]
-                ?params?($arg-name)?wt"/>
+                ?params?($arg-name)?wt)[1]"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-element-forms" as="xs:string*">
@@ -190,5 +190,30 @@
                 if (matches($form, '\(.+?\)|（.+?）')) then
                 (replace($form, '\(.+?\)|（.+?）', ''), replace($form, '[()（）]', ''))
                 else $form"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-bword-link" as="xs:boolean">
+    <xsl:param name="a" as="element(a)?"/>
+    <xsl:sequence
+        select="boolean(contains-token($a/@rel, 'mw:WikiLink') and
+                not(some $class in ('new', 'mw-selflink-fragment')
+                satisfies contains-token($a/@class, $class)) and
+                starts-with($a/@href, './') and not(contains($a/@href, ':')))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-form-of-texts" as="xs:string*">
+    <xsl:param name="elements" as="element()*"/>
+    <xsl:sequence
+        select="for $e in $elements return
+                if ($e instance of element(a)) then myfn:get-a-element-target($e) else
+                if (count($e/*) = 1 and myfn:is-bword-link($e/a))
+                then myfn:get-a-element-target($e/a) else normalize-space($e)"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:get-a-element-target" as="xs:string*">
+    <xsl:param name="a" as="element(a)"/>
+    <xsl:sequence
+        select="let $href := substring-after($a/@href, './') return
+                if (contains($href, '#')) then $href else replace($href, '_', ' ')"/>
   </xsl:function>
 </xsl:stylesheet>

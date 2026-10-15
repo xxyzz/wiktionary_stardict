@@ -75,11 +75,14 @@ def iter_entries(conn: Connection):
         conn.execute("""
     SELECT e.id, e.definition, e.title, group_concat(i.url, '<sep>')
     FROM entry e
-    LEFT JOIN image i on i.entry_id = e.id
+    LEFT JOIN image i ON i.entry_id = e.id
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo JOIN entry e2
-        WHERE fo.entry_id = e.id AND fo.target = e2.title
+        WHERE fo.entry_id = e.id AND fo.target = e2.title AND fo.target NOT LIKE '%#%'
+        UNION ALL
+        SELECT 1 FROM form_of fo JOIN form f
+        WHERE fo.entry_id = e.id AND fo.target = f.form AND fo.target LIKE '%#%'
       )
     )) GROUP BY e.id ORDER BY e.title_lower, e.title
     """)
@@ -100,6 +103,15 @@ def iter_forms(conn: Connection):
       JOIN entry t_e ON t_e.title = fo.target
       LEFT JOIN form f ON f.entry_id = e.id
       WHERE e.index_num IS NULL AND t_e.index_num IS NOT NULL
+            AND fo.target NOT LIKE '%#%'
+      UNION ALL
+      SELECT e.title_lower, e.title, f.form_lower, f.form, t_e.index_num
+      FROM entry e
+      JOIN form_of fo ON fo.entry_id = e.id
+      JOIN form t_f ON t_f.form = fo.target
+      JOIN entry t_e ON t_e.id = t_f.entry_id
+      LEFT JOIN form f ON f.entry_id = e.id
+      WHERE e.index_num IS NULL AND t_e.index_num IS NOT NULL AND fo.target LIKE '%#%'
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num

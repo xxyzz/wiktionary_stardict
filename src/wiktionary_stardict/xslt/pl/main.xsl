@@ -7,6 +7,7 @@
     exclude-result-prefixes="#all">
   <xsl:output method="json" indent="no" encoding="UTF-8"/>
 
+  <xsl:include href="../utils.xsl"/>
   <xsl:include href="../clean.xsl"/>
   <xsl:include href="config.xsl"/>
   <xsl:include href="utils.xsl"/>

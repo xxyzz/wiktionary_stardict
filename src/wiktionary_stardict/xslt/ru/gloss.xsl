@@ -7,7 +7,6 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
-  <xsl:include href="../utils.xsl"/>
   <xsl:include href="../image.xsl"/>
   <xsl:include href="morphology.xsl"/>
   <xsl:include href="pronunciation.xsl"/>

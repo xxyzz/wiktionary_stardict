@@ -829,7 +829,7 @@ class EnPOSTestCase(XMLTestCase):
 </section>
 </body>
 </html>""",
-            [{"form_of_only": True, "form_of_targets": ["tear"]}],
+            [{"form_of_only": True, "form_of_targets": ["tear#English"]}],
         )
 
     def test_rm_inter_project_class(self):
@@ -937,4 +937,67 @@ class EnPOSTestCase(XMLTestCase):
 </body>
 </html>""",
             [{"ids": ["English:_not_being_attended"]}],
+        )
+
+    def test_form_of_target_links(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>grue</title></head><body>
+<section><h2>Latin</h2><section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="la">grue
+</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"infl of"}}}]}'><a>ablative</a> <a>singular</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="la"><a rel="mw:WikiLink" href="./grus#Latin" title="grus">grūs</a></i></span> and <span class="form-of-definition-link"><i class="Latn mention" lang="la"><a rel="mw:WikiLink" href="./gruis#Latin" title="gruis">gruis</a></i></span></span></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["grus#Latin", "gruis#Latin"]}],
+        )
+
+    def test_form_of_combine_text(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>MG</title></head><body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">MG
+</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"initialism of"}}}]}'><a>Initialism</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink/Interwiki" href="https://en.wikipedia.org/wiki/Morris%20Garages" title="w:Morris Garages" class="extiw">Morris Garages</a></i></span></span>, a British sports-car manufacturer.</li></ol>
+</section>
+<section><h3>Adjective</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">MG
+</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"init of"}}}]}'><a>Initialism</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./machine#English" title="machine">machine</a>-<a rel="mw:WikiLink" href="./glazed#English" title="glazed">glazed</a></i></span></span>.</li></ol>
+</section></section></body></html>""",
+            [
+                {"form_of_only": True, "form_of_targets": ["Morris Garages"]},
+                {"form_of_only": True, "form_of_targets": ["machine-glazed"]},
+            ],
+        )
+
+    def test_tcl_template(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>Salvador</title></head><body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">Salvador
+</strong></span></p>
+<ol><li><span class="senseid" id="English:_island" data-mw='{"parts":[{"template":{"target":{"wt":"tcl","href":"./Template:tcl"},"params":{"1":{"wt":"en"},"2":{"wt":"@ellip of:San Salvador Island"},"id":{"wt":"island"},"nogloss":{"wt":"1"}},"i":0}}]}'><span class="form-of-definition use-with-mention"><a>Ellipsis</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./San_Salvador_Island#English" title="San Salvador Island">San Salvador Island</a></i></span></span></span>.</li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "form_of_only": True,
+                    "form_of_targets": ["San_Salvador_Island#English"],
+                    "ids": ["English:_island"],
+                }
+            ],
+        )
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>Salvador</title></head><body>
+<section><h2>English</h2>
+<section><h3>Proper noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">Salvador
+</strong></span></p>
+<ol><li><span class="usage-label-sense" data-mw='{"parts":[{"template":{"target":{"wt":"lb"}}}]}'><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>historical</a></span><span class="ib-brac label-brac">)</span></span> <span class="senseid" id="English:_Q408217" data-mw='{"parts":[{"template":{"target":{"wt":"tcl","href":"./Template:tcl"},"params":{"1":{"wt":"en"},"2":{"wt":"@former name of:Santiago"},"id":{"wt":"Q408217"}},"i":0}}]}'><span class="form-of-definition use-with-mention">Former name of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./Santiago#English" title="Santiago">Santiago</a></i></span></span>: an <a>island</a> of <span class="Latn" lang="en"><a>Galapagos</a></span>, <span class="Latn" lang="en"><a>Ecuador</a></span></span></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": False, "ids": ["English:_Q408217"]}],
         )

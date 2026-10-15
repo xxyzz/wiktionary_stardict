@@ -80,23 +80,17 @@ class SvPOSTestCase(XMLTestCase):
 <ul><li><b><a title="Wiktionary:Stilguide/Uttal">uttal</a>:</b><span> </span><span><span class="ipa">ˈvatː.ɛn</span></span></li></ul>
 <ol><li>box, låda, fack, bås</li>
 <li>bjälke, bom, balk (av trä), fyrkantigt virke</li>
-<li><i>böjningsform av</i><span> </span><a>bok</a><link rel="mw:PageProp/Category" href="./Kategori:Bokmål/Substantivformer#boks"/></li></ol>
+<li><i>böjningsform av</i><span> </span><a rel="mw:WikiLink" href="./bok#Bokmål">bok</a><link rel="mw:PageProp/Category" href="./Kategori:Bokmål/Substantivformer#boks"/></li></ol>
 </section>
 <section><h3>Verb</h3>
 <p><b>boks</b></p>
-<ol><li><i>böjningsform av</i><span> </span><a>bokse</a><link rel="mw:PageProp/Category" href="./Kategori:Bokmål/Verbformer#boks"/></li></ol>
+<ol><li><i>böjningsform av</i><span> </span><a rel="mw:WikiLink" href="./bokse#Bokmål">bokse</a><link rel="mw:PageProp/Category" href="./Kategori:Bokmål/Verbformer#boks"/></li></ol>
 </section>
 </section>
 </body>
 </html>""",
             [
-                {
-                    "form_of_only": False,
-                    "form_of_targets": [],
-                },
-                {
-                    "form_of_only": True,
-                    "form_of_targets": ["bokse"],
-                },
+                {"form_of_only": False, "form_of_targets": []},
+                {"form_of_only": True, "form_of_targets": ["bokse#Bokmål"]},
             ],
         )

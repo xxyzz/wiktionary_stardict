@@ -172,7 +172,7 @@ class FrPOSTestCase(XMLTestCase):
 <section><h2>Français</h2>
 <section><h3>Adjectif</h3>
 <p><b>ouighour</b></p>
-<ol><li>Variante de <i><a>ouïghour</a>.</i></li></ol>
+<ol><li>Variante de <i><a rel="mw:WikiLink" href="./ouïghour">ouïghour</a>.</i></li></ol>
 </section></section></body></html>""",
             [{"form_of_only": True, "form_of_targets": ["ouïghour"]}],
         )
@@ -252,7 +252,21 @@ class FrPOSTestCase(XMLTestCase):
 <section><h2>Français</h2>
 <section><h3>Variante par contrainte typographique</h3>
 <p><b>à coeur perdu</b></p>
-<ol><li><i>Variante par contrainte typographique d’</i> <a title="à cœur perdu">à cœur perdu</a>.</li></ol>
+<ol><li><i>Variante par contrainte typographique d’</i> <a rel="mw:WikiLink" href="./à_cœur_perdu" title="à cœur perdu">à cœur perdu</a>.</li></ol>
 </section></section></body></html>""",
             [{"form_of_only": True, "form_of_targets": ["à cœur perdu"]}],
+        )
+
+    def test_form_of_fragment(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>bout</title></head>
+<body>
+<section><h2>Anglais</h2>
+<section><h3>Préposition</h3>
+<p><b>bout</b></p>
+<ol><li><i typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"variante de"}}}]}'>Variante<span typeof="mw:Entity"> </span>de</i><span> </span><bdi lang="en" class="lang-en"><a rel="mw:WikiLink" href="./about#en-prép" title="about">about</a></bdi>.</li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": True, "form_of_targets": ["about#en-prép"]}],
         )
