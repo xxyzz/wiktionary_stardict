@@ -48,4 +48,12 @@
                 myfn:get-element-forms(.//tbody//td//span[@lang = 'ko'])
                 ! tokenize(., ',') ! normalize-space(.))[. != '']"/>
   </xsl:template>
+
+  <xsl:template
+      match="*[@data-mw and myfn:is-template-prefix(@data-mw, 'de-conj')]"
+      as="xs:string*" mode="conj-template">
+    <xsl:sequence
+        select="distinct-values(myfn:get-element-forms(.//tbody//td/span
+                [contains-token(@class, 'form-of') and @lang = 'de']))[. != '']"/>
+  </xsl:template>
 </xsl:stylesheet>

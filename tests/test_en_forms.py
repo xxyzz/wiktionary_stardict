@@ -712,3 +712,28 @@ class EnFormsTestCase(XMLTestCase):
 <ol><li>gloss</li></ol></section></section></body></html>""",
             [{"forms": ["圖窮匕見", "圖窮匕首見", "图穷匕首见"]}],
         )
+
+    def test_de_conj(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>können</title></head><body>
+<section><h2>German</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="de">können</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Conjugation</h4>
+<div data-mw='{"parts":[{"template":{"target":{"wt":"de-conj"}}}]}'>
+<div class="NavHead">Conjugation of <i class="Latn mention" lang="de"><a>können</a></i> (<a >preterite-present</a>, auxiliary <i class="Latn mention" lang="de"><a>haben</a></i>)</div>
+<div class="NavContent">
+<table><tbody><tr>
+<td colspan="4"><span class="Latn form-of lang-de pres|part-form-of origin-können" lang="de"><a rel="mw:WikiLink" href="./könnend#German" title="könnend">könnend</a></span></td>
+</tr></tbody></table></div></div>
+<div class="NavFrame">
+<div class="NavHead" style="">Composed forms of <i class="Latn mention" lang="de"><a>können</a></i> (<a>preterite-present</a>, auxiliary <i class="Latn mention" lang="de"><a>haben</a></i>)</div>
+<div class="NavContent">
+<table class="inflection-table"><tbody><tr>
+<td><span class="Latn" lang="de"><a rel="mw:WikiLink" href="./ich#German" title="ich">ich</a></span> <span class="Latn" lang="de"><a rel="mw:WikiLink" href="./habe#German" title="habe">habe</a> <a rel="mw:WikiLink" href="./gekonnt#German" title="gekonnt">gekonnt</a></span></td>
+</tr></tbody></table></div></div></section></section></section></body></html>""",
+            [{"forms": ["können", "könnend"]}],
+        )

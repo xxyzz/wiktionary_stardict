@@ -7,6 +7,8 @@
     expand-text="yes"
     exclude-result-prefixes="#all">
 
+  <xsl:import href="../en/conjugation.xsl"/>
+
   <xsl:template match="section" mode="conj" as="xs:string*">
     <xsl:variable name="forms" as="xs:string*">
       <xsl:apply-templates mode="conj-template"/>
