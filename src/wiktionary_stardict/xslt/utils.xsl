@@ -172,7 +172,7 @@
     <xsl:param name="section" as="element(section)"/>
     <xsl:sequence
         select="distinct-values((myfn:get-section-ids($section/ancestor::section),
-                $section//*/@id[not(starts-with(., 'mw'))]))"/>
+                $section//*/@id[myfn:is-valid-id(.)]))"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-section-ids" as="xs:string*">
@@ -180,7 +180,14 @@
     <xsl:sequence
         select="distinct-values(for $section in $sections return
                 $section/*[not(self::section)]/descendant-or-self::*/
-                @id[not(starts-with(., 'mw'))])"/>
+                @id[myfn:is-valid-id(.)])"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-valid-id" as="xs:boolean">
+    <xsl:param name="id" as="xs:string"/>
+    <xsl:sequence
+        select="not(some $prefix in ('mw', 'cite_ref') satisfies
+                starts-with($id, $prefix))"/>
   </xsl:function>
 
   <xsl:function name="myfn:process-form-parenthesis" as="xs:string*">

@@ -1023,3 +1023,15 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_sup_ref_id(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>abbreviation</title></head><body>
+<section><h2>English</h2>
+<section><h3 id="Noun">Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">abbreviation</strong></span></p>
+<ol><li>gloss<sup class="mw-ref reference" id="cite_ref-SOED_1-0"></sup></li></ol>
+</section></section></body></html>""",
+            [{"ids": ["Noun"]}],
+        )
