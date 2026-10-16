@@ -194,3 +194,33 @@ class EnLinkageTestCase(XMLTestCase):
                 },
             ],
         )
+
+    def test_p_sense(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>reject</title></head>
+<body>
+<section><h2>English</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">reject
+</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<p><span class="ib-brac qualifier-brac" data-mw='{"parts":[{"template":{"target":{"wt":"sense"}}}]}'>(</span><span class="ib-content qualifier-content">refuse to accept</span><span class="ib-brac qualifier-brac">)</span><span class="ib-colon sense-qualifier-colon">:</span></p>
+<ul><li><span class="Latn" lang="en">abjure</span></li></ul>
+</section></section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Verb</h4>
+<p><span class="headword-line">
+<strong class="Latn headword" lang="en">reject</strong></span></p>
+<ol><li>gloss</li></ol>
+<section><h4>Synonyms</h4>
+<p><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">refuse to accept</span><span class="ib-brac qualifier-brac">)</span><span class="ib-colon sense-qualifier-colon">:</span></p>
+<ul><li><span class="Latn" lang="en">abjure</span></li></ul>
+</section></section></section>""",
+                },
+            ],
+        )
