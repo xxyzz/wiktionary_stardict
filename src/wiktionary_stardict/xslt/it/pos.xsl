@@ -129,10 +129,8 @@
 
   <!-- rm Wikipedia link in headword line -->
   <xsl:template
-      match="small[preceding-sibling::b[@data-mw and myfn:is-template(@data-mw, 'Pn')]]"
-      mode="clean-content"/>
-  <xsl:template
-      match="small[a[starts-with(@title, 'Appendice:Coniugazioni/')]]"
+      match="small[preceding-sibling::b[@data-mw and myfn:is-template(@data-mw, 'Pn')]
+             or a[starts-with(@title, 'Appendice:Coniugazioni/')]]"
       mode="clean-content"/>
 
   <xsl:template match="ol" mode="pos-li">

@@ -54,10 +54,6 @@
   <xsl:template
       match="div[contains-token(@class, 'sisterproject')]" mode="clean-content"/>
 
-  <xsl:template match="a[contains-token(@class, 'mw-selflink')]" mode="clean-content">
-    <b><xsl:apply-templates mode="clean-content"/></b>
-  </xsl:template>
-
   <!-- Template:wikipedia-s -->
   <xsl:template match="sup[normalize-space() = '(wp)']" mode="clean-content"/>
 </xsl:stylesheet>

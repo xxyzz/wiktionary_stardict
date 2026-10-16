@@ -196,7 +196,7 @@
     <xsl:param name="a" as="element(a)?"/>
     <xsl:sequence
         select="boolean(contains-token($a/@rel, 'mw:WikiLink') and
-                not(some $class in ('new', 'mw-selflink-fragment')
+                not(some $class in ('new', 'mw-selflink-fragment', 'mw-selflink')
                 satisfies contains-token($a/@class, $class)) and
                 starts-with($a/@href, './') and not(contains($a/@href, ':')))"/>
   </xsl:function>

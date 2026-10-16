@@ -22,7 +22,7 @@ class PlPOSTestCase(XMLTestCase):
 <p><i>czasownik nieprzechodni</i></p>
 <dl><dd>(3.1) meldować się</dd></dl>
 <dl><dt><span data-field="przyklady">przykłady<span>:</span></span></dt><dd></dd>
-<dd>(1.1) <i>I've read this <a class="mw-selflink">book</a>.</i> → Przeczytałem tę <b>książkę</b>.</dd>
+<dd>(1.1) <i>I've read this <a rel="mw:WikiLink" class="mw-selflink selflink" href="./book">book</a>.</i> → Przeczytałem tę <b>książkę</b>.</dd>
 <dd>(1.1) <i>The more money donated, the more books purchased, and the more happy children.</i></dd>
 <dd>(1.2) <i>The Book of Exodus is the second book of the Old Testament.</i></dd>
 <dd>(2.1) <i>I will book a room for a night.</i></dd></dl>
