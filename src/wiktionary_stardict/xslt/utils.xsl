@@ -198,7 +198,7 @@
         select="boolean(contains-token($a/@rel, 'mw:WikiLink') and
                 not(some $class in ('new', 'mw-selflink-fragment', 'mw-selflink')
                 satisfies contains-token($a/@class, $class)) and
-                starts-with($a/@href, './') and not(contains($a/@href, ':')))"/>
+                starts-with($a/@href, './') and not(contains($a/@title, ':')))"/>
   </xsl:function>
 
   <xsl:function name="myfn:get-form-of-texts" as="xs:string*">

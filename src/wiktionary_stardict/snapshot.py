@@ -67,7 +67,7 @@ def decompress_chunk(zst_path: Path):
     from compression import zstd
 
     ndjson_path = zst_path.with_suffix(".ndjson")
-    with zstd.open(zst_path, "rb") as f_in, ndjson_path.open("wb") as f_out:
+    with zstd.open(zst_path, "rb") as f_in, open(ndjson_path, "wb") as f_out:
         shutil.copyfileobj(f_in, f_out)
     zst_path.unlink()
 

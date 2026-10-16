@@ -92,7 +92,7 @@ def transform_worker(chunk_data) -> list[dict]:
                         zim_result = zim_xsl_exec.transform_to_string(xdm_node=zim_doc)
                         extra_forms.extend(json.loads(zim_result))
                     except PySaxonApiError as err:
-                        logger.error(f"Error in page: {zim_page} {err}")
+                        logger.error(f'Error in page: "{zim_page}" {err}')
             extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
             data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
 
@@ -120,11 +120,11 @@ def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict
         document = proc.parse_xml(xml_text=chunk_data["html"])
         result = executable.transform_to_string(xdm_node=document)
     except PySaxonApiError as err:
-        logger.error(f"Error in page: {page_name} {err}")
+        logger.error(f'Error in page: "{page_name}" {err}')
         return []
     json_result = json.loads(result)
     if json_result is None:
-        logger.info(f"None result in page {page_name}")
+        logger.info(f'None result in page "{page_name}"')
         return []
     for data in json_result:
         data["forms"] = list(
@@ -144,7 +144,7 @@ def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict
                 )
                 data["def"] = math_xsl_exec.transform_to_string(xdm_node=math_doc)
             except PySaxonApiError as err:
-                logger.error(f"Convert math error in page: {page_name} {err}")
+                logger.error(f'Convert math error in page: "{page_name}" {err}')
 
     return json_result
 
@@ -197,7 +197,6 @@ def build(args):
     with ProcessPoolExecutor(
         initializer=init_worker,
         initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
-        max_workers=min(chunk_num, process_cpu_count()),
     ) as executor:
         for chunk_idx in range(chunk_num):
             chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
@@ -208,7 +207,7 @@ def build(args):
                     args.edition, chunk_identifier, chunk_zst_path, args.page
                 )
             logger.info(f"start chunk {chunk_identifier}")
-            with ndjson_path.open() as f:
+            with open(ndjson_path) as f:
                 for results in executor.map(
                     transform_worker, iter_chunk_lines(page_names, f), chunksize=100
                 ):

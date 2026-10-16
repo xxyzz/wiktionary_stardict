@@ -16,7 +16,7 @@ class EnPOSTestCase(XMLTestCase):
 <p id="mwLQ"><span class="headword-line" about="#mwt16" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"en-noun","href":"./Template:en-noun"},"params":{},"i":0}}]}' id="mwLg"><strong class="Latn headword" lang="en">tee</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en"><a rel="mw:WikiLink" href="./tees#English" title="tees">tees</a></b>)</span><link rel="mw:PageProp/Category" href="./Category:English_lemmas#TEE" about="#mwt16"/></p>
 
 <ol id="mwMA"><li id="mwMQ"><span class="use-with-mention" about="#mwt17" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"Latn-def","href":"./Template:Latn-def"},"params":{"1":{"wt":"en"},"2":{"wt":"name"},"3":{"wt":"T"},"4":{"wt":"t"}},"i":0}}]}' id="mwMg">The name of the <a rel="mw:WikiLink" href="./Appendix:Latin_script" title="Appendix:Latin script">Latin script</a> letter <i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./T#English" title="T">T</a></i>/<i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./t#English" title="t">t</a></i>.</span><link rel="mw:PageProp/Category" href="./Category:en:Latin_letter_names#TEE" about="#mwt17" id="mwMw"/></li>
-<li class="mw-empty-elt"></li><li class="senseid"> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>clothing</a><span class="ib-comma label-comma">,</span><span> </span><a>informal</a></span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention"><a>Ellipsis</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>tee-shirt</a></i></span></span>.</li></ol>
+<li class="mw-empty-elt"></li><li class="senseid"> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>clothing</a><span class="ib-comma label-comma">,</span><span> </span><a rel="mw:WikiLink" href="./Appendix:Glossary#informal" title="Appendix:Glossary">informal</a></span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention"><a>Ellipsis</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>tee-shirt</a></i></span></span>.</li></ol>
 </section>
 </section>
 </body>
@@ -1000,4 +1000,26 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li><span class="usage-label-sense" data-mw='{"parts":[{"template":{"target":{"wt":"lb"}}}]}'><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>historical</a></span><span class="ib-brac label-brac">)</span></span> <span class="senseid" id="English:_Q408217" data-mw='{"parts":[{"template":{"target":{"wt":"tcl","href":"./Template:tcl"},"params":{"1":{"wt":"en"},"2":{"wt":"@former name of:Santiago"},"id":{"wt":"Q408217"}},"i":0}}]}'><span class="form-of-definition use-with-mention">Former name of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink" href="./Santiago#English" title="Santiago">Santiago</a></i></span></span>: an <a>island</a> of <span class="Latn" lang="en"><a>Galapagos</a></span>, <span class="Latn" lang="en"><a>Ecuador</a></span></span></li></ol>
 </section></section></body></html>""",
             [{"form_of_only": False, "ids": ["English:_Q408217"]}],
+        )
+
+    def test_colon_in_link_fragment(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>order</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">order
+</strong></span></p>
+<ol><li class="senseid" id="English:_size_or_scope" data-mw='{"parts":[{"template":{"target":{"wt":"senseid"}}}," ",{"template":{"target":{"wt":"lb"}}}]}'> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a rel="mw:WikiLink" href="./sciences#English:_all_fields" title="sciences">sciences</a><span class="ib-comma label-comma">,</span><span> </span><a rel="mw:WikiLink" href="./engineering#Noun" title="engineering">engineering</a><span class="ib-comma label-comma">,</span><span> </span><a rel="mw:WikiLink" href="./logic" title="logic">logic</a></span><span class="ib-brac label-brac">)</span></span> <a rel="mw:WikiLink" href="./scale#English:_size_or_scope" title="scale">Scale</a>: <a rel="mw:WikiLink" href="./size#Noun" title="size">size</a> or <a rel="mw:WikiLink" href="./scope#Noun" title="scope">scope</a>.</li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">order
+</strong></p>
+<ol><li> <span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a href="bword://sciences#English:_all_fields" title="sciences">sciences</a><span class="ib-comma label-comma">,</span><span> </span><a href="bword://engineering#Noun" title="engineering">engineering</a><span class="ib-comma label-comma">,</span><span> </span><a href="bword://logic" title="logic">logic</a></span><span class="ib-brac label-brac">)</span></span> <a href="bword://scale#English:_size_or_scope" title="scale">Scale</a>: <a href="bword://size#Noun" title="size">size</a> or <a href="bword://scope#Noun" title="scope">scope</a>.</li></ol>
+</section>"""
+                }
+            ],
         )

@@ -25,7 +25,7 @@ def download_redirect_db(edition: str) -> Path:
             ],
             check=True,
         )
-        with zstd.open(db_zst_path, "rb") as f_in, db_path.open("wb") as f_out:
+        with zstd.open(db_zst_path, "rb") as f_in, open(db_path, "wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
         db_zst_path.unlink()
     return db_path

@@ -23,7 +23,7 @@ class ThPOSTestCase(XMLTestCase):
 <h4>คำนาม</h4>
 <p><span class="headword-line"><strong class="Thai headword" lang="th">หนังสือ</strong> (<i>คำลักษณนาม</i> <b class="Thai" lang="th">เล่ม</b> <i>หรือ</i> <b class="Thai" lang="th">ฉบับ</b>)</span></p>
 <ol><li>เครื่องหมายใช้ขีดเขียนแทนเสียงหรือคำพูด
-<dl><dd><div class="h-usage-example"><i class="Thai mention e-example" lang="th">อ่าน<b>หนังสือ</b></i></div><span class="mw-empty-elt"></span></dd></dl></li></ol>
+<dl><dd><div class="h-usage-example"><i class="Thai mention e-example" lang="th">อ่าน<b>หนังสือ</b></i></div></dd></dl></li></ol>
 </section>""",
                     "forms": ["หนังสือ"],
                     "ids": ["ภาษาไทย", "คำนาม"],

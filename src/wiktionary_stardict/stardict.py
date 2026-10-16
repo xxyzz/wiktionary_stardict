@@ -27,7 +27,7 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
         if zim is not None:
             data = get_zim_asset(zim, filename)
             if data is not None:
-                with file_path.open("wb") as f:
+                with open(file_path, "wb") as f:
                     f.write(data)
                 return
         cache_path = Path(f"build/{edition}_images/{filename}")
@@ -36,7 +36,7 @@ def download_image(res_path: Path, url: str, edition: str, zim, session, title: 
         else:
             r = session.get(url)
             if r.ok:
-                with file_path.open("wb") as f:
+                with open(file_path, "wb") as f:
                     f.write(r.content)
             else:
                 logger.warning(
@@ -176,7 +176,7 @@ def create_dict_idx_file(
         logger.warning(f"{folder.name} uses 64 bits offset")
     with (
         IdzipFile(str(dict_path), "wb") as dict_f,
-        idx_path.open("wb") as idx_f,
+        open(idx_path, "wb") as idx_f,
         init_requests_session() as session,
     ):
         offset = 0
@@ -209,7 +209,7 @@ def create_syn_file(folder: Path, conn: Connection) -> int:
 
     syn_path = folder / (folder.name + ".syn")
     synwordcount = 0
-    with syn_path.open("wb") as f:
+    with open(syn_path, "wb") as f:
         for form, index in iter_forms(conn):
             f.write(form.encode("utf-8") + b"\0" + convert_number(index))
             synwordcount += 1
@@ -227,7 +227,7 @@ def create_ifo_file(
 ):
     from datetime import date
 
-    with (folder / (folder.name + ".ifo")).open("w") as f:
+    with open(folder / (folder.name + ".ifo"), "w") as f:
         f.write(f"""StarDict's dict ifo file
 version=3.0.0
 bookname={bookname}

@@ -62,9 +62,8 @@
       match="ul[contains-token(@class, 'gallery')]" mode="clean-content"/>
 
   <xsl:template
-      match="li[contains-token(@class, 'mw-empty-elt')]" mode="clean-content"/>
-
-  <xsl:template match="*[contains-token(@class, 'error')]" mode="clean-content"/>
+      match="*[some $cls in ('mw-empty-elt', 'error') satisfies
+             contains-token(@class, $cls)]" mode="clean-content"/>
 
   <!-- Remove <math> fallback image -->
   <xsl:template match="img[contains(@src, 'rest_v1/media/math/render/svg/')]"
