@@ -737,3 +737,16 @@ class EnFormsTestCase(XMLTestCase):
 </tr></tbody></table></div></div></section></section></section></body></html>""",
             [{"forms": ["können", "könnend"]}],
         )
+
+    def test_de_verb(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>vorstoßen</title></head><body>
+<section><h2>German</h2>
+<section><h3>Verb</h3>
+<p><span class="headword-line" data-mw='{"parts":[{"template":{"target":{"wt":"de-verb"}}}]}'><strong class="Latn headword" lang="de">vorstoßen</strong> (<i>class 7 <a>strong</a></i>, <i>third-person singular present</i> <b class="Latn" lang="de"><a>stößt vor</a></b>, <i>past tense</i> <b class="Latn" lang="de"><a>stieß vor</a></b>, <i>past participle</i> <b class="Latn" lang="de"><a>vorgestoßen</a></b>, <i>auxiliary</i> <b class="Latn" lang="de"><a>haben</a></b> <i>or</i> <b class="Latn" lang="de"><a>sein</a></b>)</span></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["vorstoßen"]}],
+        )

@@ -15,6 +15,7 @@
   <xsl:include href="../en/etymology.xsl"/>
   <xsl:include href="../en/linkage.xsl"/>
   <xsl:include href="../en/form_of.xsl"/>
+  <xsl:include href="../en/headword.xsl"/>
 
   <xsl:template match="section" mode="pos">
     <xsl:param name="language"/>
@@ -22,17 +23,6 @@
       <xsl:variable
           name="headword-p"
           select="p[span[contains-token(@class, 'headword-line')] or .//b]"/>
-      <xsl:variable
-          name="headword-strong"
-          select="myfn:ruby-text(
-                  $headword-p//strong[contains-token(@class, 'headword')]) !
-                  replace(., '⫽', '')"
-          as="xs:string*"/>
-      <xsl:variable
-          name="headword-forms" as="xs:string*"
-          select="myfn:get-element-forms($headword-p
-                  [not(span[@data-mw and myfn:is-template(@data-mw,
-                  ('th-noun', 'ja-noun'))])]//b)"/>
       <xsl:variable name="alt-forms" as="xs:string*"
                     select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
@@ -43,8 +33,9 @@
       </xsl:variable>
       <xsl:variable
           name="unique-forms"
-          select="distinct-values(($headword-strong, $title, $alt-forms,
-                  $headword-forms, $conj-forms, myfn:li-alt-forms(./ol//li[parent::ol]))
+          select="distinct-values((myfn:headword-strong-forms($headword-p), $title,
+                  $alt-forms, myfn:headword-b-forms($headword-p), $conj-forms,
+                  myfn:li-alt-forms(./ol//li[parent::ol]))
                   [. != ''])"
           as="xs:string*"/>
 
