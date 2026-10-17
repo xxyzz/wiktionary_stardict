@@ -87,9 +87,13 @@ def check_def_len(conn: Connection) -> bool:
     FROM entry e
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
-        SELECT 1 FROM form_of fo JOIN entry e2
-        LEFT JOIN title_fragment tf ON tf.entry_id = e2.id
-        WHERE fo.entry_id = e.id AND (fo.target = e2.title OR fo.target = tf.text)
+        SELECT 1 FROM form_of fo
+        JOIN entry e2 ON fo.target = e2.title
+        WHERE fo.entry_id = e.id
+        UNION ALL
+        SELECT 1 FROM form_of fo
+        JOIN title_fragment tf ON fo.target = tf.text
+        WHERE fo.entry_id = e.id
       )))
     """):
         return bool(use_64_bits)
@@ -105,9 +109,12 @@ def iter_entries(conn: Connection):
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo
-        JOIN entry e2
-        LEFT JOIN title_fragment tf ON tf.entry_id = e2.id
-        WHERE fo.entry_id = e.id AND (fo.target = e2.title OR fo.target = tf.text)
+        JOIN entry e2 ON fo.target = e2.title
+        WHERE fo.entry_id = e.id
+        UNION ALL
+        SELECT 1 FROM form_of fo
+        JOIN title_fragment tf ON fo.target = tf.text
+        WHERE fo.entry_id = e.id
       )
     )) GROUP BY e.id ORDER BY e.title_lower, e.title
     """)
@@ -125,11 +132,17 @@ def iter_forms(conn: Connection):
       SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
       FROM entry e
       JOIN form_of fo ON fo.entry_id = e.id
-      JOIN entry te
+      JOIN entry te ON te.title = fo.target
       LEFT JOIN form f ON f.entry_id = e.id
-      LEFT JOIN title_fragment tf ON tf.entry_id = te.id
-      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND
-        (te.title = fo.target OR tf.text = fo.target)
+      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL
+      UNION ALL
+      SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
+      FROM entry e
+      JOIN form_of fo ON fo.entry_id = e.id
+      JOIN title_fragment tf ON tf.text = fo.target
+      JOIN entry te ON tf.entry_id = te.id
+      LEFT JOIN form f ON f.entry_id = e.id
+      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num
@@ -231,7 +244,10 @@ def combine_links(db_paths: list[Path], all_links_path: Path):
         conn.executescript(
             """
             INSERT OR IGNORE INTO main.link (href)
-            SELECT l.href FROM lang_db.link l;
+            SELECT l.href
+            FROM lang_db.entry e
+            JOIN lang_db.link l ON e.id = l.entry_id
+            WHERE e.index_num IS NOT NULL;
             DETACH DATABASE lang_db;
             """
         )

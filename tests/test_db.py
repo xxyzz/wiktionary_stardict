@@ -126,7 +126,4 @@ class DBTest(TestCase):
         combine_links([self.db_path], self.all_links_path)
         insert_fragment_forms(self.conn, "en", self.all_links_path)
         self.assertEqual(self.get_titles(), ["ír", "ír"])
-        self.assertEqual(
-            list(iter_forms(self.conn)),
-            [("ír#Hungarian", 0), ("írhat", 0), ("írhatok", 0)],
-        )
+        self.assertEqual(list(iter_forms(self.conn)), [("írhat", 0), ("írhatok", 0)])

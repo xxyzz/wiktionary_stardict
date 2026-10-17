@@ -112,8 +112,8 @@ def create_stardict(
     )
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
-        create_indexes(conn, edition)
         create_sql_function(conn)
+        create_indexes(conn, edition)
         delete_problematic_forms(conn)
         insert_fragment_forms(conn, edition, Path(f"build/{edition}_links.db"))
         add_redirects(conn, Path(f"build/{edition}_redirect.db"))
