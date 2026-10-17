@@ -124,7 +124,8 @@
                   'form_of_only': $form-of-only,
                   'zim_pages': array{$vervoeging-links},
                   'math': array{$math},
-                  'ids': array{myfn:get-pos-section-ids(.)}}"/>
+                  'ids': array{myfn:get-pos-section-ids(.)},
+                  'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>
 

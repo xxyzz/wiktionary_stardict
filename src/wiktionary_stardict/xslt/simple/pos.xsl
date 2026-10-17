@@ -76,7 +76,8 @@
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
                   'ids': array{string(h2/@id)},
-                  'math': array{$math}}"/>
+                  'math': array{$math},
+                  'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>
 

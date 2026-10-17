@@ -4,9 +4,12 @@ from unittest import TestCase
 
 from wiktionary_stardict.db import (
     FORMS_LIMIT,
+    combine_links,
     create_indexes,
+    delete_problematic_forms,
     init_db,
     insert_data,
+    insert_fragment_forms,
     iter_entries,
     iter_forms,
 )
@@ -22,10 +25,12 @@ class DBTest(TestCase):
         db_name = "".join(random.choices(string.ascii_letters, k=20))
         self.db_path = Path(f"build/{db_name}.db")
         self.conn = init_db(db_name)
+        self.all_links_path = Path(f"build/{db_name}_links.db")
 
     def tearDown(self):
         self.conn.close()
         self.db_path.unlink()
+        self.all_links_path.unlink(True)
 
     def get_titles(self):
         return [title for _, title, *_ in iter_entries(self.conn)]
@@ -33,21 +38,19 @@ class DBTest(TestCase):
     def test_form_of_same_forms(self):
         insert_data(
             self.conn,
+            "maldizer",
             "maldizer def",
             ["maldizer", "maldito", "malditos", "maldita", "malditas"],
-            False,
-            [],
-            [],
         )
         insert_data(
             self.conn,
+            "maldito",
             "maldito def",
             ["maldito", "maldita", "malditos", "malditas"],
             True,
             ["maldizer"],
-            [],
         )
-        create_indexes(self.conn)
+        create_indexes(self.conn, "en")
         self.assertEqual(self.get_titles(), ["maldizer"])
         self.assertEqual(
             list(iter_forms(self.conn)),
@@ -55,9 +58,9 @@ class DBTest(TestCase):
         )
 
     def test_form_of_differen_forms(self):
-        insert_data(self.conn, "dyke def", ["dyke", "dykes", "dike"], False, [], [])
-        insert_data(self.conn, "dike def", ["dike", "dikes"], True, ["dyke"], [])
-        create_indexes(self.conn)
+        insert_data(self.conn, "dyke", "dyke def", ["dyke", "dykes", "dike"])
+        insert_data(self.conn, "dyke", "dike def", ["dike", "dikes"], True, ["dyke"])
+        create_indexes(self.conn, "en")
         self.assertEqual(self.get_titles(), ["dyke"])
         self.assertEqual(
             list(iter_forms(self.conn)), [("dike", 0), ("dikes", 0), ("dykes", 0)]
@@ -65,17 +68,15 @@ class DBTest(TestCase):
 
     def test_form_of_target_not_exist(self):
         insert_data(
-            self.conn, "TACO def", ["TACO"], True, ["Trump always chickens out"], []
+            self.conn, "TACO", "TACO def", ["TACO"], True, ["Trump always chickens out"]
         )
-        create_indexes(self.conn)
+        create_indexes(self.conn, "en")
         self.assertEqual(self.get_titles(), ["TACO"])
 
     def test_word_sort_order(self):
-        insert_data(self.conn, "Book", ["Book", "Books"], False, [], [])
-        insert_data(
-            self.conn, "book", ["book", "books", "booking", "booked"], False, [], []
-        )
-        insert_data(self.conn, "apple", ["apple", "apples"], False, [], [])
+        insert_data(self.conn, "Book", "Book", ["Book", "Books"])
+        insert_data(self.conn, "book", "book", ["book", "books", "booking", "booked"])
+        insert_data(self.conn, "apple", "apple", ["apple", "apples"])
         self.assertEqual(self.get_titles(), ["apple", "Book", "book"])
         self.assertEqual(
             list(iter_forms(self.conn)),
@@ -84,19 +85,23 @@ class DBTest(TestCase):
 
     def test_title_not_in_target_forms(self):
         insert_data(
-            self.conn, "flying colors", ["flying colors"], True, ["flying colours"], []
+            self.conn,
+            "flying colors",
+            "flying colors",
+            ["flying colors"],
+            True,
+            ["flying colours"],
         )
-        insert_data(self.conn, "flying colours", ["flying colours"], False, [], [])
+        insert_data(self.conn, "flying colours", "flying colours", ["flying colours"])
         self.assertEqual(self.get_titles(), ["flying colours"])
         self.assertEqual(list(iter_forms(self.conn)), [("flying colors", 0)])
 
     def test_rm_bad_forms(self):
-        insert_data(
-            self.conn, "-isieren", ["-isieren", "-isierend", "ich"], False, [], []
-        )
+        insert_data(self.conn, "-isieren", "-isieren", ["-isieren", "-isierend", "ich"])
         for num in range(FORMS_LIMIT):
-            insert_data(self.conn, str(num), [str(num), "ich"], False, [], [])
+            insert_data(self.conn, str(num), str(num), [str(num), "ich"])
         self.get_titles()
+        delete_problematic_forms(self.conn)
         form_count = defaultdict(int)
         for form, _ in iter_forms(self.conn):
             form_count[form] += 1
@@ -105,19 +110,23 @@ class DBTest(TestCase):
 
     def test_form_of_target_fragment(self):
         insert_data(
-            self.conn, "ír verb", ["ír", "ír#Hungarian:_to_write"], False, [], []
+            self.conn, "ír", "ír verb", ["ír"], ids=["Hungarian", "Hungarian:_to_write"]
         )
-        insert_data(self.conn, "ír adj", ["ír"], False, [], [])
+        insert_data(self.conn, "ír", "ír adj", ["ír"])
         insert_data(
             self.conn,
+            "írhat",
             "írhat",
             ["írhat", "írhatok"],
             True,
             ["ír#Hungarian:_to_write"],
-            [],
+            links=["ír#Hungarian"],
         )
+        self.conn.commit()
+        combine_links([self.db_path], self.all_links_path)
+        insert_fragment_forms(self.conn, "en", self.all_links_path)
         self.assertEqual(self.get_titles(), ["ír", "ír"])
         self.assertEqual(
             list(iter_forms(self.conn)),
-            [("ír#Hungarian:_to_write", 0), ("írhat", 0), ("írhatok", 0)],
+            [("ír#Hungarian", 0), ("írhat", 0), ("írhatok", 0)],
         )

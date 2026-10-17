@@ -34,21 +34,15 @@ def config_proc(proc):
     )
 
 
-def init_worker(
-    xsl_path: str,
-    zim_path: Path | None,
-    zim_xsl_path: Path | None,
-    redirect_db_path: Path,
-):
+def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None):
     import atexit
-    import sqlite3
 
     from requests import Session
     from saxonche import PySaxonProcessor
 
     from .zim import open_zim
 
-    global proc, executable, zim, zim_xsl_exec, redirect_db_conn, math_xsl_exec, session
+    global proc, executable, zim, zim_xsl_exec, math_xsl_exec, session
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
@@ -62,13 +56,11 @@ def init_worker(
     math_xsl_exec = xsltproc.compile_stylesheet(
         stylesheet_file=get_xsl_path("", "math_svg.xsl")
     )
-    redirect_db_conn = sqlite3.connect(redirect_db_path)
     session = Session()
     atexit.register(exit_worker)
 
 
 def exit_worker():
-    redirect_db_conn.close()
     session.close()
 
 
@@ -77,7 +69,6 @@ def transform_worker(chunk_data) -> list[dict]:
 
     from saxonche import PySaxonApiError
 
-    from .redirect import add_redirects
     from .zim import get_zim_page
 
     json_result = transform(chunk_data, proc, executable, math_xsl_exec, session)
@@ -96,15 +87,6 @@ def transform_worker(chunk_data) -> list[dict]:
             extra_forms = [f.strip() for f in extra_forms if f.strip() != ""]
             data["forms"] = list(dict.fromkeys(data["forms"] + extra_forms))
 
-    title = chunk_data["name"]
-    id_title = title.replace(" ", "_")
-    for data in json_result:
-        if id_title != title:
-            data["forms"].append(id_title)
-        for id in data.get("ids", []):
-            data["forms"].append(f"{id_title}#{id}")
-
-    add_redirects(redirect_db_conn, title, json_result)
     return json_result
 
 
@@ -127,6 +109,7 @@ def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict
         logger.info(f'None result in page "{page_name}"')
         return []
     for data in json_result:
+        data["page_name"] = page_name
         data["forms"] = list(
             dict.fromkeys(f.strip() for f in data["forms"] if f.strip() != "")
         )
@@ -173,7 +156,7 @@ def build(args):
     from functools import partial
     from os import process_cpu_count
 
-    from .db import create_indexes, init_db, insert_data
+    from .db import combine_links, init_db, insert_data
     from .edition import EDITIONS
     from .mathjax import shutdown_node, start_node
     from .redirect import download_redirect_db
@@ -195,8 +178,7 @@ def build(args):
     page_names = set()
     start_node()
     with ProcessPoolExecutor(
-        initializer=init_worker,
-        initargs=(xsl_path, zim_path, zim_xsl_path, redirect_db_path),
+        initializer=init_worker, initargs=(xsl_path, zim_path, zim_xsl_path)
     ) as executor:
         for chunk_idx in range(chunk_num):
             chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
@@ -217,11 +199,14 @@ def build(args):
                         if len(data["forms"]) > 0:
                             insert_data(
                                 conn_dict[data["lang"]],
+                                data["page_name"],
                                 data["def"],
                                 data["forms"],
                                 data.get("form_of_only", False),
                                 data.get("form_of_targets", []),
-                                data.get("images", []),
+                                data["images"],
+                                data["ids"],
+                                data["links"],
                             )
             if len(args.page) == 0:
                 ndjson_path.unlink()
@@ -230,10 +215,14 @@ def build(args):
     shutdown_node()
     page_names.clear()
     for conn in conn_dict.values():
-        create_indexes(conn)
+        conn.commit()
         conn.close()
+    if len(conn_dict) > 1:
+        combine_links(
+            [Path(f"build/{lang}.db") for lang in conn_dict.keys()],
+            Path(f"build/{args.edition}_links.db"),
+        )
     if len(args.page) == 0:
-        redirect_db_path.unlink()
         download_last_release_images(args.edition)
     dict_info = []
     with ProcessPoolExecutor(
@@ -246,8 +235,10 @@ def build(args):
             dict_info.append(result)
     with open(f"build/{args.edition}.json", "w") as f:
         json.dump(dict_info, f, ensure_ascii=False, separators=(",", ":"))
-    if len(args.page) == 0 and zim_path is not None:
-        zim_path.unlink()
+    if len(args.page) == 0:
+        if zim_path is not None:
+            zim_path.unlink()
+        redirect_db_path.unlink()
     archive_images(args.edition)
 
 

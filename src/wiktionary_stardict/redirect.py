@@ -7,7 +7,7 @@ def download_redirect_db(edition: str) -> Path:
     import subprocess
     from compression import zstd
 
-    db_path = Path("build") / f"{edition}_redirect.db"
+    db_path = Path(f"build/{edition}_redirect.db")
     db_path.parent.mkdir(exist_ok=True)
     db_zst_path = db_path.with_suffix(db_path.suffix + ".zst")
     if not db_path.exists() and not db_zst_path.exists():
@@ -31,31 +31,26 @@ def download_redirect_db(edition: str) -> Path:
     return db_path
 
 
-def get_redirect_pages(conn: Connection, target: str) -> list[tuple[str, str]]:
-    results = []
-    for title, fragment in conn.execute(
-        "SELECT source, fragment FROM redirect WHERE target = ?", (target,)
-    ):
-        results.append((title, fragment))
-    return results
-
-
-def add_redirects(
-    conn: Connection, page_title: str, page_data_list: list[dict[str, list[str]]]
-):
-    for redirect_title, fragment in get_redirect_pages(conn, page_title):
-        if fragment != "":
-            added = False
-            for page_data in page_data_list:
-                if fragment in page_data.get("ids", []):
-                    add_redirect(redirect_title, page_data)
-                    added = True
-                    break
-            if added:
-                continue
-        for page_data in page_data_list:
-            add_redirect(redirect_title, page_data)
-
-
-def add_redirect(title: str, page_data):
-    page_data["forms"] = list(dict.fromkeys(page_data["forms"] + [title]))
+def add_redirects(conn: Connection, rdb_path: Path):
+    conn.execute("ATTACH DATABASE ? AS rdb", (str(rdb_path),))
+    conn.executescript(
+        """
+    INSERT INTO form (entry_id, form, form_lower)
+    SELECT DISTINCT e.id, r.source, py_lower(r.source)
+    FROM rdb.redirect r
+    JOIN entry e ON r.target = e.title
+    WHERE EXISTS (
+      SELECT 1
+      FROM title_fragment tf
+      WHERE tf.entry_id = e.id AND
+        tf.text = concat(replace(e.title, ' ', '_'), '#', r.fragment)
+    ) OR NOT EXISTS (
+      SELECT 1
+      FROM entry e2
+      JOIN title_fragment tf2 ON e2.id = tf2.entry_id
+      WHERE e2.title = r.target AND
+        tf2.text = concat(replace(e2.title, ' ', '_'), '#', r.fragment)
+    );
+    DETACH DATABASE rdb;
+    """,
+    )

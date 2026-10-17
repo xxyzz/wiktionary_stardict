@@ -96,7 +96,8 @@
                 'form_of_only': $form-of-only,
                 'ids': array{distinct-values((myfn:get-pos-section-ids(.),
                   myfn:get-section-ids($etymology-section)))},
-                'math': array{$math}}"/>
+                'math': array{$math},
+                'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">

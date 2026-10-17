@@ -70,7 +70,8 @@
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'math': array{$math}}"/>
+                'math': array{$math},
+                'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 
   <xsl:template match="h3" mode="pos">

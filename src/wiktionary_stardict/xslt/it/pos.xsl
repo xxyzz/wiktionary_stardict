@@ -114,7 +114,8 @@
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
                 'zim_pages': array{$conj-links},
-                'math': array{$math}}"/>
+                'math': array{$math},
+                'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">

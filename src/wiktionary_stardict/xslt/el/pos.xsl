@@ -83,7 +83,8 @@
                   myfn:form-of-targets((ol|ul)/li) else ()},
                 'form_of_only': $form-of-only,
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'math': array{$math}}"/>
+                'math': array{$math},
+                'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 
   <xsl:mode name="section-heading" on-no-match="shallow-copy"/>

@@ -1,9 +1,9 @@
+from pathlib import Path
 from sqlite3 import Connection
 
 
 def init_db(lemma_lang: str) -> Connection:
     import sqlite3
-    from pathlib import Path
 
     db_path = Path(f"build/{lemma_lang}.db")
     if db_path.exists():
@@ -41,18 +41,43 @@ def init_db(lemma_lang: str) -> Connection:
       url TEXT,
       FOREIGN KEY(entry_id) REFERENCES entry(id)
     );
+
+    CREATE TABLE title_fragment (
+      id       INTEGER PRIMARY KEY,
+      entry_id INTEGER,
+      text     TEXT,
+      FOREIGN KEY(entry_id) REFERENCES entry(id)
+    );
+
+    CREATE TABLE link (
+      id       INTEGER PRIMARY KEY,
+      entry_id INTEGER,
+      href     TEXT,
+      FOREIGN KEY(entry_id) REFERENCES entry(id)
+    );
     """)
+    create_sql_function(conn)
     return conn
 
 
-def create_indexes(conn: Connection):
-    conn.executescript("""
+def create_sql_function(conn: Connection):
+    conn.create_function("py_lower", 1, str.lower, deterministic=True)
+
+
+def create_indexes(conn: Connection, edition: str):
+    sql = """
     CREATE INDEX entry_index ON entry (title);
     CREATE INDEX form_index ON form (entry_id, form);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
-    PRAGMA optimize;
-    """)
+    CREATE INDEX fragment_index ON title_fragment (entry_id, text);
+    """
+    if edition == "simple":
+        sql += "CREATE INDEX link_index ON link (entry_id, href);"
+    else:
+        sql += "CREATE INDEX link_index ON link (entry_id);"
+    sql += "PRAGMA optimize;"
+    conn.executescript(sql)
     conn.commit()
 
 
@@ -63,7 +88,8 @@ def check_def_len(conn: Connection) -> bool:
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo JOIN entry e2
-        WHERE fo.entry_id = e.id AND fo.target = e2.title
+        LEFT JOIN title_fragment tf ON tf.entry_id = e2.id
+        WHERE fo.entry_id = e.id AND (fo.target = e2.title OR fo.target = tf.text)
       )))
     """):
         return bool(use_64_bits)
@@ -78,11 +104,10 @@ def iter_entries(conn: Connection):
     LEFT JOIN image i ON i.entry_id = e.id
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
-        SELECT 1 FROM form_of fo JOIN entry e2
-        WHERE fo.entry_id = e.id AND fo.target = e2.title AND fo.target NOT LIKE '%#%'
-        UNION ALL
-        SELECT 1 FROM form_of fo JOIN form f
-        WHERE fo.entry_id = e.id AND fo.target = f.form AND fo.target LIKE '%#%'
+        SELECT 1 FROM form_of fo
+        JOIN entry e2
+        LEFT JOIN title_fragment tf ON tf.entry_id = e2.id
+        WHERE fo.entry_id = e.id AND (fo.target = e2.title OR fo.target = tf.text)
       )
     )) GROUP BY e.id ORDER BY e.title_lower, e.title
     """)
@@ -97,21 +122,14 @@ def iter_entries(conn: Connection):
 def iter_forms(conn: Connection):
     for form, index in conn.execute("""
     WITH form_only_forms AS MATERIALIZED (
-      SELECT e.title_lower, e.title, f.form_lower, f.form, t_e.index_num
+      SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
       FROM entry e
       JOIN form_of fo ON fo.entry_id = e.id
-      JOIN entry t_e ON t_e.title = fo.target
+      JOIN entry te
       LEFT JOIN form f ON f.entry_id = e.id
-      WHERE e.index_num IS NULL AND t_e.index_num IS NOT NULL
-            AND fo.target NOT LIKE '%#%'
-      UNION ALL
-      SELECT e.title_lower, e.title, f.form_lower, f.form, t_e.index_num
-      FROM entry e
-      JOIN form_of fo ON fo.entry_id = e.id
-      JOIN form t_f ON t_f.form = fo.target
-      JOIN entry t_e ON t_e.id = t_f.entry_id
-      LEFT JOIN form f ON f.entry_id = e.id
-      WHERE e.index_num IS NULL AND t_e.index_num IS NOT NULL AND fo.target LIKE '%#%'
+      LEFT JOIN title_fragment tf ON tf.entry_id = te.id
+      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND
+        (te.title = fo.target OR tf.text = fo.target)
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num
@@ -163,11 +181,14 @@ def delete_problematic_forms(conn: Connection):
 
 def insert_data(
     conn: Connection,
+    page_name: str,
     definition: str,
     forms: list[str],
-    form_of_only: bool,
-    form_of_targets: list[str],
-    images: list[str],
+    form_of_only: bool = False,
+    form_of_targets: list[str] = [],
+    images: list[str] = [],
+    ids: list[str] = [],
+    links: list[str] = [],
 ):
     for (entry_id,) in conn.execute(
         """
@@ -187,4 +208,54 @@ def insert_data(
         conn.executemany(
             "INSERT INTO image (entry_id, url) VALUES(?, ?)",
             ((entry_id, url) for url in images),
+        )
+        conn.executemany(
+            "INSERT INTO title_fragment (entry_id, text) VALUES(?, ?)",
+            ((entry_id, f"{page_name.replace(' ', '_')}#{id}") for id in ids),
+        )
+        conn.executemany(
+            "INSERT INTO link (entry_id, href) VALUES(?, ?)",
+            ((entry_id, href) for href in links),
+        )
+
+
+def combine_links(db_paths: list[Path], all_links_path: Path):
+    import sqlite3
+
+    if all_links_path.exists():
+        all_links_path.unlink()
+    conn = sqlite3.connect(all_links_path)
+    conn.execute("CREATE TABLE link (href TEXT PRIMARY KEY)")
+    for db_path in db_paths:
+        conn.execute("ATTACH DATABASE ? AS lang_db", (str(db_path),))
+        conn.executescript(
+            """
+            INSERT OR IGNORE INTO main.link (href)
+            SELECT l.href FROM lang_db.link l;
+            DETACH DATABASE lang_db;
+            """
+        )
+    conn.execute("PRAGMA optimize;")
+    conn.commit()
+    conn.close()
+
+
+def insert_fragment_forms(conn: Connection, edition: str, all_links_path: Path):
+    if edition == "simple":
+        conn.execute(
+            """
+            INSERT INTO form (entry_id, form, form_lower)
+            SELECT DISTINCT tf.entry_id, text, py_lower(text)
+            FROM title_fragment tf JOIN link l ON l.href = tf.text
+            """
+        )
+    else:
+        conn.execute("ATTACH DATABASE ? AS all_links", (str(all_links_path),))
+        conn.executescript(
+            """
+            INSERT INTO form (entry_id, form, form_lower)
+            SELECT DISTINCT entry_id, text, py_lower(text)
+            FROM title_fragment tf JOIN all_links.link l ON l.href = tf.text;
+            DETACH DATABASE all_links;
+            """
         )

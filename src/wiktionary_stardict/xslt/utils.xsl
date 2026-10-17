@@ -223,4 +223,10 @@
         select="let $href := substring-after($a/@href, './') return
                 if (contains($href, '#')) then $href else replace($href, '_', ' ')"/>
   </xsl:function>
+
+  <xsl:function name="myfn:get-links" as="xs:string*">
+    <xsl:param name="section"/>
+    <xsl:sequence
+        select="distinct-values($section//a/@href/substring-after(., 'bword://'))"/>
+  </xsl:function>
 </xsl:stylesheet>

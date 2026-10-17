@@ -74,7 +74,8 @@
                     'indent': false(), 'escape-uri-attributes': false()}),
                   'images': array{$images},
                   'ids': array{myfn:get-pos-section-ids(.)},
-                  'math': array{$math}}"/>
+                  'math': array{$math},
+                  'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>
 

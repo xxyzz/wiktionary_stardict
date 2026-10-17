@@ -80,7 +80,8 @@
                   'form_of_only': $form-of-only,
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'zim_pages': array{$liite-links},
-                  'math': array{$math}}"/>
+                  'math': array{$math},
+                  'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>
 

@@ -39,6 +39,7 @@ class EnPOSTestCase(XMLTestCase):
       </ol>
     </section>""",
                     "form_of_only": False,
+                    "links": ["tees#English", "T#English", "t#English"],
                 },
             ],
         )
