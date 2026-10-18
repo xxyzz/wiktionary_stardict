@@ -67,3 +67,16 @@ class RedirectTest(TestCase):
                 ("no match id", 1),
             ],
         )
+
+    def test_dont_add_duplicated_form(self):
+        with sqlite3.connect(self.rdb_path) as r_conn:
+            r_conn.executemany(
+                "INSERT INTO redirect VALUES(?, ?, ?)",
+                [("＃MeToo", "Unsupported titles/`num`MeToo", "")],
+            )
+        insert_data(
+            self.conn, "Unsupported titles/`num`MeToo", "＃MeToo def", ["＃MeToo"]
+        )
+        list(iter_entries(self.conn))
+        add_redirects(self.conn, self.rdb_path)
+        self.assertEqual(list(iter_forms(self.conn)), [])

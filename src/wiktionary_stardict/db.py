@@ -17,7 +17,8 @@ def init_db(lemma_lang: str) -> Connection:
       title_lower  TEXT,
       definition   TEXT,
       form_of_only INTEGER,
-      index_num    INTEGER
+      index_num    INTEGER,
+      origin_title TEXT
     );
 
     CREATE TABLE form (
@@ -66,7 +67,7 @@ def create_sql_function(conn: Connection):
 
 def create_indexes(conn: Connection, edition: str):
     sql = """
-    CREATE INDEX entry_index ON entry (title);
+    CREATE INDEX entry_index ON entry (origin_title);
     CREATE INDEX form_index ON form (entry_id, form);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
@@ -88,7 +89,7 @@ def check_def_len(conn: Connection) -> bool:
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo
-        JOIN entry e2 ON fo.target = e2.title
+        JOIN entry e2 ON fo.target = e2.origin_title
         WHERE fo.entry_id = e.id
         UNION ALL
         SELECT 1 FROM form_of fo
@@ -109,7 +110,7 @@ def iter_entries(conn: Connection):
     WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
       NOT EXISTS (
         SELECT 1 FROM form_of fo
-        JOIN entry e2 ON fo.target = e2.title
+        JOIN entry e2 ON fo.target = e2.origin_title
         WHERE fo.entry_id = e.id
         UNION ALL
         SELECT 1 FROM form_of fo
@@ -132,7 +133,7 @@ def iter_forms(conn: Connection):
       SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
       FROM entry e
       JOIN form_of fo ON fo.entry_id = e.id
-      JOIN entry te ON te.title = fo.target
+      JOIN entry te ON fo.target = te.origin_title
       LEFT JOIN form f ON f.entry_id = e.id
       WHERE e.index_num IS NULL AND te.index_num IS NOT NULL
       UNION ALL
@@ -205,10 +206,10 @@ def insert_data(
 ):
     for (entry_id,) in conn.execute(
         """
-        INSERT INTO entry (title, title_lower, definition, form_of_only)
-        VALUES(?, ?, ?, ?) RETURNING id
+        INSERT INTO entry (title, title_lower, definition, form_of_only, origin_title)
+        VALUES(?, ?, ?, ?, ?) RETURNING id
         """,
-        (forms[0], forms[0].lower(), definition, form_of_only),
+        (forms[0], forms[0].lower(), definition, form_of_only, page_name),
     ):
         conn.executemany(
             "INSERT INTO form (entry_id, form, form_lower) VALUES(?, ?, ?)",
