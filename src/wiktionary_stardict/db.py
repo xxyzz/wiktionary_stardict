@@ -71,10 +71,10 @@ def create_indexes(conn: Connection, edition: str):
     CREATE INDEX form_index ON form (entry_id, form);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
-    CREATE INDEX fragment_index ON title_fragment (entry_id, text);
+    CREATE INDEX fragment_index ON title_fragment (text, entry_id);
     """
     if edition == "simple":
-        sql += "CREATE INDEX link_index ON link (entry_id, href);"
+        sql += "CREATE INDEX link_index ON link (href, entry_id);"
     else:
         sql += "CREATE INDEX link_index ON link (entry_id);"
     sql += "PRAGMA optimize;"
