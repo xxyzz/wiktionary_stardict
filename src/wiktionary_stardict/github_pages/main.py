@@ -16,7 +16,7 @@ def convert_release_data(tag: str):
     lemma_codes = {}
     ko_data = []
     for json_path in Path("build").glob("*.json"):
-        with json_path.open() as f:
+        with open(json_path) as f:
             data = json.load(f)
             gloss_code = json_path.stem
             gloss_name = EDITIONS[gloss_code]["lang"]

@@ -82,49 +82,47 @@ def create_indexes(conn: Connection, edition: str):
     conn.commit()
 
 
+ENTRIES_WHERE_SQL = """
+WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
+NOT EXISTS (
+  SELECT 1 FROM form_of fo
+  JOIN entry e2 ON fo.target = e2.origin_title
+  WHERE fo.entry_id = e.id
+  UNION ALL
+  SELECT 1 FROM form_of fo
+  JOIN title_fragment tf ON fo.target = tf.text
+  WHERE fo.entry_id = e.id
+)))"""
+
+
+def update_index_num(conn: Connection):
+    conn.execute(f"""
+    WITH rn AS (
+      SELECT e.id, row_number() OVER (ORDER BY e.title_lower, e.title) - 1 AS index_num
+      FROM entry e {ENTRIES_WHERE_SQL}
+    )
+    UPDATE entry AS e
+    SET index_num = rn.index_num
+    FROM rn
+    WHERE e.id = rn.id""")
+
+
 def check_def_len(conn: Connection) -> bool:
-    for (use_64_bits,) in conn.execute("""
+    for (use_64_bits,) in conn.execute(f"""
     SELECT sum(octet_length(e.definition)) > 0xFFFFFFFF
-    FROM entry e
-    WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
-      NOT EXISTS (
-        SELECT 1 FROM form_of fo
-        JOIN entry e2 ON fo.target = e2.origin_title
-        WHERE fo.entry_id = e.id
-        UNION ALL
-        SELECT 1 FROM form_of fo
-        JOIN title_fragment tf ON fo.target = tf.text
-        WHERE fo.entry_id = e.id
-      )))
-    """):
+    FROM entry e {ENTRIES_WHERE_SQL}"""):
         return bool(use_64_bits)
     return False
 
 
 def iter_entries(conn: Connection):
-    for index, (entry_id, definition, title, images) in enumerate(
-        conn.execute("""
-    SELECT e.id, e.definition, e.title, group_concat(i.url, '<sep>')
-    FROM entry e
-    LEFT JOIN image i ON i.entry_id = e.id
-    WHERE e.form_of_only = 0 OR (e.form_of_only = 1 AND (
-      NOT EXISTS (
-        SELECT 1 FROM form_of fo
-        JOIN entry e2 ON fo.target = e2.origin_title
-        WHERE fo.entry_id = e.id
-        UNION ALL
-        SELECT 1 FROM form_of fo
-        JOIN title_fragment tf ON fo.target = tf.text
-        WHERE fo.entry_id = e.id
-      )
-    )) GROUP BY e.id ORDER BY e.title_lower, e.title
-    """)
-    ):
-        conn.execute("UPDATE entry SET index_num = ? WHERE id = ?", (index, entry_id))
+    for definition, title, images in conn.execute(f"""
+        SELECT e.definition, e.title, group_concat(i.url, '<sep>')
+        FROM entry e
+        LEFT JOIN image i ON i.entry_id = e.id
+        {ENTRIES_WHERE_SQL}
+        GROUP BY e.id ORDER BY e.title_lower, e.title"""):
         yield (definition, title, images.split("<sep>") if images is not None else [])
-
-    delete_problematic_forms(conn)
-    conn.commit()
 
 
 def iter_forms(conn: Connection):
@@ -238,23 +236,18 @@ def combine_links(db_paths: list[Path], all_links_path: Path):
 
     if all_links_path.exists():
         all_links_path.unlink()
-    conn = sqlite3.connect(all_links_path)
-    conn.execute("CREATE TABLE link (href TEXT PRIMARY KEY)")
-    for db_path in db_paths:
-        conn.execute("ATTACH DATABASE ? AS lang_db", (str(db_path),))
-        conn.executescript(
-            """
+    with sqlite3.connect(all_links_path) as conn:
+        conn.execute("CREATE TABLE link (href TEXT PRIMARY KEY)")
+        for db_path in db_paths:
+            conn.execute("ATTACH DATABASE ? AS lang_db", (str(db_path),))
+            conn.executescript("""
             INSERT OR IGNORE INTO main.link (href)
             SELECT l.href
             FROM lang_db.entry e
             JOIN lang_db.link l ON e.id = l.entry_id
             WHERE e.index_num IS NOT NULL;
-            DETACH DATABASE lang_db;
-            """
-        )
-    conn.execute("PRAGMA optimize;")
-    conn.commit()
-    conn.close()
+            DETACH DATABASE lang_db;""")
+        conn.execute("PRAGMA optimize;")
 
 
 def insert_fragment_forms(conn: Connection, edition: str, all_links_path: Path):

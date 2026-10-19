@@ -150,6 +150,25 @@ def iter_chunk_lines(page_names: set[str], f):
         logger.info(f"{dup_pages} duplicated pages in {total_pages} pages")
 
 
+def update_db(edition: str, db_path: Path):
+    import sqlite3
+
+    from .db import (
+        create_indexes,
+        create_sql_function,
+        delete_problematic_forms,
+        update_index_num,
+    )
+    from .redirect import add_redirects
+
+    with sqlite3.connect(db_path) as conn:
+        create_sql_function(conn)
+        create_indexes(conn, edition)
+        update_index_num(conn)
+        delete_problematic_forms(conn)
+        add_redirects(conn, Path(f"build/{edition}_redirect.db"))
+
+
 def build(args):
     import json
     from concurrent.futures import ProcessPoolExecutor
@@ -218,10 +237,12 @@ def build(args):
         conn.commit()
         conn.close()
     if len(conn_dict) > 1:
-        combine_links(
-            [Path(f"build/{lang}.db") for lang in conn_dict.keys()],
-            Path(f"build/{args.edition}_links.db"),
-        )
+        db_paths = [Path(f"build/{lang}.db") for lang in conn_dict.keys()]
+        with ProcessPoolExecutor(
+            max_workers=min(len(conn_dict), process_cpu_count())
+        ) as executor:
+            list(executor.map(partial(update_db, args.edition), db_paths))
+        combine_links(db_paths, Path(f"build/{args.edition}_links.db"))
     if len(args.page) == 0:
         download_last_release_images(args.edition)
     dict_info = []

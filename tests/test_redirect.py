@@ -1,12 +1,7 @@
 import sqlite3
 from unittest import TestCase
 
-from wiktionary_stardict.db import (
-    init_db,
-    insert_data,
-    iter_entries,
-    iter_forms,
-)
+from wiktionary_stardict.db import init_db, insert_data, iter_forms, update_index_num
 from wiktionary_stardict.redirect import add_redirects
 
 
@@ -54,7 +49,7 @@ class RedirectTest(TestCase):
             ids=["English", "Noun", "English:_money"],
         )
         insert_data(self.conn, "bag", "bag verb", ["bag"], ids=["English", "Verb"])
-        list(iter_entries(self.conn))
+        update_index_num(self.conn)
         add_redirects(self.conn, self.rdb_path)
         self.assertEqual(
             list(iter_forms(self.conn)),
@@ -77,6 +72,6 @@ class RedirectTest(TestCase):
         insert_data(
             self.conn, "Unsupported titles/`num`MeToo", "＃MeToo def", ["＃MeToo"]
         )
-        list(iter_entries(self.conn))
+        update_index_num(self.conn)
         add_redirects(self.conn, self.rdb_path)
         self.assertEqual(list(iter_forms(self.conn)), [])

@@ -12,6 +12,7 @@ from wiktionary_stardict.db import (
     insert_fragment_forms,
     iter_entries,
     iter_forms,
+    update_index_num,
 )
 
 
@@ -51,6 +52,7 @@ class DBTest(TestCase):
             ["maldizer"],
         )
         create_indexes(self.conn, "en")
+        update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["maldizer"])
         self.assertEqual(
             list(iter_forms(self.conn)),
@@ -61,6 +63,7 @@ class DBTest(TestCase):
         insert_data(self.conn, "dyke", "dyke def", ["dyke", "dykes", "dike"])
         insert_data(self.conn, "dyke", "dike def", ["dike", "dikes"], True, ["dyke"])
         create_indexes(self.conn, "en")
+        update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["dyke"])
         self.assertEqual(
             list(iter_forms(self.conn)), [("dike", 0), ("dikes", 0), ("dykes", 0)]
@@ -71,12 +74,14 @@ class DBTest(TestCase):
             self.conn, "TACO", "TACO def", ["TACO"], True, ["Trump always chickens out"]
         )
         create_indexes(self.conn, "en")
+        update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["TACO"])
 
     def test_word_sort_order(self):
         insert_data(self.conn, "Book", "Book", ["Book", "Books"])
         insert_data(self.conn, "book", "book", ["book", "books", "booking", "booked"])
         insert_data(self.conn, "apple", "apple", ["apple", "apples"])
+        update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["apple", "Book", "book"])
         self.assertEqual(
             list(iter_forms(self.conn)),
@@ -93,6 +98,7 @@ class DBTest(TestCase):
             ["flying colours"],
         )
         insert_data(self.conn, "flying colours", "flying colours", ["flying colours"])
+        update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["flying colours"])
         self.assertEqual(list(iter_forms(self.conn)), [("flying colors", 0)])
 
@@ -100,7 +106,7 @@ class DBTest(TestCase):
         insert_data(self.conn, "-isieren", "-isieren", ["-isieren", "-isierend", "ich"])
         for num in range(FORMS_LIMIT):
             insert_data(self.conn, str(num), str(num), [str(num), "ich"])
-        self.get_titles()
+        update_index_num(self.conn)
         delete_problematic_forms(self.conn)
         form_count = defaultdict(int)
         for form, _ in iter_forms(self.conn):
@@ -120,10 +126,34 @@ class DBTest(TestCase):
             ["írhat", "írhatok"],
             True,
             ["ír#Hungarian:_to_write"],
-            links=["ír#Hungarian"],
+            links=["ír#Hungarian:_to_write"],
         )
         self.conn.commit()
+        update_index_num(self.conn)
         combine_links([self.db_path], self.all_links_path)
         insert_fragment_forms(self.conn, "en", self.all_links_path)
         self.assertEqual(self.get_titles(), ["ír", "ír"])
         self.assertEqual(list(iter_forms(self.conn)), [("írhat", 0), ("írhatok", 0)])
+
+    def test_link_id_form(self):
+        with self.conn:
+            insert_data(
+                self.conn,
+                "order",
+                "order",
+                ["order"],
+                links=["scale#English:_size_or_scope"],
+            )
+            insert_data(
+                self.conn,
+                "scale",
+                "scale",
+                ["scale"],
+                ids=["English", "English:_size_or_scope"],
+            )
+        update_index_num(self.conn)
+        combine_links([self.db_path], self.all_links_path)
+        insert_fragment_forms(self.conn, "en", self.all_links_path)
+        self.assertEqual(
+            list(iter_forms(self.conn)), [("scale#English:_size_or_scope", 1)]
+        )

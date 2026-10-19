@@ -201,7 +201,7 @@ class EnPOSTestCase(XMLTestCase):
         </span>
       </p>
       <ol>
-        <li>The <a href="bword://Maclaurin_series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
       </ol>
     </section>""",
                 },
@@ -237,7 +237,7 @@ class EnPOSTestCase(XMLTestCase):
         </span>
       </p>
       <ol>
-        <li>The <a href="bword://Maclaurin_series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
+        <li>The <a href="bword://Maclaurin series">Maclaurin series</a> expansion <mjx-container><svg></svg></mjx-container></li>
       </ol>
     </section>""",
                 },

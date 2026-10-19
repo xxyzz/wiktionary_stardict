@@ -86,15 +86,9 @@ def create_stardict(
 
     from mediawiki_langcodes import name_to_code
 
-    from .db import (
-        create_indexes,
-        create_sql_function,
-        delete_problematic_forms,
-        insert_fragment_forms,
-    )
+    from .db import create_sql_function, insert_fragment_forms
     from .edition import EDITIONS
     from .main import logger
-    from .redirect import add_redirects
     from .zim import open_zim
 
     zim = None
@@ -113,10 +107,7 @@ def create_stardict(
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
         create_sql_function(conn)
-        create_indexes(conn, edition)
-        delete_problematic_forms(conn)
         insert_fragment_forms(conn, edition, Path(f"build/{edition}_links.db"))
-        add_redirects(conn, Path(f"build/{edition}_redirect.db"))
         conn.commit()
         wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
             out_path, conn, edition, zim

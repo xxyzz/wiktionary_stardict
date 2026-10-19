@@ -31,7 +31,7 @@
 
   <!-- Create bword link -->
   <xsl:template match="a[myfn:is-bword-link(.)]" mode="clean-content">
-    <xsl:variable name="new-href" select="substring-after(@href, './')"/>
+    <xsl:variable name="new-href" select="myfn:get-a-element-target(.)"/>
     <xsl:copy>
       <xsl:apply-templates select="@* except @href" mode="clean-content"/>
       <xsl:attribute name="href" select="'bword://' || $new-href"/>
