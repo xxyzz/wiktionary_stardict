@@ -3,15 +3,8 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    expand-text="yes"
-    exclude-result-prefixes="#all">
-  <xsl:output
-      method="html"
-      html-version="5"
-      indent="no"
-      escape-uri-attributes="no"
-      encoding="UTF-8"/>
+    expand-text="yes">
+  <xsl:output indent="no" encoding="UTF-8"/>
   <xsl:param name="data"/>
   <xsl:variable name="images" select="parse-json($data)"/>
 

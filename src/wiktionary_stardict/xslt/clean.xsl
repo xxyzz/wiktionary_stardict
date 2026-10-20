@@ -20,8 +20,8 @@
 
   <!-- KOReader doesn't support `var()` CSS function -->
   <xsl:template match="@style" mode="clean-content">
-    <xsl:attribute name="style"
-                   select="replace(., 'var\([^,]+,\s*([^)]+)\s*\)', '$1')"/>
+    <xsl:attribute
+        name="style" select="replace(., 'var\([^,]+,\s*([^)]+)\s*\)', '$1')"/>
   </xsl:template>
 
   <!-- Remove category links -->

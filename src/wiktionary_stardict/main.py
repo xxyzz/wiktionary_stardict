@@ -156,6 +156,7 @@ def update_db(edition: str, db_path: Path):
     from .db import (
         create_indexes,
         create_sql_function,
+        delete_links,
         delete_problematic_forms,
         update_index_num,
     )
@@ -163,19 +164,49 @@ def update_db(edition: str, db_path: Path):
 
     with sqlite3.connect(db_path) as conn:
         create_sql_function(conn)
-        create_indexes(conn, edition)
+        create_indexes(conn)
         update_index_num(conn)
         delete_problematic_forms(conn)
         add_redirects(conn, Path(f"build/{edition}_redirect.db"))
+        delete_links(conn)
+
+
+def init_mod_link_worker():
+    from saxonche import PySaxonProcessor
+
+    global proc, executable
+    proc = PySaxonProcessor(license=False)
+    config_proc(proc)
+    xsltproc = proc.new_xslt30_processor()
+    executable = xsltproc.compile_stylesheet(
+        stylesheet_file=get_xsl_path("", "mod_link.xsl")
+    )
+
+
+def mod_entry_link_href(data: tuple[int, str, list[str]]):
+    import json
+
+    id, xml, hrefs = data
+    doc = proc.parse_xml(xml_text=xml)
+    executable.set_parameter(
+        "data", proc.make_string_value(json.dumps(hrefs, ensure_ascii=False))
+    )
+    return id, executable.transform_to_string(xdm_node=doc)
 
 
 def build(args):
     import json
+    import sqlite3
     from concurrent.futures import ProcessPoolExecutor
     from functools import partial
     from os import process_cpu_count
 
-    from .db import combine_links, init_db, insert_data
+    from .db import (
+        init_db,
+        insert_data,
+        iter_entry_with_links,
+        update_entry_links,
+    )
     from .edition import EDITIONS
     from .mathjax import shutdown_node, start_node
     from .redirect import download_redirect_db
@@ -236,13 +267,20 @@ def build(args):
     for conn in conn_dict.values():
         conn.commit()
         conn.close()
-    if len(conn_dict) > 1:
-        db_paths = [Path(f"build/{lang}.db") for lang in conn_dict.keys()]
-        with ProcessPoolExecutor(
-            max_workers=min(len(conn_dict), process_cpu_count())
-        ) as executor:
-            list(executor.map(partial(update_db, args.edition), db_paths))
-        combine_links(db_paths, Path(f"build/{args.edition}_links.db"))
+    db_paths = [Path(f"build/{lang}.db") for lang in conn_dict.keys()]
+    with ProcessPoolExecutor(
+        max_workers=min(len(conn_dict), process_cpu_count())
+    ) as executor:
+        list(executor.map(partial(update_db, args.edition), db_paths))
+
+    with ProcessPoolExecutor(initializer=init_mod_link_worker) as executor:
+        for db_path in db_paths:
+            with sqlite3.connect(db_path) as conn:
+                for id, html in executor.map(
+                    mod_entry_link_href, iter_entry_with_links(conn), chunksize=100
+                ):
+                    update_entry_links(conn, id, html)
+
     if len(args.page) == 0:
         download_last_release_images(args.edition)
     dict_info = []

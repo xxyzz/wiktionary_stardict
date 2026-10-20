@@ -105,9 +105,7 @@
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
-                'def': if (exists($math)) then serialize($final-definition) else
-                  serialize($final-definition, map{'method': 'html',
-                  'indent': false(), 'escape-uri-attributes': false()}),
+                'def': serialize($final-definition),
                 'images': array{$images},
                 'ids': array{myfn:get-pos-section-ids(.)},
                 'form_of_targets': array{if ($form-of-only) then

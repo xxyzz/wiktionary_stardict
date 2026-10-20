@@ -107,7 +107,7 @@ def create_stardict(
     with sqlite3.connect(db_path) as conn:
         logger.info(f"start creating {folder_name} dict and idx files")
         create_sql_function(conn)
-        insert_fragment_forms(conn, edition, Path(f"build/{edition}_links.db"))
+        insert_fragment_forms(conn)
         conn.commit()
         wordcount, idxfilesize, use_64_bits_offset = create_dict_idx_file(
             out_path, conn, edition, zim

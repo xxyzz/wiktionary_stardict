@@ -8,7 +8,6 @@ class XMLTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        from requests import Session
         from saxonche import PySaxonProcessor
 
         from wiktionary_stardict.main import config_proc, get_xsl_path
@@ -22,7 +21,9 @@ class XMLTestCase(TestCase):
         cls.math_xsl_exec = xsltproc.compile_stylesheet(
             stylesheet_file=get_xsl_path("", "math_svg.xsl")
         )
-        cls.session = Session()
+        cls.link_xsl_exec = xsltproc.compile_stylesheet(
+            stylesheet_file=get_xsl_path("", "mod_link.xsl")
+        )
 
     def assertXMLEqual(self, output, expected):
         from bs4 import BeautifulSoup
@@ -40,15 +41,28 @@ class XMLTestCase(TestCase):
         return json.loads(zim_result)
 
     def transform_input(self, input_html: str):
+        import json
+
         from wiktionary_stardict.main import transform
 
-        return transform(
+        list_data = transform(
             {"name": "test", "html": input_html},
             self.proc,
             self.executable,
             self.math_xsl_exec,
-            self.session,
+            None,
         )
+        for data in list_data:
+            if "def" in data:
+                doc = self.proc.parse_xml(xml_text=data["def"])
+                self.link_xsl_exec.set_parameter(
+                    "data",
+                    self.proc.make_string_value(
+                        json.dumps(data["links"], ensure_ascii=False)
+                    ),
+                )
+                data["def"] = self.link_xsl_exec.transform_to_string(xdm_node=doc)
+        return list_data
 
     def assertTransformEqual(self, input_html, expected_list, prettify=True):
         output = self.transform_input(input_html)

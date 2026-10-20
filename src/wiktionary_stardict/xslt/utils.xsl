@@ -227,6 +227,7 @@
   <xsl:function name="myfn:get-links" as="xs:string*">
     <xsl:param name="section"/>
     <xsl:sequence
-        select="distinct-values($section//a/@href/substring-after(., 'bword://'))"/>
+        select="distinct-values($section//a/@href[contains(., '#')]/
+                substring-after(., 'bword://'))"/>
   </xsl:function>
 </xsl:stylesheet>

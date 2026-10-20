@@ -5,7 +5,7 @@
   <img style="width:40%;" loading="lazy" src="https://github.com/xxyzz/wiktionary_stardict/releases/download/20260329/en.png" alt="KOReader screenshot"/>
 </picture>
 
-Data source: https://enterprise.wikimedia.com and https://kiwix.org
+Data source: https://enterprise.wikimedia.com, https://kiwix.org and https://dumps.wikimedia.org
 
 Download from https://xxyzz.github.io/wiktionary_stardict/ or KOReader dictionary settings menu
 
