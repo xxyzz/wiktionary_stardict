@@ -167,17 +167,19 @@ def create_dict_idx_file(
     folder: Path, conn: Connection, edition: str, zim
 ) -> tuple[int, int, bool]:
     from idzip import IdzipFile
+    from idzip.compressor import IdzipWriter
 
     from .db import check_def_len, iter_entries
     from .main import logger
     from .snapshot import init_requests_session
 
-    dict_path = folder / (folder.name + ".dict.dz")
+    dict_path = folder / (folder.name + ".dict")
     idx_path = folder / (folder.name + ".idx")
     res_path = folder / "res"
     use_64_bits_offset = check_def_len(conn)
     if use_64_bits_offset:
         logger.warning(f"{folder.name} uses 64 bits offset")
+    IdzipWriter.enforce_extension = False
     with (
         IdzipFile(str(dict_path), "wb") as dict_f,
         open(idx_path, "wb") as idx_f,
@@ -200,6 +202,7 @@ def create_dict_idx_file(
             for image in images:
                 download_image(res_path, image, edition, zim, session, title)
 
+    dict_path.rename(dict_path.with_suffix(".dict.dz"))
     if res_path.is_dir():
         for img_path in res_path.iterdir():
             if img_path.name.endswith("_fail"):
