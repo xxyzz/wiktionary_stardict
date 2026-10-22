@@ -53,6 +53,17 @@ u {
 .ipa {
   font-family: Gentium,sans-serif;
 }
+mjx-container[jax="SVG"] {
+  direction: ltr;
+  white-space: nowrap;
+}
+mjx-container[display] {
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: .7em 0;
+  padding: .3em 2px;
+}
 
 *[lang="zh"] {
   font-family:'Source Han Sans TW',sans-serif

@@ -110,8 +110,6 @@
                     satisfies myfn:li-is-form-of($li)))"/>
       </xsl:variable>
 
-      <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
-
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
@@ -121,7 +119,7 @@
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
                   'zim_pages': array{$vervoeging-links},
-                  'math': array{$math},
+                  'svg': array{myfn:get-svg-data(.)},
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>

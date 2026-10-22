@@ -68,8 +68,6 @@
         name="form-of-only" as="xs:boolean"
         select="boolean(contains(normalize-space(i[1]), ', forma '))"/>
 
-    <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
-
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
@@ -79,7 +77,7 @@
                 'form_of_only': $form-of-only,
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(following-sibling::dl[1]/dd) else ()},
-                'math': array{$math},
+                'svg': array{myfn:get-svg-data(.)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

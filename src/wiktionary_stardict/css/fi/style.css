@@ -46,6 +46,17 @@ dd {
   border-radius: 2px;
   text-decoration: none;
 }
+mjx-container[jax="SVG"] {
+  direction: ltr;
+  white-space: nowrap;
+}
+mjx-container[display] {
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: .7em 0;
+  padding: .3em 2px;
+}
 
 .Jpan {
   font-family:'Source Han Sans JP',sans-serif;

@@ -17,10 +17,11 @@
     </xsl:attribute>
   </xsl:template>
 
-  <xsl:function name="myfn:get-math-tex" as="xs:string*">
+  <xsl:function name="myfn:get-svg-data" as="item()*">
     <xsl:param name="input-ele"/>
     <xsl:sequence
-        select="$input-ele//*[contains-token(@class, 'mwe-math-element') and @data-mw]/
-                parse-json(@data-mw)?body?extsrc"/>
+        select="$input-ele//*[some $cls in ('mw-ext-score', 'mw-ext-score-disabled',
+                'mwe-math-element') satisfies contains-token(@class, $cls)]/@data-mw !
+                parse-json(.)"/>
   </xsl:function>
 </xsl:stylesheet>

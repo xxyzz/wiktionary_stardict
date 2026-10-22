@@ -63,8 +63,6 @@
           select="boolean(every $li in ol/li[myfn:is-gloss-li(.)]
                   satisfies myfn:is-form-of($li))"/>
 
-      <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
-
       <xsl:sequence
           select="map{'lang': 'English',
                   'forms': array{$unique-forms},
@@ -74,7 +72,7 @@
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
                   'ids': array{string(h2/@id)},
-                  'math': array{$math},
+                  'svg': array{myfn:get-svg-data(.)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

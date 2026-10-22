@@ -18,6 +18,7 @@ def get_snapshot_chunks(identifier: str, test_pages: list[str]) -> tuple[str, in
 def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[str]):
     import json
     import subprocess
+    from urllib.parse import quote
 
     from .main import logger
 
@@ -39,27 +40,36 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
         )
         decompress_chunk(zst_path)
     else:
-        with (
-            open(zst_path.with_suffix(".ndjson"), "w") as f,
-            init_requests_session() as session,
-        ):
+        ndjson_path = zst_path.with_suffix(".ndjson")
+        old_data = {}
+        if ndjson_path.exists():
+            with open(ndjson_path) as f:
+                for line in f:
+                    data = json.loads(line)
+                    old_data[data["name"]] = data["html"]
+        with open(ndjson_path, "w") as f, init_requests_session() as session:
             for test_page in test_pages:
-                r = session.get(
-                    f"https://{edition}.wiktionary.org/w/rest.php/v1/page/{test_page}/html",
-                )
-                if r.ok:
-                    json.dump(
-                        {"name": test_page, "html": r.text},
-                        f,
-                        ensure_ascii=False,
-                        separators=(",", ":"),
-                    )
-                    f.write("\n")
+                if test_page in old_data:
+                    page_html = old_data[test_page]
                 else:
-                    logger.warning(
-                        f'Download page "{test_page}" failed: {r.status_code=}'
-                        f" {r.reason=} {r.text=}"
+                    quoted_title = quote(test_page, safe="")
+                    r = session.get(
+                        f"https://{edition}.wiktionary.org/w/rest.php/v1/page/{quoted_title}/html",
                     )
+                    if r.ok:
+                        page_html = r.text
+                    else:
+                        logger.warning(
+                            f'Download page "{test_page}" failed: {r.status_code=}'
+                            f" {r.reason=} {r.text=}"
+                        )
+                json.dump(
+                    {"name": test_page, "html": page_html},
+                    f,
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                )
+                f.write("\n")
 
 
 def decompress_chunk(zst_path: Path):

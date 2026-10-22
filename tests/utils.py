@@ -18,8 +18,8 @@ class XMLTestCase(TestCase):
         cls.executable = xsltproc.compile_stylesheet(
             stylesheet_file=get_xsl_path(cls.edition, cls.xsl_file)
         )
-        cls.math_xsl_exec = xsltproc.compile_stylesheet(
-            stylesheet_file=get_xsl_path("", "math_svg.xsl")
+        cls.svg_xsl_exec = xsltproc.compile_stylesheet(
+            stylesheet_file=get_xsl_path("", "svg.xsl")
         )
         cls.link_xsl_exec = xsltproc.compile_stylesheet(
             stylesheet_file=get_xsl_path("", "mod_link.xsl")
@@ -49,7 +49,7 @@ class XMLTestCase(TestCase):
             {"name": "test", "html": input_html},
             self.proc,
             self.executable,
-            self.math_xsl_exec,
+            self.svg_xsl_exec,
             None,
         )
         for data in list_data:

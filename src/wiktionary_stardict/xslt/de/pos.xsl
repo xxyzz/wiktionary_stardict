@@ -59,8 +59,6 @@
       <xsl:apply-templates select="$definition" mode="convert-img"/>
     </xsl:variable>
 
-    <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
-
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
@@ -68,7 +66,7 @@
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'math': array{$math},
+                'svg': array{myfn:get-svg-data(.)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

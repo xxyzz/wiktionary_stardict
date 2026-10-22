@@ -41,10 +41,10 @@ await MathJax.init({
   },
 });
 
-async function tex2svg(input) {
+async function tex2svg(data) {
   const node = await MathJax.tex2svgPromise(
-    input,
-    { display: true, em: 36, ex: 18 },
+    data.body,
+    { display: data.display, em: 36, ex: 18 },
   );
   return MathJax.startup.adaptor.serializeXML(node);
 }
@@ -58,7 +58,7 @@ const server = createServer(async (req, res) => {
       })
       .on("end", async () => {
         body = Buffer.concat(body).toString();
-        const svg = await tex2svg(body);
+        const svg = await tex2svg(JSON.parse(body));
         res.on("error", err => {
           console.error(err);
         });

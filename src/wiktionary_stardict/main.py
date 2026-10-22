@@ -42,7 +42,7 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
 
     from .zim import open_zim
 
-    global proc, executable, zim, zim_xsl_exec, math_xsl_exec, session
+    global proc, executable, zim, zim_xsl_exec, svg_xsl_exec, session
     proc = PySaxonProcessor(license=False)
     config_proc(proc)
     xsltproc = proc.new_xslt30_processor()
@@ -53,8 +53,8 @@ def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None)
     else:
         zim = None
         zim_xsl_exec = None
-    math_xsl_exec = xsltproc.compile_stylesheet(
-        stylesheet_file=get_xsl_path("", "math_svg.xsl")
+    svg_xsl_exec = xsltproc.compile_stylesheet(
+        stylesheet_file=get_xsl_path("", "svg.xsl")
     )
     session = Session()
     atexit.register(exit_worker)
@@ -71,7 +71,7 @@ def transform_worker(chunk_data) -> list[dict]:
 
     from .zim import get_zim_page
 
-    json_result = transform(chunk_data, proc, executable, math_xsl_exec, session)
+    json_result = transform(chunk_data, proc, executable, svg_xsl_exec, session)
     if zim is not None:
         for data in json_result:
             extra_forms = []
@@ -90,7 +90,7 @@ def transform_worker(chunk_data) -> list[dict]:
     return json_result
 
 
-def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict]:
+def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]:
     import json
 
     from saxonche import PySaxonApiError
@@ -113,21 +113,22 @@ def transform(chunk_data, proc, executable, math_xsl_exec, session) -> list[dict
         data["forms"] = list(
             dict.fromkeys(f.strip() for f in data["forms"] if f.strip() != "")
         )
-        math_svg_dict = {}
-        for math_tex in data.get("math", []):
-            math_svg_dict[math_tex] = get_math_svg(session, math_tex)
-        if len(math_svg_dict) > 0:
+        svg_dict = {}
+        for svg_data in data.get("svg", []):
+            svg_body = svg_data.get("body", "").get("extsrc", "")
+            match svg_data.get("name", ""):
+                case "math" | "chem":
+                    svg_dict[svg_body] = get_math_svg(session, svg_data)
+        if len(svg_dict) > 0:
             try:
-                math_doc = proc.parse_xml(xml_text=data["def"])
-                math_xsl_exec.set_parameter(
+                doc = proc.parse_xml(xml_text=data["def"])
+                svg_xsl_exec.set_parameter(
                     "data",
-                    proc.make_string_value(
-                        json.dumps(math_svg_dict, ensure_ascii=False)
-                    ),
+                    proc.make_string_value(json.dumps(svg_dict, ensure_ascii=False)),
                 )
-                data["def"] = math_xsl_exec.transform_to_string(xdm_node=math_doc)
+                data["def"] = svg_xsl_exec.transform_to_string(xdm_node=doc)
             except PySaxonApiError as err:
-                logger.error(f'Convert math error in page: "{page_name}" {err}')
+                logger.error(f'Add svg error in page: "{page_name}" {err}')
 
     return json_result
 
@@ -201,12 +202,7 @@ def build(args):
     from functools import partial
     from os import process_cpu_count
 
-    from .db import (
-        init_db,
-        insert_data,
-        iter_entry_with_links,
-        update_entry_links,
-    )
+    from .db import init_db, insert_data, iter_entry_with_links, update_entry_links
     from .edition import EDITIONS
     from .mathjax import shutdown_node, start_node
     from .redirect import download_redirect_db
@@ -234,7 +230,7 @@ def build(args):
             chunk_identifier = f"{snapshot_identifier}_chunk_{chunk_idx}"
             chunk_zst_path = get_chunk_zst_path(chunk_identifier)
             ndjson_path = chunk_zst_path.with_suffix(".ndjson")
-            if not ndjson_path.exists():
+            if not ndjson_path.exists() or len(args.page) > 0:
                 download_chunk(
                     args.edition, chunk_identifier, chunk_zst_path, args.page
                 )

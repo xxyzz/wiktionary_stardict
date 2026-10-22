@@ -31,6 +31,17 @@ li {
 .mw-parser-output h4 a {
   color: inherit;
 }
+mjx-container[jax="SVG"] {
+  direction: ltr;
+  white-space: nowrap;
+}
+mjx-container[display] {
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: .7em 0;
+  padding: .3em 2px;
+}
 
 @font-face {
   font-family: Gentium;

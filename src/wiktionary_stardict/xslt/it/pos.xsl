@@ -100,8 +100,6 @@
                 preceding-sibling::h3[1] else h3[1])
                 return (ends-with($pos, ', forma flessa') or $pos = 'Voce verbale'))"/>
 
-    <xsl:variable name="math" select="myfn:get-math-tex(.)"/>
-
     <xsl:sequence
         select="map{'lang': $language,
                 'forms': array{$unique-forms},
@@ -112,7 +110,7 @@
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
                 'zim_pages': array{$conj-links},
-                'math': array{$math},
+                'svg': array{myfn:get-svg-data(.)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

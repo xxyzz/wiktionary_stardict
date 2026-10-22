@@ -485,10 +485,7 @@ class EnPOSTestCase(XMLTestCase):
 <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/79b6d531a4481eeb1be6fd20769cfcc0da365062" class="mwe-math-fallback-image-inline mw-invert skin-invert" alt="math_tex"/>
 </span>
 </dd></dl></li></ol>
-</section>
-</section>
-</body>
-</html>""",
+</section></section></body></html>""",
             [
                 {
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
@@ -502,6 +499,10 @@ class EnPOSTestCase(XMLTestCase):
 <mjx-container><svg></svg></mjx-container>
 </dd></dl></li></ol>
     </section>""",
+                    "images": [],
+                    "svg": [
+                        {"name": "math", "attrs": {}, "body": {"extsrc": "math_tex"}}
+                    ],
                 },
             ],
         )
@@ -1035,4 +1036,51 @@ class EnPOSTestCase(XMLTestCase):
 <ol><li>gloss<sup class="mw-ref reference" id="cite_ref-SOED_1-0"></sup></li></ol>
 </section></section></body></html>""",
             [{"ids": ["Noun"]}],
+        )
+
+    @patch(
+        "wiktionary_stardict.mathjax.get_math_svg",
+        return_value="<mjx-container><svg></svg></mjx-container>",
+    )
+    def test_chem(self, mock_fun):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>adipic acid</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">adipic acid</strong></span></p>
+<ol><li>gloss<math class="mwe-math-element mwe-math-element-inline" typeof="mw:Extension/chem" data-mw='{"name":"chem","attrs":{},"body":{"extsrc":"C4H8(COOH)2"}}'></math></li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">adipic acid
+</strong></p>
+<ol><li>gloss<mjx-container><svg></svg></mjx-container></li></ol>
+</section>""",
+                    "svg": [
+                        {"name": "chem", "attrs": {}, "body": {"extsrc": "C4H8(COOH)2"}}
+                    ],
+                }
+            ],
+        )
+        self.assertTransformEqual(
+            r"""<!DOCTYPE html>
+<html><head><title>Michaelis-Menten_equation</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">Michaelis-Menten_equation</strong></span></p>
+<ol><li>gloss<math class="mwe-math-element mwe-math-element-inline" typeof="mw:Extension/math" data-mw='{"name":"math","attrs":{"chem":""},"body":{"extsrc":" v = \\frac{\\mathrm{d} p}{\\mathrm{d} t} = \\frac{V a}{K_\\mathrm{m} + a} "}}'></math></li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">Michaelis-Menten_equation
+</strong></p>
+<ol><li>gloss<mjx-container><svg></svg></mjx-container></li></ol>
+</section>""",
+                }
+            ],
         )

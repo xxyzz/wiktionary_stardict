@@ -11,7 +11,8 @@
   <xsl:mode name="clean-content" on-no-match="shallow-copy"/>
 
   <xsl:template
-      match="@data-mw[not(parse-json(.)?name = 'math')]" mode="clean-content"/>
+      match="@data-mw[not(parse-json(.)?name = ('math', 'chem'))]"
+      mode="clean-content"/>
 
   <xsl:template
       match="@typeof | @about | @id | @rel | @srcset | @resource |
