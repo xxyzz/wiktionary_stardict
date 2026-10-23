@@ -181,7 +181,7 @@ class EsPOSTestCase(XMLTestCase):
         )
 
     @patch(
-        "wiktionary_stardict.mathjax.get_math_svg",
+        "wiktionary_stardict.mathjax.tex2svg",
         return_value="<mjx-container><svg></svg></mjx-container>",
     )
     def test_lt_in_math(self, mock_fun):

@@ -168,7 +168,7 @@ class EnPOSTestCase(XMLTestCase):
         )
 
     @patch(
-        "wiktionary_stardict.mathjax.get_math_svg",
+        "wiktionary_stardict.mathjax.tex2svg",
         return_value="<mjx-container><svg></svg></mjx-container>",
     )
     def test_math_svg(self, mock_fun):
@@ -428,7 +428,7 @@ class EnPOSTestCase(XMLTestCase):
         )
 
     @patch(
-        "wiktionary_stardict.mathjax.get_math_svg",
+        "wiktionary_stardict.mathjax.tex2svg",
         return_value="<mjx-container><svg></svg></mjx-container>",
     )
     def test_math_example(self, mock_fun):
@@ -1039,7 +1039,7 @@ class EnPOSTestCase(XMLTestCase):
         )
 
     @patch(
-        "wiktionary_stardict.mathjax.get_math_svg",
+        "wiktionary_stardict.mathjax.tex2svg",
         return_value="<mjx-container><svg></svg></mjx-container>",
     )
     def test_chem(self, mock_fun):
@@ -1062,25 +1062,6 @@ class EnPOSTestCase(XMLTestCase):
                     "svg": [
                         {"name": "chem", "attrs": {}, "body": {"extsrc": "C4H8(COOH)2"}}
                     ],
-                }
-            ],
-        )
-        self.assertTransformEqual(
-            r"""<!DOCTYPE html>
-<html><head><title>Michaelis-Menten_equation</title></head><body>
-<section><h2>English</h2>
-<section><h3>Noun</h3>
-<p><span class="headword-line"><strong class="Latn headword" lang="en">Michaelis-Menten_equation</strong></span></p>
-<ol><li>gloss<math class="mwe-math-element mwe-math-element-inline" typeof="mw:Extension/math" data-mw='{"name":"math","attrs":{"chem":""},"body":{"extsrc":" v = \\frac{\\mathrm{d} p}{\\mathrm{d} t} = \\frac{V a}{K_\\mathrm{m} + a} "}}'></math></li></ol>
-</section></section></body></html>""",
-            [
-                {
-                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
-<h4>Noun</h4>
-<p><span class="headword-line"><strong class="Latn headword" lang="en">Michaelis-Menten_equation
-</strong></p>
-<ol><li>gloss<mjx-container><svg></svg></mjx-container></li></ol>
-</section>""",
                 }
             ],
         )

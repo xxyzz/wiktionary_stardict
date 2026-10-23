@@ -1,0 +1,2 @@
+set -e
+npm install

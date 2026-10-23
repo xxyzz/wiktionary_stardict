@@ -95,7 +95,7 @@ def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]
 
     from saxonche import PySaxonApiError
 
-    from .mathjax import get_math_svg
+    from .mathjax import tex2svg
 
     page_name = chunk_data["name"]
     try:
@@ -118,7 +118,7 @@ def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]
             svg_body = svg_data.get("body", "").get("extsrc", "")
             match svg_data.get("name", ""):
                 case "math" | "chem":
-                    svg_dict[svg_body] = get_math_svg(session, svg_data)
+                    svg_dict[svg_body] = tex2svg(session, svg_data)
         if len(svg_dict) > 0:
             try:
                 doc = proc.parse_xml(xml_text=data["def"])
@@ -222,7 +222,7 @@ def build(args):
         zim_xsl_path = get_xsl_path(args.edition, EDITIONS[args.edition]["zim_xsl"])
 
     page_names = set()
-    start_node()
+    node_process = start_node()
     with ProcessPoolExecutor(
         initializer=init_worker, initargs=(xsl_path, zim_path, zim_xsl_path)
     ) as executor:
@@ -258,7 +258,7 @@ def build(args):
                 ndjson_path.unlink()
             logger.info(f"chunk {chunk_identifier} done")
 
-    shutdown_node()
+    shutdown_node(node_process)
     page_names.clear()
     for conn in conn_dict.values():
         conn.commit()

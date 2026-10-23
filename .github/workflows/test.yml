@@ -19,5 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
+      - run: bash .github/install_deps.sh
       - run: python -m pip install .[dev]
       - run: python -m unittest discover -b -s tests

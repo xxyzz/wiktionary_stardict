@@ -70,7 +70,7 @@ jobs:
             --title ${{ steps.get-tag.outputs.tag }} \
             --draft --notes-file .github/release_note.md
 
-      - run: npm install
+      - run: bash .github/install_deps.sh
       - run: python -m pip install .
       - run: dict build ${{ matrix.edition }}
 

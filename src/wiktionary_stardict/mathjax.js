@@ -69,5 +69,7 @@ const server = createServer(async (req, res) => {
     res.end("bye", () => {
       server.close();
     });
+  } else if (req.method === "GET" && req.url === "/health") {
+    res.end();
   }
 }).listen(8080, "127.0.0.1");
