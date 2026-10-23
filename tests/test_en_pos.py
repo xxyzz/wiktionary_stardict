@@ -389,7 +389,8 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_score_sound(self):
+    @patch("wiktionary_stardict.score.get_score_svg", return_value="<svg></svg>")
+    def test_score_sound(self, mock_fun):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
@@ -418,10 +419,15 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
-<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><img src="rai5gcag.png" width="115" height="60" alt="&lt;c'aes fis'>1"/><div style="margin-top: 3px;"></div></div></i></div></dd></dl></li></ol>
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><svg></svg></div></i></div></dd></dl></li></ol>
 </section>""",
-                    "images": [
-                        "//upload.wikimedia.org/score/r/a/rai5gcag11ug70nkzqlrjaxl0zvsfyv/rai5gcag.png"
+                    "images": [],
+                    "svg": [
+                        {
+                            "name": "score",
+                            "attrs": {"sound": ""},
+                            "body": {"extsrc": "<c'aes fis'>1"},
+                        }
                     ],
                 },
             ],
@@ -859,7 +865,8 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    def test_score_without_example_template(self):
+    @patch("wiktionary_stardict.score.get_score_svg", return_value="<svg></svg>")
+    def test_score_without_example_template(self, mock_fun):
         self.assertTransformEqual(
             """<!DOCTYPE html>
 <html>
@@ -871,7 +878,7 @@ class EnPOSTestCase(XMLTestCase):
 </strong></span></p>
 <ol><li>gloss
 <dl><dd id="mwEg">In the key of C Major, the notes C, D, E, F, G, A, B, C form a major scale:
-<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.svg" width="240" height="52" alt="{c' d' e' f' g' a' b' c''}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></dd></dl></li></ol>
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert" data-mw='{"name":"score","attrs":{"sound":"1"},"body":{"extsrc":"{c&apos; d&apos; e&apos; f&apos; g&apos; a&apos; b&apos; c&apos;&apos;}"}}'><img src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.svg" width="240" height="52" alt="{c&apos; d&apos; e&apos; f&apos; g&apos; a&apos; b&apos; c&apos;&apos;}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></dd></dl></li></ol>
 </section>
 </section>
 </body>
@@ -884,11 +891,9 @@ class EnPOSTestCase(XMLTestCase):
 </strong></p>
 <ol><li>gloss
 <dl><dd>In the key of C Major, the notes C, D, E, F, G, A, B, C form a major scale:
-<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="a024d7k2.svg" width="240" height="52" alt="{c' d' e' f' g' a' b' c''}"/><div style="margin-top: 3px;"></div></div></dd></dl></dd></dl></li></ol>
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><svg></svg></div></dd></dl></dd></dl></li></ol>
 </section>""",
-                    "images": [
-                        "//upload.wikimedia.org/score/a/0/a024d7k2igfy5cm0r9s065q3m1zqmwp/a024d7k2.svg"
-                    ],
+                    "images": [],
                 }
             ],
         )
@@ -902,7 +907,7 @@ class EnPOSTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">A major
 </strong></span></p>
 <ol><li>gloss
-<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.svg" width="276" height="53" alt="{\key a \major a' b' cis'' d'' e'' fis'' gis'' a''2}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></li></ol>
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert" typeof="mw:Extension/score" data-mw='{"name":"score","attrs":{"sound":""},"body":{"extsrc":"{\\key a \\major a&apos; b&apos; cis&apos;&apos; d&apos;&apos; e&apos;&apos; fis&apos;&apos; gis&apos;&apos; a&apos;&apos;2}"}}'><img src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.svg" width="276" height="53" alt="{\\key a \\major a&apos; b&apos; cis&apos;&apos; d&apos;&apos; e&apos;&apos; fis&apos;&apos; gis&apos;&apos; a&apos;&apos;2}"/><div style="margin-top: 3px;"><audio controls=""><source src="//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.mp3" type="audio/mpeg"/></audio></div></div></dd></dl></li></ol>
 </section>
 </section>
 </body>
@@ -914,11 +919,9 @@ class EnPOSTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">A major
 </strong></p>
 <ol><li>gloss
-<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><img src="qgeu1x0v.svg" width="276" height="53" alt="{\key a \major a' b' cis'' d'' e'' fis'' gis'' a''2}"/><div style="margin-top: 3px;"></div></div></dd></dl></li></ol>
+<dl><dd><div class="mw-ext-score noresize mw-ext-score-svg skin-invert"><svg></svg></div></dd></dl></li></ol>
 </section>""",
-                    "images": [
-                        "//upload.wikimedia.org/score/q/g/qgeu1x0vdry92eeyz5jm2uobn78s7y2/qgeu1x0v.svg"
-                    ],
+                    "images": [],
                 }
             ],
         )

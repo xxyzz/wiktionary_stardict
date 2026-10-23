@@ -128,8 +128,8 @@
     <xsl:variable
         name="examples"
         select="dd[mathml:math or math or
-                .//div[some $c in ('h-usage-example', 'mw-ext-score') satisfies
-                contains-token(@class, $c)] or
+                .//div[some $c in ('h-usage-example', 'mw-ext-score',
+                'mw-ext-score-disabled') satisfies contains-token(@class, $c)] or
                 span[some $c in ('e-example', 'affixusex', 'mwe-math-element',
                 'h-usage-example') satisfies contains-token(@class, $c)] or
                 dl[contains-token(@class, 'zhusex')] or

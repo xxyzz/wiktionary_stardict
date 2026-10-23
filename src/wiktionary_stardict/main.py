@@ -96,6 +96,7 @@ def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]
     from saxonche import PySaxonApiError
 
     from .mathjax import tex2svg
+    from .score import get_score_svg
 
     page_name = chunk_data["name"]
     try:
@@ -119,6 +120,8 @@ def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]
             match svg_data.get("name", ""):
                 case "math" | "chem":
                     svg_dict[svg_body] = tex2svg(session, svg_data)
+                case "score":
+                    svg_dict[svg_body] = get_score_svg(page_name, svg_data)
         if len(svg_dict) > 0:
             try:
                 doc = proc.parse_xml(xml_text=data["def"])

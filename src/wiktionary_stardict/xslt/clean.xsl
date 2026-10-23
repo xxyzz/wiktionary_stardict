@@ -11,7 +11,7 @@
   <xsl:mode name="clean-content" on-no-match="shallow-copy"/>
 
   <xsl:template
-      match="@data-mw[not(parse-json(.)?name = ('math', 'chem'))]"
+      match="@data-mw[not(parse-json(.)?name = ('math', 'chem', 'score'))]"
       mode="clean-content"/>
 
   <xsl:template
@@ -66,7 +66,9 @@
       match="*[some $cls in ('mw-empty-elt', 'error') satisfies
              contains-token(@class, $cls)]" mode="clean-content"/>
 
-  <!-- Remove <math> fallback image -->
-  <xsl:template match="img[contains(@src, 'rest_v1/media/math/render/svg/')]"
-                mode="clean-content"/>
+  <!-- Remove <math> and <score> images -->
+  <xsl:template
+      match="img[some $src-part in ('rest_v1/media/math/render/svg/', '/score/')
+             satisfies contains(@src, $src-part)]"
+      mode="clean-content"/>
 </xsl:stylesheet>

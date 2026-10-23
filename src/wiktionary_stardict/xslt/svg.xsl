@@ -14,10 +14,20 @@
 
   <xsl:mode name="add-svg" on-no-match="shallow-copy"/>
   <xsl:template
-      match="*[some $cls in ('mwe-math-element', 'mw-ext-score', 'mw-ext-score-disabled')
-             satisfies contains-token(@class, $cls) and @data-mw]"
+      match="*[contains-token(@class, 'mwe-math-element') and @data-mw]"
       mode="add-svg">
     <xsl:sequence
         select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
+  </xsl:template>
+
+  <xsl:template
+      match="*[some $cls in ('mw-ext-score', 'mw-ext-score-disabled')
+             satisfies contains-token(@class, $cls) and @data-mw]"
+      mode="add-svg">
+    <xsl:copy>
+      <xsl:copy-of select="@* except @data-mw"/>
+      <xsl:sequence
+          select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
+    </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
