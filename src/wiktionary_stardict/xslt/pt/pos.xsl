@@ -98,7 +98,7 @@
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
-                'svg': array{myfn:get-svg-data(.)},
+                'svg': array{myfn:get-svg-data($final-definition)},
                 'ids': array{(h2[1] | preceding-sibling::h1[1])/
                   @id[not(starts-with(., 'mw'))]/string(.)},
                 'links': array{myfn:get-links($final-definition)}}"/>

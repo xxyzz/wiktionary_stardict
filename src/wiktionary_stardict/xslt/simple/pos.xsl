@@ -72,7 +72,7 @@
                     myfn:form-of-targets(ol/li) else ()},
                   'form_of_only': $form-of-only,
                   'ids': array{string(h2/@id)},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

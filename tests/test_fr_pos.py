@@ -270,3 +270,26 @@ class FrPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"form_of_only": True, "form_of_targets": ["about#en-prép"]}],
         )
+
+    def test_ignore_score_not_in_def(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>gamme mineure harmonique</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3>Locution nominale</h3>
+<div class="thumb tright" about="#mwt6" id="mwDw">
+<div class="thumbinner">
+<div class="illustration-musique">
+<div class="mw-ext-score noresize mw-ext-score-svg skin-invert" data-mw-midi="//upload.wikimedia.org/score/m/y/myjko5dskhtkls9bs0hs8gjl0xsdqng/myjko5ds.midi" typeof="mw:Extension/score" about="#mwt8" data-mw='{"name":"score","attrs":{"lang":"lilypond","note-language":"english","sound":"1"},"body":{"extsrc":"{\n\\override Score.TimeSignature #&apos;stencil = ##f\n\\relative c&apos; { \n  \\clef treble \\time 7/4\n  a4 b c d e f gs a2 }\n}"}}'><img src="//upload.wikimedia.org/score/m/y/myjko5dskhtkls9bs0hs8gjl0xsdqng/myjko5ds.svg" width="230" height="59" alt="{
+\\override Score.TimeSignature #'stencil = ##f
+\relative c' {
+  \\clef treble \time 7/4
+  a4 b c d e f gs a2 }
+}"/></div></div></div></div>
+<p><b>gamme mineure harmonique</b></p>
+<ol><li>Gamme, en musique occidentale</li></ol>
+</section></section></body></html>""",
+            [{"svg": [], "images": []}],
+        )

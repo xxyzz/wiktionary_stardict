@@ -79,7 +79,7 @@
                   'form_of_targets': array{if ($form-of-only) then
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

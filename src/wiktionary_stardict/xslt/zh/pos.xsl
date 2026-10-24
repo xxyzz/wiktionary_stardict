@@ -107,7 +107,7 @@
                   'form_of_only': $form-of-only,
                   'ids': array{distinct-values((myfn:get-pos-section-ids(.),
                     myfn:get-section-ids($etymology-section)))},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

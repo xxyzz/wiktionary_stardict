@@ -66,7 +66,7 @@
                 'images': array{$images},
                 'zim_pages': array{$flexion-links},
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'svg': array{myfn:get-svg-data(.)},
+                'svg': array{myfn:get-svg-data($final-definition)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

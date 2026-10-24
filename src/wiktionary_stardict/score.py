@@ -1,5 +1,6 @@
 # https://www.mediawiki.org/wiki/Extension:Score
 # https://lilypond.org/doc/v2.26/Documentation/usage/other-programs
+# https://github.com/wikimedia/mediawiki-extensions-Score/blob/master/includes/Score.php
 from pathlib import Path
 
 LILYPOND_VERSION = ""
@@ -15,27 +16,29 @@ def get_lilypond_version() -> str:
 def create_lilypond_code(data: dict) -> str:
     global LILYPOND_VERSION
 
-    if data.get("lang", "lilypond") == "lilypond" and data.get("raw", "0") == "1":
-        return data.get("body", {}).get("extsrc", "")
+    attrs = data.get("attrs", {})
+    extsrc = data.get("body", {}).get("extsrc", "")
+    if attrs.get("lang", "lilypond") == "lilypond" and attrs.get("raw", "0") == "1":
+        return extsrc
 
     if LILYPOND_VERSION == "":
         LILYPOND_VERSION = get_lilypond_version()
+    note_language = attrs.get("note-language", "nederlands")
+    line_width = attrs.get("line_width_inches", "")
+    line_width_code = f"line-width={line_width}\\in" if line_width != "" else ""
     code = f"""
 \\version "{LILYPOND_VERSION}"
+\\language "{note_language}"
 \\paper{{
   indent=0\\mm
   oddFooterMarkup=##f
   oddHeaderMarkup=##f
   bookTitleMarkup=##f
   scoreTitleMarkup=##f
-"""
-    line_width = data.get("attrs", {}).get("line_width_inches", "")
-    if line_width != "":
-        code += f"\nline-width={line_width}\\in"
-    code += f"""
+  {line_width_code}
 }}
 \\score {{
-  {data.get("body", {}).get("extsrc", "")}
+  {extsrc}
 }}"""
     return code
 
@@ -203,5 +206,7 @@ def get_score_svg(title: str, data: dict) -> str:
                 with open(svg_path) as svg_f:
                     return svg_f.read()
             else:
-                logger.error(f'lilypond failed in page "{title}": ' + p.stdout + p.stderr)
+                logger.error(
+                    f'lilypond failed in page "{title}": ' + p.stdout + p.stderr
+                )
                 return ""

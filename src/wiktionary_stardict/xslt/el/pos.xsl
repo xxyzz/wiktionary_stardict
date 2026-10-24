@@ -79,7 +79,7 @@
                   myfn:form-of-targets((ol|ul)/li) else ()},
                 'form_of_only': $form-of-only,
                 'ids': array{myfn:get-pos-section-ids(.)},
-                'svg': array{myfn:get-svg-data(.)},
+                'svg': array{myfn:get-svg-data($final-definition)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

@@ -70,7 +70,7 @@
                   'forms': array{$unique-forms},
                   'def': serialize($final-definition),
                   'images': array{$images},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>

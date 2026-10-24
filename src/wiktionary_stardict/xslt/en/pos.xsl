@@ -102,7 +102,7 @@
                   'ids': array{distinct-values((myfn:get-pos-section-ids(.),
                     myfn:get-section-ids($etymology-section)))},
                   'links': array{myfn:get-links($final-definition)},
-                  'svg': array{myfn:get-svg-data(.)}}"/>
+                  'svg': array{myfn:get-svg-data($final-definition)}}"/>
     </xsl:if>
   </xsl:template>
 

@@ -76,7 +76,7 @@
                   'form_of_only': $form-of-only,
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'zim_pages': array{$liite-links},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

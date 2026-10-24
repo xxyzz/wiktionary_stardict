@@ -110,7 +110,7 @@
                   myfn:form-of-targets(ol/li) else ()},
                 'form_of_only': $form-of-only,
                 'zim_pages': array{$conj-links},
-                'svg': array{myfn:get-svg-data(.)},
+                'svg': array{myfn:get-svg-data($final-definition)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

@@ -77,7 +77,7 @@
                 'form_of_only': $form-of-only,
                 'form_of_targets': array{if ($form-of-only) then
                   myfn:form-of-targets(following-sibling::dl[1]/dd) else ()},
-                'svg': array{myfn:get-svg-data(.)},
+                'svg': array{myfn:get-svg-data($final-definition)},
                 'links': array{myfn:get-links($final-definition)}}"/>
   </xsl:template>
 

@@ -70,7 +70,7 @@
                   'def': serialize($final-definition),
                   'images': array{$images},
                   'ids': array{myfn:get-pos-section-ids(.)},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
   </xsl:template>

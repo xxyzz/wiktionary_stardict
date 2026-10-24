@@ -119,7 +119,7 @@
                     myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
                   'form_of_only': $form-of-only,
                   'zim_pages': array{$vervoeging-links},
-                  'svg': array{myfn:get-svg-data(.)},
+                  'svg': array{myfn:get-svg-data($final-definition)},
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'links': array{myfn:get-links($final-definition)}}"/>
     </xsl:if>
