@@ -35,6 +35,7 @@ meson compile -C build
 sudo meson install -C build
 cd ..
 rm -rf bubblewrap*
+# https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
 sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
 # download lilypond

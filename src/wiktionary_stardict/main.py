@@ -32,6 +32,20 @@ def config_proc(proc):
     proc.set_configuration_property(
         "http://saxon.sf.net/feature/allow-external-functions", "false"
     )
+    # https://docs.oracle.com/en/java/javase/25/security/java-api-xml-processing-jaxp-security-guide.html
+    # JDK 25 has lower limits, set to 21's limits
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserProperty?uri=jdk.xml.maxGeneralEntitySizeLimit",
+        "0",
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserProperty?uri=jdk.xml.totalEntitySizeLimit",
+        str(5 * (10**7)),
+    )
+    proc.set_configuration_property(
+        "http://saxon.sf.net/feature/parserProperty?uri=jdk.xml.maxParameterEntitySizeLimit",
+        "1000000",
+    )
 
 
 def init_worker(xsl_path: str, zim_path: Path | None, zim_xsl_path: Path | None):
