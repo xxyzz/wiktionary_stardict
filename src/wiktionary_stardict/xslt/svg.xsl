@@ -3,6 +3,7 @@
     version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:svg="http://www.w3.org/2000/svg"
     expand-text="yes">
   <xsl:output indent="no" encoding="UTF-8"/>
   <xsl:param name="data"/>
@@ -26,8 +27,15 @@
       mode="add-svg">
     <xsl:copy>
       <xsl:copy-of select="@* except @data-mw"/>
-      <xsl:sequence
-          select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
+      <xsl:apply-templates
+          select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"
+          mode="enlarge-score-svg"/>
     </xsl:copy>
+  </xsl:template>
+
+  <xsl:mode name="enlarge-score-svg" on-no-match="shallow-copy"/>
+  <xsl:template
+      match="svg:svg/@*[local-name() = ('width', 'height')]" mode="enlarge-score-svg">
+    <xsl:attribute name="{name()}" select="number(.) * 2"/>
   </xsl:template>
 </xsl:stylesheet>

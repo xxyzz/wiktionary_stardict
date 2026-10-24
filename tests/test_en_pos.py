@@ -389,7 +389,10 @@ class EnPOSTestCase(XMLTestCase):
             ],
         )
 
-    @patch("wiktionary_stardict.score.get_score_svg", return_value="<svg></svg>")
+    @patch(
+        "wiktionary_stardict.score.get_score_svg",
+        return_value='<svg xmlns="http://www.w3.org/2000/svg" width="2" height="3"></svg>',
+    )
     def test_score_sound(self, mock_fun):
         self.assertTransformEqual(
             """<!DOCTYPE html>
@@ -419,7 +422,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
-<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><svg></svg></div></i></div></dd></dl></li></ol>
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="6"></svg></div></i></div></dd></dl></li></ol>
 </section>""",
                     "images": [],
                     "svg": [
