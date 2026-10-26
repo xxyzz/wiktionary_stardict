@@ -55,14 +55,7 @@ def create_bwrap_command(score_path: Path, seccomp_fd: int) -> list[str]:
         "--dev",
         "/dev",
     ]
-    for ro_bind in [
-        "/usr/bin",
-        "/usr/lib",
-        "/usr/share",
-        "/lib",
-        "/lib64",
-        "/etc",
-    ]:
+    for ro_bind in ["/usr", "/lib", "/lib64", "/etc"]:
         command.extend(["--ro-bind", ro_bind, ro_bind])
     for create_dir in ["/tmp", "/var"]:
         command.extend(["--dir", create_dir])

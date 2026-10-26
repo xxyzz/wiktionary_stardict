@@ -25,14 +25,15 @@ cd "$root_dir"
 rm -rf libseccomp*
 
 # compile bubblewrap
-sudo apt install meson libcap-dev
+sudo apt install ninja-build libcap-dev
 wget -nv https://github.com/containers/bubblewrap/releases/download/v0.13.1/bubblewrap-0.13.1.tar.xz
 tar -xf bubblewrap-*.tar.xz
 rm bubblewrap-*.tar.xz
 cd bubblewrap-*
+python -m pip install meson
 meson setup build -Dassume_kernel="$(uname -r | grep -oP '^\d+(\.\d+){2}')"
 meson compile -C build
-sudo meson install -C build
+sudo "$(command -v meson)" install -C build
 cd ..
 rm -rf bubblewrap*
 # https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
