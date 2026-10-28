@@ -195,10 +195,26 @@ class DBTest(TestCase):
     def test_verb_form_of(self):
         insert_data(self.conn, "bay", "bay noun", ["bay", "bays"])
         insert_data(self.conn, "bay", "bay verb", ["bay", "bays", "baying", "bayed"])
-        insert_data(self.conn, "bayed", "bay verb form of", ["bayed"], True, "bay")
+        insert_data(self.conn, "bayed", "bay verb form of", ["bayed"], True, ["bay"])
         create_indexes(self.conn)
         update_index_num(self.conn)
         form_count = defaultdict(int)
         for form, _ in iter_forms(self.conn):
             form_count[form] += 1
         self.assertEqual(form_count["bayed"], 1)
+
+    def test_form_of_form_same_as_target_title(self):
+        insert_data(
+            self.conn, "cannelloni", "cannelloni def", ["cannelloni", "cannellone"]
+        )
+        insert_data(
+            self.conn,
+            "cannellone",
+            "cannellone def",
+            ["cannellone", "cannelloni"],
+            True,
+            ["cannelloni"],
+        )
+        create_indexes(self.conn)
+        update_index_num(self.conn)
+        self.assertEqual(list(iter_forms(self.conn)), [("cannellone", 0)])

@@ -122,7 +122,7 @@ def iter_forms(conn: Connection):
       FROM entry e
       JOIN form_of fo ON fo.entry_id = e.id
       JOIN entry te ON fo.target = te.origin_title
-      LEFT JOIN form f ON f.entry_id = e.id
+      LEFT JOIN form f ON f.entry_id = e.id AND f.form != te.title
       WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
         SELECT 1
         FROM entry te2
@@ -136,7 +136,7 @@ def iter_forms(conn: Connection):
       JOIN form_of fo ON fo.entry_id = e.id
       JOIN title_fragment tf ON tf.text = fo.target
       JOIN entry te ON tf.entry_id = te.id
-      LEFT JOIN form f ON f.entry_id = e.id
+      LEFT JOIN form f ON f.entry_id = e.id AND f.form != te.title
       WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
         SELECT 1
         FROM entry te2
