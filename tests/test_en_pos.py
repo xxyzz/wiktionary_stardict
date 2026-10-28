@@ -709,7 +709,7 @@ class EnPOSTestCase(XMLTestCase):
 <section><h2>English</h2>
 <section><h3>Noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
-<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span></li></ol>
 </section>
 </section>
 </body>
@@ -719,7 +719,7 @@ class EnPOSTestCase(XMLTestCase):
                     "def": """<section class="mw-parser-output" dir="ltr" lang="en">
 <h4>Noun</h4>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">dike</strong> (<i>plural</i> <b class="Latn form-of lang-en p-form-of" lang="en">dikes</b>)</span></p>
-<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span>: ditch; embankment; waterway; etc.</li></ol>
+<ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">chiefly<span> </span>US</span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention">Alternative spelling of <span class="form-of-definition-link"><i class="Latn mention" lang="en">dyke</i></span></span></li></ol>
 </section>""",
                     "forms": ["dike", "dikes"],
                     "form_of_targets": ["dyke"],
@@ -967,7 +967,7 @@ class EnPOSTestCase(XMLTestCase):
 <section><h3>Proper noun</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">MG
 </strong></span></p>
-<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"initialism of"}}}]}'><a>Initialism</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink/Interwiki" href="https://en.wikipedia.org/wiki/Morris%20Garages" title="w:Morris Garages" class="extiw">Morris Garages</a></i></span></span>, a British sports-car manufacturer.</li></ol>
+<ol><li><span class="form-of-definition use-with-mention" data-mw='{"parts":[{"template":{"target":{"wt":"initialism of"}}}]}'><a>Initialism</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a rel="mw:WikiLink/Interwiki" href="https://en.wikipedia.org/wiki/Morris%20Garages" title="w:Morris Garages" class="extiw">Morris Garages</a></i></span></span></li></ol>
 </section>
 <section><h3>Adjective</h3>
 <p><span class="headword-line"><strong class="Latn headword" lang="en">MG
@@ -1070,4 +1070,16 @@ class EnPOSTestCase(XMLTestCase):
                     ],
                 }
             ],
+        )
+
+    def test_form_of_plain_text_gloss(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>sainte</title></head><body>
+<section><h2>French</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="fr">sainte</strong></span></p>
+<ol><li><a>saintess</a>; <span class="form-of-definition use-with-mention" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"female equivalent of"},"params":{"1":{"wt":"fr"},"2":{"wt":"saint"}},"i":0}}]}'>female equivalent of <span class="form-of-definition-link"><i class="Latn mention" lang="fr"><a>saint</a></i></span></span><link rel="mw:PageProp/Category" href="./Category:French_female_equivalent_nouns#SAINTE" about="#mwt9" id="mwGQ"/></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": False}],
         )

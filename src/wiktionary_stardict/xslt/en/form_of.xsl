@@ -20,7 +20,9 @@
         select="exists($target-span/span[contains-token(@class, 'mention-gloss')]) or
                 (myfn:is-template($li/span/@data-mw, ('tcl', 'transclude')) and
                 not(exists(myfn:get-template-arg(
-                  $li/span/@data-mw, ('tcl', 'transclude'), 'nogloss'))))"/>
+                  $li/span/@data-mw, ('tcl', 'transclude'), 'nogloss')))) or
+                exists($li/node()[self::a or
+                  self::text()[not(normalize-space(.) = ('', '.', '。'))]])"/>
     <xsl:sequence
         select="boolean(exists($form-of-span) and exists($target-span) and
                 not($has-gloss))"/>
