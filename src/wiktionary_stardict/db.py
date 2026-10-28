@@ -85,11 +85,12 @@ def update_index_num(conn: Connection):
       NOT EXISTS (
         SELECT 1 FROM form_of fo
         JOIN entry e2 ON fo.target = e2.origin_title
-        WHERE fo.entry_id = e.id
+        WHERE fo.entry_id = e.id AND e2.form_of_only = 0
         UNION ALL
         SELECT 1 FROM form_of fo
         JOIN title_fragment tf ON fo.target = tf.text
-        WHERE fo.entry_id = e.id
+        JOIN entry e2 ON e2.id = tf.entry_id
+        WHERE fo.entry_id = e.id AND e2.form_of_only = 0
     ))))
     UPDATE entry AS e
     SET index_num = rn.index_num

@@ -218,3 +218,19 @@ class DBTest(TestCase):
         create_indexes(self.conn)
         update_index_num(self.conn)
         self.assertEqual(list(iter_forms(self.conn)), [("cannellone", 0)])
+
+    def test_form_of_target_is_form_of(self):
+        insert_data(self.conn, "sweetie", "sweetie def", ["sweetie", "sweeties"])
+        insert_data(
+            self.conn, "sweety", "sweety def", ["sweety", "sweeties"], True, ["sweetie"]
+        )
+        insert_data(
+            self.conn, "sweaty", "sweaty def", ["sweaty", "sweaties"], True, ["sweety"]
+        )
+        create_indexes(self.conn)
+        update_index_num(self.conn)
+        self.assertEqual(self.get_titles(), ["sweaty", "sweetie"])
+        self.assertEqual(
+            list(iter_forms(self.conn)),
+            [("sweaties", 0), ("sweeties", 1), ("sweety", 1)],
+        )
