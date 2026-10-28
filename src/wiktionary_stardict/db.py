@@ -123,7 +123,13 @@ def iter_forms(conn: Connection):
       JOIN form_of fo ON fo.entry_id = e.id
       JOIN entry te ON fo.target = te.origin_title
       LEFT JOIN form f ON f.entry_id = e.id
-      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL
+      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
+        SELECT 1
+        FROM entry te2
+        JOIN form te2f ON te2f.entry_id = te2.id
+        WHERE te2.origin_title = te.origin_title AND te2f.form = e.title AND
+        NOT EXISTS (SELECT 1 FROM form ef WHERE ef.entry_id = e.id)
+      )
       UNION ALL
       SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
       FROM entry e
@@ -131,7 +137,13 @@ def iter_forms(conn: Connection):
       JOIN title_fragment tf ON tf.text = fo.target
       JOIN entry te ON tf.entry_id = te.id
       LEFT JOIN form f ON f.entry_id = e.id
-      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL
+      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
+        SELECT 1
+        FROM entry te2
+        JOIN form te2f ON te2f.entry_id = te2.id
+        WHERE te2.origin_title = te.origin_title AND te2f.form = e.title AND
+        NOT EXISTS (SELECT 1 FROM form ef WHERE ef.entry_id = e.id)
+      )
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num

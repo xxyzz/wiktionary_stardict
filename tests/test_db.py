@@ -60,7 +60,7 @@ class DBTest(TestCase):
 
     def test_form_of_differen_forms(self):
         insert_data(self.conn, "dyke", "dyke def", ["dyke", "dykes", "dike"])
-        insert_data(self.conn, "dyke", "dike def", ["dike", "dikes"], True, ["dyke"])
+        insert_data(self.conn, "dike", "dike def", ["dike", "dikes"], True, ["dyke"])
         create_indexes(self.conn)
         update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["dyke"])
@@ -191,3 +191,14 @@ class DBTest(TestCase):
             if html == "order":
                 self.assertEqual(links, ["scale#English:_size_or_scope"])
                 break
+
+    def test_verb_form_of(self):
+        insert_data(self.conn, "bay", "bay noun", ["bay", "bays"])
+        insert_data(self.conn, "bay", "bay verb", ["bay", "bays", "baying", "bayed"])
+        insert_data(self.conn, "bayed", "bay verb form of", ["bayed"], True, "bay")
+        create_indexes(self.conn)
+        update_index_num(self.conn)
+        form_count = defaultdict(int)
+        for form, _ in iter_forms(self.conn):
+            form_count[form] += 1
+        self.assertEqual(form_count["bayed"], 1)
