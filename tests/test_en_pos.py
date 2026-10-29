@@ -1112,3 +1112,15 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_gloss_template_after_form_of(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>reis</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">reis</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"plural of"},"params":{"1":{"wt":"en"},"2":{"wt":"real"}},"i":0}}]}'><a>plural</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>real</a></i></span></span> <span class="mention-gloss-paren" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"gl"}}}]}'>(</span><span class="mention-gloss">unit of currency formerly used in Portugal and Brazil</span><span class="mention-gloss-paren">)</span></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": False}],
+        )
