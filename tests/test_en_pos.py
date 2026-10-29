@@ -1083,3 +1083,32 @@ class EnPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"form_of_only": False}],
         )
+
+    def test_contraction_of_plus(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>you're</title></head><body>
+<section><h2>English</h2>
+<section><h3>Contraction</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">you're</strong></span></p>
+<ol><li><span class="form-of-definition use-with-mention"><a>Contraction</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>you</a></i></span> +<span>‎</span> <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>are</a></i></span></span></li></ol>
+</section></section></body></html>""",
+            [{"form_of_only": False}],
+        )
+
+    def test_two_form_of_templates(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>u'd</title></head><body>
+<section><h2>English</h2>
+<section><h3>Contraction</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">u'd</strong></span></p>
+<ol><li><span class="usage-label-sense" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"lb"},"params":{"1":{"wt":"en"},"2":{"wt":"informal"},"3":{"wt":"Internet"},"4":{"wt":"text messaging"}},"i":0}}]}'><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>informal</a><span class="ib-comma label-comma">,</span><span> </span><a>Internet</a><span class="ib-comma label-comma">,</span><span> </span><a>text messaging</a></span><span class="ib-brac label-brac">)</span></span> <span class="form-of-definition use-with-mention" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"abbreviation of"},"params":{"1":{"wt":"en"},"2":{"wt":"you&apos;d"}},"i":0}}]}'><a>Abbreviation</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>you'd</a></i></span></span>, <span class="form-of-definition use-with-mention" typeof="mw:Transclusion" data-mw='{"parts":[{"template":{"target":{"wt":"contraction of"},"params":{"1":{"wt":"en"},"2":{"wt":"[[you]] [[had]]"},"3":{"wt":";"},"4":{"wt":"[[you]] [[would]]"},"nocap":{"wt":"1"}},"i":0}}]}'><a>contraction</a> of <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>you</a> <a>had</a></i></span> or <span class="form-of-definition-link"><i class="Latn mention" lang="en"><a>you</a> <a>would</a></i></span></span><link rel="mw:PageProp/Category" href="./Category:English_contractions#UD"/>.</li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "form_of_only": True,
+                    "form_of_targets": ["you'd", "you had", "you would"],
+                }
+            ],
+        )

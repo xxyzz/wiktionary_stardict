@@ -22,10 +22,14 @@
                 not(exists(myfn:get-template-arg(
                   $li/span/@data-mw, ('tcl', 'transclude'), 'nogloss')))) or
                 exists($li/node()[self::a or
-                  self::text()[not(normalize-space(.) = ('', '.', '。'))]])"/>
+                  self::text()[not(normalize-space(.) = ('', '.', '。', ',', '，'))]])"/>
+    <xsl:variable
+        name="has-contraction-plus"
+        select="exists($target-span/following-sibling::node()[1]
+                [self::text() and normalize-space(.) = '+'])"/>
     <xsl:sequence
         select="boolean(exists($form-of-span) and exists($target-span) and
-                not($has-gloss))"/>
+                not($has-gloss) and not($has-contraction-plus))"/>
   </xsl:function>
 
   <xsl:function name="myfn:form-of-targets" as="xs:string*">
