@@ -31,7 +31,6 @@
   justify-self: center;
   text-align: center;
   filter: var(--img-filter);
-  aspect-ratio: 1080/1440;
   width: 100%;
 }
 .screenshot img {
