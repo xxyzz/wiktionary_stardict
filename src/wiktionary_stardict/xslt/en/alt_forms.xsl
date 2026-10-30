@@ -42,7 +42,7 @@
   <xsl:function name="myfn:get-alt-forms-section-forms" as="xs:string*">
     <xsl:param name="section" as="element(section)*"/>
     <xsl:sequence
-        select="myfn:get-element-forms($section/ul/li/(
+        select="myfn:get-element-forms($section//ul/li/(
                 if (span[@lang and not(ends-with(@lang, '-Latn'))]) then
                   span[@lang and not(ends-with(@lang, '-Latn'))]
                 else a))[not(. = ('', '／'))]"/>

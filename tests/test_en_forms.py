@@ -750,3 +750,20 @@ class EnFormsTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"forms": ["vorstoßen"]}],
         )
+
+    def test_alt_form_nested_list(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>man</title></head><body>
+<section><h2>English</h2>
+<section><h3>Alternative forms</h3>
+<ul><li><span class="ib-brac qualifier-brac">(</span><span class="ib-content qualifier-content">singular</span><span class="ib-brac qualifier-brac">)</span>:
+<ul><li><span class="Latn" lang="en"><a>mane</a></span><span> </span><span class="ib-brac label-brac">(</span><span class="ib-content label-content"><a>slang</a><span class="ib-comma label-comma">,</span><span> </span><a>African-American Vernacular</a></span><span class="ib-brac label-brac">)</span></li></ul></li></ul>
+</section>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">man</strong></span></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"forms": ["man", "mane"]}],
+        )

@@ -21,10 +21,9 @@
     <xsl:param name="language"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
       <xsl:variable
-          name="headword-p"
-          select="p[span[contains-token(@class, 'headword-line')]]"/>
-      <xsl:variable name="alt-forms" as="xs:string*"
-                    select="myfn:get-alt-forms(., $language)"/>
+          name="headword-p" select="p[span[contains-token(@class, 'headword-line')]]"/>
+      <xsl:variable
+          name="alt-forms" as="xs:string*" select="myfn:get-alt-forms(., $language)"/>
       <xsl:variable name="conj-forms" as="xs:string*">
         <xsl:apply-templates
             select="section[normalize-space((h4 | h5 | h6)[1]) =
