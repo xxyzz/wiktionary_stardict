@@ -2,6 +2,7 @@
 set -eux
 set -o pipefail
 
+export CFLAGS="-march=native -O3"
 sudo apt update
 
 # compile libseccomp
@@ -16,7 +17,7 @@ cd libseccomp-*
 python -m pip install -U pip
 python -m pip install Cython setuptools build wheel
 ./configure --prefix=/usr
-make -j
+make -j "$(nproc)"
 libseccomp_dir=$(pwd)
 cd src/python
 VERSION_RELEASE=$libseccomp_ver CPPFLAGS="-I${libseccomp_dir}/include" python -m build --wheel --no-isolation
@@ -31,8 +32,8 @@ tar -xf bubblewrap-*.tar.xz
 rm bubblewrap-*.tar.xz
 cd bubblewrap-*
 python -m pip install meson
-meson setup build -Dassume_kernel="$(uname -r | grep -oP '^\d+(\.\d+){2}')"
-meson compile -C build
+meson setup build --prefix=/usr --buildtype=release -Dassume_kernel="$(uname -r | grep -oP '^\d+(\.\d+){2}')" -Dselinux=disabled
+meson compile -C build -j "$(nproc)"
 sudo "$(command -v meson)" install -C build
 cd ..
 rm -rf bubblewrap*
