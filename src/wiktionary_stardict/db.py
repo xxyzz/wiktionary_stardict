@@ -18,7 +18,8 @@ def init_db(lemma_lang: str) -> Connection:
       definition   TEXT,
       form_of_only INTEGER,
       index_num    INTEGER,
-      origin_title TEXT
+      origin_title TEXT,
+      page_id      INTEGER
     );
 
     CREATE TABLE form (
@@ -68,6 +69,7 @@ def create_sql_function(conn: Connection):
 def create_indexes(conn: Connection):
     conn.executescript("""
     CREATE INDEX entry_index ON entry (origin_title);
+    CREATE INDEX entry_page_id_index ON entry (page_id);
     CREATE INDEX form_index ON form (entry_id, form);
     CREATE INDEX form_of_index ON form_of (entry_id);
     CREATE INDEX image_index ON image (entry_id);
@@ -197,6 +199,7 @@ def delete_problematic_forms(conn: Connection):
 def insert_data(
     conn: Connection,
     page_name: str,
+    page_id: int,
     definition: str,
     forms: list[str],
     form_of_only: bool = False,
@@ -207,10 +210,11 @@ def insert_data(
 ):
     for (entry_id,) in conn.execute(
         """
-        INSERT INTO entry (title, title_lower, definition, form_of_only, origin_title)
-        VALUES(?, ?, ?, ?, ?) RETURNING id
+        INSERT INTO entry
+        (title, title_lower, page_id, definition, form_of_only, origin_title)
+        VALUES(?, ?, ?, ?, ?, ?) RETURNING id
         """,
-        (forms[0], forms[0].lower(), definition, form_of_only, page_name),
+        (forms[0], forms[0].lower(), page_id, definition, form_of_only, page_name),
     ):
         conn.executemany(
             "INSERT INTO form (entry_id, form, form_lower) VALUES(?, ?, ?)",

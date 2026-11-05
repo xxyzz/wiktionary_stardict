@@ -39,12 +39,14 @@ class DBTest(TestCase):
         insert_data(
             self.conn,
             "maldizer",
+            0,
             "maldizer def",
             ["maldizer", "maldito", "malditos", "maldita", "malditas"],
         )
         insert_data(
             self.conn,
             "maldito",
+            1,
             "maldito def",
             ["maldito", "maldita", "malditos", "malditas"],
             True,
@@ -59,8 +61,8 @@ class DBTest(TestCase):
         )
 
     def test_form_of_differen_forms(self):
-        insert_data(self.conn, "dyke", "dyke def", ["dyke", "dykes", "dike"])
-        insert_data(self.conn, "dike", "dike def", ["dike", "dikes"], True, ["dyke"])
+        insert_data(self.conn, "dyke", 0, "dyke def", ["dyke", "dykes", "dike"])
+        insert_data(self.conn, "dike", 1, "dike def", ["dike", "dikes"], True, ["dyke"])
         create_indexes(self.conn)
         update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["dyke"])
@@ -70,16 +72,24 @@ class DBTest(TestCase):
 
     def test_form_of_target_not_exist(self):
         insert_data(
-            self.conn, "TACO", "TACO def", ["TACO"], True, ["Trump always chickens out"]
+            self.conn,
+            "TACO",
+            0,
+            "TACO def",
+            ["TACO"],
+            True,
+            ["Trump always chickens out"],
         )
         create_indexes(self.conn)
         update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["TACO"])
 
     def test_word_sort_order(self):
-        insert_data(self.conn, "Book", "Book", ["Book", "Books"])
-        insert_data(self.conn, "book", "book", ["book", "books", "booking", "booked"])
-        insert_data(self.conn, "apple", "apple", ["apple", "apples"])
+        insert_data(self.conn, "Book", 0, "Book", ["Book", "Books"])
+        insert_data(
+            self.conn, "book", 1, "book", ["book", "books", "booking", "booked"]
+        )
+        insert_data(self.conn, "apple", 2, "apple", ["apple", "apples"])
         update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["apple", "Book", "book"])
         self.assertEqual(
@@ -91,20 +101,25 @@ class DBTest(TestCase):
         insert_data(
             self.conn,
             "flying colors",
+            0,
             "flying colors",
             ["flying colors"],
             True,
             ["flying colours"],
         )
-        insert_data(self.conn, "flying colours", "flying colours", ["flying colours"])
+        insert_data(
+            self.conn, "flying colours", 1, "flying colours", ["flying colours"]
+        )
         update_index_num(self.conn)
         self.assertEqual(self.get_titles(), ["flying colours"])
         self.assertEqual(list(iter_forms(self.conn)), [("flying colors", 0)])
 
     def test_rm_bad_forms(self):
-        insert_data(self.conn, "-isieren", "-isieren", ["-isieren", "-isierend", "ich"])
+        insert_data(
+            self.conn, "-isieren", 0, "-isieren", ["-isieren", "-isierend", "ich"]
+        )
         for num in range(FORMS_LIMIT):
-            insert_data(self.conn, str(num), str(num), [str(num), "ich"])
+            insert_data(self.conn, str(num), num + 1, str(num), [str(num), "ich"])
         update_index_num(self.conn)
         delete_problematic_forms(self.conn)
         form_count = defaultdict(int)
@@ -115,12 +130,18 @@ class DBTest(TestCase):
 
     def test_form_of_target_fragment(self):
         insert_data(
-            self.conn, "ír", "ír verb", ["ír"], ids=["Hungarian", "Hungarian:_to_write"]
+            self.conn,
+            "ír",
+            0,
+            "ír verb",
+            ["ír"],
+            ids=["Hungarian", "Hungarian:_to_write"],
         )
-        insert_data(self.conn, "ír", "ír adj", ["ír"])
+        insert_data(self.conn, "ír", 0, "ír adj", ["ír"])
         insert_data(
             self.conn,
             "írhat",
+            1,
             "írhat",
             ["írhat", "írhatok"],
             True,
@@ -140,6 +161,7 @@ class DBTest(TestCase):
             insert_data(
                 self.conn,
                 "order",
+                0,
                 "order",
                 ["order"],
                 links=["scale#English:_size_or_scope"],
@@ -147,6 +169,7 @@ class DBTest(TestCase):
             insert_data(
                 self.conn,
                 "scale",
+                1,
                 "scale",
                 ["scale"],
                 ids=["English", "English:_size_or_scope"],
@@ -162,6 +185,7 @@ class DBTest(TestCase):
             insert_data(
                 self.conn,
                 "order",
+                0,
                 "order",
                 ["order"],
                 links=[
@@ -174,6 +198,7 @@ class DBTest(TestCase):
             insert_data(
                 self.conn,
                 "scale",
+                1,
                 "scale noun",
                 ["scale"],
                 ids=["English", "Noun", "English:_size_or_scope"],
@@ -181,6 +206,7 @@ class DBTest(TestCase):
             insert_data(
                 self.conn,
                 "scale",
+                1,
                 "scale verb",
                 ["scale"],
                 ids=["English", "Verb"],
@@ -193,9 +219,9 @@ class DBTest(TestCase):
                 break
 
     def test_verb_form_of(self):
-        insert_data(self.conn, "bay", "bay noun", ["bay", "bays"])
-        insert_data(self.conn, "bay", "bay verb", ["bay", "bays", "baying", "bayed"])
-        insert_data(self.conn, "bayed", "bay verb form of", ["bayed"], True, ["bay"])
+        insert_data(self.conn, "bay", 0, "bay noun", ["bay", "bays"])
+        insert_data(self.conn, "bay", 0, "bay verb", ["bay", "bays", "baying", "bayed"])
+        insert_data(self.conn, "bayed", 1, "bay verb form of", ["bayed"], True, ["bay"])
         create_indexes(self.conn)
         update_index_num(self.conn)
         form_count = defaultdict(int)
@@ -205,11 +231,12 @@ class DBTest(TestCase):
 
     def test_form_of_form_same_as_target_title(self):
         insert_data(
-            self.conn, "cannelloni", "cannelloni def", ["cannelloni", "cannellone"]
+            self.conn, "cannelloni", 0, "cannelloni def", ["cannelloni", "cannellone"]
         )
         insert_data(
             self.conn,
             "cannellone",
+            1,
             "cannellone def",
             ["cannellone", "cannelloni"],
             True,
@@ -220,12 +247,24 @@ class DBTest(TestCase):
         self.assertEqual(list(iter_forms(self.conn)), [("cannellone", 0)])
 
     def test_form_of_target_is_form_of(self):
-        insert_data(self.conn, "sweetie", "sweetie def", ["sweetie", "sweeties"])
+        insert_data(self.conn, "sweetie", 0, "sweetie def", ["sweetie", "sweeties"])
         insert_data(
-            self.conn, "sweety", "sweety def", ["sweety", "sweeties"], True, ["sweetie"]
+            self.conn,
+            "sweety",
+            1,
+            "sweety def",
+            ["sweety", "sweeties"],
+            True,
+            ["sweetie"],
         )
         insert_data(
-            self.conn, "sweaty", "sweaty def", ["sweaty", "sweaties"], True, ["sweety"]
+            self.conn,
+            "sweaty",
+            2,
+            "sweaty def",
+            ["sweaty", "sweaties"],
+            True,
+            ["sweety"],
         )
         create_indexes(self.conn)
         update_index_num(self.conn)

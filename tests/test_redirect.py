@@ -16,12 +16,12 @@ class RedirectTest(TestCase):
         db_name = "".join(random.choices(string.ascii_letters, k=20))
         self.rdb_path = Path(f"build/{db_name}_redirect.db")
         with sqlite3.connect(self.rdb_path) as conn:
-            conn.executescript("""
+            conn.execute("""
             CREATE TABLE redirect (
-            source   TEXT PRIMARY KEY,
-            target   TEXT,
-            fragment TEXT);
-            CREATE INDEX target_idx ON redirect (target);""")
+              from_id  INTEGER,
+              title    TEXT,
+              fragment TEXT,
+              PRIMARY KEY (from_id, title))""")
         self.db_path = Path(f"build/{db_name}.db")
         self.conn = init_db(db_name)
 
@@ -35,20 +35,21 @@ class RedirectTest(TestCase):
             r_conn.executemany(
                 "INSERT INTO redirect VALUES(?, ?, ?)",
                 [
-                    ("get that bag", "bag", "English:_money"),
-                    ("get the bag", "bag", "English:_money"),
-                    ("no match id", "bag", "id"),
-                    ("no id", "bag", ""),
+                    (0, "get that bag", "English:_money"),
+                    (0, "get the bag", "English:_money"),
+                    (0, "no match id", "id"),
+                    (0, "no id", ""),
                 ],
             )
         insert_data(
             self.conn,
             "bag",
+            0,
             "bag noun",
             ["bag"],
             ids=["English", "Noun", "English:_money"],
         )
-        insert_data(self.conn, "bag", "bag verb", ["bag"], ids=["English", "Verb"])
+        insert_data(self.conn, "bag", 0, "bag verb", ["bag"], ids=["English", "Verb"])
         update_index_num(self.conn)
         add_redirects(self.conn, self.rdb_path)
         self.assertEqual(
@@ -67,10 +68,10 @@ class RedirectTest(TestCase):
         with sqlite3.connect(self.rdb_path) as r_conn:
             r_conn.executemany(
                 "INSERT INTO redirect VALUES(?, ?, ?)",
-                [("＃MeToo", "Unsupported titles/`num`MeToo", "")],
+                [(0, "＃MeToo", "")],
             )
         insert_data(
-            self.conn, "Unsupported titles/`num`MeToo", "＃MeToo def", ["＃MeToo"]
+            self.conn, "Unsupported titles/`num`MeToo", 0, "＃MeToo def", ["＃MeToo"]
         )
         update_index_num(self.conn)
         add_redirects(self.conn, self.rdb_path)

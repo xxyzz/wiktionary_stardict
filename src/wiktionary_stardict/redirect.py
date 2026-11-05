@@ -35,13 +35,13 @@ def add_redirects(conn: Connection, rdb_path: Path):
     conn.execute("ATTACH DATABASE ? AS rdb", (str(rdb_path),))
     conn.executescript("""
     INSERT INTO form (entry_id, form, form_lower)
-    SELECT DISTINCT e.id, r.source, py_lower(r.source)
+    SELECT DISTINCT e.id, r.title, py_lower(r.title)
     FROM rdb.redirect r
-    JOIN entry e ON r.target = e.origin_title AND r.source != e.title
+    JOIN entry e ON r.from_id = e.page_id AND r.title != e.title
     WHERE NOT EXISTS (
       SELECT 1
       FROM form f
-      WHERE f.entry_id = e.id AND f.form = r.source
+      WHERE f.entry_id = e.id AND f.form = r.title
     ) AND (EXISTS (
       SELECT 1
       FROM title_fragment tf
@@ -51,7 +51,7 @@ def add_redirects(conn: Connection, rdb_path: Path):
       SELECT 1
       FROM entry e2
       JOIN title_fragment tf2 ON e2.id = tf2.entry_id
-      WHERE e2.origin_title = r.target AND
+      WHERE e2.page_id = r.from_id AND
         tf2.text = concat(replace(e2.origin_title, ' ', '_'), '#', r.fragment)
     ));
     DETACH DATABASE rdb;""")

@@ -9,7 +9,7 @@ authors = [{ name = "xxyzz" }]
 description = "Free dictionaries"
 readme = "README.md"
 requires-python = ">=3.15"
-license = { text = "GNU General Public License v3 or later (GPLv3+)" }
+license = "GPL-3.0-or-later"
 dependencies = [
     "saxonche",
     "requests",

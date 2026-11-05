@@ -125,6 +125,7 @@ def transform(chunk_data, proc, executable, svg_xsl_exec, session) -> list[dict]
         return []
     for data in json_result:
         data["page_name"] = page_name
+        data["id"] = chunk_data["id"]
         data["forms"] = list(
             dict.fromkeys(f.strip() for f in data["forms"] if f.strip() != "")
         )
@@ -176,6 +177,7 @@ def update_db(edition: str, db_path: Path):
         create_sql_function,
         delete_links,
         delete_problematic_forms,
+        insert_fragment_forms,
         update_index_num,
     )
     from .redirect import add_redirects
@@ -187,6 +189,7 @@ def update_db(edition: str, db_path: Path):
         delete_problematic_forms(conn)
         add_redirects(conn, Path(f"build/{edition}_redirect.db"))
         delete_links(conn)
+        insert_fragment_forms(conn)
 
 
 def init_mod_link_worker():
@@ -263,6 +266,7 @@ def build(args):
                             insert_data(
                                 conn_dict[data["lang"]],
                                 data["page_name"],
+                                data["id"],
                                 data["def"],
                                 data["forms"],
                                 data.get("form_of_only", False),

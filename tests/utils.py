@@ -46,7 +46,7 @@ class XMLTestCase(TestCase):
         from wiktionary_stardict.main import transform
 
         list_data = transform(
-            {"name": "test", "html": input_html},
+            {"name": "test", "html": input_html, "id": 0},
             self.proc,
             self.executable,
             self.svg_xsl_exec,

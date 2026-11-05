@@ -46,11 +46,13 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
             with open(ndjson_path) as f:
                 for line in f:
                     data = json.loads(line)
-                    old_data[data["name"]] = data["html"]
+                    old_data[data["name"]] = (data["html"], data["id"])
         with open(ndjson_path, "w") as f, init_requests_session() as session:
             for test_page in test_pages:
+                page_html = ""
+                page_id = 0
                 if test_page in old_data:
-                    page_html = old_data[test_page]
+                    page_html, page_id = old_data[test_page]
                 else:
                     quoted_title = quote(test_page, safe="")
                     r = session.get(
@@ -63,8 +65,18 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
                             f'Download page "{test_page}" failed: {r.status_code=}'
                             f" {r.reason=} {r.text=}"
                         )
+                    r = session.get(
+                        f"https://{edition}.wiktionary.org/w/rest.php/v1/page/title/{quoted_title}",
+                    )
+                    if r.ok:
+                        page_id = r.json()["id"]
+                    else:
+                        logger.warning(
+                            f'Download page metadata "{test_page}" failed: '
+                            f"{r.status_code=} {r.reason=} {r.text=}"
+                        )
                 json.dump(
-                    {"name": test_page, "html": page_html},
+                    {"name": test_page, "html": page_html, "id": page_id},
                     f,
                     ensure_ascii=False,
                     separators=(",", ":"),
