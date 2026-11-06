@@ -23,13 +23,3 @@ dev = ["ruff", "beautifulsoup4", "pycountry"]
 
 [project.scripts]
 dict = "wiktionary_stardict.main:main"
-
-[tool.ruff.lint]
-select = [
-    "E", # pycodestyle error
-    "F", # Pyflakes
-    "I", # isort
-    "W", # pycodestyle warning
-]
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["E501"]

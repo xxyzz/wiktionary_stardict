@@ -284,7 +284,7 @@ def build(args):
     for conn in conn_dict.values():
         conn.commit()
         conn.close()
-    db_paths = [Path(f"build/{lang}.db") for lang in conn_dict.keys()]
+    db_paths = [Path(f"build/{lang}.db") for lang in conn_dict]
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
@@ -304,11 +304,12 @@ def build(args):
     with ProcessPoolExecutor(
         max_workers=min(len(conn_dict), process_cpu_count())
     ) as executor:
-        for result in executor.map(
-            partial(create_stardict, args.edition, snapshot_date, zim_path),
-            conn_dict.keys(),
-        ):
-            dict_info.append(result)
+        dict_info = list(
+            executor.map(
+                partial(create_stardict, args.edition, snapshot_date, zim_path),
+                conn_dict.keys(),
+            )
+        )
     with open(f"build/{args.edition}.json", "w") as f:
         json.dump(dict_info, f, ensure_ascii=False, separators=(",", ":"))
     if len(args.page) == 0:

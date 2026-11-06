@@ -2,12 +2,12 @@ from pathlib import Path
 
 
 def get_snapshot_chunks(identifier: str, test_pages: list[str]) -> tuple[str, int]:
-    from datetime import datetime, timezone
+    from datetime import UTC, datetime
 
     import requests
 
     if len(test_pages) > 0:
-        return datetime.now(timezone.utc).isoformat().split("T")[0], 1
+        return datetime.now(UTC).isoformat().split("T")[0], 1
     r = requests.get(
         f"https://github.com/xxyzz/snapshot/releases/latest/download/{identifier}.json"
     )

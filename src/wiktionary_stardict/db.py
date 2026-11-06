@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from pathlib import Path
 from sqlite3 import Connection
 
@@ -119,7 +120,7 @@ def iter_entries(conn: Connection):
 
 
 def iter_forms(conn: Connection):
-    for form, index in conn.execute("""
+    yield from conn.execute("""
     WITH form_only_forms AS MATERIALIZED (
       SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
       FROM entry e
@@ -162,8 +163,7 @@ def iter_forms(conn: Connection):
       WHERE form IS NOT NULL
     )
     ORDER BY form_lower, form
-    """):
-        yield form, index
+    """)
 
 
 FORMS_LIMIT = 100
@@ -203,10 +203,10 @@ def insert_data(
     definition: str,
     forms: list[str],
     form_of_only: bool = False,
-    form_of_targets: list[str] = [],
-    images: list[str] = [],
-    ids: list[str] = [],
-    links: list[str] = [],
+    form_of_targets: Sequence[str] = (),
+    images: Sequence[str] = (),
+    ids: Sequence[str] = (),
+    links: Sequence[str] = (),
 ):
     for (entry_id,) in conn.execute(
         """

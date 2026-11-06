@@ -194,6 +194,7 @@ def get_score_svg(title: str, data: dict) -> str:
                     for env_name in ["USER", "USERNAME", "PATH", "HOME"]
                     if environ.get(env_name, "") != ""
                 },
+                check=False,
             )
             if p.returncode == 0 and svg_path.is_file():
                 with open(svg_path) as svg_f:

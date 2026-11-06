@@ -252,7 +252,9 @@ def download_last_release_images(edition: str):
     import tarfile
 
     zst_name = f"{edition}_images.tar.zst"
-    subprocess.run(["gh", "release", "download", "-D", "build", "-p", zst_name])
+    subprocess.run(
+        ["gh", "release", "download", "-D", "build", "-p", zst_name], check=False
+    )
     zst_path = Path("build") / zst_name
     if zst_path.is_file():
         archive_folder = Path(f"build/{edition}_images")

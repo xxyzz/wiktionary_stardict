@@ -71,7 +71,7 @@ class XMLTestCase(TestCase):
         else:
             self.assertTrue(len(output) > 0, "No output data")
             for result_data, expected_data in zip(output, expected_list):
-                for key in expected_data.keys():
+                for key in expected_data:
                     if key == "def" and prettify:
                         self.assertXMLEqual(result_data["def"], expected_data["def"])
                     else:
