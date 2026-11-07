@@ -9,6 +9,7 @@ def init_db(lemma_lang: str) -> Connection:
     db_path = Path(f"build/{lemma_lang}.db")
     if db_path.exists():
         db_path.unlink()
+    db_path.parent.mkdir(exist_ok=True)
     conn = sqlite3.connect(db_path)
     conn.executescript("""
     PRAGMA foreign_keys = ON;

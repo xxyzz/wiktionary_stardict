@@ -4,6 +4,9 @@ set -o pipefail
 
 export CFLAGS="-march=native -O3"
 sudo apt update
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv python install
+uv sync --locked --extra dev
 
 # compile libseccomp
 # copied from https://gitlab.archlinux.org/archlinux/packaging/packages/libseccomp/-/blob/main/PKGBUILD
@@ -14,14 +17,13 @@ tar -xf libseccomp-*.tar.gz
 rm libseccomp-*.tar.gz
 root_dir=$(pwd)
 cd libseccomp-*
-python -m pip install -U pip
-python -m pip install Cython setuptools build wheel
+uv pip install Cython setuptools build wheel
 ./configure --prefix=/usr
 make -j "$(nproc)"
 libseccomp_dir=$(pwd)
 cd src/python
-VERSION_RELEASE=$libseccomp_ver CPPFLAGS="-I${libseccomp_dir}/include" python -m build --wheel --no-isolation
-python -m pip install dist/*.whl
+VERSION_RELEASE=$libseccomp_ver CPPFLAGS="-I${libseccomp_dir}/include" uv run --no-sync -m build --wheel --no-isolation
+uv pip install dist/*.whl
 cd "$root_dir"
 rm -rf libseccomp*
 
@@ -31,7 +33,8 @@ wget -nv https://github.com/containers/bubblewrap/releases/download/v0.13.1/bubb
 tar -xf bubblewrap-*.tar.xz
 rm bubblewrap-*.tar.xz
 cd bubblewrap-*
-python -m pip install meson
+uv tool install meson
+uv tool update-shell
 meson setup build --prefix=/usr --buildtype=release -Dassume_kernel="$(uname -r | grep -oP '^\d+(\.\d+){2}')" -Dselinux=disabled
 meson compile -C build -j "$(nproc)"
 sudo "$(command -v meson)" install -C build
