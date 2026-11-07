@@ -53,12 +53,12 @@ class LanguageTest(TestCase):
                 self.assertNotIn(
                     language_name,
                     name_sets,
-                    f"Duplicated {edition} language: {language_name}",
+                    f"Duplicated {edition} language: '{language_name}'",
                 )
                 name_sets.add(language_name)
                 lemma_code = name_to_code(language_name, edition)
                 self.assertNotEqual(
-                    lemma_code, "", f"No {edition} language: {language_name}"
+                    lemma_code, "", f"No {edition} language: '{language_name}'"
                 )
                 self.assertNotIn(
                     lemma_code,
