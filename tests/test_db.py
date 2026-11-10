@@ -268,8 +268,51 @@ class DBTest(TestCase):
         )
         create_indexes(self.conn)
         update_index_num(self.conn)
-        self.assertEqual(self.get_titles(), ["sweaty", "sweetie"])
+        self.assertEqual(self.get_titles(), ["sweetie"])
         self.assertEqual(
             list(iter_forms(self.conn)),
-            [("sweaties", 0), ("sweeties", 1), ("sweety", 1)],
+            [("sweaties", 0), ("sweaty", 0), ("sweeties", 0), ("sweety", 0)],
+        )
+
+    def test_another_form_of_target_is_form_of(self):
+        insert_data(
+            self.conn,
+            "red-teams",
+            0,
+            "red-teams verb",
+            ["red-teams"],
+            True,
+            ["red-team"],
+        )
+        insert_data(
+            self.conn,
+            "red-team",
+            1,
+            "red-team verb",
+            ["red-team", "red-teams", "red-teaming"],
+            True,
+            ["red team"],
+        )
+        insert_data(
+            self.conn, "red team", 2, "red team noun", ["red team", "red teams"]
+        )
+        insert_data(
+            self.conn,
+            "red team",
+            3,
+            "red team verb",
+            ["red team", "red teams", "red-team"],
+        )
+        create_indexes(self.conn)
+        update_index_num(self.conn)
+        self.assertEqual(self.get_titles(), ["red team", "red team"])
+        self.assertEqual(
+            list(iter_forms(self.conn)),
+            [
+                ("red teams", 0),
+                ("red teams", 1),
+                ("red-team", 1),
+                ("red-teaming", 1),
+                ("red-teams", 1),
+            ],
         )

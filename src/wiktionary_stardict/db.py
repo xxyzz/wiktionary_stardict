@@ -89,12 +89,12 @@ def update_index_num(conn: Connection):
       NOT EXISTS (
         SELECT 1 FROM form_of fo
         JOIN entry e2 ON fo.target = e2.origin_title
-        WHERE fo.entry_id = e.id AND e2.form_of_only = 0
+        WHERE fo.entry_id = e.id
         UNION ALL
         SELECT 1 FROM form_of fo
         JOIN title_fragment tf ON fo.target = tf.text
         JOIN entry e2 ON e2.id = tf.entry_id
-        WHERE fo.entry_id = e.id AND e2.form_of_only = 0
+        WHERE fo.entry_id = e.id
     ))))
     UPDATE entry AS e
     SET index_num = rn.index_num
@@ -122,33 +122,70 @@ def iter_entries(conn: Connection):
 
 def iter_forms(conn: Connection):
     yield from conn.execute("""
-    WITH form_only_forms AS MATERIALIZED (
-      SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
+    WITH RECURSIVE walk(title, title_lower, form, form_lower, e_id, index_num, path) AS(
+      SELECT title, title_lower, form, form_lower, e.id, index_num, printf('/%d/', e.id)
       FROM entry e
-      JOIN form_of fo ON fo.entry_id = e.id
-      JOIN entry te ON fo.target = te.origin_title
-      LEFT JOIN form f ON f.entry_id = e.id AND f.form != te.title
-      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
-        SELECT 1
-        FROM entry te2
-        JOIN form te2f ON te2f.entry_id = te2.id
-        WHERE te2.origin_title = te.origin_title AND te2f.form = e.title AND
-        NOT EXISTS (SELECT 1 FROM form ef WHERE ef.entry_id = e.id)
-      )
+      LEFT JOIN form f ON f.entry_id = e.id
+      WHERE e.index_num IS NULL
+
       UNION ALL
-      SELECT e.title_lower, e.title, f.form_lower, f.form, te.index_num
-      FROM entry e
-      JOIN form_of fo ON fo.entry_id = e.id
+
+      SELECT w.title, w.title_lower, w.form, w.form_lower, te.id, te.index_num,
+        w.path || te.id || '/'
+      FROM walk w
+      JOIN form_of fo ON fo.entry_id = w.e_id
+      JOIN entry te ON te.origin_title = fo.target
+      WHERE w.index_num IS NULL AND (w.form IS NULL OR w.form != te.title)
+        AND instr(w.path, printf('/%d/', te.id)) == 0
+        AND (
+          NOT EXISTS (
+            SELECT 1 FROM entry t_e JOIN form t_f ON t_f.entry_id = t_e.id
+            WHERE t_e.origin_title = fo.target AND t_f.form = w.title
+          )
+          OR EXISTS (
+            SELECT 1 FROM form t_f WHERE t_f.entry_id = te.id AND t_f.form = w.title
+          )
+        )
+        AND NOT (
+          te.index_num IS NULL AND EXISTS (
+            SELECT 1 FROM form f WHERE f.entry_id = te.id AND f.form = w.title
+          ) AND NOT EXISTS (
+            SELECT 1 FROM form f WHERE f.entry_id = w.e_id AND NOT EXISTS (
+              SELECT 1 FROM form t_f WHERE t_f.entry_id = te.id AND t_f.form = f.form
+            )
+          )
+        )
+
+      UNION ALL
+
+      SELECT w.title, w.title_lower, w.form, w.form_lower, te.id, te.index_num,
+        w.path || te.id || '/'
+      FROM walk w
+      JOIN form_of fo ON fo.entry_id = w.e_id
       JOIN title_fragment tf ON tf.text = fo.target
-      JOIN entry te ON tf.entry_id = te.id
-      LEFT JOIN form f ON f.entry_id = e.id AND f.form != te.title
-      WHERE e.index_num IS NULL AND te.index_num IS NOT NULL AND NOT EXISTS (
-        SELECT 1
-        FROM entry te2
-        JOIN form te2f ON te2f.entry_id = te2.id
-        WHERE te2.origin_title = te.origin_title AND te2f.form = e.title AND
-        NOT EXISTS (SELECT 1 FROM form ef WHERE ef.entry_id = e.id)
-      )
+      JOIN entry te ON te.id = tf.entry_id
+      WHERE w.index_num IS NULL AND (w.form IS NULL OR w.form != te.title)
+        AND instr(w.path, printf('/%d/', te.id)) == 0
+        AND (
+          NOT EXISTS (
+            SELECT 1 FROM entry t_e
+            JOIN form t_f ON t_f.entry_id = t_e.id
+            JOIN title_fragment t_tf ON t_tf.entry_id = t_e.id
+            WHERE t_tf.text = fo.target AND t_f.form = w.title
+          )
+          OR EXISTS (
+            SELECT 1 FROM form t_f WHERE t_f.entry_id = te.id AND t_f.form = w.title
+          )
+        )
+        AND NOT (
+          te.index_num IS NULL AND EXISTS (
+            SELECT 1 FROM form f WHERE f.entry_id = te.id AND f.form = w.title
+          ) AND NOT EXISTS (
+            SELECT 1 FROM form f WHERE f.entry_id = w.e_id AND NOT EXISTS (
+              SELECT 1 FROM form t_f WHERE t_f.entry_id = te.id AND t_f.form = f.form
+            )
+          )
+        )
     )
     SELECT DISTINCT form, index_num FROM (
       SELECT f.form_lower, f.form, e.index_num
@@ -157,11 +194,11 @@ def iter_forms(conn: Connection):
       WHERE e.index_num IS NOT NULL
       UNION ALL
       SELECT title_lower AS form_lower, title AS form, index_num
-      FROM form_only_forms
+      FROM walk WHERE index_num IS NOT NULL
       UNION ALL
       SELECT form_lower, form, index_num
-      FROM form_only_forms
-      WHERE form IS NOT NULL
+      FROM walk
+      WHERE index_num IS NOT NULL AND form IS NOT NULL
     )
     ORDER BY form_lower, form
     """)

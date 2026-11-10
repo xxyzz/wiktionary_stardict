@@ -66,7 +66,7 @@ def download_chunk(edition: str, chunk: str, zst_path: Path, test_pages: list[st
                             f" {r.reason=} {r.text=}"
                         )
                     r = session.get(
-                        f"https://{edition}.wiktionary.org/w/rest.php/v1/page/title/{quoted_title}",
+                        f"https://{edition}.wiktionary.org/w/rest.php/v1/page/{quoted_title}/bare",
                     )
                     if r.ok:
                         page_id = r.json()["id"]
