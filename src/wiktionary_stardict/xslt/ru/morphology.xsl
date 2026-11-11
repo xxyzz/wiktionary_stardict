@@ -26,7 +26,17 @@
           select="for $td in $section/table[contains-token(@class, 'morfotable')]//td
                   return if ($td/a) then ($td/a/text(), $td/a/@title) else $td/text()"/>
     </xsl:variable>
-    <xsl:sequence select="(($bold-form, $table-forms) ! normalize-space())
-                          [not(. = ('', '//', '—'))]"/>
+    <xsl:variable
+        name="comparative-forms"
+        select="$section/p/text()[contains(., 'Сравнительная степень')][1]/
+                following-sibling::i/a[text() and not(*)]/myfn:get-element-forms(.)
+                [. != 'более']"/>
+    <xsl:variable
+        name="superlative-forms"
+        select="$section/p/text()[contains(., 'Превосходная степень')][1]/
+                following-sibling::*[self::i or self::a]/myfn:get-element-forms(.)"/>
+    <xsl:sequence
+        select="(($bold-form, $table-forms, $comparative-forms, $superlative-forms)
+                ! normalize-space())[not(. = ('', '//', '—'))]"/>
   </xsl:function>
 </xsl:stylesheet>

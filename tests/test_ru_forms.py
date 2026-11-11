@@ -129,3 +129,101 @@ class RuFormsTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_comparative_forms_tag(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>здоровый</title></head>
+<body>
+<section><h1>Русский</h1>
+<section><h3>Морфологические и синтаксические свойства</h3>
+<p><a>Прилагательное</a>, <a>качественное</a>, тип склонения по <a>классификации А.<span> </span>Зализняка</a><span> </span>— 1a.<span> </span>Сравнительная степень<span> </span>— <i><a title="здоровее">здорове́е</a><sup><abbr title="нерегулярная форма">△</abbr></sup>, <a><span class="label mark" title="устаревшее">устар.</span></a>: <a title="здоровее">здоро́вее</a></i>.</p>
+</section>
+<section><h3>Семантические свойства</h3>
+<section><h4><span></span>Значение</h4>
+<ol><li>gloss</li></ol>
+</section></section></section></body></html>""",
+            [{"forms": ["здоровый", "здорове́е", "здоровее", "здоро́вее"]}],
+        )
+
+    def test_comparative_forms_multiple_i(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>дешёвый</title></head>
+<body>
+<section><h1>Русский</h1>
+<section><h3>Морфологические и синтаксические свойства</h3>
+<p><a>Прилагательное</a>, <a>качественное</a>, тип склонения по <a>классификации А.<span> </span>Зализняка</a><span> </span>— 1a/c-ё.<span> </span>Сравнительная степень<span> </span>— <i><a title="дешевле">деше́вле</a> </i>и<i> <a title="подешевле">подеше́вле</a> </i>(в значении цены)<i>, <a title="дешевее" class="new">дешеве́е</a> </i>(в перен. знач.)<i>.</i></p>
+</section>
+<section><h3>Семантические свойства</h3>
+<section><h4><span></span>Значение</h4>
+<ol><li>gloss</li></ol>
+</section></section></section></body></html>""",
+            [
+                {
+                    "forms": [
+                        "дешёвый",
+                        "деше́вле",
+                        "дешевле",
+                        "подеше́вле",
+                        "подешевле",
+                        "дешеве́е",
+                        "дешевее",
+                    ]
+                }
+            ],
+        )
+
+    def test_comparative_forms_более(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>мудной</title></head>
+<body>
+<section><h1>Русский</h1>
+<section><h3>Морфологические и синтаксические свойства</h3>
+<p><a>Прилагательное</a>, <a>качественное</a>, тип склонения по <a>классификации А.<span> </span>Зализняка</a><span> </span>— 1b.<span> </span>Сравнительная степень<span> </span>— <i><a title="муднее">муднее</a>, <a title="более">более</a> <a class="mw-selflink-fragment">мудной</a></i>.</p>
+</section>
+<section><h3>Семантические свойства</h3>
+<section><h4><span></span>Значение</h4>
+<ol><li>gloss</li></ol>
+</section></section></section></body></html>""",
+            [{"forms": ["мудной", "муднее"]}],
+        )
+
+    def test_superlative_forms_a(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>новый</title></head>
+<body>
+<section><h1>Русский</h1>
+<section><h3>Морфологические и синтаксические свойства</h3>
+<p><a>Прилагательное</a>, <a>качественное</a>, тип склонения по <a>классификации А.<span> </span>Зализняка</a><span> </span>— 1a/c'.<span> </span>Сравнительная степень<span> </span>— <i><a title="новее">нове́е</a></i>.
+Превосходная степень — <a title="новейший">новейший</a>, <a title="наиновейший">наиновейший</a>.</p>
+</section>
+<section><h3>Семантические свойства</h3>
+<section><h4><span></span>Значение</h4>
+<ol><li>gloss</li></ol>
+</section></section></section></body></html>""",
+            [{"forms": ["новый", "нове́е", "новее", "новейший", "наиновейший"]}],
+        )
+
+    def test_superlative_forms_i(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>сладкий</title></head>
+<body>
+<section><h1>Русский</h1>
+<section><h3>Морфологические и синтаксические свойства</h3>
+<p>Превосходная степень — <i><a title="сладчайший">сладча́йший</a></i>.</p>
+</section>
+<section><h3>Семантические свойства</h3>
+<section><h4><span></span>Значение</h4>
+<ol><li>gloss</li></ol>
+</section></section></section></body></html>""",
+            [{"forms": ["сладкий", "сладча́йший", "сладчайший"]}],
+        )
