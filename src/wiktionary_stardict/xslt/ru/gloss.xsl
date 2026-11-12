@@ -64,6 +64,20 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
+      <xsl:variable
+          name="form-of-only" as="xs:boolean"
+          select="boolean(every $li in $meaning-section/ol/li[myfn:is-gloss-li(.)]
+                  satisfies myfn:is-form-of($li))"/>
+      <xsl:variable name="form-of-targets" as="xs:string*">
+        <xsl:choose>
+          <xsl:when test="$form-of-only">
+            <xsl:apply-templates
+                select="$meaning-section/ol/li" mode="form-of-targets"/>
+          </xsl:when>
+          <xsl:otherwise><xsl:sequence select="()"/></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
       <xsl:sequence
           select="map{'lang': $language,
                   'forms': array{$unique-forms},
@@ -71,7 +85,9 @@
                   'images': array{$images},
                   'ids': array{myfn:get-pos-section-ids(.)},
                   'svg': array{myfn:get-svg-data($final-definition)},
-                  'links': array{myfn:get-links($final-definition)}}"/>
+                  'links': array{myfn:get-links($final-definition)},
+                  'form_of_targets': array{distinct-values($form-of-targets)[. != '']},
+                  'form_of_only': $form-of-only}"/>
     </xsl:if>
   </xsl:template>
 
@@ -85,7 +101,7 @@
   </xsl:template>
 
   <xsl:template match="li" mode="gloss-li">
-    <xsl:if test="node() and not(contains-token(@class, 'mw-empty-elt'))">
+    <xsl:if test="myfn:is-gloss-li(.)">
       <xsl:variable
           name="examples"
           select="span[contains-token(@class, 'example-fullblock') and
@@ -110,5 +126,38 @@
 
   <xsl:template match="h3 | h4 | h5 | h6" mode="section-heading">
     <h4><xsl:apply-templates mode="clean-content"/></h4>
+  </xsl:template>
+
+  <xsl:function name="myfn:is-gloss-li" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="boolean($li/node() and
+                not(contains-token($li/@class, 'mw-empty-elt')))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:is-form-of" as="xs:boolean">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:sequence
+        select="exists($li/(i|a)[myfn:is-template(@data-mw, ('прич.', 'причастие',
+                'сравн.', 'нареч.', 'наречие', 'превосх.'))])"/>
+  </xsl:function>
+
+  <xsl:mode name="form-of-targets" on-no-match="shallow-skip"/>
+  <xsl:template
+      match="li/a[myfn:is-template(@data-mw, ('нареч.', 'наречие'))]"
+      as="xs:string*" mode="form-of-targets">
+    <xsl:sequence select="myfn:get-form-of-texts(following-sibling::i[1])"/>
+  </xsl:template>
+
+  <xsl:template
+      match="li/i[myfn:is-template(@data-mw, ('прич.', 'причастие'))]"
+      as="xs:string*" mode="form-of-targets">
+    <xsl:sequence select="myfn:get-form-of-texts(following-sibling::a[1])"/>
+  </xsl:template>
+
+  <xsl:template
+      match="li/a[myfn:is-template(@data-mw, ('сравн.', 'превосх.'))]"
+      as="xs:string*" mode="form-of-targets">
+    <xsl:sequence select="myfn:get-form-of-texts(following-sibling::a[1])"/>
   </xsl:template>
 </xsl:stylesheet>
