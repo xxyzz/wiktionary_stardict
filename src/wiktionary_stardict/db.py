@@ -13,6 +13,8 @@ def init_db(lemma_lang: str) -> Connection:
     conn = sqlite3.connect(db_path)
     conn.executescript("""
     PRAGMA foreign_keys = ON;
+    PRAGMA journal_mode = WAL;
+    PRAGMA synchronous = NORMAL;
     CREATE TABLE entry (
       id           INTEGER PRIMARY KEY,
       title        TEXT,

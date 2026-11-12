@@ -190,6 +190,7 @@ def update_db(edition: str, db_path: Path):
         add_redirects(conn, Path(f"build/{edition}_redirect.db"))
         delete_links(conn)
         insert_fragment_forms(conn)
+        conn.execute("PRAGMA optimize")
 
 
 def init_mod_link_worker():
@@ -297,6 +298,7 @@ def build(args):
                     mod_entry_link_href, iter_entry_with_links(conn), chunksize=100
                 ):
                     update_entry_links(conn, id, html)
+                conn.execute("PRAGMA optimize")
 
     if len(args.page) == 0:
         download_last_release_images(args.edition)
