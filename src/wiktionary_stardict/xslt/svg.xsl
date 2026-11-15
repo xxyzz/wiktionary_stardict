@@ -4,6 +4,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     expand-text="yes">
   <xsl:output indent="no" encoding="UTF-8"/>
   <xsl:param name="data"/>
@@ -17,19 +18,27 @@
   <xsl:template
       match="*[contains-token(@class, 'mwe-math-element') and @data-mw]"
       mode="add-svg">
-    <xsl:sequence
-        select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"/>
+    <xsl:apply-templates
+        select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"
+        mode="mod-svg-id">
+      <xsl:with-param name="svg-id" select="@id"/>
+    </xsl:apply-templates>
   </xsl:template>
 
   <xsl:template
       match="*[some $cls in ('mw-ext-score', 'mw-ext-score-disabled')
              satisfies contains-token(@class, $cls) and @data-mw]"
       mode="add-svg">
-    <xsl:copy>
-      <xsl:copy-of select="@* except @data-mw"/>
+    <xsl:variable name="svg">
       <xsl:apply-templates
           select="parse-xml-fragment($images(parse-json(@data-mw)?body?extsrc))/node()"
-          mode="enlarge-score-svg"/>
+          mode="mod-svg-id">
+        <xsl:with-param name="svg-id" select="@id"/>
+      </xsl:apply-templates>
+    </xsl:variable>
+    <xsl:copy>
+      <xsl:copy-of select="@*[not(local-name() = ('id', 'data-mw'))]"/>
+      <xsl:apply-templates select="$svg" mode="enlarge-score-svg"/>
     </xsl:copy>
   </xsl:template>
 
@@ -37,5 +46,15 @@
   <xsl:template
       match="svg:svg/@*[local-name() = ('width', 'height')]" mode="enlarge-score-svg">
     <xsl:attribute name="{name()}" select="number(.) * 2"/>
+  </xsl:template>
+
+  <xsl:mode name="mod-svg-id" on-no-match="shallow-copy"/>
+  <xsl:template match="@id" mode="mod-svg-id">
+    <xsl:param name="svg-id"/>
+    <xsl:attribute name="id" select="$svg-id || ."/>
+  </xsl:template>
+  <xsl:template match="@xlink:href" mode="mod-svg-id">
+    <xsl:param name="svg-id"/>
+    <xsl:attribute name="xlink:href" select="'#' || $svg-id || substring(., 2)"/>
   </xsl:template>
 </xsl:stylesheet>

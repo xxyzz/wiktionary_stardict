@@ -11,11 +11,12 @@
   <xsl:mode name="clean-content" on-no-match="shallow-copy"/>
 
   <xsl:template
-      match="@data-mw[not(parse-json(.)?name = ('math', 'chem', 'score'))]"
+      match="@*[local-name() = ('id', 'data-mw')
+             and not(parse-json(../@data-mw)?name = ('math', 'chem', 'score'))]"
       mode="clean-content"/>
 
   <xsl:template
-      match="@typeof | @about | @id | @rel | @srcset | @resource |
+      match="@typeof | @about | @rel | @srcset | @resource |
              @*[starts-with(name(), 'data-') and not(name() = 'data-mw')]"
       mode="clean-content"/>
 

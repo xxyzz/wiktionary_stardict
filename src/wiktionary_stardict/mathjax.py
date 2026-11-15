@@ -30,7 +30,7 @@ def start_node():
     import requests
 
     p = subprocess.Popen(["node", "src/wiktionary_stardict/mathjax.js"])
-    for i in range(5):
+    for _ in range(5):
         try:
             r = requests.get("http://127.0.0.1:8080/health")
             if r.ok:
