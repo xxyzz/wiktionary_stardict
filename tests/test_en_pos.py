@@ -422,7 +422,7 @@ class EnPOSTestCase(XMLTestCase):
   </span>
 </p>
 <ol><li><span class="usage-label-sense"><span class="ib-brac label-brac">(</span><span class="ib-content label-content">music</span><span class="ib-brac label-brac">)</span></span> a chord with the tonic, lowered submediant, and raised subdominant scale degrees
-<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="6"></svg></div></i></div></dd></dl></li></ol>
+<dl><dd><div class="h-usage-example"><i class="Latn mention e-example" lang="en">C <b>Italian augmented sixth chord</b><span>:</span><br/><div class="mw-ext-score noresize"><svg xmlns="http://www.w3.org/2000/svg" width="0.2em" height="0.3em"></svg></div></i></div></dd></dl></li></ol>
 </section>""",
                     "images": [],
                     "svg": [
@@ -1152,14 +1152,14 @@ class EnPOSTestCase(XMLTestCase):
 <p><span class="headword-line"><strong class="Latn headword" lang="en">C major
 </strong></p>
 <ol><li>gloss 1<dl><dd><div class="mw-ext-score-disabled">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="74" viewBox="0 0 75 37">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6.8em" height="3.4em" viewBox="0 0 75 37">
 <defs><g><g id="mwGAglyph-0-0"></g></g></defs>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
 <use xlink:href="#mwGAglyph-0-0" x="43.285156" y="24.214844"/>
 </g></svg></div></dd></dl></li>
 <li>gloss 2
 <dl><dd><div class="mw-ext-score-disabled">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="74" viewBox="0 0 75 37">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6.8em" height="3.4em" viewBox="0 0 75 37">
 <defs><g><g id="mwIAglyph-0-0"></g></g></defs>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
 <use xlink:href="#mwIAglyph-0-0" x="43.285156" y="24.214844"/>

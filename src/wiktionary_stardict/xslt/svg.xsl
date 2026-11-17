@@ -38,14 +38,17 @@
     </xsl:variable>
     <xsl:copy>
       <xsl:copy-of select="@*[not(local-name() = ('id', 'data-mw'))]"/>
-      <xsl:apply-templates select="$svg" mode="enlarge-score-svg"/>
+      <xsl:apply-templates select="$svg" mode="set-score-size"/>
     </xsl:copy>
   </xsl:template>
 
-  <xsl:mode name="enlarge-score-svg" on-no-match="shallow-copy"/>
+  <!-- lilypond's default font size is 11 points -->
+  <!-- https://lilypond.org/doc/v2.26/Documentation/notation/formatting-text#selecting-font-and-font-size -->
+  <!-- https://lilypond.org/doc/v2.26/Documentation/notation/setting-the-staff-size -->
+  <xsl:mode name="set-score-size" on-no-match="shallow-copy"/>
   <xsl:template
-      match="svg:svg/@*[local-name() = ('width', 'height')]" mode="enlarge-score-svg">
-    <xsl:attribute name="{name()}" select="number(.) * 2"/>
+      match="svg:svg/@*[local-name() = ('width', 'height')]" mode="set-score-size">
+    <xsl:attribute name="{name()}" select="round(number(.) div 11, 1) || 'em'"/>
   </xsl:template>
 
   <xsl:mode name="mod-svg-id" on-no-match="shallow-copy"/>
