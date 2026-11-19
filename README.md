@@ -11,6 +11,8 @@ Download from https://xxyzz.github.io/wiktionary_stardict/ or KOReader dictionar
 
 KOReader dictionary install guide: https://github.com/koreader/koreader/wiki/Dictionary-support
 
+Read [this documentation](./docs/README.md) of how to add new Wiktionary edition.
+
 ## License
 
 This work is licensed under GPL version 3 or later.
