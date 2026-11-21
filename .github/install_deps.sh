@@ -11,7 +11,7 @@ uv sync --locked --extra dev
 # compile libseccomp
 # copied from https://gitlab.archlinux.org/archlinux/packaging/packages/libseccomp/-/blob/main/PKGBUILD
 sudo apt install gperf
-libseccomp_ver="2.6.1"
+libseccomp_ver="2.6.2"
 wget -nv https://github.com/seccomp/libseccomp/releases/download/v${libseccomp_ver}/libseccomp-${libseccomp_ver}.tar.gz
 tar -xf libseccomp-*.tar.gz
 rm libseccomp-*.tar.gz
