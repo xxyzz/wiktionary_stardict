@@ -293,3 +293,211 @@ class FrPOSTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"svg": [], "images": []}],
         )
+
+    def test_forme_de_verbe_sections(self):
+        # https://fr.wiktionary.org/wiki/fue
+        input_html = """<!DOCTYPE html>
+<html>
+<head><title>fue</title></head>
+<body>
+<section><h2 id="Espagnol"><span class="sectionlangue" id="es"><a rel="mw:WikiLink" href="./Portail:Espagnol" title="Portail:Espagnol">Espagnol</a></span></h2>
+<section><h3 id="Forme_de_verbe_1"><span class="titredef" id="es-flex-verb-1">Forme de verbe 1</span><span id="es-flex-verb" style="font-size:0;"></span></h3>
+<table class="wikitable flextable">
+<tbody><tr><th colspan="3"><small><a rel="mw:WikiLink" href="./Conjugaison:espagnol/ir" title="Conjugaison:espagnol/ir">Voir la conjugaison du verbe <i><span lang="es" class="lang-es"><bdi>ir</bdi></span></i></a></small></th></tr>
+<tr style="vertical-align:top"><td>(él/ella/ello/usted) fue</td></tr>
+</tbody></table>
+<p><b>fue</b> <a rel="mw:WikiLink" href="./Annexe:Prononciation/espagnol" title="Annexe:Prononciation/espagnol"><span class="API" title="Prononciation API">\\fwe\\</span></a></p>
+<ol><li><i>Troisième personne du singulier du passé simple de l’indicatif du verbe irrégulier</i> <bdi lang="es" class="lang-es"><a rel="mw:WikiLink" href="./ir#es-verb" title="ir">ir</a></bdi><span> («</span><span typeof="mw:Entity"> </span><a rel="mw:WikiLink" href="./aller" title="aller">aller</a><span typeof="mw:Entity"> </span><span>»)</span>.</li></ol>
+</section>
+<section><h3 id="Forme_de_verbe_2"><span class="titredef" id="es-flex-verb-2">Forme de verbe 2</span></h3>
+<p><b>fue</b> <a rel="mw:WikiLink" href="./Annexe:Prononciation/espagnol" title="Annexe:Prononciation/espagnol"><span class="API" title="Prononciation API">\\fwe\\</span></a></p>
+<ol><li><i>Troisième personne du singulier du passé simple de l’indicatif du verbe irrégulier</i> <bdi lang="es" class="lang-es"><a rel="mw:WikiLink" href="./ser#es-verb" title="ser">ser</a></bdi><span> («</span><span typeof="mw:Entity"> </span><a rel="mw:WikiLink" href="./%C3%AAtre" title="être">être</a><span typeof="mw:Entity"> </span><span>»)</span>.</li></ol>
+</section>
+</section>
+</body>
+</html>"""
+        self.assertEqual(len(self.transform_input(input_html)), 2)
+        self.assertTransformEqual(
+            input_html,
+            [
+                {
+                    "forms": ["fue"],
+                    "form_of_only": True,
+                    "form_of_targets": ["ir#es-verb"],
+                    "ids": [
+                        "Espagnol",
+                        "Forme_de_verbe_1",
+                        "es",
+                        "es-flex-verb-1",
+                        "es-flex-verb",
+                    ],
+                },
+                {
+                    "forms": ["fue"],
+                    "form_of_only": True,
+                    "form_of_targets": ["ser#es-verb"],
+                },
+            ],
+        )
+
+    def test_forme_section_ignore_table_forms(self):
+        # https://fr.wiktionary.org/wiki/casas
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>casas</title></head>
+<body>
+<section><h2>Espagnol</h2>
+<section><h3 id="Forme_de_nom_commun"><span class="titredef" id="es-flex-nom-1">Forme de nom commun</span></h3>
+<table class="wikitable flextable flextable-es-mfsp">
+<tbody><tr><th>Singulier</th><th>Pluriel</th></tr>
+<tr>
+<td><bdi lang="es" class="lang-es"><a rel="mw:WikiLink" href="./casa#es" title="casa">casa</a></bdi></td>
+<td><b><span lang="es" class="lang-es"><bdi>casas</bdi></span></b></td></tr>
+</tbody></table>
+<p><b>casas</b> <span class="ligne-de-forme"><i>féminin</i></span></p>
+<ol><li><i>Pluriel de</i> <a rel="mw:WikiLink" href="./casa#es-nom" title="casa">casa</a>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": ["casas"],
+                    "form_of_only": True,
+                    "form_of_targets": ["casa#es-nom"],
+                }
+            ],
+        )
+
+    def test_lemma_and_forme_sections(self):
+        # https://fr.wiktionary.org/wiki/casa
+        input_html = """<!DOCTYPE html>
+<html>
+<head><title>casa</title></head>
+<body>
+<section><h2>Espagnol</h2>
+<section><h3 id="Nom_commun"><span class="titredef" id="es-nom-1">Nom commun</span></h3>
+<p><b>casa</b> <span class="ligne-de-forme"><i>féminin</i></span></p>
+<ol><li><a rel="mw:WikiLink" href="./maison#Nom_commun" title="maison">Maison</a>.</li></ol>
+</section>
+<section><h3 id="Forme_de_verbe"><span class="titredef" id="es-flex-verb-1">Forme de verbe</span></h3>
+<p><b>casa</b></p>
+<ol><li><i>Troisième personne du singulier du présent de l’indicatif de </i><bdi lang="es" class="lang-es"><a rel="mw:WikiLink" href="./casar#es" title="casar">casar</a></bdi><i>.</i></li>
+<li><i>Deuxième personne du singulier de l’impératif de </i><bdi lang="es" class="lang-es"><a rel="mw:WikiLink" href="./casar#es" title="casar">casar</a></bdi><i>.</i></li></ol>
+</section>
+</section>
+</body>
+</html>"""
+        self.assertEqual(len(self.transform_input(input_html)), 2)
+        self.assertTransformEqual(
+            input_html,
+            [
+                {"forms": ["casa"], "form_of_only": False, "form_of_targets": []},
+                {
+                    "forms": ["casa"],
+                    "form_of_only": True,
+                    "form_of_targets": ["casar#es"],
+                },
+            ],
+        )
+
+    def test_forme_de_verbe_french(self):
+        # https://fr.wiktionary.org/wiki/mangeons
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>mangeons</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3 id="Forme_de_verbe"><span class="titredef" id="fr-flex-verb-1">Forme de verbe</span></h3>
+<p><b>mangeons</b></p>
+<ol><li><i>Première personne du pluriel du présent de l’indicatif de</i> <a rel="mw:WikiLink" href="./manger" title="manger">manger</a>.</li>
+<li><i>Première personne du pluriel de l’impératif de</i> <a rel="mw:WikiLink" href="./manger" title="manger">manger</a>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [
+                {
+                    "forms": ["mangeons"],
+                    "form_of_only": True,
+                    "form_of_targets": ["manger"],
+                }
+            ],
+        )
+
+    def test_forme_section_italic_link_is_not_target(self):
+        # https://fr.wiktionary.org/wiki/trat
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>trat</title></head>
+<body>
+<section><h2>Allemand</h2>
+<section><h3 id="Forme_de_verbe"><span class="titredef" id="de-flex-verb-1">Forme de verbe</span></h3>
+<p><b>trat</b></p>
+<ol><li><i>Première personne du singulier du <a rel="mw:WikiLink" href="./pr%C3%A9t%C3%A9rit" title="prétérit">prétérit</a> de</i> <a rel="mw:WikiLink" href="./treten" title="treten">treten</a>.</li>
+<li><i>Troisième personne du singulier du <a rel="mw:WikiLink" href="./pr%C3%A9t%C3%A9rit" title="prétérit">prétérit</a> de</i> <a rel="mw:WikiLink" href="./treten" title="treten">treten</a>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["trat"], "form_of_only": True, "form_of_targets": ["treten"]}],
+        )
+
+    def test_forme_section_without_link(self):
+        # https://fr.wiktionary.org/wiki/Abesias
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>Abesias</title></head>
+<body>
+<section><h2>Gaulois</h2>
+<section><h3 id="Forme_de_prénom"><span class="titredef">Forme de prénom</span></h3>
+<p><b>Abesias</b></p>
+<ol><li><i>Génitif singulier d'un prénom féminin gaulois</i>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["Abesias"], "form_of_only": False, "form_of_targets": []}],
+        )
+
+    def test_forme_section_with_plain_definitions(self):
+        # https://fr.wiktionary.org/wiki/nineties
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>nineties</title></head>
+<body>
+<section><h2>Anglais</h2>
+<section><h3 id="Forme_de_nom_commun"><span class="titredef" id="en-flex-nom-1">Forme de nom commun</span></h3>
+<p><b>nineties</b></p>
+<ol><li><i>Pluriel de</i> <a rel="mw:WikiLink" href="./ninety#en" title="ninety">ninety</a>.</li>
+<li><span class="term" id="en-calendrier"><i>(<span class="texte">Chronologie</span>)</i></span> Années 90, en particulier la <a rel="mw:WikiLink" href="./d%C3%A9cennie" title="décennie">décennie</a> 1990-1999.</li>
+<li><span class="term"><i>(<span class="texte">Avec un adjectif possessif</span>)</i></span> Âges de 90 à 99 ans.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["nineties"], "form_of_only": False, "form_of_targets": []}],
+        )
+
+    def test_forme_section_link_without_label(self):
+        # https://fr.wiktionary.org/wiki/2èmes
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>2èmes</title></head>
+<body>
+<section><h2>Français</h2>
+<section><h3 id="Forme_d’adjectif"><span class="titredef" id="fr-flex-adj-1">Forme d’adjectif</span></h3>
+<p><b>2èmes</b></p>
+<ol><li><a rel="mw:WikiLink" href="./deuxi%C3%A8mes" title="deuxièmes">Deuxièmes</a>.</li></ol>
+</section>
+</section>
+</body>
+</html>""",
+            [{"forms": ["2èmes"], "form_of_only": False, "form_of_targets": []}],
+        )

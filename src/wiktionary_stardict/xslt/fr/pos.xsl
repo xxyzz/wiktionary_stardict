@@ -14,11 +14,17 @@
   <xsl:template match="section" mode="pos">
     <xsl:param name="language" as="xs:string"/>
     <xsl:if test="ol/li[myfn:is-gloss-li(.)]">
+      <!-- "Forme de …" sections: inflected forms that point to their lemma -->
+      <xsl:variable
+          name="is-form-section" as="xs:boolean"
+          select="starts-with(normalize-space((h3|h4|h5|h6)[1]), 'Forme ')"/>
       <xsl:variable name="headword-forms" as="xs:string*"
                     select="p/(b|bdi)/myfn:get-element-forms(.)"/>
+      <!-- the table of a form section also lists the lemma -->
       <xsl:variable
           name="table-forms"
-          select="table[contains-token(@class, 'flextable')]//td/bdi/
+          select="if ($is-form-section) then () else
+                  table[contains-token(@class, 'flextable')]//td/bdi/
                   myfn:get-element-forms(.)"
           as="xs:string*"/>
       <xsl:variable
@@ -64,10 +70,13 @@
         <xsl:apply-templates select="$definition" mode="convert-img"/>
       </xsl:variable>
 
+      <xsl:variable name="gloss-li" as="element(li)*"
+                    select="ol/li[myfn:is-gloss-li(.)]"/>
       <xsl:variable
           name="form-of-only" as="xs:boolean"
-          select="boolean(every $li in ol/li[myfn:is-gloss-li(.)]
-                  satisfies myfn:is-form-of($li))"/>
+          select="boolean(every $li in $gloss-li satisfies
+                  (myfn:is-form-of($li) or
+                  ($is-form-section and exists(myfn:form-section-targets($li)))))"/>
 
       <xsl:sequence
           select="map{'lang': $language,
@@ -76,8 +85,12 @@
                   'images': array{$images},
                   'zim_pages': array{$conj-links},
                   'ids': array{myfn:fr-pos-section-ids(.)},
-                  'form_of_targets': array{if ($form-of-only) then
-                    myfn:form-of-targets(ol/li[myfn:is-gloss-li(.)]) else ()},
+                  'form_of_targets': array{if (not($form-of-only)) then () else
+                    if ($is-form-section) then
+                    distinct-values(for $li in $gloss-li return
+                    let $targets := myfn:form-section-targets($li) return
+                    if (exists($targets)) then $targets else myfn:form-of-targets($li))
+                    else myfn:form-of-targets($gloss-li)},
                   'form_of_only': $form-of-only,
                   'svg': array{myfn:get-svg-data($final-definition)},
                   'links': array{myfn:get-links($final-definition)}}"/>
@@ -176,5 +189,18 @@
         select="distinct-values(myfn:get-form-of-texts(
                 (if ($li/bdi) then $li/bdi else if ($li/i/a) then
                 $li/i/a else $li/a)))[. != '']"/>
+  </xsl:function>
+
+  <!-- Lemma links of a "Forme de …" gloss like "<i>Pluriel de</i> lemma".
+       Links inside <i> are grammar terms like "prétérit", links after the
+       <bdi> are translations, and a link without the <i> label before it is
+       part of a plain definition. -->
+  <xsl:function name="myfn:form-section-targets" as="xs:string*">
+    <xsl:param name="li" as="element(li)"/>
+    <xsl:variable name="bdi" select="$li/bdi | $li/i/bdi"/>
+    <xsl:sequence
+        select="distinct-values(myfn:get-form-of-texts(
+                if ($bdi) then $bdi else
+                $li/a[myfn:is-bword-link(.) and preceding-sibling::i]))[. != '']"/>
   </xsl:function>
 </xsl:stylesheet>
