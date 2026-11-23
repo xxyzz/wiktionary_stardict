@@ -72,12 +72,77 @@ class FrConjTestCase(XMLTestCase):
 <td width="18%"><span> </span><a><span class="API" title="Prononciation API">\aˈβeɾ kaˈθa.ðo\</span></a></td></tr>
 </tbody></table>
 </section>
-<section><h3> Indicatif </h3>
-<table><tbody><tr align="center" valign="top"><td width="50%">
-<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<section><h3>Indicatif</h3><table><tbody><tr><td><table><tbody><tr>
 <td width="30%" align="right">(yo)<span> </span></td>
 <td width="34%"><span> </span><a rel="mw:WikiLink" href="./caso#es" title="caso">caso</a></td>
 <td width="36%"><a><span class="API" title="Prononciation API">\ˈka.θo\</span></a></td>
 </tr></tbody></table></td></tr></tbody></table></section></body></html>"""
         )
         self.assertEqual(data, ["casar", "casado", "caso"])
+
+    def test_it_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                r"""<!DOCTYPE html>
+<html>
+<head><title>Conjugaison:italien/avere</title></head>
+<body>
+<section><h3>Modes impersonnels</h3>
+<table><tbody><tr>
+<td style="width:17%;"><span> </span><a>avere</a></td>
+<td style="width:18%;"><a><span class="API" title="Prononciation API">\a.ˈve.re\</span></a></td>
+<td><span> </span>avere</td>
+<td style="width:17%;"><span> </span>avuto</td>
+</tr></tbody></table>
+</section>
+<section><h3>Indicatif</h3><table><tbody><tr><td><table><tbody><tr>
+<td>(io)<span> </span></td>
+<td><span> </span><b><a rel="mw:WikiLink" href="./ho#it" title="ho">ho</a></b></td>
+</tr></tbody></table></td></tr></tbody></table></section></body></html>"""
+            ),
+            ["avere", "ho"],
+        )
+
+    def test_ja_adj_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                r"""<!DOCTYPE html>
+<html>
+<head><title>Conjugaison:japonais/格好だ</title></head>
+<body>
+<section><table><tbody><tr>
+<th scope="row">Neutre négatif</th>
+<td><span lang="ja" class="lang-ja"><bdi><a>格好ではない</a><br/><a>格好じゃない</a></bdi></span></td>
+<td>kakkou dewa nai<br/>kakkou ja nai</td></tr>
+<tr>
+<th scope="row">Conditionnel</th>
+<td><span lang="ja" class="lang-ja"><bdi><a>格好なら</a>(ば)</bdi></span></td>
+<td><span lang="ja" class="lang-ja"><bdi><a>かっこうなら</a>(ば)</bdi></span></td>
+<td>kakkou nara(ba)</td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            [
+                "格好ではない",
+                "格好じゃない",
+                "格好なら",
+                "格好ならば",
+                "かっこうなら",
+                "かっこうならば",
+            ],
+        )
+
+    def test_ja_verb_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                r"""<!DOCTYPE html>
+<html>
+<head><title>Conjugaison:japonais/在る</title></head>
+<body>
+<section><table><tbody><tr>
+<td><bdi lang="ja" class="lang-ja"><a>在る</a></bdi></td>
+<td><bdi lang="ja" class="lang-ja"><a>ある</a></bdi></td>
+<td><i>aru</i><p><i></i></p></td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["在る", "ある"],
+        )
