@@ -107,9 +107,7 @@ class FrConjTestCase(XMLTestCase):
         self.assertEqual(
             self.transform_zim(
                 r"""<!DOCTYPE html>
-<html>
-<head><title>Conjugaison:japonais/格好だ</title></head>
-<body>
+<html><head><title>Conjugaison:japonais/格好だ</title></head><body>
 <section><table><tbody><tr>
 <th scope="row">Neutre négatif</th>
 <td><span lang="ja" class="lang-ja"><bdi><a>格好ではない</a><br/><a>格好じゃない</a></bdi></span></td>
@@ -135,9 +133,7 @@ class FrConjTestCase(XMLTestCase):
         self.assertEqual(
             self.transform_zim(
                 r"""<!DOCTYPE html>
-<html>
-<head><title>Conjugaison:japonais/在る</title></head>
-<body>
+<html><head><title>Conjugaison:japonais/在る</title></head><body>
 <section><table><tbody><tr>
 <td><bdi lang="ja" class="lang-ja"><a>在る</a></bdi></td>
 <td><bdi lang="ja" class="lang-ja"><a>ある</a></bdi></td>
@@ -151,13 +147,28 @@ class FrConjTestCase(XMLTestCase):
         self.assertEqual(
             self.transform_zim(
                 r"""<!DOCTYPE html>
-<html>
-<head><title>Annexe:Déclinaison en allemand/herrlich</title></head>
-<body>
+<html><head><title>Annexe:Déclinaison en allemand/herrlich</title></head><body>
 <section><table><tbody><tr>
 <td>der</td>
 <td><bdi lang="de" class="lang-de"><a>herrliche</a></bdi></td>
 </tr></tbody></table></section></body></html>"""
             ),
             ["herrliche"],
+        )
+
+    def test_ko_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                r"""<!DOCTYPE html>
+<html><head><title>Conjugaison:coréen/깨닫다</title></head><body>
+<section><table><tbody><tr>
+<td colspan="2"><span lang="ko" class="lang-ko"><bdi>깨닫-</bdi></span></td>
+<td><table class="wikitable"><tbody><tr>
+<td><span lang="ko" class="lang-ko"><bdi>깨달았</bdi></span>-</td>
+</tr></tbody></table></td></tr></tbody></table>
+<table class="wikitable"><tbody><tr>
+<td><span lang="ko" class="lang-ko"><bdi>깨닫는다</bdi></span><br/>kkaedanneunda<br/><a><span class="API" title="Prononciation API">[ˀke̞.dan.nɯn.da]</span></a></td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["깨닫는다"],
         )

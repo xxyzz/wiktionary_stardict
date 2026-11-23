@@ -101,3 +101,20 @@ class FrFormsTestCase(XMLTestCase):
 </section></section></body></html>""",
             [{"zim_pages": ["Annexe:Déclinaison en allemand/herrlich"]}],
         )
+
+    def test_ko_conj_link(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>깨닫다</title></head>
+<body>
+<section><h2>Coréen</h2>
+<section><h3>Verbe</h3>
+<table class="wikitable flextable"><tbody><tr>
+<td colspan="3"><a title="Conjugaison:coréen/깨닫다">Voir des formes</a></td>
+</tr></tbody></table>
+<p><b>herrlich</b></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"zim_pages": ["Conjugaison:coréen/깨닫다"]}],
+        )

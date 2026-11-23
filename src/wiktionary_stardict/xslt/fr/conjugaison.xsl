@@ -16,12 +16,14 @@
   <xsl:template match="/">
     <xsl:variable
         name="forms" as="xs:string*"
-        select="if (starts-with($title, 'Conjugaison:français/'))
-                  then myfn:fr-conj(.)
+        select="if (starts-with($title, 'Conjugaison:français/')) then
+                  myfn:fr-conj(.)
                 else if (some $prefix in ('Conjugaison:japonais/',
                 'Annexe:Déclinaison en allemand/') satisfies
-                starts-with($title, $prefix))
-                  then myfn:ja-conj(.)
+                starts-with($title, $prefix)) then
+                  myfn:ja-conj(.)
+                else if (starts-with($title, 'Conjugaison:coréen/')) then
+                  myfn:ko-conj(.)
                 else myfn:es-conj(.)"/>
     <xsl:sequence select="array{distinct-values($forms[. != ''])}"/>
   </xsl:template>
@@ -44,5 +46,12 @@
     <xsl:param name="root"/>
     <xsl:sequence
         select="myfn:process-form-parenthesis(myfn:get-element-forms($root//td//bdi))"/>
+  </xsl:function>
+
+  <xsl:function name="myfn:ko-conj" as="xs:string*">
+    <xsl:param name="root"/>
+    <xsl:sequence
+        select="$root//section/table[contains-token(@class, 'wikitable')]//td//bdi/
+                myfn:get-element-forms(.)"/>
   </xsl:function>
 </xsl:stylesheet>
