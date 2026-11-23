@@ -19,11 +19,13 @@
         select="if (starts-with($title, 'Conjugaison:français/')) then
                   myfn:fr-conj(.)
                 else if (some $prefix in ('Conjugaison:japonais/',
-                'Annexe:Déclinaison en allemand/') satisfies
+                'Annexe:Déclinaison en allemand/', 'Conjugaison:portugais/') satisfies
                 starts-with($title, $prefix)) then
                   myfn:ja-conj(.)
                 else if (starts-with($title, 'Conjugaison:coréen/')) then
                   myfn:ko-conj(.)
+                else if (starts-with($title, 'Conjugaison:tchèque/')) then
+                  myfn:cs-conj(.)
                 else myfn:es-conj(.)"/>
     <xsl:sequence select="array{distinct-values($forms[. != ''])}"/>
   </xsl:template>
@@ -54,4 +56,21 @@
         select="$root//section/table[contains-token(@class, 'wikitable')]//td//bdi/
                 myfn:get-element-forms(.)"/>
   </xsl:function>
+
+  <!-- https://fr.wiktionary.org/wiki/Modèle:cs-conj-i -->
+  <xsl:function name="myfn:cs-conj" as="xs:string*">
+    <xsl:param name="root"/>
+    <xsl:apply-templates select="$root//td" mode="cs-conj-td"/>
+  </xsl:function>
+
+  <xsl:template match="td" mode="cs-conj-td" as="xs:string*">
+    <xsl:variable name="is-futur" select="position() mod 5 = 3"/>
+    <xsl:for-each-group select="node()" group-adjacent="boolean(self::br)">
+      <xsl:if test="not(current-grouping-key())">
+        <xsl:sequence
+            select="myfn:get-element-forms(current-group()[self::bdi]
+                    [if ($is-futur) then last() else 1])"/>
+      </xsl:if>
+    </xsl:for-each-group>
+  </xsl:template>
 </xsl:stylesheet>

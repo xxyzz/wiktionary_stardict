@@ -76,7 +76,7 @@
   </xsl:function>
 
   <xsl:function name="myfn:get-element-forms" as="xs:string*">
-    <xsl:param name="input" as="element()*"/>
+    <xsl:param name="input" as="node()*"/>
     <xsl:for-each select="$input">
       <xsl:choose>
         <xsl:when test="self::a">
@@ -89,12 +89,9 @@
           <xsl:sequence select="myfn:a-forms(a)"/>
         </xsl:when>
         <xsl:when test="br">
-          <xsl:for-each-group select="node()" group-adjacent="boolean(self::br)">
+          <xsl:for-each-group select="node()" group-adjacent="exists(self::br)">
             <xsl:if test="not(current-grouping-key())">
-              <xsl:variable name="new-e">
-                <span><xsl:copy-of select="current-group()"/></span>
-              </xsl:variable>
-              <xsl:sequence select="myfn:get-element-forms($new-e/span)"/>
+              <xsl:sequence select="myfn:get-element-forms(current-group())"/>
             </xsl:if>
           </xsl:for-each-group>
         </xsl:when>
