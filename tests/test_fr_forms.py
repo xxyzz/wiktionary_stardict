@@ -83,3 +83,21 @@ class FrFormsTestCase(XMLTestCase):
 </html>""",
             [{"forms": ["соба́ка", "собака", "соба́ки", "собаки"]}],
         )
+
+    def test_de_adj_annexe_link(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html>
+<head><title>herrlich</title></head>
+<body>
+<section><h2>Allemand</h2>
+<section><h3>Adjectif</h3>
+<table class="wikitable flextable"><tbody><tr>
+<td><a>herrlicher</a></td>
+<td colspan="3"><a title="Annexe:Déclinaison en allemand/herrlich">Déclinaisons</a></td>
+</tr></tbody></table>
+<p><b>herrlich</b></p>
+<ol><li>gloss</li></ol>
+</section></section></body></html>""",
+            [{"zim_pages": ["Annexe:Déclinaison en allemand/herrlich"]}],
+        )
