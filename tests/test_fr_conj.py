@@ -146,3 +146,18 @@ class FrConjTestCase(XMLTestCase):
             ),
             ["在る", "ある"],
         )
+
+    def test_de_adj_annexe(self):
+        self.assertEqual(
+            self.transform_zim(
+                r"""<!DOCTYPE html>
+<html>
+<head><title>Annexe:Déclinaison en allemand/herrlich</title></head>
+<body>
+<section><table><tbody><tr>
+<td>der</td>
+<td><bdi lang="de" class="lang-de"><a>herrliche</a></bdi></td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["herrliche"],
+        )

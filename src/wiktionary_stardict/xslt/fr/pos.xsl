@@ -33,7 +33,9 @@
           name="conj-links"
           select="p/a[starts-with(@title, 'Conjugaison:') and not(
                   some $v in ('Premier groupe', 'Deuxième groupe', 'Troisième groupe')
-                  satisfies ends-with(@title, $v))]/@title"
+                  satisfies ends-with(@title, $v))]/@title |
+                  table[contains-token(@class, 'flextable')]//td/
+                  a[starts-with(@title, 'Annexe:Déclinaison ')]/@title"
           as="xs:string*"/>
 
       <xsl:variable name="definition">

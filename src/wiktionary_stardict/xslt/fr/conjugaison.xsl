@@ -18,7 +18,9 @@
         name="forms" as="xs:string*"
         select="if (starts-with($title, 'Conjugaison:français/'))
                   then myfn:fr-conj(.)
-                else if (starts-with($title, 'Conjugaison:japonais/'))
+                else if (some $prefix in ('Conjugaison:japonais/',
+                'Annexe:Déclinaison en allemand/') satisfies
+                starts-with($title, $prefix))
                   then myfn:ja-conj(.)
                 else myfn:es-conj(.)"/>
     <xsl:sequence select="array{distinct-values($forms[. != ''])}"/>
