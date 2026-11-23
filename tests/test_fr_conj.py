@@ -106,7 +106,7 @@ class FrConjTestCase(XMLTestCase):
     def test_ja_adj_conj(self):
         self.assertEqual(
             self.transform_zim(
-                r"""<!DOCTYPE html>
+                """<!DOCTYPE html>
 <html><head><title>Conjugaison:japonais/格好だ</title></head><body>
 <section><table><tbody><tr>
 <th scope="row">Neutre négatif</th>
@@ -132,7 +132,7 @@ class FrConjTestCase(XMLTestCase):
     def test_ja_verb_conj(self):
         self.assertEqual(
             self.transform_zim(
-                r"""<!DOCTYPE html>
+                """<!DOCTYPE html>
 <html><head><title>Conjugaison:japonais/在る</title></head><body>
 <section><table><tbody><tr>
 <td><bdi lang="ja" class="lang-ja"><a>在る</a></bdi></td>
@@ -146,7 +146,7 @@ class FrConjTestCase(XMLTestCase):
     def test_de_adj_annexe(self):
         self.assertEqual(
             self.transform_zim(
-                r"""<!DOCTYPE html>
+                """<!DOCTYPE html>
 <html><head><title>Annexe:Déclinaison en allemand/herrlich</title></head><body>
 <section><table><tbody><tr>
 <td>der</td>
@@ -159,7 +159,7 @@ class FrConjTestCase(XMLTestCase):
     def test_ko_conj(self):
         self.assertEqual(
             self.transform_zim(
-                r"""<!DOCTYPE html>
+                """<!DOCTYPE html>
 <html><head><title>Conjugaison:coréen/깨닫다</title></head><body>
 <section><table><tbody><tr>
 <td colspan="2"><span lang="ko" class="lang-ko"><bdi>깨닫-</bdi></span></td>
@@ -171,4 +171,16 @@ class FrConjTestCase(XMLTestCase):
 </tr></tbody></table></section></body></html>"""
             ),
             ["깨닫는다"],
+        )
+
+    def test_cs_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                """<!DOCTYPE html>
+<html><head><title>Conjugaison:tchèque/plavat</title></head><body>
+<section><table><tbody><tr>
+<td><bdi lang="cs" class="lang-cs"><a>plavu</a></bdi></td><td><bdi lang="cs" class="lang-cs"><a>plaval</a></bdi> <bdi lang="cs" class="lang-cs"><a>jsem</a></bdi> <span class="ligne-de-forme"><i>masculin</i></span><br/><bdi lang="cs" class="lang-cs"><a>plavala</a></bdi> <bdi lang="cs" class="lang-cs"><a>jsem</a></bdi> <span class="ligne-de-forme"><i>féminin</i></span></td><td><bdi lang="cs" class="lang-cs"><a>budu</a></bdi> <bdi lang="cs" class="lang-cs"><a>plavat</a></bdi></td><td><bdi lang="cs" class="lang-cs"><a>plaval</a></bdi> <bdi lang="cs" class="lang-cs"><a>bych</a></bdi> <span class="ligne-de-forme"><i>masculin</i></span><br/><bdi lang="cs" class="lang-cs"><a>plavala</a></bdi> <bdi lang="cs" class="lang-cs"><a>bych</a></bdi> <span class="ligne-de-forme"><i>féminin</i></span></td><td>—</td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["plavu", "plaval", "plavala", "plavat"],
         )
