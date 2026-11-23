@@ -56,3 +56,28 @@ class FrConjTestCase(XMLTestCase):
 </html>"""
         )
         self.assertEqual(data, ["courir", "couru", "cours"])
+
+    def test_es_conj(self):
+        data = self.transform_zim(
+            r"""<!DOCTYPE html>
+<html>
+<head><title>Conjugaison:espagnol/casar</title></head>
+<body>
+<section><h3>Modes impersonnels</h3>
+<table><tbody><tr>
+<td width="17%"><span> </span><a rel="mw:WikiLink" href="./casar#es" title="casar">casar</a></td>
+<td width="18%"><a><span class="API" title="Prononciation API">\kaˈθaɾ\</span></a></td>
+<td width="15%" align="right"><span> </span>haber<span> </span></td>
+<td width="17%"><span> </span><a rel="mw:WikiLink" href="./casado#es" title="casado">casado</a></td>
+<td width="18%"><span> </span><a><span class="API" title="Prononciation API">\aˈβeɾ kaˈθa.ðo\</span></a></td></tr>
+</tbody></table>
+</section>
+<section><h3> Indicatif </h3>
+<table><tbody><tr align="center" valign="top"><td width="50%">
+<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td width="30%" align="right">(yo)<span> </span></td>
+<td width="34%"><span> </span><a rel="mw:WikiLink" href="./caso#es" title="caso">caso</a></td>
+<td width="36%"><a><span class="API" title="Prononciation API">\ˈka.θo\</span></a></td>
+</tr></tbody></table></td></tr></tbody></table></section></body></html>"""
+        )
+        self.assertEqual(data, ["casar", "casado", "caso"])
