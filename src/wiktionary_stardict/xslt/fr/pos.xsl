@@ -35,7 +35,8 @@
                   some $v in ('Premier groupe', 'Deuxième groupe', 'Troisième groupe')
                   satisfies ends-with(@title, $v))]/@title |
                   table[contains-token(@class, 'flextable')]//td/
-                  a[starts-with(@title, 'Annexe:Déclinaison ')]/@title"
+                  a[some $prefix in ('Annexe:Déclinaison ', 'Conjugaison:') satisfies
+                  starts-with(@title, $prefix)]/@title"
           as="xs:string*"/>
 
       <xsl:variable name="definition">
