@@ -18,9 +18,7 @@
         name="forms" as="xs:string*"
         select="if (starts-with($title, 'Conjugaison:français/')) then
                   myfn:fr-conj(.)
-                else if (some $prefix in ('Conjugaison:japonais/',
-                'Annexe:Déclinaison en allemand/', 'Conjugaison:portugais/') satisfies
-                starts-with($title, $prefix)) then
+                else if (starts-with($title, 'Conjugaison:japonais/')) then
                   myfn:ja-conj(.)
                 else if (starts-with($title, 'Conjugaison:coréen/')) then
                   myfn:ko-conj(.)
@@ -40,8 +38,9 @@
   <xsl:function name="myfn:es-conj" as="xs:string*">
     <xsl:param name="root"/>
     <xsl:sequence
-        select="$root//td[(a or b) and not(exists(.//span[contains(@class, 'API')]))]/
-                myfn:get-element-forms(if (b) then b else .)"/>
+        select="$root//td[exists(a|b|bdi) and
+                not(exists(.//span[contains(@class, 'API')]))]/
+                myfn:get-element-forms(if (b) then b else if (bdi) then bdi else .)"/>
   </xsl:function>
 
   <xsl:function name="myfn:ja-conj" as="xs:string*">

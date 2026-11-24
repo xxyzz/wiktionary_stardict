@@ -184,3 +184,26 @@ class FrConjTestCase(XMLTestCase):
             ),
             ["plavu", "plaval", "plavala", "plavat"],
         )
+
+    def test_pt_conj(self):
+        self.assertEqual(
+            self.transform_zim(
+                """<!DOCTYPE html>
+<html><head><title>Conjugaison:portugais/tombar</title></head><body>
+<section><table><tbody><tr>
+<td><bdi lang="pt" class="lang-pt"><a>tombámos</a></bdi> / <br/> <small>brésilien:</small> <bdi lang="pt" class="lang-pt"><a>tombamos</a></bdi></td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["tombámos", "tombamos"],
+        )
+        self.assertEqual(
+            self.transform_zim(
+                """<!DOCTYPE html>
+<html><head><title>Conjugaison:portugais/dizer</title></head><body>
+<section><table><tbody><tr>
+<td>-</td>
+<td><a>diz</a><br/><a>dize</a></td>
+</tr></tbody></table></section></body></html>"""
+            ),
+            ["diz", "dize"],
+        )
