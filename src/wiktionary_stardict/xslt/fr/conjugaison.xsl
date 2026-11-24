@@ -65,7 +65,7 @@
 
   <xsl:template match="td" mode="cs-conj-td" as="xs:string*">
     <xsl:variable name="is-futur" select="position() mod 5 = 3"/>
-    <xsl:for-each-group select="node()" group-adjacent="boolean(self::br)">
+    <xsl:for-each-group select="node()" group-adjacent="exists(self::br)">
       <xsl:if test="not(current-grouping-key())">
         <xsl:sequence
             select="myfn:get-element-forms(current-group()[self::bdi]
