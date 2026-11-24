@@ -60,4 +60,16 @@
     <xsl:param name="svg-id"/>
     <xsl:attribute name="xlink:href" select="'#' || $svg-id || substring(., 2)"/>
   </xsl:template>
+
+  <!-- sanitize SVG -->
+  <xsl:template
+      match="*[lower-case(local-name()) = ('script', 'foreignobject', 'iframe',
+             'handler', 'audio', 'video', 'embed', 'object')]"
+      mode="mod-svg-id"/>
+  <xsl:template
+      match="@*[starts-with(lower-case(local-name()), 'on')]" mode="mod-svg-id"/>
+  <xsl:template
+      match="@*[lower-case(local-name()) = 'href' and
+             starts-with(lower-case(replace(., '\s+', '')), 'javascript:')]"
+      mode="mod-svg-id"/>
 </xsl:stylesheet>

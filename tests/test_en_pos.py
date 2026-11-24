@@ -1168,3 +1168,59 @@ class EnPOSTestCase(XMLTestCase):
                 }
             ],
         )
+
+    def test_sanitize_html(self):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>test</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">test</strong></span></p>
+<ol><li href="Java\tscript:alert('boo')" onmouseover="alert('boo')">gloss
+<script>alert('boo')</script></li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">test
+</strong></p>
+<ol><li>gloss</li></ol>
+</section>"""
+                }
+            ],
+        )
+
+    @patch(
+        "wiktionary_stardict.score.get_score_svg",
+        return_value="""<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75" height="37" viewBox="0 0 75 37">
+<g onmouseover="alert('boo')" fill="rgb(0%, 0%, 0%)" fill-opacity="1">
+<use xlink:href="Java\tscript:alert('boo')"/>
+<script>alert('boo')</script>
+</g></svg>""",
+    )
+    def test_sanitize_svg(self, mock_fun):
+        self.assertTransformEqual(
+            """<!DOCTYPE html>
+<html><head><title>C major</title></head><body>
+<section><h2>English</h2>
+<section><h3>Noun</h3>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">C major</strong></span></p>
+<ol><li>gloss 1
+<dl><dd><div class="mw-ext-score-disabled" typeof="mw:Extension/score" about="#mwt6" id="mwGA" data-mw='{"name":"score","attrs":{"sound":""},"body":{"extsrc":"{c&apos; d&apos; e&apos; f&apos; g&apos; a&apos; b&apos; c&apos;&apos;2}"}}'>Musical scores are temporarily disabled.</div></dd></dl></li></ol>
+</section></section></body></html>""",
+            [
+                {
+                    "def": """<section class="mw-parser-output" dir="ltr" lang="en">
+<h4>Noun</h4>
+<p><span class="headword-line"><strong class="Latn headword" lang="en">C major
+</strong></p>
+<ol><li>gloss 1<dl><dd><div class="mw-ext-score-disabled">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6.8em" height="3.4em" viewBox="0 0 75 37">
+<g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
+<use/>
+</g></svg></div></dd></dl></li></ol>
+</section>"""
+                }
+            ],
+        )

@@ -26,10 +26,18 @@
         name="style" select="replace(., 'var\([^,]+,\s*([^)]+)\s*\)', '$1')"/>
   </xsl:template>
 
-  <!-- Remove category links -->
+  <!-- sanitize HTML -->
   <xsl:template
-      match="link | audio | comment() | script | meta | iframe | object | embed"
+      match="@*[starts-with(lower-case(local-name()), 'on')]" mode="clean-content"/>
+  <xsl:template
+      match="*[lower-case(local-name()) = ('link', 'audio', 'script', 'meta', 'iframe',
+             'object', 'embed')]"
       mode="clean-content"/>
+  <xsl:template
+      match="@href[starts-with(lower-case(replace(., '\s+', '')), 'javascript:')]"
+      mode="clean-content"/>
+
+  <xsl:template match="comment()" mode="clean-content"/>
 
   <!-- Create bword link -->
   <xsl:template match="a[myfn:is-bword-link(.)]" mode="clean-content">
